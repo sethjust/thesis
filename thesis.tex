@@ -1,0 +1,68 @@
+\documentclass{reedthesis}
+\usepackage{longtable,booktabs,setspace} 
+\usepackage{indentfirst}
+\usepackage{graphicx} %\usepackage{graphicx,latexsym} 
+\usepackage{pdfsync}
+
+\usepackage{natbib}
+
+\usepackage{amsmath,amsthm,amssymb}
+%\usepackage{sagetex}
+
+\usepackage[hyphens]{url}
+%% Define a new 'leo' style for the url package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
+\title{Functions on the Line}
+\author{Seth Just}
+\date{May 2012}
+\division{Mathematics and Natural Sciences} %FIXME
+\advisor{Jerry Shurman}
+\department{Mathematics}
+
+\setlength{\parskip}{0pt}
+
+\begin{document}
+
+  \maketitle
+  \frontmatter
+  \pagestyle{empty} % this removes page numbers from the frontmatter
+
+% Acknowledgements (Acceptable American spelling) are optional
+% So are Acknowledgments (proper English spelling)
+  \chapter*{Acknowledgements}
+
+%    \chapter*{Preface}
+
+  \tableofcontents
+%  \listoftables
+%  \listoffigures
+
+  \chapter*{Abstract}
+
+  \mainmatter
+  \pagestyle{fancyplain} % turns page numbering back on
+
+  \input{intro}
+
+  \input{conclusion}
+
+  \appendix
+
+  \backmatter
+
+%  \renewcommand{\bibname}{Bibliography}
+%  \bibliographystyle{mla-good} 
+  \bibliographystyle{plainnat} 
+
+  \singlespacing
+  \raggedright
+
+  \bibliography{thesis}
+
+\end{document}
