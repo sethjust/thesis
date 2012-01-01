@@ -10,12 +10,12 @@
 %\usepackage{sagetex}
 
 \usepackage[hyphens]{url}
-%% Define a new 'leo' style for the url package that will use a smaller font.
+% Define a new 'leo' style for the url package that will use a smaller font.
 \makeatletter
 \def\url@leostyle{%
   \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
 \makeatother
-%% Now actually use the newly defined style.
+% Now actually use the newly defined style.
 \urlstyle{leo}
 
 \title{Functions on the Line}
@@ -33,24 +33,21 @@
   \frontmatter
   \pagestyle{empty} % this removes page numbers from the frontmatter
 
-% Acknowledgements (Acceptable American spelling) are optional
-% So are Acknowledgments (proper English spelling)
-  \chapter*{Acknowledgements}
-
-%    \chapter*{Preface}
+  \input{ack}
 
   \tableofcontents
-%  \listoftables
 %  \listoffigures
 
-  \chapter*{Abstract}
+  \input{abstract}
 
   \mainmatter
   \pagestyle{fancyplain} % turns page numbering back on
 
   \input{intro}
-
-  \input{conclusion}
+  \input{ch1}
+  \input{ch2}
+%  \input{ch3}
+%  \input{conclusion}
 
   \appendix
 
