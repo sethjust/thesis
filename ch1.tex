@@ -1,3 +1,56 @@
-\chapter{}
+\chapter{Test Functions and Schwartz Functions}
+%  [[Figure out what sort of topological space [test fcns](\R) is]]
+%  [[Figure out what sort of topological space [Schwartz fcns](\R) is]]
+  
+  \section{Preliminaries}
 
-  [[Develop the space of test functions]]
+    The set of continuous (complex-valued) functions defined on the real line, $C^0(\R)$, naturally forms a vectorspace over \R, with addition and scalar multiplication defined pointwise: 
+    \begin{align*}
+      (f+g)(x) &= f(x)+g(x)\\
+      (a\cdot f)(x) &= a\cdot f(x)
+    \end{align*}
+%    % hilbert is normed vspace, banach is complete hilbert
+%    We would like to imbue this space with a metric that allows us to (sensibly) discuss limits of functions, and thus make it a complete topological (Banach?) space.
+%    %pntws limits of cnts are not always cnts
+%    To this end we introduce the \emph{sup norm} and its associated metric:
+%    \begin{align*}
+%      |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
+%      d(f,g) &= |f-g|_{C^0}
+%    \end{align*}
+%%    Unfortunately, applied to an arbitrary function, the sup norm may be infinite, limiting its utility. 
+%%    To remedy this, we note that the Extreme Value Theorem ensures that the sup norm is finite for any function with \emph{compact support}, \emph{i.e.}, one whose value is zero outside of some compact subset of the line.
+%    We define $C^0_c(\R)$ to be the space of %such
+%    compactly supported continuous functions.
+%%    The simplicity of the following proof illustrates the naturalness of the sup norm applied to $C^0_c(\R)$.
+%%
+%%    \begin{claim}
+%%      For $x\in\R$, the evaluation functional $C^0_c(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
+%%      \begin{proof}
+%%        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$, showing continuity.
+%%      \end{proof}
+%%    \end{claim}
+%
+%    However, $C^0_c(\R)$ is not complete in the sup norm topology; for example, a sequence of wider-but-shorter spikes will be Cauchy, but the limit of such functions lacks compact support. %TODO: make more concrete
+%    Completing $C^0_c(\R)$ with respect to the sup norm topology gives $C_0^0(\R)$, the space of continuous functions \emph{vanishing at infinity} (Explain why). %TODO
+%
+%    Similarly, the space of $k$-times (continuously) differentiable functions with compact support, $C_c^k(\R)$, is not complete in the topology given by
+%    \begin{equation*}
+%      |f| = \sup_{j\le k} \sup_{x\in\R} |f^{(j)}(x)|
+%    \end{equation*}
+%    as once again, support may leak out to infinity.
+%    %TODO: motivate this norm
+%    The completion of $C_c^k(\R)$ with regard to this topology is $C_0^k(\R)$, the space of functions whose first $k+1$ derivatives (including the $0^\text{th}$) are continuous and vanish at infinity (Again, explain why). %TODO
+
+    \begin{defn}[smooth function]
+      A function $f\in C^0(\R)$ is called \emph{smooth} when it has infinitely many continuous derivatives.
+    \end{defn}
+    \begin{defn}[support]
+      The \emph{support} of a function $f\in C^0(\R)$, denoted $\spt f$, is the set $\{x\in\R: f(x)\ne0\}$.
+      When $\spt f$ is a compact subset of \R, $f$ is said to have \emph{compact support}.
+    \end{defn}
+    \begin{defn}[test function]
+      A function $f\in C^0(\R)$ is a \emph{test function} if it is smooth and has compact support.
+      The set of all test functions is denoted \D.
+    \end{defn}
+
+    We would like to give \D the structure of a topological space, where we can make use of concepts like limits and the continuity of mappings.

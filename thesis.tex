@@ -1,13 +1,8 @@
-\documentclass{reedthesis}
+\documentclass[12pt]{reedthesis}
 \usepackage{longtable,booktabs,setspace} 
 \usepackage{indentfirst}
+
 \usepackage{graphicx} %\usepackage{graphicx,latexsym} 
-\usepackage{pdfsync}
-
-\usepackage{natbib}
-
-\usepackage{amsmath,amsthm,amssymb}
-%\usepackage{sagetex}
 
 \usepackage[hyphens]{url}
 % Define a new 'leo' style for the url package that will use a smaller font.
@@ -17,6 +12,20 @@
 \makeatother
 % Now actually use the newly defined style.
 \urlstyle{leo}
+
+\usepackage{pdfsync}
+\usepackage{natbib}
+\usepackage{xspace}
+\usepackage{amsmath,amsthm,amssymb}
+%\usepackage{sagetex}
+
+\DeclareMathOperator{\spt}{spt}
+\newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
+\newcommand{\C}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\D}{\ensuremath{\mathcal{D}}\xspace}
+\newtheorem{thm}{Theorem}
+\newtheorem{claim}{Claim}
+\newtheorem{defn}{Definition}
 
 \title{Functions on the Line}
 \author{Seth Just}
@@ -37,6 +46,8 @@
 
   \tableofcontents
 %  \listoffigures
+
+%  \onehalfspacing
 
   \input{abstract}
 
