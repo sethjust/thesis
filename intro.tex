@@ -9,7 +9,7 @@
   The prevalence of their study in mathematics indicates the utility of functional thinking and its applicability to widely varied problems.
   However, such concepts are limited in generality: if a problem fails to meet certain requirements we are force to throw up our hands and abandon it, or to say that the answer is ``undefined'' or ``indeterminate''.
 %  \footnote{That many seemingly sensible problems lead to such results, at least in the context of elementary mathematics, is not only a frustration for students, but a failing of mathematics.}
-  It is precisely such difficulties that encourage mathematicians to pursue ever-more-general concepts, with the hope of subsuming exceptions into a complete system, even if generalisations require abandoning some of the intuition behind an idea.
+  It is precisely such difficulties that encourage mathematicians to pursue ever-more-general concepts, with the hope of subsuming exceptions into a complete system, even if generalizations require abandoning some of the intuition behind an idea.
 
   In the case of functions, an endlessly troublesome issue is differentiation--finding the rate of change of a function's output as the input varies.
   Unless a function is continuous (having no abrupt changes) we cannot differentiate it, and even then we have no guarantee that its derivative will itself be continuous.
@@ -24,17 +24,17 @@
   However, this is complicated by the fact that a thermometer may not be uniformly sensitive over that whole area--a meat thermometer's sensitivity might vary along its length, meaning that its measurements are \emph{weighted} averages. 
   Mathematically, we can model the temperature of our cut of meat as a function that depends on the distance from the surface, say $f(x)$.
   Our thermometer's sensitivity can also be modeled as a function $\varphi(x)$ that depends on the same distance.
-  Measuring the temperature of the meat with our thermometer can be described with an integral of $f$, weighted by $\varphi$: $T_\text{meat} = \int_0^\ell f(x)\varphi(x) dx$, where $\ell$ is the length of the thermometer. %TODO:endpoints; graphs
+  Measuring the temperature of the meat with our thermometer can be described by an integral of $f$, weighted by $\varphi$: $T_\text{measured} = \int_0^\ell f(x)\varphi(x) dx$, where $\ell$ is the length of the thermometer. %TODO:endpoints; graphs
 
   We call $\varphi$ a \emph{test function} because we use it to test the value of $f$.
   By using different test functions (different thermometers) we can get a good idea of how $f$ behaves without ever evaluating $f$ at a specific point.
   This is the key observation of distribution theory--any given function will give us a result when measured a test function.
   The result of this measurement is a number that depends both on the function we're testing and the test function we choose.
-  Although we have yet to define precisely what we mean by a ``test function'', we can now explain what a distribution is:
+  Although we have yet to define precisely what we mean by a ``test function'', we can now explain what we mean by a ``distribution'':
 
   \begin{defn}[Distribution]
     A \emph{distribution} is a function taking \emph{test functions} as inputs and giving numbers as outputs.
-    For a distribution $T$ and a test function $\varphi$, we denote this number $\langle T, \varphi \rangle$ instead of $T(\varphi)$ to emphasize the distinction between functions of real variables and functions of test functions.
+    For a distribution $T$ and a test function $\varphi$, we denote this number $\langle T, \varphi \rangle$ instead of $T(\varphi)$ to emphasize the distinction between functions of real variables and distributions.
 
     A function $f:\R\rightarrow\R$ corresponds to a distribution $T_f$ by the rule
     \begin{equation*}
@@ -43,6 +43,6 @@
 
   \end{defn}
 
-%  While the above definition captures the idea of a distribution in a way that allows for clear and reasonable mathematical development, it does not capture the intended intuition of a distribution.
-%  Rather than consider a distribution as a bona-fide function taking test functions as inputs, we should strive to think of it as a function of real numbers, albeit a strange one that we can only query through test functions.
-%  An example of such a ``strange function'' is the Dirac delta, $\
+  This initial definition is far from precise but, as the following chapters will show, it leads to the development of a neat and comprehensive general theory of functions.
+  However, defining distributions as above risks obscuring its original intent: to generalize functions of real numbers.
+  As such, it is worthwhile to keep in mind the (imprecise) idea that distributions are a sort of ``function'' of real numbers that we can ``integrate'' against test functions, even though many distributions are hard, if not impossible, to conceive of in this way.
