@@ -7,7 +7,7 @@
   Math textbooks present a plethora of example functions: the position of a car on the highway or a boat on the river, the balance of an interest-bearing bank account or even abstract mathematical relations like $y=x^2$.
   Such relations are the object of study in elementary algebra and calculus. 
   The prevalence of their study in mathematics indicates the utility of functional thinking and its applicability to widely varied problems.
-  However, such concepts are limited in generality: if a problem fails to meet certain requirements we are force to throw up our hands and abandon it, or to say that the answer is ``undefined'' or ``indeterminate''.
+  However, such concepts are limited in generality: if a problem fails to meet certain requirements we are forced to throw up our hands and abandon it, or to say that the answer is ``undefined'' or ``indeterminate''.
 %  \footnote{That many seemingly sensible problems lead to such results, at least in the context of elementary mathematics, is not only a frustration for students, but a failing of mathematics.}
   It is precisely such difficulties that encourage mathematicians to pursue ever-more-general concepts, with the hope of subsuming exceptions into a complete system, even if generalizations require abandoning some of the intuition behind an idea.
 
@@ -19,7 +19,7 @@
   Thus we say that a function has the set of real numbers as its \emph{domain} and the set of complex numbers as its \emph{codomain}, while a mapping may have a different domain or codomain.
   With this point squared away, we can return to issues of generality.
 
-  In the case of \emph{functions}, an endlessly troublesome issue, at least for students of calculus, is differentiation -- finding the rate of change of a function's output as the input varies.
+  In the case of \emph{functions}, an endlessly troublesome issue is differentiation -- finding the rate of change of a function's output as the input varies.
   Unless a function is continuous (having no abrupt changes) we cannot differentiate it, and even then we have no guarantee that its derivative will itself be continuous.
   These issues can be avoided by allowing derivatives to be undefined at certain points, but this merely replaces one problem with another: that a derivative is no longer defined on the same domain as the function from which it originates.
   The field of measure theory and Lebesgue integration is one way of avoiding such issues, by allowing functions to misbehave, but only by a small amount.
@@ -41,8 +41,8 @@
   The result of this measurement is a number that depends both on the function we're testing and the test function we choose.
   Although we have yet to define precisely what we mean by a ``test function'', we can now explain what we mean by a ``distribution'':
 
-  \begin{defn}[Distribution]
-    A \emph{distribution} is a mapping taking \emph{test functions} as inputs and giving numbers as outputs.
+  \begin{defn}
+    A \emph{distribution} is a mapping that takes \emph{test functions} as inputs and gives numbers as outputs.
     For a distribution $T$ and a test function $\varphi$, we denote this number $\langle T, \varphi \rangle$ instead of $T(\varphi)$ to emphasize the distinction between functions of real variables and distributions.
 
     A function $f$ corresponds to a distribution $T_f$ by the rule
@@ -53,7 +53,7 @@
   \end{defn}
 
   This initial definition is far from precise but, as the following chapters will show, it leads to the development of a neat and comprehensive general theory of functions.
-  However, defining distributions as above risks obscuring its original intent: to generalize functions of real numbers.
+  However, defining distributions in this way risks obscuring its original intent: to generalize functions of real numbers.
   As such, it is worthwhile to keep in mind the (imprecise) idea that distributions are a sort of ``function'' of real numbers that we can ``integrate'' against test functions, even though many distributions are hard, if not impossible, to conceive of in this way.
 
   %TODO: example: dirac delta
