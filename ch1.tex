@@ -1,69 +1,123 @@
 \chapter{Test Functions}
+\label{ch:test}
 %  [[Figure out what sort of topological space [test fcns](\R) is]]
 %  [[Figure out what sort of topological space [Schwartz fcns](\R) is]]
-  
-  \section{Preliminaries}
 
-    As explained in the Introduction, test functions are our window into the world of distributions.
-    As such, our choice of what is or is not a test function will change our concept of what is or is not a distribution.
-    However, we do not have a wholly free choice in our selection of test functions -- we need to ensure that every function we care to consider qualifies as a distribution.
-    This assertion could fail if we allow a function $f$ and a test function $\varphi$ where the integral $\int_{-\infty}^{\infty} f(x)\varphi(x)dx$ is not defined.
-    Thus allowing $f$ to be \emph{any} conceivable function is clearly impossible; we must restrict our view of what is a valid function. %TODO: add example
-    As a starting point we add only one requirement to our functions: that they be \emph{piecewise continuous}. %TODO: be more precise
-    As we will see, this restriction is appropriately severe: it allows us to have a sufficiently broad space of test functions to be effective while still ensuring it is small enough to be manageable.
-    However, we still have some freedom in our definition of test functions.
+  Ideally the Introduction has sufficiently motivated the development of a theory of generalized functions, or distributions, and presented a glimpse of how such a theory might take shape.
+  This chapter is dedicated to developing the space of test functions, which will allow us to understand the space of distributions as a \emph{dual space}.
+  The toolset of functional analysis will allow us to understand distributions with minimal effort, provided that we can understand test functions sufficiently well.
+  As such I will take particular care throughout this chapter to ensure that all developments are made carefully and clearly, as they form the heart of the theory of distributions.
+  %How can we characterize the space of distributions? It seems that we are force to define them as compactly supported and smooth, and then prove theorems. We can motivate this with differentiation and the sup norm, but it seems gimmicky...
 
-    Particularly, we want to choose a space of test functions that has a nice structure, which will in turn allow us to more easily understand the space of distributions.
-    The particular structure that we would like to use is that of a \emph{topological space}.
-    Because a distribution is simply a mapping from test functions to (complex) numbers, we can then view the space of distributions as the \emph{dual space} of test functions, a well understood mathematical concept.
 
-    Viewing the set of test functions as having structure is a strange concept in some ways, but it is made easier as we restrict our view.
-    Let us start by assuming that test functions are continuous.
-    The set of continuous (complex-valued) functions defined on the real line, $C^0(\R)$, naturally forms a vectorspace over \R, with addition and scalar multiplication defined pointwise: 
-    \begin{align*}
-      (f+g)(x) &= f(x)+g(x)\\
-      (a\cdot f)(x) &= a\cdot f(x)
-    \end{align*}
-    To make $C^0(\R)$ a topological space we can imbue it with a concept of distance.
-    %pntws limits of cnts are not always cnts
-    % hilbert is normed vspace, banach is complete hilbert
-    To this end we introduce the \emph{sup norm} and its associated metric:
-    \begin{align*}
-      |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
-      d(f,g) &= |f-g|_{C^0}
-    \end{align*}
-    The simplicity of the following proof illustrates the naturalness of the sup norm applied to $C^0(\R)$.
+  While the following definition of a test function may seem arbitrary, it will be shown in Chapter \ref{ch:dist} that its requirements lead to a consistent and neat theory of distributions.
+  \begin{defn}
+    The \emph{support} of a function $f:\R\rightarrow\C$, denoted $\spt f$, is the set $\{x\in\R: f(x)\ne0\}$.
+    When $\spt f \subset K$, where $K$ is a compact subset of \R, $f$ is said to have \emph{compact support}.
+  \end{defn}
+  \begin{defn}
+    A function $f:\R\rightarrow\C$ is called \emph{smooth} when its $k^\text{th}$ derivative $f^{(k)}$ exists and is continuous for $0\le k \le\infty$.
+  \end{defn}
+  \begin{defn}
+    A \emph{test function} is a function $f:\R\rightarrow\C$ that is smooth and has compact support.
+    The space of all test functions is denoted \D.
+  \end{defn}
 
-    \begin{claim}
-      For $x\in\R$, the evaluation functional $C^0(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
-      \begin{proof}
-        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$, showing continuity.
-%        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$ because $\forall x$ $|f(x)-g(x)|\le\sup_{y\in\R}|f(y)-g(y)|=d(f,g)$.
-%        Thus the evaluation functional is continuous.
-      \end{proof}
-    \end{claim}
+  While this definition may seem highly restrictive, consider the function
+  \begin{equation*}
+    h(x)=\left\{
+    \begin{array}{ll}
+      0 & \text{if } x \le 0\\
+      e^{-\frac{1}{x}} & \text{otherwise}
+    \end{array}
+    \right.
+  \end{equation*}
+  This functions is notable because:
+  \begin{itemize}
+    \item Trivially, for $x<0$, all its derivatives exist and are uniformly $0$, and thus continuous.
+    \item For $x>0$ all its derivatives exist and are continuous, by the properties of the exponential function.
+    \item At $x=0$ all its derivatives exist and evaluate to $0$, as the factor of $e^{-\frac{1}{x}}$ will dominate all other (polynomial) factors as $x\rightarrow0^+$.
+  \end{itemize}
 
-    Unfortunately, even with the sup norm, $C^0(\R)$ fails to be a topological space, as the norm is not defined for all continuous functions, as it might be infinite. 
-    To remedy this we must once again restrict the space we are considering.
-    \begin{defn}
-      The \emph{support} of a function $f:\R\rightarrow\C$, denoted $\spt f$, is the set $\{x\in\R: f(x)\ne0\}$.
-      When $\spt f$ is a compact subset of \R, $f$ is said to have \emph{compact support}.
-    \end{defn}
-    
-    Note that the Extreme Value Theorem ensures that the sup norm is finite for any function with compact support, \emph{i.e.}, one whose value is zero outside of some compact subset of the line.
-    Define $C^0_c(\R)$ to be the space of such compactly supported continuous functions.
+  Thus we can see that the function $\varphi(x)=h(x)h(1-x)$ will be smooth with support inside $[0,1]$.\footnotemark %TODO: graph(s)
+  \footnotetext{
+    In fact, this trick allows us to approximate most functions with smooth functions, through the process of \emph{convolution}. %which will be presented WHERE?
+    This is why compactly supported smooth functions are sometimes called ``mollifying''.
+  }
+%  With a concrete definition of test functions, it is now possible to prove an important fact about distributions:
+%  \begin{claim}
+%    Given two continuous functions $f,g:\R\rightarrow\C$, if for all test functions $\varphi$, $\langle T_f, \varphi\rangle = \langle T_g, \varphi\rangle$, then $f=g$.
+%    \begin{proof}
+%      Recalling that $f=g$ iff $f(x)=g(x)$ for all $x\in\R$, we make use of increasingly narrowly supported test functions to show that $f$ and $g$ must agree everywhere.
+%      For some given $x\in\R$ define $\psi_n(y) = \varphi(n\cdot(y-x+\frac{1}{n}))$, a spike of width $\frac{2}{n}$ centered at $x$.
+%
+%      Suppose that $f\ne g$ but $\forall\varphi\in\D$ $\langle T_f, \varphi\rangle = \langle T_g, \varphi\rangle$.
+%      Choose $x$ such that (WLOG) $f(x)>g(x)$.
+%      By continuity, there exist $\varepsilon>0$ and $\delta>0$ such that $f(x)\ge g(x)+\varepsilon$ on $[x-\delta, x+\delta]$.
+%      Thus, for $n$ such that $\frac{1}{n}<\delta$, necessarily $\langle T_f, \psi_n\rangle > \langle T_g, \psi_n\rangle$, yielding contradiction and proving the claim.
+%    \end{proof}
+%  \end{claim}
 
-    However, $C^0_c(\R)$ is not complete in the sup norm topology; for example, a sequence of wider-but-shorter spikes will be Cauchy, but the limit of such functions lacks compact support. %TODO: make more concrete
-    Completing $C^0_c(\R)$ with respect to the sup norm topology gives $C_0^0(\R)$, the space of continuous functions \emph{vanishing at infinity}. (Explain why!) %TODO
 
-    %TODO: transition
-    Similarly, the space of $k$-times (continuously) differentiable functions with compact support, $C_c^k(\R)$, is not complete in the topology given by
-    \begin{equation*}
-      |f| = \sup_{j\le k} \sup_{x\in\R} |f^{(j)}(x)|
-    \end{equation*}
-    as once again, support may leak out to infinity.
-    %TODO: motivate this norm; comment on equivalence to \sup\sum norm
-    The completion of $C_c^k(\R)$ with regard to this topology is $C_0^k(\R)$, the space of functions whose first $k+1$ derivatives (including the $0^\text{th}$) are continuous and vanish at infinity. (Again, explain why!) %TODO
+%    As such, our choice of what is or is not a test function will change our concept of what is or is not a distribution.
+%    However, we do not have a wholly free choice in our selection of test functions -- we need to ensure that every function we care to consider qualifies as a distribution.
+%    This assertion could fail if we allow a function $f$ and a test function $\varphi$ where the integral $\int_{-\infty}^{\infty} f(x)\varphi(x)dx$ is not defined.
+%    Thus allowing $f$ to be \emph{any} conceivable function is clearly impossible; we must restrict our view of what is a valid function. %TODO: add example
+%    As a starting point we add only one requirement to our functions: that they be \emph{piecewise continuous}. %TODO: be more precise
+%    As we will see, this restriction is appropriately severe: it allows us to have a sufficiently broad space of test functions to be effective while still ensuring it is small enough to be manageable.
+%    However, we still have some freedom in our definition of test functions.
+%
+%    Particularly, we want to choose a space of test functions that has a nice structure, which will in turn allow us to more easily understand the space of distributions.
+%    The particular structure that we would like to use is that of a \emph{topological space}.
+%    Because a distribution is simply a mapping from test functions to (complex) numbers, we can then view the space of distributions as the \emph{dual space} of test functions, a well understood mathematical concept.
+
+%    Viewing the set of test functions as having structure is a strange concept in some ways, but it is made easier as we restrict our view.
+%    Let us start by assuming that test functions are continuous.
+%    The set of continuous (complex-valued) functions defined on the real line, $C^0(\R)$, naturally forms a vectorspace over \R, with addition and scalar multiplication defined pointwise: 
+%    \begin{align*}
+%      (f+g)(x) &= f(x)+g(x)\\
+%      (a\cdot f)(x) &= a\cdot f(x)
+%    \end{align*}
+%    To make $C^0(\R)$ a topological space we can imbue it with a concept of distance.
+%    %pntws limits of cnts are not always cnts
+%    % hilbert is normed vspace, banach is complete hilbert
+%    To this end we introduce the \emph{sup norm} and its associated metric:
+%    \begin{align*}
+%      |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
+%      d(f,g) &= |f-g|_{C^0}
+%    \end{align*}
+%    The simplicity of the following proof illustrates the naturalness of the sup norm applied to $C^0(\R)$.
+%
+%    \begin{claim}
+%      For $x\in\R$, the evaluation functional $C^0(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
+%      \begin{proof}
+%        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$, showing continuity.
+%%        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$ because $\forall x$ $|f(x)-g(x)|\le\sup_{y\in\R}|f(y)-g(y)|=d(f,g)$.
+%%        Thus the evaluation functional is continuous.
+%      \end{proof}
+%    \end{claim}
+%
+%    Unfortunately, even with the sup norm, $C^0(\R)$ fails to be a topological space, as the norm is not defined for all continuous functions, as it might be infinite. 
+%    To remedy this we must once again restrict the space we are considering.
+%    \begin{defn}
+%      The \emph{support} of a function $f:\R\rightarrow\C$, denoted $\spt f$, is the set $\{x\in\R: f(x)\ne0\}$.
+%      When $\spt f$ is a compact subset of \R, $f$ is said to have \emph{compact support}.
+%    \end{defn}
+%    
+%    Note that the Extreme Value Theorem ensures that the sup norm is finite for any function with compact support, \emph{i.e.}, one whose value is zero outside of some compact subset of the line.
+%    Define $C^0_c(\R)$ to be the space of such compactly supported continuous functions.
+%
+%    However, $C^0_c(\R)$ is not complete in the sup norm topology; for example, a sequence of wider-but-shorter spikes will be Cauchy, but the limit of such functions lacks compact support. %TODO: make more concrete
+%    Completing $C^0_c(\R)$ with respect to the sup norm topology gives $C_0^0(\R)$, the space of continuous functions \emph{vanishing at infinity}. (Explain why!) %TODO
+%
+%    %TODO: transition
+%    Similarly, the space of $k$-times (continuously) differentiable functions with compact support, $C_c^k(\R)$, is not complete in the topology given by
+%    \begin{equation*}
+%      |f| = \sup_{j\le k} \sup_{x\in\R} |f^{(j)}(x)|
+%    \end{equation*}
+%    as once again, support may leak out to infinity.
+%    %TODO: motivate this norm; comment on equivalence to \sup\sum norm
+%    The completion of $C_c^k(\R)$ with regard to this topology is $C_0^k(\R)$, the space of functions whose first $k+1$ derivatives (including the $0^\text{th}$) are continuous and vanish at infinity. (Again, explain why!) %TODO
 
 %    \begin{defn}[smooth function]
 %      A function $f\in C^0(\R)$ is called \emph{smooth} when it has infinitely many continuous derivatives.
@@ -73,3 +127,24 @@
 %      The set of all test functions is denoted \D.
 %    \end{defn}
 %    We would like to give \D the structure of a topological space, where we can make use of concepts like limits and the continuity of mappings.
+
+%    We wish to develop a theory of functions that avoids the pitfalls of elementary function theory.
+%    Namely, we desire a theory that will allow us to differentiate functions on the line without concern, simply by conceiving of them as \emph{distributions}.
+%    For the time being we will restrict our view to only those functions that are continuous (but not necessarily everywhere differentiable).
+%    %TODO: this restriction can be relaxed
+%
+%    Per our definition of ``distribution'', any (continuous) function $f:\R\rightarrow\R$ corresponds to a distribution $T_f$ by the rule $\langle T_f, \varphi\rangle = \int_{-\infty}^\infty f(x)\varphi(x)dx$.
+%    Supposing that $f$ is differentiable, we want distributional differentiation to be consistent with normal differentiation, i.e., for all test functions $\varphi$, $\langle (T_f)', \varphi\rangle = \langle T_{f'},\varphi\rangle$.
+%    Applying integration by parts to the right hand side
+%    \begin{align*}
+%      \int_{-\infty}^\infty f'(x)\varphi(x)dx &= f(x)\varphi(x)\vert_{-\infty}^\infty - \int_{-\infty}^\infty f(x)\varphi'(x)dx\\
+%      &= - \int_{-\infty}^\infty f(x)\varphi'(x)dx\\
+%      &= - \langle T_f, \varphi' \rangle
+%    \end{align*}
+%    because test functions have compact support, meaning they evaluate to zero at infinity. %TODO: introduce that before here
+%
+%    We \emph{define} the distributional derivative by this formula: for a distribution $T$ and a test function $\varphi$
+%    \begin{equation*}
+%       \langle T', \varphi\rangle = -\langle T, \varphi'\rangle
+%    \end{equation*}
+%    Because it depends
