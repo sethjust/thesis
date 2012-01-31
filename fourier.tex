@@ -1,1 +1,64 @@
 \chapter{Fourier Inversion}
+
+  Define $\psi:\R\times\R\rightarrow\C$ by $\psi(x,\xi) = e^{2\pi i \xi x}$.
+  As $x$ varies for a fixed $\xi$, $\psi$ is the frequency-$\xi$ oscillation on the line -- a ``pure tone''.
+  Just as interesting sounds are combinations of different frequencies, we can view functions as being built from these oscillations. \todo{sell this much better}
+
+  Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation.
+  The idea is that by looking at what frequencies $f$ matches, we'll know exactly what oscillations it's built out of.
+  The frequency spectrum or \emph{Fourier transform} of $f$ is a new function $\F f:\R\rightarrow\C$ defined by $\F f(\xi) = \int_{x\in\R} f(x)\overline{\psi(x,\xi)}dx$.
+
+  In addition to finding the component frequencies of a function, we can combine together oscillations to create a new function with the \emph{inverse Fourier transform}:
+  \begin{align*}
+    \F^{-1}g&:\R\rightarrow\C\\
+    \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)d\xi
+  \end{align*}
+
+  Intuitively we want to be able to say that $\F^{-1}g$ is a function that has the frequency spectrum described by $g$, or that $\F\F^{-1} g = g$, so the normal and inverse Fourier transforms are inverses.
+  However, this claim is difficult to make because the integrals are not always defined -- for example $\F1(0)=\int_{-\infty}^\infty1$.
+  In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible -- that is, we need to limit our space of functions so that the Fourier transform works nicely.
+  It is worth noting at this point that $\F^{-1}g(x) = \F g(-x)$, and so any properties of the Fourier transform extend to the inverse Fourier transform, meaning we only need consider the former.
+
+  From Fourier analysis we know the following properties of the Fourier transform: \todo{where?}
+  \begin{itemize}
+    \item The smoother $f$ is the faster $\F f$ decays.
+      If $f$ has integrable derivatives of order up to $k$, then $\F f(x)$ decays at least as quickly as $|x|^{-k}$ as $x$ approaches $\infty$.
+    \item The faster $f$ decays the smoother $\F f$ is.
+      If $f$ decays at least as quickly as $|x^{-k}|$ as $x\rightarrow\infty$, then $\F f$ has integrable derivatives of order up to $k-2$. % when dom f = \R^n this is k-n-1
+  \end{itemize}
+  We can use these facts to find functions that behave nicely with regard to the Fourier transform.
+  \begin{defn}
+    A \emph{Schwartz function} is a function
+    \begin{equation*}
+      \varphi:\R\rightarrow\C
+    \end{equation*}
+    that is \emph{smooth}, so for all $k\in\Z_{\ge0}$, the $k^\text{th}$ derivative $\varphi^{(k)}$ exists and is continuous.
+    Furthermore, each derivative $\varphi^{(k)}$ decays faster than any polynomial: for any $k\in\Z_{\ge0}$ and $d\in\Z_{\ge1}$, $|\varphi^{(k)}(x)|\le|x|^{-d}$ for large enough $|x|$.
+  \end{defn}
+  Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
+
+  Using our facts about the Fourier transform we can see that for a Schwartz function $f$:
+  \begin{itemize}
+    \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
+    \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
+  \end{itemize}
+  Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
+
+  Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
+  \begin{thm}
+    \label{thm:fourinv}
+    $\F^{-1}\F \varphi = \varphi \text{ for } \varphi\in\{\text{Schwartz Functions}\}$.
+  \end{thm}
+  To prove Theorem \ref{thm:fourinv} we first reduce it to the single case of $x=0$.
+  Consider the following:
+  \begin{proof}[Proof of Fourier inversion, granting inversion at 0]
+    \todo{Introduce translation operators}
+    \begin{align*}
+      (\F^{-1}\F f)(x) 
+    \end{align*}
+    \todo{finish proof}
+  \end{proof}
+
+  \begin{rmk}
+    The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
+  \end{rmk}
