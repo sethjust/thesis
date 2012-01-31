@@ -1,8 +1,8 @@
-\documentclass[12pt]{reedthesis}
+\documentclass[draft,12pt]{reedthesis}
 \usepackage{longtable,booktabs,setspace} 
 \usepackage{indentfirst}
 
-\usepackage{graphicx} %\usepackage{graphicx,latexsym} 
+\usepackage[final]{graphicx} %\usepackage{graphicx,latexsym} 
 
 \usepackage[hyphens]{url}
 % Define a new 'leo' style for the url package that will use a smaller font.
@@ -19,22 +19,27 @@
 \usepackage{amsmath,amsthm,amssymb}
 %\usepackage{sagetex}
 
-\usepackage{color}
-\newcommand{\todo}[1]{\textcolor{red}{@TODO: #1}}
+\usepackage{color,ifdraft}
+\newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
 
 \DeclareMathOperator{\spt}{spt}
 \newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
 \newcommand{\C}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}\xspace}
 \newcommand{\D}{\ensuremath{\mathcal{D}}\xspace}
 \newcommand{\F}{\ensuremath{\mathcal{F}}\xspace}
+
+\theoremstyle{plain}
 \newtheorem{thm}{Theorem}[chapter]
 \newtheorem{claim}{Claim}[chapter]
+
+\theoremstyle{definition}
 \newtheorem{defn}{Definition}[chapter]
 
 \title{Functions on the Line}
 \author{Seth Just}
 \date{May 2012}
-\division{Mathematics \& Natural Sciences} %FIXME
+\division{Mathematics and Natural Sciences}
 \advisor{Jerry Shurman}
 \department{Mathematics}
 
