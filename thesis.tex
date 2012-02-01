@@ -1,5 +1,5 @@
-\documentclass[draft,12pt]{reedthesis}
-\usepackage{longtable,booktabs,setspace} 
+\documentclass[draft,12pt]{reedthesis} %FIXME
+\usepackage{longtable,booktabs,setspace}
 \usepackage{indentfirst}
 
 \usepackage[final]{graphicx} %\usepackage{graphicx,latexsym} 
@@ -18,9 +18,11 @@
 \usepackage{xspace}
 \usepackage{amsmath,amsthm,amssymb}
 %\usepackage{sagetex}
+\usepackage{subfiles}
 
 \usepackage{color,ifdraft}
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
+\renewcommand{\todo}[1]{\textcolor{red}{@TODO: #1}}
 
 \DeclareMathOperator{\spt}{spt}
 \newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
@@ -65,10 +67,10 @@
   \mainmatter
   \pagestyle{fancyplain} % turns page numbering back on
 
-  \input{intro}
-  \input{fourier}
-  \input{tfcns}
-  \input{dists}
+  \subfile{intro}
+  \subfile{fourier}
+  \subfile{tfcns}
+  \subfile{dists}
 %  \input{conclusion}
 
   \appendix
