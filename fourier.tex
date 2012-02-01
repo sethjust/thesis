@@ -50,7 +50,7 @@
     Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
 
     Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
-    \begin{thm}
+    \begin{thm}[Fourier Inversion on \S]
       \label{thm:fourinv}
       $\F^{-1}\F \varphi = \varphi \text{ for } \varphi\in\S$.
     \end{thm}
@@ -77,7 +77,32 @@
       \end{align*}
     \end{proof}
 
+    Now we only need to show inversion at zero.
     \begin{rmk}
       The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
     \end{rmk}
+    \begin{proof}[Proof of Fourier inversion at zero]
+      Recall that the \emph{Gaussian} function $\gamma:\R\rightarrow\R$ given by $\gamma(x) = e^{-\pi x^2}$ has $\gamma=\F\gamma=\F^{-1}\gamma$, and that (clearly) $\gamma(0)=1$.
+      Then 
+      \begin{align*}
+        (\F^{-1}\F\varphi)(0) - \varphi(0) &= \F^{-1}\F(\varphi-\varphi(0)\gamma)(0) \text{\todo{why?}}
+      \end{align*}
+      Thus, because $(\varphi-\varphi(0)\gamma)(0)=0$, we need only show that $(\F^{-1}\F\phi)(0) = 0$ whenever $\phi(0)=0$ -- \emph{i.e.}, we have reduced the problem of Fourier inversion to the case, at zero, of a Schwartz function that vanishes at zero.
+      So now suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
+      Then for $x\ne0$:
+      \begin{equation*}
+        \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
+      \end{equation*}
+      Call this integral $\varphi$.
+      It will be Schwartz because its derivatives (w.r.t. $x$) will have the form $\int_0^1 p(t)\phi^{(k)}(xt)dt$, where $p(t)$ is a polynomial in $t$, and thus it will be smooth for all $x$ and each of its derivatives will inherit rapid decay from the derivatives of $\phi$.
+      Thus $\phi(x) = x\varphi(x)$, and so:
+      \begin{equation*}
+        (\F\phi)(\xi) = \int_{x\in\R} x\varphi(x)e^{-2\pi i x \xi}dx = -\frac{1}{2\pi i}(\F\varphi)'(\xi)
+      \end{equation*}
+      This equality allows us to calculate:
+      \begin{equation*}
+        (\F^{-1}\F\phi)(0) = \int_{\xi\in\R} \F\phi(\xi)d\xi = -\frac{1}{2\pi i}\int_{\xi\in\R} (\F\varphi)'(\xi)d\xi = -\frac{1}{2\pi i} \F\varphi\vert_{-\infty}^\infty = 0
+      \end{equation*}
+      thus proving Fourier inversion on \S.
+    \end{proof}
 \end{document}
