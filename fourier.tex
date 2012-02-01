@@ -34,10 +34,12 @@
     \end{equation*}
     that is \emph{smooth}, so for all $k\in\Z_{\ge0}$, the $k^\text{th}$ derivative $\varphi^{(k)}$ exists and is continuous.
     Furthermore, each derivative $\varphi^{(k)}$ decays faster than any polynomial: for any $k\in\Z_{\ge0}$ and $d\in\Z_{\ge1}$, $|\varphi^{(k)}(x)|\le|x|^{-d}$ for large enough $|x|$.
+
+    The set of all Scwartz functions is denoted \S.
   \end{defn}
   Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
 
-  Using our facts about the Fourier transform we can see that for a Schwartz function $f$:
+  Using our facts about the Fourier transform we can see that for $f\in\S$:
   \begin{itemize}
     \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
     \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
@@ -47,16 +49,29 @@
   Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
   \begin{thm}
     \label{thm:fourinv}
-    $\F^{-1}\F \varphi = \varphi \text{ for } \varphi\in\{\text{Schwartz Functions}\}$.
+    $\F^{-1}\F \varphi = \varphi \text{ for } \varphi\in\S$.
   \end{thm}
   To prove Theorem \ref{thm:fourinv} we first reduce it to the single case of $x=0$.
   Consider the following:
   \begin{proof}[Proof of Fourier inversion, granting inversion at 0]
-    \todo{Introduce translation operators}
+    For any $x\in\R$ define the translation operator $T_x$ and the frequency-$x$ oscillation $\psi_x$:
     \begin{align*}
-      (\F^{-1}\F f)(x) 
+      T_x&:\S\rightarrow\S,\ T_x\phi(y) = \phi(x+y)\\
+      \psi_x&:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
     \end{align*}
-    \todo{finish proof}
+    Then: \todo{actually show this}
+    \begin{align*}
+      T_x\F^{-1}\phi &= \F^{-1}(\psi_x\phi)\\
+      \psi_x\F\phi &= \F T_x\phi
+    \end{align*}
+    And so
+    \begin{align*}
+      (\F^{-1}\F\varphi)(x) &= (T_x\F^{-1}\F\varphi)(0) &\text{by defn. of $T_x$}\\
+      &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by first id.}\\
+      &= (\F^{-1}\F T_x\varphi)(0)  &\text{by second id.}\\
+      &= (T_x\varphi)(0) &\text{by Fourier inversion at 0.}\\
+      &= \varphi(x)&\qedhere
+    \end{align*}
   \end{proof}
 
   \begin{rmk}
