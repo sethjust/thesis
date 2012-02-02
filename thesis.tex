@@ -1,4 +1,4 @@
-\documentclass[draft,12pt]{reedthesis} %FIXME
+\documentclass[12pt]{reedthesis} %FIXME
 \usepackage{longtable,booktabs,setspace}
 \usepackage{indentfirst}
 
@@ -13,16 +13,24 @@
 % Now actually use the newly defined style.
 \urlstyle{leo}
 
+\usepackage{amsmath,amsthm,amssymb}
 \usepackage{pdfsync}
 \usepackage{natbib}
-\usepackage{xspace}
-\usepackage{amsmath,amsthm,amssymb}
 %\usepackage{sagetex}
+\usepackage{xspace}
+\usepackage[draft]{ifdraft}
+\usepackage{color}
 \usepackage{subfiles}
 
-\usepackage{color,ifdraft}
+\immediate\write18{sh ./vc}
+\input{vc.tex}
+
+\ifdraft{
+  \usepackage{draftwatermark}
+  \SetWatermarkText{DRAFT -- \VCDateRAW}
+}{}
+
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
-\renewcommand{\todo}[1]{\textcolor{red}{@TODO: #1}}
 
 \DeclareMathOperator{\spt}{spt}
 \newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
@@ -61,7 +69,6 @@
 %  \listoffigures
 
   \onehalfspacing
-
   \input{abstract}
 
   \mainmatter
