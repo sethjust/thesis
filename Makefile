@@ -2,11 +2,29 @@ LATEX = pdflatex --interaction=nonstopmode
 BIBTEX = bibtex
 RM = rm -f
 
-all: thesis
+RERUN = "(There were undefined references|Rerun to get ((cross-references|the bars) right|citations correct))"
+RERUNBIB = "No file.*\.bbl|Citation.*undefined"
+
+all: thesis.pdf
+
+pdf: thesis.pdf
+
+%.pdf: %.tex thesis.bbl thesis.blg thesis.tex vc.tex chpreamble.tex
+	$(LATEX) $<
+	
+	egrep $(RERUN) $*.log && $(LATEX) $< ; true
+	egrep $(RERUN) $*.log && $(LATEX) $< ; true
+	egrep -i "(Reference|Citation).*undefined" $*.log ; true
+
+thesis.bbl thesis.blg: thesis.tex thesis.bib thesis.aux 
+	$(BIBTEX) thesis; true
+	$(LATEX) $<
+	egrep -c $(RERUNBIB) thesis.log && ($(BIBTEX) thesis;$(LATEX) $<) ; true
+
+thesis.aux: thesis.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex
+	$(LATEX) $<
 
 sections: intro.pdf fourier.pdf tfcns.pdf
-
-thesis: thesis.pdf
 
 clean:
 	$(RM) *.{log,aux,toc,tof,tog,bbl,blg,pdfsync}
@@ -14,16 +32,5 @@ clean:
 reallyclean:
 	$(RM) *.pdf
 
-RERUN = "(There were undefined references|Rerun to get (cross-references|the bars) right)"
-RERUNBIB = "No file.*\.bbl|Citation.*undefined"
-COPY = if test -r $*.toc; then cp $*.toc $*.toc.bak; fi
-
-%.pdf: %.tex thesis.tex
-	$(COPY);$(LATEX) $<
-	egrep -c $(RERUNBIB) $*.log && ($(BIBTEX) $*;$(COPY);$(LATEX) $<) ; true
-	
-	egrep $(RERUN) $*.log && ($(COPY);$(LATEX) $<) ; true
-	egrep $(RERUN) $*.log && ($(COPY);$(LATEX) $<) ; true
-	if cmp -s $*.toc $*.toc.bak; then . ;else $(LATEX) $< ; fi
-	$(RM) $*.toc.bak
-	egrep -i "(Reference|Citation).*undefined" $*.log ; true
+vc.tex: vc vc-git.awk .git/logs/HEAD
+	sh $<
