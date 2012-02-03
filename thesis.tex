@@ -1,37 +1,38 @@
 \documentclass[12pt]{reedthesis} %FIXME
 \usepackage{longtable,booktabs,setspace}
 \usepackage{indentfirst}
-
-\usepackage[final]{graphicx} %\usepackage{graphicx,latexsym} 
-
+\usepackage[final]{graphicx} %final so that draft options don't mess w/ images
 \usepackage[hyphens]{url}
-% Define a new 'leo' style for the url package that will use a smaller font.
-\makeatletter
-\def\url@leostyle{%
-  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
-\makeatother
-% Now actually use the newly defined style.
-\urlstyle{leo}
+  % Define a new 'leo' style for the url package that will use a smaller font.
+  \makeatletter
+  \def\url@leostyle{%
+    \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+  \makeatother
+  % Now actually use the newly defined style.
+  \urlstyle{leo}
 
+% Start my packages here
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{pdfsync}
 \usepackage{natbib}
 %\usepackage{sagetex}
 \usepackage{xspace}
-\usepackage[draft]{ifdraft}
 \usepackage{color}
 \usepackage{subfiles}
 
-\immediate\write18{sh ./vc}
+\usepackage[draft]{ifdraft}
+
+% Import version control definitions
 \input{vc.tex}
 
+% Draft compiling options
 \ifdraft{
   \usepackage{draftwatermark}
   \SetWatermarkText{DRAFT -- \VCDateRAW}
 }{}
-
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
 
+% Math symbols
 \DeclareMathOperator{\spt}{spt}
 \newcommand{\R}{\ensuremath{\mathbb{R}}\xspace}
 \newcommand{\C}{\ensuremath{\mathbb{C}}\xspace}
@@ -40,14 +41,17 @@
 \newcommand{\F}{\ensuremath{\mathcal{F}}\xspace}
 \renewcommand{\S}{\ensuremath{\mathcal{S}}\xspace}
 
+% Theorem-like environments
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[chapter]
 \newtheorem{claim}{Claim}[chapter]
 
+% Definition-like environments
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[chapter]
 \newtheorem{rmk}{Remark}[chapter]
 
+% Metadata
 \title{Functions on the Line}
 \author{Seth Just}
 \date{May 2012}
@@ -58,7 +62,6 @@
 \setlength{\parskip}{0pt}
 
 \begin{document}
-
   \maketitle
   \frontmatter
   \pagestyle{empty} % this removes page numbers from the frontmatter
@@ -74,6 +77,7 @@
   \mainmatter
   \pagestyle{fancyplain} % turns page numbering back on
 
+  % Content
   \subfile{intro}
   \subfile{fourier}
   \subfile{tfcns}
@@ -83,14 +87,13 @@
   \appendix
 
   \backmatter
-
-%  \renewcommand{\bibname}{Bibliography}
-%  \bibliographystyle{mla-good} 
-  \bibliographystyle{plainnat} 
-
   \singlespacing
   \raggedright
 
+  \ifdraft{\nocite{*}}{}
+
+%  \renewcommand{\bibname}{Bibliography}
+  \bibliographystyle{plainnat} 
   \bibliography{thesis}
 
 \end{document}
