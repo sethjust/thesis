@@ -1,23 +1,32 @@
 \input{chpreamble}
   \chapter{Fourier Inversion}
 
-    Define $\psi:\R\times\R\rightarrow\C$ by $\psi(x,\xi) = e^{2\pi i \xi x}$.
-    As $x$ varies for a fixed $\xi$, $\psi$ is the frequency-$\xi$ oscillation on the line -- a ``pure tone''.
+    Consider the oscillation
+    \begin{align*}
+      \psi:\R\times\R\rightarrow\C\\
+      \psi(x,\xi) = e^{2\pi i \xi x}
+    \end{align*}
+    As $x$ varies for a fixed $\xi$, $\psi$ is the frequency-$\xi$ oscillation on the line---a ``pure tone.''
     Just as interesting sounds are combinations of different frequencies, we can view functions as being built from these oscillations. \todo{sell this much better}
 
     Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation.
     The idea is that by looking at what frequencies $f$ matches, we'll know exactly what oscillations it's built out of.
-    The frequency spectrum or \emph{Fourier transform} of $f$ is a new function $\F f:\R\rightarrow\C$ defined by $\F f(\xi) = \int_{x\in\R} f(x)\overline{\psi(x,\xi)}dx$.
-
-    In addition to finding the component frequencies of a function, we can combine together oscillations to create a new function with the \emph{inverse Fourier transform}:
+    The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function 
     \begin{align*}
-      \F^{-1}g&:\R\rightarrow\C\\
-      \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)d\xi
+      \F f&:\R\longrightarrow\C\\
+      \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx
     \end{align*}
 
-    Intuitively we want to be able to say that $\F^{-1}g$ is a function that has the frequency spectrum described by $g$, or that $\F\F^{-1} g = g$, so the normal and inverse Fourier transforms are inverses.
-    However, this claim is difficult to make because the integrals are not always defined -- for example $\F1(0)=\int_{-\infty}^\infty1$.
-    In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible -- that is, we need to limit our space of functions so that the Fourier transform works nicely.
+    Given such a frequency spectrum, we can also combine together oscillations to create a new function with the \emph{inverse Fourier transform}:
+    \begin{align*}
+      \F^{-1}g&:\R\longrightarrow\C\\
+      \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi
+    \end{align*}
+
+    Intuitively we want to be able to say that $\F^{-1}(\F f)$ is a function that has the frequency spectrum described by $\F f$, or that $\F^{-1}\F f = f$, so the normal and inverse Fourier transforms are inverses.
+    However, this claim is difficult to make because the integrals are not always defined.
+    For example, $\F1(0)=\int_{-\infty}^\infty1$ is clearly non-convergent.
+    In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible, and so we need to limit our space of functions so that the Fourier transform works nicely.
     It is worth noting at this point that $\F^{-1}g(x) = \F g(-x)$, and so any properties of the Fourier transform extend to the inverse Fourier transform, meaning we only need consider the former.
 
     From Fourier analysis we know the following properties of the Fourier transform: \todo{where?}
@@ -25,6 +34,7 @@
       \item The smoother $f$ is the faster $\F f$ decays.
         If $f$ has integrable derivatives of order up to $k$, then $\F f(x)$ decays at least as quickly as $|x|^{-k}$ as $x$ approaches $\infty$.
       \item The faster $f$ decays the smoother $\F f$ is.
+
         If $f$ decays at least as quickly as $|x^{-k}|$ as $x\rightarrow\infty$, then $\F f$ has integrable derivatives of order up to $k-2$. % when dom f = \R^n this is k-n-1
     \end{itemize}
     We can use these facts to find functions that behave nicely with regard to the Fourier transform.
@@ -73,27 +83,33 @@
         &= (T_x\varphi)(0) &\text{by Fourier inversion at 0.}\\
         &= \varphi(x)&\qedhere
       \end{align*}
+    Thus we only need to show inversion at zero.
     \end{proof}
 
-    Now we only need to show inversion at zero.
     \begin{rmk}
       The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
     \end{rmk}
     \begin{proof}[Proof of Fourier inversion at zero]
+      We first reduce the problem further, using a tricky function:
       Recall that the \emph{Gaussian} function $\gamma:\R\rightarrow\R$ given by $\gamma(x) = e^{-\pi x^2}$ has $\gamma=\F\gamma=\F^{-1}\gamma$, and that (clearly) $\gamma(0)=1$.
       Then 
       \begin{align*}
-        (\F^{-1}\F\varphi)(0) - \varphi(0) &= \F^{-1}\F(\varphi-\varphi(0)\gamma)(0) \text{\todo{why?}}
+        (\F^{-1}\F\varphi)(0) - \varphi(0) &= (\F^{-1}\F\varphi)(0) - (\varphi(0)\gamma)(0)\\
+        &= (\F^{-1}\F\varphi - \varphi(0)\gamma)(0)\\
+        &= (\F^{-1}\F\varphi - \varphi(0)(\F^{-1}\F\gamma))(0)\\
+        &= \F^{-1}\F(\varphi-\varphi(0)\gamma)(0)
       \end{align*}
-      Thus, because $(\varphi-\varphi(0)\gamma)(0)=0$, we need only show that $(\F^{-1}\F\phi)(0) = 0$ whenever $\phi(0)=0$ -- \emph{i.e.}, we have reduced the problem of Fourier inversion to the case, at zero, of a Schwartz function that vanishes at zero.
-      So now suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
+      using the linearity of $\F$ and $\F^{-1}$.
+      Thus, because $(\varphi-\varphi(0)\gamma)(0)=0$, we need only show that $(\F^{-1}\F\phi)(0) = 0$ whenever $\phi(0)=0$.
+
+      Having reduced the problem of Fourier inversion to the case where $x=0$ and our Schwartz function vanishes at zero, we suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
       Then for $x\ne0$:
       \begin{equation*}
         \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
       \end{equation*}
       Call this integral $\varphi$.
-      It will be Schwartz because its derivatives (w.r.t. $x$) will have the form $\int_0^1 p(t)\phi^{(k)}(xt)dt$, where $p(t)$ is a polynomial in $t$, and thus it will be smooth for all $x$ and each of its derivatives will inherit rapid decay from the derivatives of $\phi$.
-      Thus $\phi(x) = x\varphi(x)$, and so:
+      We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
+      Thus $\varphi\in\S$, so, using $\phi(x) = x\varphi(x)$:
       \begin{equation*}
         (\F\phi)(\xi) = \int_{x\in\R} x\varphi(x)e^{-2\pi i x \xi}dx = -\frac{1}{2\pi i}(\F\varphi)'(\xi)
       \end{equation*}
