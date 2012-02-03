@@ -27,7 +27,7 @@ thesis.aux: thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex di
 sections: intro.pdf fourier.pdf tfcns.pdf
 
 clean:
-	$(RM) *.{log,aux,toc,tof,tog,bbl,blg,pdfsync} vc.tex
+	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi vc.tex
 
 reallyclean:
 	$(RM) *.pdf
