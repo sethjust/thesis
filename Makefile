@@ -9,7 +9,7 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-%.pdf: %.tex thesis.bbl thesis.blg thesis.tex vc.tex chpreamble.tex
+%.pdf: %.tex thesis.bbl thesis.blg
 	$(LATEX) $<
 	
 	egrep $(RERUN) $*.log && $(LATEX) $< ; true
@@ -21,13 +21,13 @@ thesis.bbl thesis.blg: thesis.tex thesis.bib thesis.aux
 	$(LATEX) $<
 	egrep -c $(RERUNBIB) thesis.log && ($(BIBTEX) thesis;$(LATEX) $<) ; true
 
-thesis.aux: thesis.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex
+thesis.aux: thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex vc.tex
 	$(LATEX) $<
 
 sections: intro.pdf fourier.pdf tfcns.pdf
 
 clean:
-	$(RM) *.{log,aux,toc,tof,tog,bbl,blg,pdfsync}
+	$(RM) *.{log,aux,toc,tof,tog,bbl,blg,pdfsync} vc.tex
 
 reallyclean:
 	$(RM) *.pdf
