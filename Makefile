@@ -1,5 +1,5 @@
 LATEX = pdflatex --interaction=nonstopmode
-REDIR = 1>\dev\null 2>\dev\null
+REDIR = 1>/dev/null 2>/dev/null
 BIBTEX = bibtex
 RM = rm -f
 
@@ -33,7 +33,7 @@ thesis.aux: thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex di
 sections: intro.pdf fourier.pdf tfcns.pdf
 
 clean:
-	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi vc.tex
+	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm vc.tex
 
 reallyclean:
 	$(RM) *.pdf
