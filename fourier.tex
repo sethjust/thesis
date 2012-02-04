@@ -37,6 +37,32 @@
 
         If $f$ decays at least as quickly as $|x^{-k}|$ as $x\rightarrow\infty$, then $\F f$ has integrable derivatives of order up to $k-2$. % when dom f = \R^n this is k-n-1
     \end{itemize}
+
+%    \begin{lemma}
+%      For any $x\in\R$ define the translation operator $T_x$ and the frequency-$x$ oscillation $\psi_x$:
+%      \begin{align*}
+%        T_x&:\S\rightarrow\S,\ T_x\phi(y) = \phi(x+y)\\
+%        \psi_x&:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
+%      \end{align*}
+%      Let $f,g:\R\rightarrow\C$.
+%      Then (supposing the integrals are nice):
+%      \begin{align*}
+%        \F(xf) &= -\frac{1}{2\pi i}(\F f)'\\
+%        \F(f') &= -\frac{1}{2\pi ix}\F f\\
+%        T_x\F^{-1}\phi &= \F^{-1}(\psi_x\phi)\\
+%        \psi_x\F\phi &= \F T_x\phi
+%      \end{align*}
+%
+%      \begin{proof}
+%        We prove the first equality:
+%        \begin{align*}
+%          (\F f)'(\xi) &= \frac{d}{d\xi}\int_{x\in\R} f(x)e^{-2\pi i x\xi}\,dx\\
+%          &= -2\pi i \int_{x\in\R} xf(x)e^{2\pi i x\xi}\,dx\\
+%          &= -2\pi i\F(xf)(\xi)\qedhere
+%        \end{align*}
+%      \end{proof}
+%    \end{lemma}
+
     We can use these facts to find functions that behave nicely with regard to the Fourier transform.
     \begin{defn}
       A \emph{Schwartz function} is a function
@@ -46,7 +72,14 @@
       that is \emph{smooth}, so for all $k\in\Z_{\ge0}$, the $k^\text{th}$ derivative $\varphi^{(k)}$ exists and is continuous.
       Furthermore, each derivative $\varphi^{(k)}$ decays faster than any polynomial: for any $k\in\Z_{\ge0}$ and $d\in\Z_{\ge1}$, $|\varphi^{(k)}(x)|\le|x|^{-d}$ for large enough $|x|$.
 
-      The set of all Scwartz functions is denoted \S.
+      The set of all Schwartz functions is denoted \S.
+
+      \todo{rephrase to emphasize the following:}
+      \S is the largest possible space that satisfies:
+      \begin{itemize}
+        \item all functions vanish at infinity,
+        \item closure under differentiation and multiplication by $x$.
+      \end{itemize}
     \end{defn}
     Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
 
@@ -60,7 +93,8 @@
     Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
     \begin{thm}[Fourier Inversion on \S]
       \label{thm:fourinv}
-      $\F^{-1}\F \varphi = \varphi \text{ for } \varphi\in\S$.
+      Let $\varphi$ be a Schwartz function.
+      Then \[\F^{-1}\F \varphi = \varphi\text{.}\]
     \end{thm}
     To prove Theorem \ref{thm:fourinv} we first reduce it to the single case of $x=0$.
     Consider the following:
