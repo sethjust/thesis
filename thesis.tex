@@ -17,20 +17,21 @@
 \usepackage{natbib}
 %\usepackage{sagetex}
 \usepackage{xspace}
-\usepackage{color}
 \usepackage{subfiles}
-
-\usepackage[draft]{ifdraft}
+\usepackage{hyperref}
+\usepackage{framed}
 
 % Import version control definitions
 \input{vc.tex}
 
 % Draft compiling options
+\usepackage[draft]{ifdraft}
+\usepackage{color}
+\newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
 \ifdraft{
   \usepackage{draftwatermark}
   \SetWatermarkText{DRAFT -- \VCDateRAW}
 }{}
-\newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
 
 % Math symbols
 \DeclareMathOperator{\spt}{spt}
@@ -43,8 +44,11 @@
 
 % Theorem-like environments
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}[chapter]
 \newtheorem{claim}{Claim}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{thm}{Theorem}[chapter]
+%\newtheorem{.thm}{Theorem}[chapter]
+%\newenvironment{thm}[1]{\begin{framed}\begin{.thm}#1}{\end{.thm}\end{framed}}
 
 % Definition-like environments
 \theoremstyle{definition}
