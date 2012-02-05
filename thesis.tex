@@ -12,14 +12,18 @@
   \urlstyle{leo}
 
 % Start my packages here
-\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsmath,amssymb}
 \usepackage{pdfsync}
 \usepackage{natbib}
 %\usepackage{sagetex}
 \usepackage{xspace}
 \usepackage{subfiles}
-\usepackage{hyperref}
-\usepackage{framed}
+\usepackage{framed,mdframed}
+\usepackage[amsmath, amsthm, hyperref, thmmarks, thref, framed]{ntheorem}
+%\usepackage{amsthm,theoremref}
+
+\usepackage{enumitem}
+\setlist{itemsep=4pt,parsep=0pt,topsep=5pt}
 
 % Import version control definitions
 \input{vc.tex}
@@ -44,9 +48,9 @@
 
 % Theorem-like environments
 \theoremstyle{plain}
-\newtheorem{claim}{Claim}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{thm}{Theorem}[chapter]
+\newframedtheorem{thm}{Theorem}[chapter]
+\newtheorem{claim}[thm]{Claim}[chapter]
+\newtheorem{lemma}[thm]{Lemma}[chapter]
 %\newtheorem{.thm}{Theorem}[chapter]
 %\newenvironment{thm}[1]{\begin{framed}\begin{.thm}#1}{\end{.thm}\end{framed}}
 

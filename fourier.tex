@@ -11,17 +11,19 @@
 
     Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation.
     The idea is that by looking at what frequencies $f$ matches, we'll know exactly what oscillations it's built out of.
-    The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function 
-    \begin{align*}
-      \F f&:\R\longrightarrow\C\\
-      \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx
-    \end{align*}
-
-    Given such a frequency spectrum, we can also combine together oscillations to create a new function with the \emph{inverse Fourier transform}:
-    \begin{align*}
-      \F^{-1}g&:\R\longrightarrow\C\\
-      \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi
-    \end{align*}
+    \begin{defn}
+      The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function 
+      \begin{align*}
+        \F f&:\R\longrightarrow\C\\
+        \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx
+      \end{align*}
+      Given such a frequency spectrum, we can also combine together oscillations to create a new function with the \emph{inverse Fourier transform}:
+      \begin{align*}
+        \F^{-1}g&:\R\longrightarrow\C\\
+        \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi
+      \end{align*}
+      \vspace{-15pt}
+    \end{defn}
 
     Intuitively we want to be able to say that $\F^{-1}(\F f)$ is a function that has the frequency spectrum described by $\F f$, or that $\F^{-1}\F f = f$, so the normal and inverse Fourier transforms are inverses.
     However, this claim is difficult to make because the integrals are not always defined.
@@ -29,128 +31,171 @@
     In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible, and so we need to limit our space of functions so that the Fourier transform works nicely.
     It is worth noting at this point that $\F^{-1}g(x) = \F g(-x)$, and so any properties of the Fourier transform extend to the inverse Fourier transform, meaning we only need consider the former.
 
-    From Fourier analysis we know the following properties of the Fourier transform: \todo{where?}
-    \begin{itemize}
-      \item The smoother $f$ is the faster $\F f$ decays.
-        If $f$ has integrable derivatives of order up to $k$, then $\F f(x)$ decays at least as quickly as $|x|^{-k}$ as $x$ approaches $\infty$.
-      \item The faster $f$ decays the smoother $\F f$ is.
+    \section{Properties of the Fourier Transform}
+%      From Fourier analysis we know the following properties of the Fourier transform: \todo{where?}
+%      \begin{itemize}
+%        \item The smoother $f$ is the faster $\F f$ decays.
+%          If $f$ has integrable derivatives of order up to $k$, then $\F f(x)$ decays at least as quickly as $|x|^{-k}$ as $x$ approaches $\infty$.
+%        \item The faster $f$ decays the smoother $\F f$ is.
+%  
+%          If $f$ decays at least as quickly as $|x^{-k}|$ as $x\rightarrow\infty$, then $\F f$ has integrable derivatives of order up to $k-2$. % when dom f = \R^n this is k-n-1
+%      \end{itemize}
 
-        If $f$ decays at least as quickly as $|x^{-k}|$ as $x\rightarrow\infty$, then $\F f$ has integrable derivatives of order up to $k-2$. % when dom f = \R^n this is k-n-1
-    \end{itemize}
-
-%    \begin{lemma}
-%      For any $x\in\R$ define the translation operator $T_x$ and the frequency-$x$ oscillation $\psi_x$:
-%      \begin{align*}
-%        T_x&:\S\rightarrow\S,\ T_x\phi(y) = \phi(x+y)\\
-%        \psi_x&:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
-%      \end{align*}
-%      Let $f,g:\R\rightarrow\C$.
-%      Then (supposing the integrals are nice):
-%      \begin{align*}
-%        \F(xf) &= -\frac{1}{2\pi i}(\F f)'\\
-%        \F(f') &= -\frac{1}{2\pi ix}\F f\\
-%        T_x\F^{-1}\phi &= \F^{-1}(\psi_x\phi)\\
-%        \psi_x\F\phi &= \F T_x\phi
-%      \end{align*}
-%
-%      \begin{proof}
-%        We prove the first equality:
-%        \begin{align*}
-%          (\F f)'(\xi) &= \frac{d}{d\xi}\int_{x\in\R} f(x)e^{-2\pi i x\xi}\,dx\\
-%          &= -2\pi i \int_{x\in\R} xf(x)e^{2\pi i x\xi}\,dx\\
-%          &= -2\pi i\F(xf)(\xi)\qedhere
-%        \end{align*}
-%      \end{proof}
-%    \end{lemma}
-
-    We can use these facts to find functions that behave nicely with regard to the Fourier transform.
-    \begin{defn}
-      A \emph{Schwartz function} is a function
-      \begin{equation*}
-        \varphi:\R\rightarrow\C
-      \end{equation*}
-      that is \emph{smooth}, so for all $k\in\Z_{\ge0}$, the $k^\text{th}$ derivative $\varphi^{(k)}$ exists and is continuous.
-      Furthermore, each derivative $\varphi^{(k)}$ decays faster than any polynomial: for any $k\in\Z_{\ge0}$ and $d\in\Z_{\ge1}$, $|\varphi^{(k)}(x)|\le|x|^{-d}$ for large enough $|x|$.
-
-      The set of all Schwartz functions is denoted \S.
-
-      \todo{rephrase to emphasize the following:}
-      \S is the largest possible space that satisfies:
+      Before we develop a space of functions on which the Fourier transform is well-behaved, it is helpful to have an idea of how the Fourier transform acts.
+      First we define some notation:
+      \begin{defn}
+        For any $x\in\R$ define:
+        \begin{itemize}
+          \item the frequency-$x$ oscillation $\psi_x$:
+            \begin{equation*}
+              \psi_x:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
+            \end{equation*}
+          \item the translation operator $T_x$ on functions $f:\R\rightarrow\C$:
+            \begin{equation*}
+              (T_xf)(y) = f(x+y)
+            \end{equation*}
+%          \item the dilation $f_x$ for a function $f:\R\rightarrow\C$:
+%            \begin{equation*}
+%              (f_x)(y) = f(xy)
+%            \end{equation*}
+        \end{itemize}
+      \end{defn}
+      The following lemma gives identities that can be computed directly from definition with moderate conditions on the functions considered.
+      \begin{lemma}
+        \label{lemma:fourprops}
+        Let $a,b\in\R$ and take $f,g:\R\rightarrow\C$ to be piecewise continuous and integrable, which guarantees that their Fourier transforms are always convergent\footnotemark (although they need not be continuous or integrable). 
+        \footnotetext{See that $|\psi(x,\xi)|=1$ so for integrable $f$ the integral $\F f$ will be absolutely convergent, and thus it will converge in \R.}
+        Then
+        \begin{align}
+          \F(af + bg) &= a\F f + b\F g\\
+          \label{eq:tsltisphi}
+            T_x\F^{-1}f &= \F^{-1}(\psi_xf)\\
+          \psi_x\F f &= \F(T_xf)\\
+          \label{eq:xisdiff}
+            \F(xf) &= -\frac{1}{2\pi i}(\F f)'\\
+          \label{eq:xisdiff2}
+            \F(f') &= -2\pi ix\F f
+%          \F(f_x) &= \frac{1}{|x|}(\F f)_{x^{-1}}
+        \end{align}
+        \begin{proof}[Proof of (\ref{eq:tsltisphi})]
+          \begin{align*}
+            (T_x\F^{-1}f)(y) &= (\F^{-1}f)(x+y)\\
+            &= \int_{\xi\in\R}f(\xi)e^{2\pi i(x+y)\xi}\,d\xi\\
+            &= \int_{\xi\in\R}f(\xi)\psi_x(\xi)\psi(y,\xi)\,d\xi\\
+            &= \F^{-1}(\psi_xf)(y)\qedhere
+          \end{align*}
+        \end{proof}
+        \begin{proof}[Proof of (\ref{eq:xisdiff})]
+          \begin{align*}
+            (\F f)'(\xi) &= \frac{d}{d\xi}\int_{x\in\R} f(x)e^{-2\pi i x\xi}\,dx\\
+            &= -2\pi i \int_{x\in\R} xf(x)e^{2\pi i x\xi}\,dx\\
+            &= -2\pi i\F(xf)(\xi)\qedhere
+          \end{align*}
+        \end{proof}
+      \end{lemma}
+      This result demonstrates the key properties of the Fourier transform:
       \begin{itemize}
-        \item all functions vanish at infinity,
-        \item closure under differentiation and multiplication by $x$.
+        \item It is linear;
+        \item (It exchanges translation and multiplication by an oscillation;) \todo{see if this matters}
+        \item It exchanges multiplication by $x$ and differentiation.
       \end{itemize}
-    \end{defn}
-    Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
 
-    Using our facts about the Fourier transform we can see that for $f\in\S$:
-    \begin{itemize}
-      \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
-      \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
-    \end{itemize}
-    Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
+    \section{Schwartz Functions}
+      We hope to use \thref{lemma:fourprops} to find a space of functions that behaves well under the Fourier transform.
+      Using (\ref{eq:xisdiff}) and (\ref{eq:xisdiff2}) we can observe:
+      \begin{defn}
+        A \emph{Schwartz function} is a function
+        \begin{equation*}
+          \varphi:\R\rightarrow\C
+        \end{equation*}
+        that is \emph{smooth}, so for all $k\in\Z_{\ge0}$, the $k^\text{th}$ derivative $\varphi^{(k)}$ exists and is continuous.
+        Furthermore, each derivative $\varphi^{(k)}$ decays faster than any polynomial: for any $k\in\Z_{\ge0}$ and $d\in\Z_{\ge1}$, $|\varphi^{(k)}(x)|\le|x|^{-d}$ for large enough $|x|$.
 
-    Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
-    \begin{thm}[Fourier Inversion on \S]
-      \label{thm:fourinv}
-      Let $\varphi$ be a Schwartz function.
-      Then \[\F^{-1}\F \varphi = \varphi\text{.}\]
-    \end{thm}
-    To prove Theorem \ref{thm:fourinv} we first reduce it to the single case of $x=0$.
-    Consider the following:
-    \begin{proof}[Proof of Fourier inversion, granting inversion at 0]
-      For any $x\in\R$ define the translation operator $T_x$ and the frequency-$x$ oscillation $\psi_x$:
-      \begin{align*}
-        T_x&:\S\rightarrow\S,\ T_x\phi(y) = \phi(x+y)\\
-        \psi_x&:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
-      \end{align*}
-      Then: \todo{actually show this}
-      \begin{align*}
-        T_x\F^{-1}\phi &= \F^{-1}(\psi_x\phi)\\
-        \psi_x\F\phi &= \F T_x\phi
-      \end{align*}
-      And so
-      \begin{align*}
-        (\F^{-1}\F\varphi)(x) &= (T_x\F^{-1}\F\varphi)(0) &\text{by defn. of $T_x$}\\
-        &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by first id.}\\
-        &= (\F^{-1}\F T_x\varphi)(0)  &\text{by second id.}\\
-        &= (T_x\varphi)(0) &\text{by Fourier inversion at 0.}\\
-        &= \varphi(x)&\qedhere
-      \end{align*}
-    Thus we only need to show inversion at zero.
-    \end{proof}
+        The set of all Schwartz functions is denoted \S.
 
-    \begin{rmk}
-      The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
-    \end{rmk}
-    \begin{proof}[Proof of Fourier inversion at zero]
-      We first reduce the problem further, using a tricky function:
-      Recall that the \emph{Gaussian} function $\gamma:\R\rightarrow\R$ given by $\gamma(x) = e^{-\pi x^2}$ has $\gamma=\F\gamma=\F^{-1}\gamma$, and that (clearly) $\gamma(0)=1$.
-      Then 
-      \begin{align*}
-        (\F^{-1}\F\varphi)(0) - \varphi(0) &= (\F^{-1}\F\varphi)(0) - (\varphi(0)\gamma)(0)\\
-        &= (\F^{-1}\F\varphi - \varphi(0)\gamma)(0)\\
-        &= (\F^{-1}\F\varphi - \varphi(0)(\F^{-1}\F\gamma))(0)\\
-        &= \F^{-1}\F(\varphi-\varphi(0)\gamma)(0)
-      \end{align*}
-      using the linearity of $\F$ and $\F^{-1}$.
-      Thus, because $(\varphi-\varphi(0)\gamma)(0)=0$, we need only show that $(\F^{-1}\F\phi)(0) = 0$ whenever $\phi(0)=0$.
+        \todo{rephrase to emphasize the following:}
+        \S is the largest possible space that satisfies:
+        \begin{itemize}
+          \item all functions vanish at infinity,
+          \item closure under differentiation and multiplication by $x$.
+        \end{itemize}
+      \end{defn}
+      Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
 
-      Having reduced the problem of Fourier inversion to the case where $x=0$ and our Schwartz function vanishes at zero, we suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
-      Then for $x\ne0$:
-      \begin{equation*}
-        \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
-      \end{equation*}
-      Call this integral $\varphi$.
-      We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
-      Thus $\varphi\in\S$, so, using $\phi(x) = x\varphi(x)$:
-      \begin{equation*}
-        (\F\phi)(\xi) = \int_{x\in\R} x\varphi(x)e^{-2\pi i x \xi}dx = -\frac{1}{2\pi i}(\F\varphi)'(\xi)
-      \end{equation*}
-      This equality allows us to calculate:
-      \begin{equation*}
-        (\F^{-1}\F\phi)(0) = \int_{\xi\in\R} \F\phi(\xi)d\xi = -\frac{1}{2\pi i}\int_{\xi\in\R} (\F\varphi)'(\xi)d\xi = -\frac{1}{2\pi i} \F\varphi\vert_{-\infty}^\infty = 0
-      \end{equation*}
-      thus proving Fourier inversion on \S.
-    \end{proof}
+      Using our facts about the Fourier transform we can see that for $f\in\S$:
+      \begin{itemize}
+        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
+        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
+      \end{itemize}
+      Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
+
+    \section{Fourier Inversion}
+      Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
+      \begin{thm}[Fourier Inversion on \S]
+        \label{thm:fourinv}
+        Let $\varphi$ be a Schwartz function.
+        Then \[\F^{-1}\F \varphi = \varphi\text{.}\]
+      \end{thm}
+      To prove \thref{thm:fourinv} we first reduce it to the single case of $x=0$:
+      \begin{claim}[Fourier inversion, granting inversion at 0]
+        Suppose that for all $\phi\in\S$, $(\F^{-1}\F\phi)(0) = \phi(0)$.
+        Then for all $\varphi\in\S$ and $x\in\R$, $(\F^{-1}\F\varphi)(x)=\varphi(x)$.
+        \begin{proof}
+          For any $x\in\R$ define the translation operator $T_x$ and the frequency-$x$ oscillation $\psi_x$:
+          \begin{align*}
+            T_x&:\S\rightarrow\S,\ T_x\phi(y) = \phi(x+y)\\
+            \psi_x&:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
+          \end{align*}
+          Then: \todo{actually show this}
+          \begin{align*}
+            T_x\F^{-1}\phi &= \F^{-1}(\psi_x\phi)\\
+            \psi_x\F\phi &= \F T_x\phi
+          \end{align*}
+          And so
+          \begin{align*}
+            (\F^{-1}\F\varphi)(x) &= (T_x\F^{-1}\F\varphi)(0) &\text{by defn. of $T_x$}\\
+            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by first id.}\\
+            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by second id.}\\
+            &= (T_x\varphi)(0) &\text{by Fourier inversion at 0.}\\
+            &= \varphi(x)&\qedhere
+          \end{align*}
+        \end{proof}
+      \end{claim}
+      Thus we only need to show inversion at zero.
+
+      \begin{rmk}
+        The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
+      \end{rmk}
+      \begin{proof}[Proof of \thref{thm:fourinv}]
+        We first reduce the problem further, using a tricky function:
+        Recall that the \emph{Gaussian} function $\gamma:\R\rightarrow\R$ given by $\gamma(x) = e^{-\pi x^2}$ has $\gamma=\F\gamma=\F^{-1}\gamma$, and that (clearly) $\gamma(0)=1$.
+        Then 
+        \begin{align*}
+          (\F^{-1}\F\varphi)(0) - \varphi(0) &= (\F^{-1}\F\varphi)(0) - (\varphi(0)\gamma)(0)\\
+          &= (\F^{-1}\F\varphi - \varphi(0)\gamma)(0)\\
+          &= (\F^{-1}\F\varphi - \varphi(0)(\F^{-1}\F\gamma))(0)\\
+          &= \F^{-1}\F(\varphi-\varphi(0)\gamma)(0)
+        \end{align*}
+        using the linearity of $\F$ and $\F^{-1}$.
+        Thus, because $(\varphi-\varphi(0)\gamma)(0)=0$, we need only show that $(\F^{-1}\F\phi)(0) = 0$ whenever $\phi(0)=0$.
+
+        Having reduced the problem of Fourier inversion to the case where $x=0$ and our Schwartz function vanishes at zero, we suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
+        Then for $x\ne0$:
+        \begin{equation*}
+          \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
+        \end{equation*}
+        Call this integral $\varphi$.
+        We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
+        Thus $\varphi\in\S$.
+
+        By (\ref{eq:xisdiff}):
+        \begin{equation*}
+          (\F\phi)(\xi) = (\F x\varphi)(\xi)= -\frac{1}{2\pi i}(\F\varphi)'(\xi)
+        \end{equation*}
+        This equality allows us to calculate:
+        \begin{equation*}
+          (\F^{-1}\F\phi)(0) = \int_{\xi\in\R} \F\phi(\xi)d\xi = -\frac{1}{2\pi i}\int_{\xi\in\R} (\F\varphi)'(\xi)d\xi = -\frac{1}{2\pi i} \F\varphi\vert_{-\infty}^\infty = 0
+        \end{equation*}
+        thus proving Fourier inversion on \S.
+      \end{proof}
 \end{document}
