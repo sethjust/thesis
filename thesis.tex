@@ -32,10 +32,13 @@
 \usepackage[draft]{ifdraft}
 \usepackage{color}
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
-\ifdraft{
-  \usepackage{draftwatermark}
-  \SetWatermarkText{DRAFT -- \VCDateRAW}
-}{}
+\AtBeginDocument{%
+  \ifdraft{
+    \fancypagestyle{empty}{%
+      \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
+    }
+  }{}
+}
 
 % Math symbols
 \DeclareMathOperator{\spt}{spt}
@@ -49,8 +52,8 @@
 % Theorem-like environments
 \theoremstyle{plain}
 \newframedtheorem{thm}{Theorem}[chapter]
-\newtheorem{claim}{Claim}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{claim}[thm]{Claim}
+\newtheorem{lemma}[thm]{Lemma}
 
 % Definition-like environments
 \theoremstyle{definition}
@@ -68,11 +71,6 @@
 \setlength{\parskip}{0pt}
 
 \begin{document}
-% This a workaround for the subfiles package messing up individual
-% file compilation because it has trouble w/ double optional args
-\renewtheorem{claim}[thm]{Claim}[chapter]
-\renewtheorem{lemma}[thm]{Lemma}[chapter]
-
   \maketitle
   \frontmatter
   \pagestyle{empty} % this removes page numbers from the frontmatter
