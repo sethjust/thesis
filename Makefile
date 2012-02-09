@@ -14,7 +14,7 @@ pdf: thesis.pdf
 
 %.pdf: %.tex thesis.aux thesis.bbl thesis.blg
 #	$(warning pdf target)
-	$(LATEX) $< $(REDIR); true
+	$(LATEX) $< 
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	echo "*** Errors for $< ***"; true
