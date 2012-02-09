@@ -49,10 +49,8 @@
 % Theorem-like environments
 \theoremstyle{plain}
 \newframedtheorem{thm}{Theorem}[chapter]
-\newtheorem{claim}[thm]{Claim}[chapter]
-\newtheorem{lemma}[thm]{Lemma}[chapter]
-%\newtheorem{.thm}{Theorem}[chapter]
-%\newenvironment{thm}[1]{\begin{framed}\begin{.thm}#1}{\end{.thm}\end{framed}}
+\newtheorem{claim}{Claim}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
 
 % Definition-like environments
 \theoremstyle{definition}
@@ -70,6 +68,11 @@
 \setlength{\parskip}{0pt}
 
 \begin{document}
+% This a workaround for the subfiles package messing up individual
+% file compilation because it has trouble w/ double optional args
+\renewtheorem{claim}[thm]{Claim}[chapter]
+\renewtheorem{lemma}[thm]{Lemma}[chapter]
+
   \maketitle
   \frontmatter
   \pagestyle{empty} % this removes page numbers from the frontmatter
