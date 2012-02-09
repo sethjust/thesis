@@ -98,7 +98,7 @@
       This result demonstrates the key properties of the Fourier transform:
       \begin{itemize}
         \item It is linear;
-        \item (It exchanges translation and multiplication by an oscillation;) \todo{see if this matters}
+        \item It exchanges translation and multiplication by an oscillation;
         \item It exchanges multiplication by $x$ and differentiation.
       \end{itemize}
 
@@ -131,7 +131,7 @@
         \end{equation*}
         that is infinitely differentiable, and for any $k\ge0$ the derivative $\varphi^{(k)}$ decays faster than any power of $x$:
         \begin{equation*}
-          \forall d,k\ge0\ \ x^d\varphi^{(k)}\text{ vanishes at infinity}
+          \forall d,k\ge0\ \ x^d\varphi^{(k)}(x)\text{ vanishes at infinity}
         \end{equation*}
 
         The set of all Schwartz functions is denoted \S.
@@ -146,7 +146,28 @@
         Then $\F f\in\S$.
         \begin{proof}
           First, we can clearly see that $\F f$ is defined due to the decay condition on $f$.
-          \todo{Finish this}
+
+          Now we wish to show that $\F f$ meets the decay condition for Schwartz functions.
+          Applying integration by parts:
+          \begin{align*}
+            \xi^k\F f(\xi) &= \int_{x\in\R} f(x)\xi^ke^{-2\pi ix\xi}\,dx\\
+            &= \left.f(x)\cdot\frac{\xi^{k-1}e^{-2\pi i x\xi}}{-2\pi i}\right|_{-\infty}^\infty - \frac{1}{-2\pi i}\int_{x\in\R} f'(x)\xi^{k-1}e^{-2\pi ix\xi}\,dx
+          \end{align*}
+          Because $f$ is Schwartz, the left hand summand is clearly zero.
+          Repeating this process $k$ times yields:
+          \begin{align*}
+            \xi^k\F f(\xi) &= \left(\frac{1}{2\pi i}\right)^k \int_{x\in\R}f^{(k)}(x)\psi(x,\xi)\,dx
+          \end{align*}
+          By definition $f^{(k)}$ is Schwartz, so we can apply the Riemann-Lebesgue Lemma because our decay conditions ensure that it will be integrable.
+          Thus $\lim_{|\xi|\rightarrow\infty} \xi^k\F f(\xi) = 0$, which is exactly the decay condition on Schwartz functions.
+
+          Now we must show that $\F f$ is differentiable. 
+          By \eqref{eq:xisdiff} we see
+          \begin{align*}
+            (\F f)'(\xi) &= -2\pi i \F(\xi f)(\xi)
+          \end{align*}
+          Because $\xi f$ is Schwartz by definition, we can see (from above) that $\F(\xi f)$, and thus $(\F f)'$, will decay faster than any power of $\xi$.
+          Repeated applications of \eqref{eq:xisdiff} will show this for all derivatives of $\F f$, and thus $\F f$ is Schwartz.
         \end{proof}
       \end{lemma}
 %      Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
@@ -161,7 +182,6 @@
 
     \section{Fourier Inversion}
       Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
-      \enlargethispage{1\baselineskip} %TODO: remove this -- it's here to keep the thm box from breaking over lines
       \begin{thm}[Fourier Inversion on \S]
         \label{thm:fourinv}
         Let $\varphi$ be a Schwartz function.
@@ -219,8 +239,6 @@
         thus proving Fourier inversion on \S.
       \end{proof}
 
-    \section{A Topological View of \S}
-
     \section{Tempered Distributions}
       We now consider Fourier inversion in the context of the \emph{continuous linear dual} of \S:
       \begin{equation*}
@@ -231,17 +249,19 @@
       \begin{equation*}
         \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
       \end{equation*}
-      This inclusion allows us to define the Fourier transform for tempered distributions by adjoint-like property:
+      This inclusion allows us to define the Fourier transform for tempered distributions by adjoint-like characterization:
       \begin{equation*}
         \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f,\varphi\in\S^*
       \end{equation*}
-      because for $f\in\S$:
+      because for $f,\varphi\in\S$:
       \begin{align*}
         \langle\F f,\varphi\rangle &= \int_\xi\F f(\xi)\varphi(\xi)\,d\xi\\
         &= \int_\xi\int_xf(x)\psi(x,\xi)\,dx\,\varphi(\xi)\,d\xi\\
         &= \int_xf(x)\int_\xi\varphi(\xi)\psi(x,\xi)\,d\xi dx\\
         &= \langle f,\F\varphi\rangle
       \end{align*}
+
+    \section{A Topological View of \S}
 
     \section{The Topology of Tempered Distributions}
 \end{document}
