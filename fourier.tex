@@ -25,7 +25,7 @@
       \vspace{-15pt}
     \end{defn}
 
-    Intuitively we want to be able to say that $\F^{-1}(\F f)$ is a function that has the frequency spectrum described by $\F f$, or that $\F^{-1}\F f = f$, so the normal and inverse Fourier transforms are inverses.
+    Intuitively we want to be able to say that $\F^{-1}(\F f)$ is a function that has the frequency spectrum described by $\F f$, or that $\F^{-1}\F f = f$, so the normal and inverse Fourier transforms are inverses. \todo{fix this sentence.}
     However, this claim is difficult to make because the integrals are not always defined.
     For example, $\F1(0)=\int_{-\infty}^\infty1$ is clearly non-convergent.
     In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible, and so we need to limit our space of functions so that the Fourier transform works nicely.
@@ -63,13 +63,15 @@
       The following lemma gives identities that can be computed directly from definition with moderate conditions on the functions considered.
       \begin{lemma}
         \label{lemma:fourprops}
-        Let $a,b\in\R$ and take $f,g:\R\rightarrow\C$ to be piecewise continuous and integrable, which guarantees that their Fourier transforms are always convergent\footnotemark (although they need not be continuous or integrable). 
-        \footnotetext{See that $|\psi(x,\xi)|=1$ so for integrable $f$ the integral $\F f$ will be absolutely convergent, and thus it will converge in \R.}
-        Then
+%        Let $a,b\in\R$ and take $f,g:\R\rightarrow\C$ to be piecewise continuous and integrable, which guarantees that their Fourier transforms are always convergent\footnotemark (although they need not be continuous or integrable). 
+%        \footnotetext{See that $|\psi(x,\xi)|=1$ so for integrable $f$ the integral $\F f$ will be absolutely convergent, and thus it will converge in \R.}
+        Let $a,b\in\R$ and take $f,g:\R\rightarrow\C$.
+        Then, working purely formally (that is, assuming all integrals are well behaved):
         \begin{align}
           \F(af + bg) &= a\F f + b\F g\\
           \label{eq:tsltisphi}
             T_x\F^{-1}f &= \F^{-1}(\psi_xf)\\
+          \label{eq:tsltisphi2}
           \psi_x\F f &= \F(T_xf)\\
           \label{eq:xisdiff}
             \F(xf) &= -\frac{1}{2\pi i}(\F f)'\\
@@ -77,7 +79,7 @@
             \F(f') &= -2\pi ix\F f
 %          \F(f_x) &= \frac{1}{|x|}(\F f)_{x^{-1}}
         \end{align}
-        \begin{proof}[Proof of (\ref{eq:tsltisphi})]
+        \begin{proof}[Proof of \eqref{eq:tsltisphi}]
           \begin{align*}
             (T_x\F^{-1}f)(y) &= (\F^{-1}f)(x+y)\\
             &= \int_{\xi\in\R}f(\xi)e^{2\pi i(x+y)\xi}\,d\xi\\
@@ -85,7 +87,7 @@
             &= \F^{-1}(\psi_xf)(y)\qedhere
           \end{align*}
         \end{proof}
-        \begin{proof}[Proof of (\ref{eq:xisdiff})]
+        \begin{proof}[Proof of \eqref{eq:xisdiff}]
           \begin{align*}
             (\F f)'(\xi) &= \frac{d}{d\xi}\int_{x\in\R} f(x)e^{-2\pi i x\xi}\,dx\\
             &= -2\pi i \int_{x\in\R} xf(x)e^{2\pi i x\xi}\,dx\\
@@ -101,36 +103,65 @@
       \end{itemize}
 
     \section{Schwartz Functions}
-      We hope to use \thref{lemma:fourprops} to find a space of functions that behaves well under the Fourier transform.
-      Using (\ref{eq:xisdiff}) and (\ref{eq:xisdiff2}) we can observe:
+      We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, and so we may take Fourier transforms without concern.
+      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ \emph{vanishes at infinity}---that is, for any $\varepsilon>0$ there exists $N>0$ such that
+      \begin{equation*}
+        |x|>N \Rightarrow f(x)<\epsilon
+      \end{equation*}
+      Thus the Fourier transform is always defined for functions that vanish at infinity.
+
+      Using \eqref{eq:xisdiff} and \eqref{eq:xisdiff2} we can observe that the Fourier transform exchanges (up to a constant) multiplication by $x$ with differentiation. 
+      Because it's useful (\todo{reference diffeq example, once its written}) we want to allow differentiation of any functions.
+      This leaves us with the following requirements on our space of functions:
+      \begin{enumerate}[label=(\alph*)]
+        \item \label{i:vanish}Every function vanishes at infinity;
+        \item \label{i:diff}It is closed under differentiation;
+        \item \label{i:mult}It is closed under multiplication by $x$.
+      \end{itemize}
+      We call such functions \emph{Schwartz functions}:
+
+%      Now suppose that $f$ is such a function.
+%      By \ref{i:diff} $f$ will be infinitely differentiable.
+%      For any $k,\ell\ge0$, we see from \ref{i:vanish} and \ref{i:mult} that $x^kf^{(\ell)}$ will vanish at infinity.
+
       \begin{defn}
-        A \emph{Schwartz function} is a function
+        A Schwartz function is a function
         \begin{equation*}
           \varphi:\R\rightarrow\C
         \end{equation*}
-        that is \emph{smooth}, so for all $k\in\Z_{\ge0}$, the $k^\text{th}$ derivative $\varphi^{(k)}$ exists and is continuous.
-        Furthermore, each derivative $\varphi^{(k)}$ decays faster than any polynomial: for any $k\in\Z_{\ge0}$ and $d\in\Z_{\ge1}$, $|\varphi^{(k)}(x)|\le|x|^{-d}$ for large enough $|x|$.
+        that is infinitely differentiable, and for any $k\ge0$ the derivative $\varphi^{(k)}$ decays faster than any power of $x$:
+        \begin{equation*}
+          \forall d,k\ge0\ \ x^d\varphi^{(k)}\text{ vanishes at infinity}
+        \end{equation*}
 
         The set of all Schwartz functions is denoted \S.
-
-        \todo{rephrase to emphasize the following:}
-        \S is the largest possible space that satisfies:
-        \begin{itemize}
-          \item all functions vanish at infinity,
-          \item closure under differentiation and multiplication by $x$.
-        \end{itemize}
       \end{defn}
-      Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
 
-      Using our facts about the Fourier transform we can see that for $f\in\S$:
-      \begin{itemize}
-        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
-        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
-      \end{itemize}
-      Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
+      It is verifiable that \S is the largest possible space satisfying the requirements above.
+      However, because we made no reference to the Fourier transform in our definition, the following bears proof:
+
+      \begin{lemma}
+        \label{lemma:sclosed}
+        Let $f\in\S$.
+        Then $\F f\in\S$.
+        \begin{proof}
+          First, we can clearly see that $\F f$ is defined due to the decay condition on $f$.
+          \todo{Finish this}
+        \end{proof}
+      \end{lemma}
+%      Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
+%
+%      Using our facts about the Fourier transform we can see that for $f\in\S$:
+%      \todo{update this to reflect our different presentation of \S}
+%      \begin{itemize}
+%        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
+%        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
+%      \end{itemize}
+%      Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
 
     \section{Fourier Inversion}
       Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
+      \enlargethispage{1\baselineskip} %TODO: remove this -- it's here to keep the thm box from breaking over lines
       \begin{thm}[Fourier Inversion on \S]
         \label{thm:fourinv}
         Let $\varphi$ be a Schwartz function.
@@ -141,22 +172,11 @@
         Suppose that for all $\phi\in\S$, $(\F^{-1}\F\phi)(0) = \phi(0)$.
         Then for all $\varphi\in\S$ and $x\in\R$, $(\F^{-1}\F\varphi)(x)=\varphi(x)$.
         \begin{proof}
-          For any $x\in\R$ define the translation operator $T_x$ and the frequency-$x$ oscillation $\psi_x$:
-          \begin{align*}
-            T_x&:\S\rightarrow\S,\ T_x\phi(y) = \phi(x+y)\\
-            \psi_x&:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
-          \end{align*}
-          Then: \todo{actually show this}
-          \begin{align*}
-            T_x\F^{-1}\phi &= \F^{-1}(\psi_x\phi)\\
-            \psi_x\F\phi &= \F T_x\phi
-          \end{align*}
-          And so
           \begin{align*}
             (\F^{-1}\F\varphi)(x) &= (T_x\F^{-1}\F\varphi)(0) &\text{by defn. of $T_x$}\\
-            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by first id.}\\
-            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by second id.}\\
-            &= (T_x\varphi)(0) &\text{by Fourier inversion at 0.}\\
+            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by \eqref{eq:tsltisphi}}\\
+            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by \eqref{eq:tsltisphi2}}\\
+            &= (T_x\varphi)(0) &\text{by hypothesis}\\
             &= \varphi(x)&\qedhere
           \end{align*}
         \end{proof}
@@ -188,7 +208,7 @@
         We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
         Thus $\varphi\in\S$.
 
-        By (\ref{eq:xisdiff}):
+        By \eqref{eq:xisdiff}:
         \begin{equation*}
           (\F\phi)(\xi) = (\F x\varphi)(\xi)= -\frac{1}{2\pi i}(\F\varphi)'(\xi)
         \end{equation*}
@@ -198,4 +218,30 @@
         \end{equation*}
         thus proving Fourier inversion on \S.
       \end{proof}
+
+    \section{A Topological View of \S}
+
+    \section{Tempered Distributions}
+      We now consider Fourier inversion in the context of the \emph{continuous linear dual} of \S:
+      \begin{equation*}
+        \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
+      \end{equation*}
+      We call $\S^*$ the space of \emph{tempered distributions}.
+      This space is not, by itself, interesting, but note the inclusion:
+      \begin{equation*}
+        \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
+      \end{equation*}
+      This inclusion allows us to define the Fourier transform for tempered distributions by adjoint-like property:
+      \begin{equation*}
+        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f,\varphi\in\S^*
+      \end{equation*}
+      because for $f\in\S$:
+      \begin{align*}
+        \langle\F f,\varphi\rangle &= \int_\xi\F f(\xi)\varphi(\xi)\,d\xi\\
+        &= \int_\xi\int_xf(x)\psi(x,\xi)\,dx\,\varphi(\xi)\,d\xi\\
+        &= \int_xf(x)\int_\xi\varphi(\xi)\psi(x,\xi)\,d\xi dx\\
+        &= \langle f,\F\varphi\rangle
+      \end{align*}
+
+    \section{The Topology of Tempered Distributions}
 \end{document}
