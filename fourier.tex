@@ -84,14 +84,14 @@
             (T_x\F^{-1}f)(y) &= (\F^{-1}f)(x+y)\\
             &= \int_{\xi\in\R}f(\xi)e^{2\pi i(x+y)\xi}\,d\xi\\
             &= \int_{\xi\in\R}f(\xi)\psi_x(\xi)\psi(y,\xi)\,d\xi\\
-            &= \F^{-1}(\psi_xf)(y)\qedhere
+            &= \F^{-1}(\psi_xf)(y)
           \end{align*}
         \end{proof}
         \begin{proof}[Proof of \eqref{eq:xisdiff}]
           \begin{align*}
             (\F f)'(\xi) &= \frac{d}{d\xi}\int_{x\in\R} f(x)e^{-2\pi i x\xi}\,dx\\
             &= -2\pi i \int_{x\in\R} xf(x)e^{2\pi i x\xi}\,dx\\
-            &= -2\pi i\F(xf)(\xi)\qedhere
+            &= -2\pi i\F(xf)(\xi)
           \end{align*}
         \end{proof}
       \end{lemma}
@@ -117,7 +117,7 @@
         \item \label{i:vanish}Every function vanishes at infinity;
         \item \label{i:diff}It is closed under differentiation;
         \item \label{i:mult}It is closed under multiplication by $x$.
-      \end{itemize}
+      \end{enumerate}
       We call such functions \emph{Schwartz functions}:
 
 %      Now suppose that $f$ is such a function.
@@ -177,7 +177,7 @@
             &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by \eqref{eq:tsltisphi}}\\
             &= (\F^{-1}\F T_x\varphi)(0)  &\text{by \eqref{eq:tsltisphi2}}\\
             &= (T_x\varphi)(0) &\text{by hypothesis}\\
-            &= \varphi(x)&\qedhere
+            &= \varphi(x)
           \end{align*}
         \end{proof}
       \end{claim}
