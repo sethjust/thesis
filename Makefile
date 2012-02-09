@@ -32,8 +32,11 @@ thesis.aux: thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex di
 
 sections: intro.pdf fourier.pdf tfcns.pdf
 
+%-diff: %.tex thesis.tex chpreamble.tex vc.tex
+	latexdiff-git --force $<
+
 clean:
-	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm vc.tex
+	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm *_new.tex *_old.tex *_diff.tex vc.tex
 
 reallyclean:
 	$(RM) *.pdf
