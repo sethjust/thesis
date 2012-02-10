@@ -20,7 +20,7 @@
 \usepackage{subfiles}
 \usepackage{framed}
 \usepackage[amsmath, amsthm, hyperref, thmmarks, thref, framed]{ntheorem}
-%\usepackage[ntheorem]{mdframed}
+\usepackage[ntheorem]{mdframed}
 %\usepackage{amsthm,theoremref}
 
 \usepackage{enumitem}
@@ -32,7 +32,7 @@
 % Draft compiling options
 \usepackage[draft]{ifdraft}
 \usepackage{color}
-\newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{Unaddressed TODO!}}}}
+\newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{! Custom Error: Unaddressed TODO!}}}}
 \AtBeginDocument{%
   \ifdraft{
     \fancypagestyle{empty}{%
@@ -52,14 +52,18 @@
 \renewcommand{\S}{\ensuremath{\mathcal{S}}\xspace}
 
 % Theorem-like environments
+\theoremstyle{break}
+\def\theoremframecommand{\colorbox[rgb]{.97,.98,.99}}
+\newshadedtheorem{thm}{Theorem}[chapter]
+
 \theoremstyle{plain}
-\newframedtheorem{thm}{Theorem}[chapter]
 \newtheorem{claim}[thm]{Claim}
 \newtheorem{lemma}[thm]{Lemma}
 
 % Definition-like environments
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[chapter]
+
 \theoremstyle{remark}
 \newtheorem{rmk}{Remark}[chapter]
 
