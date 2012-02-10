@@ -33,6 +33,9 @@ thesis.aux: thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex di
 sections: intro.pdf fourier.pdf tfcns.pdf
 
 %-diff: %.tex thesis.tex chpreamble.tex vc.tex
+	latexdiff-git --force $<
+
+%-diff-commit: %.tex thesis.tex chpreamble.tex vc.tex
 	echo "enter commit ID for diff:";\
 	read revision;\
 	latexdiff-git --commit=$$revision --force $<
