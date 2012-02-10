@@ -36,9 +36,9 @@
 \AtBeginDocument{%
   \ifdraft{
     \fancypagestyle{empty}{%
-      \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
+      \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW\ \VCModifiedText}
     }
-    \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
+    \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW\ \VCModifiedText}
   }{}
 }
 
@@ -60,6 +60,7 @@
 % Definition-like environments
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[chapter]
+\theoremstyle{remark}
 \newtheorem{rmk}{Remark}[chapter]
 
 % Metadata
