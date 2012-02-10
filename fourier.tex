@@ -69,9 +69,9 @@
         Then, working purely formally (that is, assuming all integrals are well behaved):
         \begin{align}
           \F(af + bg) &= a\F f + b\F g\\
-          \label{eq:tsltisphi}
+          \label{eq:tsltispsi}
             T_x\F^{-1}f &= \F^{-1}(\psi_xf)\\
-          \label{eq:tsltisphi2}
+          \label{eq:tsltispsi2}
           \psi_x\F f &= \F(T_xf)\\
           \label{eq:xisdiff}
             \F(xf) &= -\frac{1}{2\pi i}(\F f)'\\
@@ -79,7 +79,7 @@
             \F(f') &= -2\pi ix\F f
 %          \F(f_x) &= \frac{1}{|x|}(\F f)_{x^{-1}}
         \end{align}
-        \begin{proof}[Proof of \eqref{eq:tsltisphi}]
+        \begin{proof}[Proof of \eqref{eq:tsltispsi}]
           \begin{align*}
             (T_x\F^{-1}f)(y) &= (\F^{-1}f)(x+y)\\
             &= \int_{\xi\in\R}f(\xi)e^{2\pi i(x+y)\xi}\,d\xi\\
@@ -137,8 +137,15 @@
         The set of all Schwartz functions is denoted \S.
       \end{defn}
 
-      It is verifiable that \S is the largest possible space satisfying the requirements above.
-      However, because we made no reference to the Fourier transform in our definition, the following bears proof:
+      It is verifiable that \S is:
+      \begin{itemize}
+        \item the largest possible space satisfying the requirements above;
+        \item a vectorspace over \C---that is, closed under addition and multiplication by complex numbers;
+        \item closed under translation and multiplication by an oscillation;
+        \item closed under differentiation and multiplication by $x$.
+      \end{itemize}
+
+      Because we made no reference to the Fourier transform in our definition of \S, the following bears proof:
 
       \begin{lemma}
         \label{lemma:sclosed}
@@ -166,19 +173,23 @@
           \begin{align*}
             (\F f)'(\xi) &= -2\pi i \F(\xi f)(\xi)
           \end{align*}
-          Because $\xi f$ is Schwartz by definition, we can see (from above) that $\F(\xi f)$, and thus $(\F f)'$, will decay faster than any power of $\xi$.
+          Because $\xi f$ is Schwartz by definition, we can see (from above) that $\F f$ is differentiable.
+          In fact, $\F(\xi f)$, and thus $(\F f)'$, will decay faster than any power of $\xi$.
           Repeated applications of \eqref{eq:xisdiff} will show this for all derivatives of $\F f$, and thus $\F f$ is Schwartz.
         \end{proof}
       \end{lemma}
+      \begin{rmk}
+        The proof of \thref{lemma:sclosed} relies on the (near-)symmetry of the Fourier transform with respect to differentiation and multiplication by $x$:
 %      Because of the decay condition on Schwartz functions their Fourier transform will \emph{always} be defined -- the integral will never diverge, so we can always talk about Fourier transforms of Schwartz functions.
 %
 %      Using our facts about the Fourier transform we can see that for $f\in\S$:
 %      \todo{update this to reflect our different presentation of \S}
-%      \begin{itemize}
-%        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
-%        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
-%      \end{itemize}
+      \begin{itemize}
+        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
+        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
+      \end{itemize}
 %      Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
+      \end{rmk}
 
     \section{Fourier Inversion}
       Now that we have an appropriate environment, we can properly investigate the relationship we want to find between the normal and inverse Fourier transforms.
@@ -194,8 +205,8 @@
         \begin{proof}
           \begin{align*}
             (\F^{-1}\F\varphi)(x) &= (T_x\F^{-1}\F\varphi)(0) &\text{by defn. of $T_x$}\\
-            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by \eqref{eq:tsltisphi}}\\
-            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by \eqref{eq:tsltisphi2}}\\
+            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by \eqref{eq:tsltispsi}}\\
+            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by \eqref{eq:tsltispsi2}}\\
             &= (T_x\varphi)(0) &\text{by hypothesis}\\
             &= \varphi(x)
           \end{align*}
@@ -249,17 +260,41 @@
       \begin{equation*}
         \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
       \end{equation*}
-      This inclusion allows us to define the Fourier transform for tempered distributions by adjoint-like characterization:
-      \begin{equation*}
-        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f,\varphi\in\S^*
-      \end{equation*}
-      because for $f,\varphi\in\S$:
+      This inclusion allows us to define the Fourier transform for tempered distributions.
+      For $f$ and $\varphi$ in \S, treat $f$ as a distribution:
       \begin{align*}
         \langle\F f,\varphi\rangle &= \int_\xi\F f(\xi)\varphi(\xi)\,d\xi\\
         &= \int_\xi\int_xf(x)\psi(x,\xi)\,dx\,\varphi(\xi)\,d\xi\\
         &= \int_xf(x)\int_\xi\varphi(\xi)\psi(x,\xi)\,d\xi dx\\
         &= \langle f,\F\varphi\rangle
       \end{align*}
+      We thus \emph{define} the Fourier transform of a general $f\in\S^*$ by the adjoint-like characterization:
+      \begin{equation*}
+        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f,\varphi\in\S^*
+      \end{equation*}
+      The key point is that this definition is \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define \F on $\S^*$.
+
+      Having defined the Fourier transform on tempered distributions, we hope to show that it behaves nicely.
+      Happily, it inherits much of its behavior from its action on Schwartz functions.
+      For example:
+      \begin{thm}
+        Let $\varphi\in\S^*$.
+        Then:
+        \begin{align}
+          \label{eq:tsltispsi_td}
+            T_x\F^{-1}\varphi&=\F^{-1}(\psi_x\varphi)\\
+          \label{eq:xisdiff_td}
+            \F(x\varphi) &= -\frac{1}{2\pi i}(\F \varphi)'\\
+          \label{eq:fourinv_td}
+          \F^{-1}\F\varphi &= \varphi
+        \end{align}
+      \end{thm}
+      \begin{proof}[Proof of \eqref{eq:tsltispsi_td}]
+      \end{proof}
+      \begin{proof}[Proof of \eqref{eq:xisdiff_td}]
+      \end{proof}
+      \begin{proof}[Proof of \eqref{eq:fourinv_td}]
+      \end{proof}
 
     \section{A Topological View of \S}
 
