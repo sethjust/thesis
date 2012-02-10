@@ -46,5 +46,5 @@ clean:
 reallyclean:
 	$(RM) *.pdf
 
-vc.tex: vc vc-git.awk .git/logs/HEAD
-	sh $<
+vc.tex: vc vc-git.awk .git/logs/HEAD thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex
+	sh vc -m

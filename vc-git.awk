@@ -29,8 +29,7 @@ script=="log" && /^Committer Date:/ { CommitterDate = substr($0, 2+match($0, ":"
 script=="status" && /^# Changes to be committed:/ { modified = 1 }
 ### Unstaged modifications?
 script=="status" && /^# Changed but not updated:/ { modified = 2 }
-
-
+script=="status" && /^# Changes not staged for commit:/ { modified = 2 }
 
 END {
 		
