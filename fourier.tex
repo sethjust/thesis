@@ -185,8 +185,8 @@
 %      Using our facts about the Fourier transform we can see that for $f\in\S$:
 %      \todo{update this to reflect our different presentation of \S}
       \begin{itemize}
-        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many continuous derivatives.
-        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of $x$.
+        \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many derivatives.
+        \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of~$x$.
       \end{itemize}
 %      Thus $\F f$ is a Schwartz function, and so, because $f(-x)$ is also Schwartz, $\F^{-1}f$ is \emph{also} Schwartz.
       \end{rmk}
@@ -268,33 +268,43 @@
         &= \int_xf(x)\int_\xi\varphi(\xi)\psi(x,\xi)\,d\xi dx\\
         &= \langle f,\F\varphi\rangle
       \end{align*}
-      We thus \emph{define} the Fourier transform of a general $f\in\S^*$ by the adjoint-like characterization:
+      We thus \emph{define} the Fourier transform of a \emph{general} $f\in\S^*$ by the adjoint-like characterization:
       \begin{equation*}
-        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f,\varphi\in\S^*
+        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f\in\S^*\text{ and }\varphi\in\S
       \end{equation*}
-      The key point is that this definition is \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define \F on $\S^*$.
+      We similarly define the inverse Fourier transform for $f\in\S^*$:
+      \begin{equation*}
+        \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\text{ for }\varphi\in\S
+      \end{equation*}
+      The key point is that these definitions are \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define \F on $\S^*$.
 
-      Having defined the Fourier transform on tempered distributions, we hope to show that it behaves nicely.
-      Happily, it inherits much of its behavior from its action on Schwartz functions.
-      For example:
-      \begin{thm}
+      We would now like to show that the Fourier Transform on $\S^*$ behaves as nicely as it does on \S.
+      Because we chose our definition to be consistent with viewing Schwartz functions as tempered distributions, much of this nice behaviour is inherited.
+      For example
+%      Having defined the Fourier transform on tempered distributions, we hope to show that it behaves nicely.
+%      Happily, our definition allows it to inherit its behavior from its action on Schwartz functions.
+%      This is demonstrated by the ease of proving Fourier inversion:
+      \begin{thm}[Fourier Inversion on $\S^*$]
+        \label{thm:fourinv_td}
         Let $\varphi\in\S^*$.
-        Then:
-        \begin{align}
-          \label{eq:tsltispsi_td}
-            T_x\F^{-1}\varphi&=\F^{-1}(\psi_x\varphi)\\
-          \label{eq:xisdiff_td}
-            \F(x\varphi) &= -\frac{1}{2\pi i}(\F \varphi)'\\
-          \label{eq:fourinv_td}
+        Then
+        \begin{align*}
           \F^{-1}\F\varphi &= \varphi
-        \end{align}
+        \end{align*}
       \end{thm}
-      \begin{proof}[Proof of \eqref{eq:tsltispsi_td}]
+      \begin{proof}[Proof of \thref{thm:fourinv_td}]
+        For $\phi\in\S$:
+        \begin{align*}
+          \langle\F^{-1}\F\varphi, \phi\rangle &= \langle \F\varphi, \F^{-1}\phi\rangle\\
+          &= \langle\varphi, \F\F^{-1}\phi\rangle\\
+          &= \langle\varphi, \phi\rangle
+        \end{align*}
       \end{proof}
-      \begin{proof}[Proof of \eqref{eq:xisdiff_td}]
-      \end{proof}
-      \begin{proof}[Proof of \eqref{eq:fourinv_td}]
-      \end{proof}
+
+%          \label{eq:tsltispsi_td}
+%            T_x\F^{-1}\varphi&=\F^{-1}(\psi_x\varphi)\\
+%          \label{eq:xisdiff_td}
+%            \F(x\varphi) &= -\frac{1}{2\pi i}(\F \varphi)'\\
 
     \section{A Topological View of \S}
 
