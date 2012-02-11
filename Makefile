@@ -6,6 +6,8 @@ RM = rm -f
 RERUN = "(There were undefined references|Rerun to get ((cross-references|the bars) right|citations correct))"
 RERUNBIB = "No file.*\.bbl|Citation.*undefined"
 
+TEXFILES = thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex
+
 .SILENT:
 
 all: thesis.pdf
@@ -26,7 +28,7 @@ thesis.bbl thesis.blg: thesis.tex thesis.bib thesis.aux
 	$(LATEX) $< $(REDIR); true
 	egrep -c $(RERUNBIB) thesis.log $(REDIR) && ($(BIBTEX) thesis $(REDIR);$(LATEX) $< $(REDIR)) ; true
 
-thesis.aux: thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex vc.tex
+thesis.aux: $(TEXFILES) vc.tex
 #	$(warning aux target)
 	$(LATEX) $< $(REDIR); true
 
@@ -46,5 +48,5 @@ clean:
 reallyclean:
 	$(RM) *.pdf
 
-vc.tex: vc vc-git.awk .git/logs/HEAD thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex tfcns.tex dists.tex conclusion.tex
+vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
 	sh vc -m
