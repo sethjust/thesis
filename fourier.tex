@@ -251,12 +251,16 @@
       \end{proof}
 
     \section{Tempered Distributions}
-      We now consider Fourier inversion in the context of the \emph{continuous linear dual} of \S:
+      We now want to consider Fourier inversion in the context of the \emph{continuous linear dual} of \S.
       \begin{equation*}
         \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
       \end{equation*}
       We call $\S^*$ the space of \emph{tempered distributions}.
-      This space is not, by itself, interesting, but note the inclusion:
+
+      Note that we have not yet defined a notion of topology on \S, and so have no notion of continuity of functionals on \S.
+      We will introduce a topology on \S in section~\ref{ch:topons}; until then we will not rely on topological notions.
+
+      In general, the space \S is not interesting, but note the inclusion:
       \begin{equation*}
         \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
       \end{equation*}
@@ -301,12 +305,9 @@
         \end{align*}
       \end{proof}
 
-%          \label{eq:tsltispsi_td}
-%            T_x\F^{-1}\varphi&=\F^{-1}(\psi_x\varphi)\\
-%          \label{eq:xisdiff_td}
-%            \F(x\varphi) &= -\frac{1}{2\pi i}(\F \varphi)'\\
+      In fact, similar (although admittedly less straightforward) proofs show all of the identities of \thref{lemma:fourprops} for tempered distributions.
+      However, this undertaking also requires us to clarify just what is meant by the derivative of a tempered distribution, or multiplying a distribution by $x$.
+      We will revisit these ideas when we have a more powerful set of (topological) tools at our disposal.
+      We hope that by more closely examining \S and $\S^*$ we can discover what the answers \emph{must} be.
 
-    \section{A Topological View of \S}
-
-    \section{The Topology of Tempered Distributions}
 \end{document}
