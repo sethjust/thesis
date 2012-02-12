@@ -42,8 +42,11 @@ sections: intro.pdf fourier.pdf tfcns.pdf
 	read revision;\
 	latexdiff-git --commit=$$revision --force $<
 
-clean:
-	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm *_new.tex *_old.tex *_diff.tex vc.tex
+clean: diffclean
+	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm vc.tex
+
+diffclean:
+	$(RM) *_new.tex *_old.tex *_diff.*
 
 reallyclean:
 	$(RM) *.pdf
