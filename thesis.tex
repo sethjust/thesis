@@ -24,7 +24,7 @@
 \usepackage[ntheorem]{mdframed}
 
 \usepackage{enumitem}
-\setlist{itemsep=4pt,parsep=0pt,topsep=5pt}
+\setlist{itemsep=2pt,parsep=0pt,topsep=5pt}
 
 % Import version control definitions
 \input{vc.tex}
@@ -33,12 +33,13 @@
 \usepackage[draft]{ifdraft}
 \usepackage{color}
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{! Custom Error: Unaddressed TODO!}}}}
+\newcommand{\draftid}{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
 \AtBeginDocument{%
   \ifdraft{
     \fancypagestyle{empty}{%
-      \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
+      \fancyfoot[CO,CE]\draftid
     }
-    \fancyfoot[CO,CE]{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
+    \fancyfoot[CO,CE]\draftid
   }{}
 }
 
@@ -53,8 +54,13 @@
 
 % Theorem-like environments
 \theoremstyle{break}
-\def\theoremframecommand{\colorbox[rgb]{.97,.98,.99}}
-\newshadedtheorem{thm}{Theorem}[chapter]
+%\def\theoremframecommand{\colorbox[rgb]{.97,.98,.99}}
+%\newshadedtheorem{thm}{Theorem}[chapter]
+\newtheorem{thm}{Theorem}[chapter]
+\surroundwithmdframed[%
+  skipabove=\baselineskip,
+  skipbelow=\baselineskip,
+  ]{thm}
 
 \theoremstyle{plain}
 \newtheorem{claim}[thm]{Claim}
@@ -63,6 +69,14 @@
 % Definition-like environments
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[chapter]
+\surroundwithmdframed[%
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  skipabove=\baselineskip,
+  skipbelow=\baselineskip,
+  linewidth=1pt
+  ]{defn}
 
 \theoremstyle{remark}
 \newtheorem{rmk}{Remark}[chapter]
@@ -75,6 +89,7 @@
 \advisor{Jerry Shurman}
 \department{Mathematics}
 
+% Length(s)
 \setlength{\parskip}{0pt}
 
 \begin{document}
