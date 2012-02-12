@@ -47,17 +47,17 @@
         For any $x\in\R$ define:
         \begin{itemize}
           \item the frequency-$x$ oscillation $\psi_x$:
-            \begin{equation*}
+            \begin{align*}
               \psi_x:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
-            \end{equation*}
+            \end{align*}
           \item the translation operator $T_x$ on functions $f:\R\rightarrow\C$:
-            \begin{equation*}
+            \begin{align*}
               (T_xf)(y) = f(x+y)
-            \end{equation*}
+            \end{align*}
 %          \item the dilation $f_x$ for a function $f:\R\rightarrow\C$:
-%            \begin{equation*}
+%            \begin{align*}
 %              (f_x)(y) = f(xy)
-%            \end{equation*}
+%            \end{align*}
         \end{itemize}
       \end{defn}
       The following lemma gives identities that can be computed directly from definition with moderate conditions on the functions considered.
@@ -105,9 +105,9 @@
     \section{Schwartz Functions}
       We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, and so we may take Fourier transforms without concern.
       Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ \emph{vanishes at infinity}---that is, for any $\varepsilon>0$ there exists $N>0$ such that
-      \begin{equation*}
+      \begin{align*}
         |x|>N \Rightarrow f(x)<\epsilon
-      \end{equation*}
+      \end{align*}
       Thus the Fourier transform is always defined for functions that vanish at infinity.
 
       Using \eqref{eq:xisdiff} and \eqref{eq:xisdiff2} we can observe that the Fourier transform exchanges (up to a constant) multiplication by $x$ with differentiation. 
@@ -126,14 +126,13 @@
 
       \begin{defn}
         A Schwartz function is a function
-        \begin{equation*}
+        \begin{align*}
           \varphi:\R\rightarrow\C
-        \end{equation*}
+        \end{align*}
         that is infinitely differentiable, and for any $k\ge0$ the derivative $\varphi^{(k)}$ decays faster than any power of $x$:
-        \begin{equation*}
+        \begin{align*}
           \forall d,k\ge0\ \ x^d\varphi^{(k)}(x)\text{ vanishes at infinity}
-        \end{equation*}
-
+        \end{align*}
         The set of all Schwartz functions is denoted \S.
       \end{defn}
 
@@ -227,39 +226,41 @@
 
         Having reduced the problem of Fourier inversion to the case where $x=0$ and our Schwartz function vanishes at zero, we suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
         Then for $x\ne0$:
-        \begin{equation*}
+        \begin{align*}
           \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
-        \end{equation*}
+        \end{align*}
         Call this integral $\varphi$.
         We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
         Thus $\varphi\in\S$.
 
         By \eqref{eq:xisdiff}:
-        \begin{equation*}
+        \begin{align*}
           (\F\phi)(\xi) = (\F x\varphi)(\xi)= -\frac{1}{2\pi i}(\F\varphi)'(\xi)
-        \end{equation*}
+        \end{align*}
         This equality allows us to calculate:
-        \begin{equation*}
+        \begin{align*}
           (\F^{-1}\F\phi)(0) = \int_{\xi\in\R} \F\phi(\xi)d\xi = -\frac{1}{2\pi i}\int_{\xi\in\R} (\F\varphi)'(\xi)d\xi = -\frac{1}{2\pi i} \F\varphi\vert_{-\infty}^\infty = 0
-        \end{equation*}
+        \end{align*}
         thus proving Fourier inversion on \S.
       \end{proof}
 
     \section{Tempered Distributions}
-      We now want to consider Fourier inversion in the context of the \emph{continuous linear dual} of \S.
-      \begin{equation*}
+      We now want to consider Fourier inversion in the context of the \emph{continuous linear dual} of \S:
+      \begin{align*}
         \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
-      \end{equation*}
+      \end{align*}
       We call $\S^*$ the space of \emph{tempered distributions}.
 
-      Note that we have not yet defined a notion of topology on \S, and so have no notion of continuity of functionals on \S.
+      Note that we have not yet defined a notion of topology on \S, and so have no notion of continuity of functionals on \S, and so this definition is not yet exact.
       We will introduce a topology on \S in section~\ref{ch:topons}; until then we will not rely on topological notions.
 
       In general, the space \S is not interesting, but note the inclusion:
-      \begin{equation*}
+      \begin{align*}
         \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
-      \end{equation*}
-      This inclusion allows us to define the Fourier transform for tempered distributions.
+      \end{align*}
+      We will show that for any $\varphi$ this functional is continuous once we define a topology on $\S^*$. \todo{maybe handle this a little better}
+      
+      The inclusion allows us to define the Fourier transform for tempered distributions.
       For $f$ and $\varphi$ in \S, treat $f$ as a distribution:
       \begin{align*}
         \langle\F f,\varphi\rangle &= \int_\xi\F f(\xi)\varphi(\xi)\,d\xi\\
@@ -268,13 +269,13 @@
         &= \langle f,\F\varphi\rangle
       \end{align*}
       We thus \emph{define} the Fourier transform of a \emph{general} $f\in\S^*$ by the adjoint-like characterization:
-      \begin{equation*}
+      \begin{align*}
         \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f\in\S^*\text{ and }\varphi\in\S
-      \end{equation*}
+      \end{align*}
       We similarly define the inverse Fourier transform for $f\in\S^*$:
-      \begin{equation*}
+      \begin{align*}
         \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\text{ for }\varphi\in\S
-      \end{equation*}
+      \end{align*}
       The key point is that these definitions are \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define \F on $\S^*$.
 
       We would now like to show that the Fourier Transform on $\S^*$ behaves as nicely as it does on \S.
@@ -305,4 +306,5 @@
       We will revisit these ideas when we have a more powerful set of (topological) tools at our disposal.
       We hope that by more closely examining \S and $\S^*$ we can discover what the answers \emph{must} be.
 
+      \todo{give an example of tempered distributions being useful at this level of understanding}
 \end{document}
