@@ -3,7 +3,7 @@
 
     Consider the oscillation
     \begin{align*}
-      \psi:\R\times\R\rightarrow\C\\
+      \psi:\R\times\R\longrightarrow\C\\
       \psi(x,\xi) = e^{2\pi i \xi x}
     \end{align*}
     As $x$ varies for a fixed $\xi$, $\psi$ is the frequency-$\xi$ oscillation on the line---a ``pure tone.''
@@ -76,7 +76,7 @@
           \label{eq:xisdiff}
             \F(xf) &= -\frac{1}{2\pi i}(\F f)'\\
           \label{eq:xisdiff2}
-            \F(f') &= -2\pi ix\F f
+            \F(f') &= -2\pi i\xi\F f
 %          \F(f_x) &= \frac{1}{|x|}(\F f)_{x^{-1}}
         \end{align}
         \begin{proof}[Proof of \eqref{eq:tsltispsi}]
@@ -102,16 +102,56 @@
         \item It exchanges multiplication by $x$ and differentiation.
       \end{itemize}
 
+      These properties make the Fourier transform useful for solving real-world problems.
+      \begin{example}[The heat equation]
+        \label{ex:heateq}
+        Consider a long metal wire whose temperature distribution at time $t=0$ is given by a function $f(x)$.
+        We would like to describe the temperature distribution on the wire as time passes.
+        If we write the temperature of a point $x$ on the wire at time $t>0$ as $u(x,t)$, by the \emph{heat equation} from physics we have that
+        \begin{align*}
+          \frac{\partial}{\partial t}u(x,t) &= \alpha\frac{\partial^2}{\partial x^2}u(x,t)
+        \end{align*}
+        for some $\alpha$ in \R that depends on the properties of our wire. 
+        Noting that the Fourier transform exchanges differentiation and multiplication by a variable, we take the Fourier transform of our differential equation with respect to the $x$ parameter.
+        \begin{align*}
+          \F_x\left(\frac{\partial}{\partial t}u(x,t)\right) &= \F_x\left(\alpha\frac{\partial^2}{\partial x^2}u(x,t)\right)\\
+          \frac{\partial}{\partial t}\F_xu(\xi,t) &= -k\xi^2\F_xu(\xi,t)
+        \end{align*}
+        folding $\alpha$ and the constants of \eqref{eq:xisdiff2} into $k$.
+        \todo{double check that passing the derivative through is fine if $u$ is nice.}
+        The initial condition $u(x,0)=f(x)$ is transformed to $\F_xu(\xi,0) = \F f(\xi)$.
+        
+        Note that these transformations have made the differential equation easier to solve, by replacing $x$ derivatives with multiples of $\xi$.
+        Solving yields
+        \begin{align*}
+          \F_xu(\xi,t) &= c(\xi)e^{-k\xi^2t}
+        \end{align*}
+        for some function $c$.
+        Our initial condition gives $c(\xi)=\F f(\xi)$, and so
+        \begin{align*}
+          u(x,t) &= \F^{-1}(e^{-k\xi^2t}\F f(\xi))\\
+          &= \int_{\xi\in\R} \F f(\xi)e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
+          &= \int_{\xi\in\R} \int_{y\in\R} f(y)\psi(y,\xi)\,dy\,e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
+          &= \int_{y\in\R} f(y) \int_{\xi\in\R} e^{-k\xi^2t}\psi(x+y,\xi)\,d\xi\,dy\\
+          &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-|x-y|^2/4kt}\,dy
+        \end{align*}
+        \todo{double check final equality (from strichartz pg 60)}
+        which is a solution to the heat equation.
+
+        \todo{more discussion}
+      \end{example}
+
     \section{Schwartz Functions}
-      We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, and so we may take Fourier transforms without concern.
+      We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, and so we may take Fourier transforms without concern, as we will always understand the result.
+
       Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ \emph{vanishes at infinity}---that is, for any $\varepsilon>0$ there exists $N>0$ such that
       \begin{align*}
         |x|>N \Rightarrow f(x)<\epsilon
       \end{align*}
       Thus the Fourier transform is always defined for functions that vanish at infinity.
 
-      Using \eqref{eq:xisdiff} and \eqref{eq:xisdiff2} we can observe that the Fourier transform exchanges (up to a constant) multiplication by $x$ with differentiation. 
-      Because it's useful (\todo{reference diffeq example, once its written}) we want to allow differentiation of any functions.
+      We also observed in \thref{ex:heateq} that the Fourier transform is useful because of its ability to exchange differentiation and multiplication.
+      To make use of this fact, we also want our space to be closed when we take derivatives or multiply by $x$.
       This leaves us with the following requirements on our space of functions:
       \begin{enumerate}[label=(\alph*)]
         \item \label{i:vanish}Every function vanishes at infinity;
@@ -146,7 +186,7 @@
 
       Because we made no reference to the Fourier transform in our definition of \S, the following bears proof:
 
-      \begin{lemma}
+      \begin{lemma}[Closure of \S under \F]
         \label{lemma:sclosed}
         Let $f\in\S$.
         Then $\F f\in\S$.
@@ -252,7 +292,7 @@
       We call $\S^*$ the space of \emph{tempered distributions}.
 
       Note that we have not yet defined a notion of topology on \S, and so have no notion of continuity of functionals on \S, and so this definition is not yet exact.
-      We will introduce a topology on \S in section~\ref{ch:topons}; until then we will not rely on topological notions.
+      We will introduce a topology on \S in \autoref{ch:topons}; until then we will not rely on topological notions.
 
       In general, the space \S is not interesting, but note the inclusion:
       \begin{align*}

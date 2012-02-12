@@ -78,8 +78,16 @@
   linewidth=1pt
   ]{defn}
 
+% Remark-like environments
 \theoremstyle{remark}
 \newtheorem{rmk}{Remark}[chapter]
+
+\theorembodyfont{\normalfont}
+\newtheoremstyle{example} % Define a new style with bold header and upright body
+  {\item[\hskip\labelsep \bfseries ##1\ ##2.]}%
+  {\item[\hskip\labelsep \bfseries ##1\ ##2 (##3).]}
+\theoremstyle{example}
+\newtheorem{example}{Example}[chapter]
 
 % Metadata
 \title{Functions on the Line}
