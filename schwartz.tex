@@ -1,23 +1,129 @@
 \input{chpreamble}
   \chapter{Topology on Schwartz Functions}
-
     \label{ch:topons}
     Our development of Schwartz functions and tempered distributions showed that these spaces have nice properties with regard to the Fourier transform.
     However, our discussion has mainly concerned itself with set-theoretic notions---that is, with the properties of elements of these spaces.
     We hope that these spaces are also nicely behaved with regard to \emph{topological} properties such as limits and continuity.
     Particularly, understanding \S as a topological space allows us to easily understand $\S^*$, as duals of topological spaces are well understood.
 
-    \vspace{24pt}\hrule\vspace{6pt}
-    Outline of things to come:
-    \begin{itemize}
-      \item Topology on \S
+    \section{Spaces of Functions}
+      We are interested in \emph{topology} on spaces of functions, with the goal of finding a topology for the space of distributions.
+      Recall:
+      \begin{defn}
+        A \emph{topology} on a set $X$ is a set $\tau\subseteq2^X$ that satisfies:
         \begin{itemize}
-          \item Approximation by sequences
-          \item Uniform convergence
-          \item $\sup$ norm; $\sup\sup$ norm
-          \item ???
+          \item $\emptyset,X\in\tau$,
+          \item $\tau$ is closed under arbitrary union,
+          \item $\tau$ is closed under finite intersection.
         \end{itemize}
-      \item Topology of $\S^*$
-      \item Classical functions (of moderate growth) as distributions
-    \end{itemize}
+
+      Given a set $X$ with a \emph{metric} $d:X^2\rightarrow\R$, we take all sets of the form $\{x\in X:d(x,y)<\alpha\}$ for $y\in X$ and $\alpha\in\R$ as a basis for a set $\tau_d$, which is verifiably a topology on $X$.
+
+      Finally, for a vectorspace $X$ over $\C$ with a \emph{norm} $|\cdot|:X\rightarrow\R$, we define a metric on $X$ by $d(x,y)=|x-y|$, and so can define a topology on $X$ by means of this metric.
+      \end{defn}
+
+      This final form of this definition is particularly useful in this context, as sets of functions \emph{naturally} form vectorspaces over \C, by defining operations pointwise:
+      \begin{align*}
+        (f+g)(x) &= f(x)+g(x)\\
+        (a\cdot f)(x) &= a\cdot f(x)
+      \end{align*}
+      As such, we need only introduce a concept of \emph{size} on functions in order to get a topology on a set of functions (supposing it is closed under vectorspace operations).
+      Importantly though, we care much more about the resulting \emph{topology} than we do about the norm, as topology is a more general (and relevant) concept.
+
+      Consider the space $C^0(\R)$ of complex-valued, continuous, integrable functions on $\R$, which is a vectorspace over $\C$.
+      Give $C^0(\R)$ the ``sup norm'' and its associated metric:
+      \begin{align*}
+        |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
+        d(f,g) &= |f-g|_{C^0}
+      \end{align*}
+      It is trivial that the sup norm is positive-definite and obeys the triangle inequality, by properties of the absolute value and sup.
+      Thus the following completes the proof that sup norm is in fact a norm:
+      \begin{claim}
+        The sup norm on $C^0(\R)$ is always finite.
+        \begin{proof}
+          Let $f\in C^0(\R)$.
+          Because $f$ is integrable, it must vanish at infinity.
+          Thus, given $\varepsilon>0$ we have $N_\varepsilon>0$ such that $|x|>N\Rightarrow f(x)<\varepsilon$.
+          This allows us to write
+          \begin{align*}
+            |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
+            &= \max\left(\sup_{|x|<N_\varepsilon}|f(x)|,\varepsilon\right)
+          \end{align*}
+          which is finite by the extreme value theorem.
+        \end{proof}
+      \end{claim}
+
+      The simplicity of the following proof illustrates the naturalness of the sup norm applied to $C^0(\R)$.
+      \todo{Why is this important?}
+      \begin{claim}
+        For $x\in\R$, the evaluation functional $C^0(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
+        \begin{proof}
+          Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$ for all $x$, showing continuity.
+  %        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$ because $\forall x$ $|f(x)-g(x)|\le\sup_{y\in\R}|f(y)-g(y)|=d(f,g)$.
+  %        Thus the evaluation functional is continuous.
+        \end{proof}
+      \end{claim}
+
+      Finally, we see that we have managed to construct a nicely behaved topological space:
+      \begin{thm}
+        The space $C^0(\R)$ of continuous integrable functions is \emph{complete}.
+        \begin{proof}
+          Consider a Cauchy sequence of $C^0$ functions $\{f_i\}$.
+          First we will see that this sequence has a pointwise limit, and then that this limit is in fact $C^0$.
+
+          Given $\varepsilon<0$ pick $N$ such that for $i,j>N$ we have $|f_i-f_j|<\varepsilon$.
+          Then for any $x\in\R$, $|f_i(x)-f_j(x)|<\varepsilon$, and so the sequence of complex outputs $\{f_i(x)\}$ is Cauchy and has a limit $f(x)$.
+          Thus the pointwise limit of $\{f_i\}$ is $f$.
+         
+          Now for $\varepsilon'>0$ take $j>N$ so that $|f_j(x)-f(x)|<\varepsilon'$.
+          \todo{finish}
+        \end{proof}
+      \end{thm}
+      \begin{rmk}
+        Note that this completeness is a consequence of our norm forcing sequences of functions to converge \emph{uniformly}.
+        This is particularly important as pointwise limits of continuous functions need not be continuous!
+      \end{rmk}
+      \begin{rmk}
+        Thus, being complete with respect to the topology arising from a norm, $C^0(\R)$ is a \emph{Banach} space, by definition.
+      \end{rmk}
+
+    \subsection{Spaces of differentiable functions}
+      We now turn to the issue of \emph{differentiability}.
+      Define the space 
+      \begin{align*}
+        C^k(\R) = \{f\in C^0(\R) : f'\in C^{k-1}(\R)\}
+      \end{align*}
+      Note that this definition requires that all $k+1$ derivatives $f,f',\ldots,f^{(k)}$ be $C^0$, and so they are \emph{all} continuous and integrable.
+      Give $C^k(\R)$ the topology of the $C^k$-norm:
+      \begin{align*}
+        |f|_{C^k} = \sum_{i=0}^k |f^{(i)}|_{C^0} = \sum_{i=0}^k \sup_{x\in\R}|f^{(i)}(x)|
+      \end{align*}
+      \begin{rmk}
+        \todo{sup sup version}
+      \end{rmk}
+      \begin{rmk}
+        \todo{differentiation: $C^k\rightarrow C^{k-1}$ is continuous}
+      \end{rmk}
+      \begin{claim}
+        \todo{$C^k(\R)$ is complete}
+      \end{claim}
+
+    \subsection{Spaces of rapidly-decaying functions}
+      Now consider the issue of \emph{decay}.
+      Let $f\in C^0(\R)$.
+      By definition, $f$ vanishes at infinity and is integrable, and so must decay faster than $1/x$.
+      Thus the function $x\cdot f(x)$ vanishes at infinity (but may not be integrable).
+      Define
+      \begin{align*}
+        C^k_\ell(\R) = \{f\in C^k(\R):x^\ell f^{(i)}(x)\text{ vanishes at infinity }\forall i\le k\}
+      \end{align*}
+      \begin{thm}
+        $C^k_\ell(\R)$ is complete in the $C^k$-norm topology.
+        \begin{proof}
+          \todo{this}
+        \end{proof}
+      \end{thm}
+
+    \section{Products and Limits of Topological Spaces}
+
 \end{document}
