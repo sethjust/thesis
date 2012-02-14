@@ -15,13 +15,18 @@
 \usepackage{amsmath,amssymb}
 \usepackage{pdfsync}
 \usepackage{natbib}
-%\usepackage{sagetex}
 \usepackage{xspace}
+%\usepackage{sagetex}
+
 \usepackage{subfiles}
+
+\usepackage{quotchap, xcolor}
+\colorlet{chaptergrey}{black}
+
 \usepackage{framed}
 \usepackage[amsmath, amsthm, hyperref, thmmarks, thref, framed]{ntheorem}
-\usepackage{hyperref}
 \usepackage[ntheorem]{mdframed}
+\usepackage{hyperref}
 
 \usepackage{enumitem}
 \setlist{itemsep=2pt,parsep=0pt,topsep=5pt}
@@ -31,7 +36,6 @@
 
 % Draft compiling options
 \usepackage[draft]{ifdraft}
-\usepackage{color}
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{! Custom Error: Unaddressed TODO!}}}}
 \newcommand{\draftid}{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
 \AtBeginDocument{%
