@@ -14,8 +14,10 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-%.pdf: %.tex %.sout thesis.aux thesis.bbl thesis.blg
+%.pdf: %.tex thesis.aux thesis.bbl thesis.blg
 #	$(warning pdf target)
+	diff $*.sage .$*.sage.bak || make $*.sout
+	cp $*.sage .$*.sage.bak
 	$(LATEX) $< 
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
@@ -32,8 +34,8 @@ thesis.aux: $(TEXFILES) vc.tex
 #	$(warning aux target)
 	$(LATEX) $< $(REDIR); true
 
-%.sout: %.sage
-	python sagetex/remote-sagetex.py -s http://cerberus.sethjust.com:8000 -u admin -p robots $<
+%.sout: %.sage 
+	python sagetex/remote-sagetex.py -f remote-sagetex.conf $<
 
 sections: intro.pdf fourier.pdf tfcns.pdf
 
@@ -55,7 +57,7 @@ diffclean:
 	$(RM) *_new.tex *_old.tex *_diff.*
 
 sageclean:
-	$(RM) *.sage *.sout 
+	$(RM) *.sage *.sout .*.sage.bak
 	$(RM) -r sage-plots-for-*
 
 reallyclean:

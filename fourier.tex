@@ -135,10 +135,24 @@
           &= \int_{y\in\R} f(y) \int_{\xi\in\R} e^{-k\xi^2t}\psi(x+y,\xi)\,d\xi\,dy\\
           &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-|x-y|^2/4kt}\,dy
         \end{align*}
-        \todo{double check final equality (from strichartz pg 60)}
-        which is a solution to the heat equation.
+        which is verifiably a solution to the heat equation.
 
         \todo{more discussion}
+        \begin{figure}
+          \begin{center}
+            \begin{sagesilent}
+              x,y,t=var('x,y,t')
+              gamma(x,t) = e^(-(x^2)/t)
+              f(x)=(sgn(x)*sgn(1-x))
+              assume(t>0)
+              u(x,t) = (1/sqrt(t))*(integral(f(y)*gamma(x-y,t),y,-Infinity,0)+integral(f(y)*gamma(x-y,t),y,0,1)+integral(f(y)*gamma(x-y,t),y,1,Infinity))
+            \end{sagesilent}
+            \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false) for t,c in [(1/1000,(0,0,0)), (1/8,(.2,.2,.2)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
+          \end{center}
+          \caption{A solution to the heat equation for a square pulse of heat}
+          \label{fig:heateqn}
+        \end{figure}
+        An example of this solution is shown in \autoref{fig:heateqn}.
       \end{example}
 
     \section{Schwartz Functions}
