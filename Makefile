@@ -14,13 +14,13 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-%.pdf: %.tex thesis.aux thesis.bbl thesis.blg
+%.pdf: %.tex %.sout thesis.aux thesis.bbl thesis.blg
 #	$(warning pdf target)
 	$(LATEX) $< 
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	echo "*** Errors for $< ***"; true
-	egrep -i "((Reference|Citation).*undefined)" $*.log ; true
+	egrep -i "((Reference|Citation).*undefined|Unaddressed TODO)" $*.log ; true
 
 thesis.bbl thesis.blg: thesis.tex thesis.bib thesis.aux 
 #	$(warning bib target)
@@ -32,6 +32,9 @@ thesis.aux: $(TEXFILES) vc.tex
 #	$(warning aux target)
 	$(LATEX) $< $(REDIR); true
 
+%.sout: %.sage
+	python sagetex/remote-sagetex.py -s http://cerberus.sethjust.com:8000 -u admin -p robots $<
+
 sections: intro.pdf fourier.pdf tfcns.pdf
 
 %-diff: %.tex thesis.tex chpreamble.tex vc.tex
@@ -42,14 +45,18 @@ sections: intro.pdf fourier.pdf tfcns.pdf
 	read revision;\
 	latexdiff-git --commit=$$revision --force $<
 
-clean: diffclean
+vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
+	sh vc -m
+
+clean: diffclean sageclean
 	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm vc.tex
 
 diffclean:
 	$(RM) *_new.tex *_old.tex *_diff.*
 
+sageclean:
+	$(RM) *.sage *.sout 
+	$(RM) -r sage-plots-for-*
+
 reallyclean:
 	$(RM) *.pdf
-
-vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
-	sh vc -m
