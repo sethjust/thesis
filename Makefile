@@ -16,6 +16,7 @@ pdf: thesis.pdf
 
 %.pdf: %.tex thesis.aux thesis.bbl thesis.blg
 #	$(warning pdf target)
+	$(LATEX) $< $(REDIR); true
 	diff $*.sage .$*.sage.bak || make $*.sout
 	cp $*.sage .$*.sage.bak
 	$(LATEX) $< 
