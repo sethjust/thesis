@@ -14,24 +14,42 @@
       We are interested in \emph{topology} on spaces of functions, with the goal of finding a topology for the space of distributions.
       Recall:
       \begin{defn}
-        A \emph{topology} on a set $X$ is a set $\tau\subseteq2^X$ that satisfies:
+        A \emph{topological space} is a set $X$ and a set $\tau$ of subsets of $X$ that satisfies:
         \begin{itemize}
-          \item $\emptyset,X\in\tau$,
+          \item The empty set $\emptyset$ and the whole space $X$ are elemets of $\tau$,
           \item $\tau$ is closed under arbitrary union,
           \item $\tau$ is closed under finite intersection.
         \end{itemize}
+        We call $\tau$ a \emph{topology on $X$}.
 
-      Given a set $X$ with a \emph{metric} $d:X^2\rightarrow\R$, we take all sets of the form $\{x\in X:d(x,y)<\alpha\}$ for $y\in X$ and $\alpha\in\R$ as a basis for a set $\tau_d$, which is verifiably a topology on $X$.
-
-      Finally, for a vectorspace $X$ over $\C$ with a \emph{norm} $|\cdot|:X\rightarrow\R$, we define a metric on $X$ by $d(x,y)=|x-y|$, and so can define a topology on $X$ by means of this metric.
+        Given a set $X$ with a \emph{metric} $d:X^2\rightarrow\R$, we take all sets of the form $\{x\in X:d(x,y)<\alpha\}$ for $y\in X$ and $\alpha\in\R$ as a basis for a set $\tau_d$, which is verifiably a topology on $X$.
       \end{defn}
 
-      This final form of this definition is particularly useful in this context, as sets of functions \emph{naturally} form vectorspaces over \C, by defining operations pointwise:
+      Working with this definition for arbitrary sets is not fun---it is only by taking advantage of additional structure on $X$ (such as a metric) that the topology is easily understood, in part because it allows us to apply physical intuition about \emph{size}. 
+      We hope that we can find some structure in spaces of functions that will allow us to easily understand the topologies we work with.
+      Recall:
+      \begin{defn}
+        A \emph{norm} on a vectorspace $X$ over a field $F$ is a function
+        \begin{align*}
+          |\cdot|_X:X\longrightarrow\R
+        \end{align*}
+        that satisfies for all $x,y\in X$, $a\in F$:
+        \begin{itemize}
+          \item Positive Scalability: $|ax|_X=|a|\cdot|x|_X$
+          \item Triangle Inequality: $|x+y|\le|x|+|y|$
+          \item Separation of points: $|x|=0\Leftrightarrow x=0_X$.
+        \end{itemize}
+        We often drop the subscript and distinguish between a norm and the real absolute-value function by context.
+      \end{defn}
+
+      Now suppose that $X$ is a normed vectorspace over $\C$.
+      We define a metric on $X$ by $d(x,y)=|x-y|$, and so can define a topology on $X$ by means of this metric.
+      This construction is particularly useful in our context, as sets of functions \emph{naturally} form vectorspaces over \C, by defining operations pointwise:
       \begin{align*}
         (f+g)(x) &= f(x)+g(x)\\
         (a\cdot f)(x) &= a\cdot f(x)
       \end{align*}
-      As such, we need only introduce a concept of \emph{size} on functions in order to get a topology on a set of functions (supposing it is closed under vectorspace operations).
+      As such, we need only introduce a concept of size (via a \emph{norm}) on functions in order to get a topology on a set of functions (supposing it is closed under vectorspace operations).
       Importantly though, we care much more about the resulting \emph{topology} than we do about the norm, as topology is a more general (and relevant) concept.
 
       Consider the space $C^0_0(\R)$ of complex-valued, continuous functions vanishing at infinity, which is a vectorspace over $\C$.
@@ -46,11 +64,11 @@
         The sup norm on $C^0_0(\R)$ is always finite.
         \begin{proof}
           Let $f\in C^0_0(\R)$, so it vanishes at infinity.
-          Thus, given $\varepsilon>0$ we have $N_\varepsilon>0$ such that $|x|>N\Rightarrow f(x)<\varepsilon$.
+          Thus, given $\varepsilon>0$ we have $N>0$ such that $|x|>N\Rightarrow f(x)<\varepsilon$.
           This allows us to write
           \begin{align*}
             |f|_{C^0_0} &= \sup_{x\in\R}|f(x)|\\
-            &= \max\left(\sup_{|x|<N_\varepsilon}|f(x)|,\varepsilon\right)
+            &= \max\left(\varepsilon,\,\sup_{|x|<N}|f(x)|\right)
           \end{align*}
           which is finite by the extreme value theorem.
         \end{proof}
@@ -69,6 +87,7 @@
 
       Finally, we see that we have managed to construct a nicely behaved topological space:
       \begin{thm}
+        \label{thm:c00complete}
         The space $C^0_0(\R)$ of continuous functions vanishing at infinity is \emph{complete}.
       \end{thm}
       \begin{proof}
@@ -82,7 +101,7 @@
         Now for $\varepsilon'>0$ take $j>N$ so that $|f_j(x)-f(x)|<\varepsilon'$.
         Then for $i>N$
         \begin{align*}
-          |f_i(x)=f(x)|\le|f_i(x)-f_j(x)|+|f_j(x)-f(x)|<\varepsilon+\varepsilon'\text{.}
+          |f_i(x)-f(x)|\le|f_i(x)-f_j(x)|+|f_j(x)-f(x)|<\varepsilon+\varepsilon'\text{.}
         \end{align*}
         Taking the limit as $\varepsilon'\rightarrow0$, we see $|f_i(x)-f(x)|<\varepsilon$ for \emph{all} $x$.
         Thus the convergence $\{f_i\}\rightarrow f$ is \emph{uniform} in $x$.
@@ -109,7 +128,7 @@
 
     \subsection{Spaces of differentiable functions}
       We now turn to the issue of \emph{differentiability}.
-      Define the space 
+      For $k>0$ define the space 
       \begin{align*}
         C^k_0(\R) = \{f\in C^0_0(\R) : f'\in C^{k-1}_0(\R)\}
       \end{align*}
@@ -118,6 +137,7 @@
       \begin{align*}
         |f|_{C^k} = \sum_{0\le i\le k} |f^{(i)}|_{C^0} = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)|
       \end{align*}
+      Note that for $k=0$, this definition agrees with the $C^0$ norm.
       \begin{rmk}
         The $C^k$ norm (or ``sum~sup'' norm) gives the same topology as the ``sup~sup'' norm:
         \begin{align*}
@@ -127,31 +147,142 @@
         \begin{align*}
           \sup_i a_i \le \sum_i a_i \le (k-1) \sup_i a_i\text{.}
         \end{align*}
-        As such, the two can be used interchangeably, as we are concerned only with the resultant topology.
+        Thus the two can be used interchangeably, as we are concerned only with the resultant topology.
       \end{rmk}
       \begin{rmk}
         \todo{differentiation: $C^k_0\rightarrow C^{k-1}_0$ is continuous}
       \end{rmk}
       \begin{thm}
+        \label{thm:ck0complete}
         $C^k_0(\R)$ is complete in the $C^k$-norm topology.
-        \begin{proof}
-          \todo{this}
-        \end{proof}
       \end{thm}
+      \begin{proof}
+        Consider the case $k=1$; this will extend inductively to all $k$.
+        Let $\{f_i\}$ be Cauchy in $C^k_0$.
+        Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in $C^0_0$, by definition of the $C^0_0$ (sup) norm and $C^k_0$ norm, each is Cauchy in $C^0_0$.
+        Thus by \thref{thm:c00complete} each sequence converges uniformly pointwise, so we can write:
+        \begin{align*}
+          &f(x)=\lim_n f_i(x) &g(x)=\lim_n f_i'(x)
+        \end{align*}
+        We now hope to show that $f$ is differentiable, and so an element of $C^k_0$.
+        Since each $f_i$ is continuous and differentiable, write
+        \begin{align*}
+          f_i(x)-f_i(a) = \int_a^x f_i'(t)\,dt
+        \end{align*}
+        Taking the limit, and exchanging limit and integral (by the Lebesgue Dominated Convergence Theorem)
+        \begin{align*}
+          \lim_i f_i(x)-f_i(a) &= \lim_i\int_a^x f_i'(t)\,dt\\
+          &= \int_a^x\lim_if_i(t)\,dt\\
+          f(x)-f(a) &= \int_a^x g(t)\,dt
+        \end{align*}
+        so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^k_0$.
+      \end{proof}
 
     \subsection{Spaces of decaying functions}
       Now consider the issue of \emph{decay}.
       Recall that Schwartz functions are \emph{rapidly decaying}, so their product with any power of $x$ vanishes at infinity.
-      Define
+      For $\ell\ge0$ define (for now)
       \begin{align*}
-        C^k_\ell(\R) = \{f\in C^k_0(\R):x^\ell f^{(i)}(x)\text{ vanishes at infinity for all } i\le k\}
+        C^0_\ell(\R) = \{f\in C^0_0(\R):(1+x^2)^\ell f(x)\in C^0_0\}
       \end{align*}
+      with the norm:
+      \begin{align*}
+        |f| = |(1+x^2)^\ell f|_{C^0_0} = \sup_{x\in\R} |(1+x^2)^\ell f(x)|
+      \end{align*}
+      These definitions are slightly ugly -- secretly we want the $(1+x^2)$ to be an $x$, but importantly $(1+x^2)^\ell\ge1$ for all $x$ and $\ell$.
+      As the next proof shows, this is important!
+      Replacing $(1+x^2)^\ell$ with $x^\ell$ in the definition would allow our functions to be misbehaved near the origin, which would allow us to construct a non-convergent Cauchy sequence.
       \begin{thm}
-        $C^k_\ell(\R)$ is complete in the $C^k$-norm topology.
-        \begin{proof}
-          \todo{this}
-        \end{proof}
+        \label{thm:c0lcomplete}
+        $C^0_\ell(\R)$ is complete in its topology.
       \end{thm}
+      \begin{proof}
+        Take a Cauchy sequence of $C^0_\ell$ functions $\{f_i\}$.
+        Because each $f_i\in C^0_0$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $C^0_0$, as in the proof of \thref{thm:c00complete}.
+        However, this only holds if $\{f_i\}$ is Cauchy in $C^0_0$. 
+
+        By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$
+        \begin{align*}
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^0_0} < \varepsilon
+        \end{align*}
+        Calculate 
+        \begin{align*}
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^0_0}
+          &= \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|\\
+          &\ge \sup_{x\in\R}|f_i(x)-f_j(x)|\\
+          &= |f_i-f_j|_{C^0_0}
+        \end{align*}
+        So $|f_i-f_j|_{C^0_0}<\varepsilon$, and so $\{f_i\}\rightarrow f\in C^0_0$.
+        Thus it remains only to show that $(1+x^2)^\ell f(x)$ is $C^0_0$.
+        
+        By hypothesis the sequence $\{(1+x^2)^\ell f_i\}$ in $C^0_0$ is Cauchy.
+        Then it has a limit in $C^0_0$, say $g$.
+        We hope that $g(x)=(1+x^2)^\ell f(x)$.
+        For $\varepsilon>0$ use the fact that \emph{both} sequences are Cauchy to pick $i$ so that $|(1+x^2)^\ell f_i - g|<\varepsilon$ and $|f_i - f|<\varepsilon$.
+        Then for all $x$ 
+        \begin{align*}
+          |g(x) - (1+x^2)^\ell f(x)| &\le |(1+x^2)^\ell f_i(x) - g(x)|+|(1+x^2)^\ell||f_i(x)-f(x)|\\
+          &< \varepsilon + |(1+x^2)^\ell|\varepsilon
+        \end{align*}
+        Because $\varepsilon$ is arbitrarily small we can force $|g(x)-(1+x^2)^\ell f(x)|$ to become arbitrarily small for any $x$, and so we conclude that $g=(1+x^2)^\ell f$.
+        \todo{make sure it's okay that this isn't uniform}
+        Thus $(1+x^2)^\ell f$ is $C^0_0$, and so $f\in C^0_\ell$.
+      \end{proof}
+
+      With the basic cases proved, we now hope to define a Banach space that is parameterized by both smoothness and decay properties.
+      We define
+      \begin{align*}
+        C^k_\ell(\R) = \{f\in C^k_0(\R):(1+x^2)^\ell f^{(i)}(x)\in C^{k-i}_0\text{ for all } i\le k\}
+      \end{align*}
+      with the norm
+      \begin{align*}
+        |f|_{C^k_\ell} = |(1+x^2)^\ell f|_{C^k} = \sum_{0\le i\le k} \sup_{x\in\R} |(1+x^2)^\ell f^{(i)}(x)|
+      \end{align*}
+      Note that for $k=0$, $C^k_\ell=C^0_\ell$, and their respective norms agree.
+      \begin{thm}
+        $C^k_\ell(\R)$ is complete in its topology.
+      \end{thm}
+      \begin{proof}
+        Again we consider the case of $k=1$ and allow the argument to extend inductively.\todo{give this some attention to make it solid}
+
+        Take $\{f_i\}$ to be Cauchy in $C^k_\ell$.
+
+        We want to show that the sequence is Cauchy in another norm, as in \thref{thm:c0lcomplete}.
+        By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$
+        \begin{align*}
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^k} < \varepsilon
+        \end{align*}
+        Calculate
+        \begin{align*}
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^k}
+          &= \sum_{0\le h\le k}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
+          &\ge \sum_{0\le h\le k}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
+          &= |f_i-f_j|_{C^k}
+        \end{align*}
+        Thus $\{f_i\}$ is Cauchy in $C^k_0$.
+        From \thref{thm:ck0complete} we then see that $\{f_i\}$ is Cauchy in $C^k_0$ and so $\{f_i\}\rightarrow f$ in $C^k_0$ and $\{f_i'\}\rightarrow g$ in $C^{k-1}_0$ with $f'=g$.
+
+        We now only need to show that $(1+x^2)^\ell f\in C^k_0$ and $(1+x^2)^\ell g\in C^{k-1}_0$.
+        If we can show that $\{f_i\}$ is Cauchy in $C^0_\ell$ then we'll see that $(1+x^2)^\ell f\in C^0_0$ by \thref{thm:c0lcomplete}.
+        Similarly, if we show that $\{f_i'\}$ is Cauchy in $C^0_\ell$, we'll see that $(1+x^2)^\ell g\in C^0_0$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^k_0$.
+        Calculate
+        \begin{align*}
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^k}
+          &= \sum_{0\le h\le k}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
+          &\ge \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
+        \end{align*}
+        which is exactly the norm of $f_i-f_j$ in $C^0_\ell$.
+        The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in $C^0_\ell$, and so $(1+x^2)^\ell f$ and $(1+x^2)^\ell g$ are elements of $C^0_0$.
+
+        Finally we calculate
+        \begin{align*}
+          \frac{d}{dx}(1+x^2)^\ell f(x)
+          &= (1+x^2)^\ell f'(x) + \ell(1+x^2)^{\ell-1}2xf(x)\\
+          &\le (1+x^2)^\ell g(x) + 2\ell(1+x^2)^\ell f(x)
+        \end{align*}
+        We have just shown that both summands are $C^0_0$, and so vanish at infinity.
+        Thus, by the definition of $C^k_0$, $f\in C^k_0$, and so $C^k_\ell$ is complete in its topology, and thus Banach.
+      \end{proof}
 
     \section{Products and Limits of Topological Spaces}
 
