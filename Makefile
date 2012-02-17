@@ -14,31 +14,30 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-%.pdf: %.tex thesis.aux thesis.bbl thesis.blg
-#	$(warning pdf target)
+sections: intro.pdf fourier.pdf tfcns.pdf
+
+%.pdf: %.tex vc.tex thesis.bib
+# Run latex
 	$(LATEX) $< $(REDIR); true
-	diff $*.sage .$*.sage.bak || make $*.sout
+# Check if bib changed
+	make $*.bbl $*.blg
+# Check if sage changed; can't make recursively b/c latex overwrites the .sage
+	diff $*.sage .$*.sage.bak || python sagetex/remote-sagetex.py -f remote-sagetex.conf $<
 	cp $*.sage .$*.sage.bak
-	$(LATEX) $< 
+# Final run(s) of latex
+	$(LATEX) $< $(REDIR)
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	echo "*** Errors for $< ***"; true
 	egrep -i "((Reference|Citation).*undefined|Unaddressed TODO)" $*.log ; true
 
-thesis.bbl thesis.blg: thesis.tex thesis.bib thesis.aux 
-#	$(warning bib target)
-	$(BIBTEX) thesis $(REDIR); true
+vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
+	sh vc -m
+
+%.bbl %.blg: %.tex thesis.bib
+	$(BIBTEX) $* $(REDIR); true
 	$(LATEX) $< $(REDIR); true
-	egrep -c $(RERUNBIB) thesis.log $(REDIR) && ($(BIBTEX) thesis $(REDIR);$(LATEX) $< $(REDIR)) ; true
-
-thesis.aux: $(TEXFILES) vc.tex
-#	$(warning aux target)
-	$(LATEX) $< $(REDIR); true
-
-%.sout: %.sage 
-	python sagetex/remote-sagetex.py -f remote-sagetex.conf $<
-
-sections: intro.pdf fourier.pdf tfcns.pdf
+	egrep -c $(RERUNBIB) $*.log $(REDIR) && ($(BIBTEX) $* $(REDIR);$(LATEX) $< $(REDIR)) ; true
 
 %-diff: %.tex thesis.tex chpreamble.tex vc.tex
 	latexdiff-git --force $<
@@ -47,9 +46,6 @@ sections: intro.pdf fourier.pdf tfcns.pdf
 	echo "enter commit ID for diff:";\
 	read revision;\
 	latexdiff-git --commit=$$revision --force $<
-
-vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
-	sh vc -m
 
 clean: diffclean sageclean
 	$(RM) *.log *.aux *.toc *.tof *.tog *.bbl *.blg *.pdfsync *.d *.dvi *.out *.thm vc.tex
