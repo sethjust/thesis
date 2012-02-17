@@ -6,21 +6,23 @@ RM = rm -f
 RERUN = "(There were undefined references|Rerun to get ((cross-references|the bars) right|citations correct))"
 RERUNBIB = "No file.*\.bbl|Citation.*undefined"
 
-TEXFILES = thesis.tex chpreamble.tex ack.tex intro.tex fourier.tex schwartz.tex tfcns.tex dists.tex conclusion.tex
+TEXFILES = thesis.tex ack.tex intro.tex fourier.tex schwartz.tex tfcns.tex dists.tex conclusion.tex
 
 .SILENT:
+
+.PHONY: all pdf sections %-bib thesis-bib clean diffclean sageclean reallyclean
 
 all: thesis.pdf
 
 pdf: thesis.pdf
 
-sections: intro.pdf fourier.pdf tfcns.pdf
+sections: intro.pdf fourier.pdf schwartz.pdf
 
-%.pdf: %.tex vc.tex thesis.bib
+%.pdf: %.tex chpreamble.tex vc.tex thesis.bib
 # Run latex
 	$(LATEX) $< $(REDIR); true
 # Check if bib changed
-	make $*.bbl $*.blg
+	make $*-bib
 # Check if sage changed; can't make recursively b/c latex overwrites the .sage
 	diff $*.sage .$*.sage.bak || python sagetex/remote-sagetex.py -f remote-sagetex.conf $<
 	cp $*.sage .$*.sage.bak
@@ -34,7 +36,12 @@ sections: intro.pdf fourier.pdf tfcns.pdf
 vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
 	sh vc -m
 
-%.bbl %.blg: %.tex thesis.bib
+%-bib: %.tex thesis.bib %.bbl %.blg
+	true
+
+thesis-bib: $(TEXFILES) thesis.bib thesis.bbl thesis.blg
+
+%.bbl %.blg: %.aux thesis.bib
 	$(BIBTEX) $* $(REDIR); true
 	$(LATEX) $< $(REDIR); true
 	egrep -c $(RERUNBIB) $*.log $(REDIR) && ($(BIBTEX) $* $(REDIR);$(LATEX) $< $(REDIR)) ; true
@@ -54,8 +61,8 @@ diffclean:
 	$(RM) *_new.tex *_old.tex *_diff.*
 
 sageclean:
-	$(RM) *.sage *.sout .*.sage.bak
+	$(RM) *.sage *.sout
 	$(RM) -r sage-plots-for-*
 
 reallyclean:
-	$(RM) *.pdf
+	$(RM) *.pdf .*.sage.bak
