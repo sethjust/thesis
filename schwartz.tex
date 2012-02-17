@@ -36,10 +36,10 @@
         that satisfies for all $x,y\in X$, $a\in F$:
         \begin{itemize}
           \item Positive Scalability: $|ax|_X=|a|\cdot|x|_X$
-          \item Triangle Inequality: $|x+y|\le|x|+|y|$
-          \item Separation of points: $|x|=0\Leftrightarrow x=0_X$.
+          \item Triangle Inequality: $|x+y|_X\le|x|_X+|y|_X$
+          \item Separation of points: $|x|_X=0\Leftrightarrow x=0_X$.
         \end{itemize}
-        We often drop the subscript and distinguish between a norm and the real absolute-value function by context.
+        Notationally, some subscripts are dropped and we distinguish between a norm and the real absolute-value function by context.
       \end{defn}
 
       Now suppose that $X$ is a normed vectorspace over $\C$.
@@ -137,7 +137,7 @@
       \begin{align*}
         |f|_{C^k} = \sum_{0\le i\le k} |f^{(i)}|_{C^0} = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)|
       \end{align*}
-      Note that for $k=0$, this definition agrees with the $C^0$ norm.
+      Note that for $k=0$, this is exactly the $C^0$ norm.
       \begin{rmk}
         The $C^k$ norm (or ``sum~sup'' norm) gives the same topology as the ``sup~sup'' norm:
         \begin{align*}

@@ -133,7 +133,7 @@
           &= \int_{\xi\in\R} \F f(\xi)e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
           &= \int_{\xi\in\R} \int_{y\in\R} f(y)\psi(y,\xi)\,dy\,e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
           &= \int_{y\in\R} f(y) \int_{\xi\in\R} e^{-k\xi^2t}\psi(x+y,\xi)\,d\xi\,dy\\
-          &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-|x-y|^2/4kt}\,dy
+          &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-(x-y)^2/4kt}\,dy
         \end{align*}
         which is verifiably a solution to the heat equation.
 
@@ -331,7 +331,7 @@
       \begin{align*}
         \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\text{ for }\varphi\in\S
       \end{align*}
-      The key point is that these definitions are \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define \F on $\S^*$.
+      The key point is that these definitions are \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define the Fourier transform on~$\S^*$.
 
       We would now like to show that the Fourier Transform on $\S^*$ behaves as nicely as it does on \S.
       Because we chose our definition to be consistent with viewing Schwartz functions as tempered distributions, much of this nice behaviour is inherited.
