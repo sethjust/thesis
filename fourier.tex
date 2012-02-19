@@ -1,16 +1,25 @@
 \input{chpreamble}
   \chapter{Fourier Inversion}
 
-    Consider the oscillation
+    Consider the function
     \begin{align*}
       \psi:\R\times\R\longrightarrow\C\\
       \psi(x,\xi) = e^{2\pi i \xi x}
     \end{align*}
-    As $x$ varies for a fixed $\xi$, $\psi$ is the frequency-$\xi$ oscillation on the line---a ``pure tone.''
+    As $x$ varies for a fixed $\xi$, $\psi$ is a complex sinusoidal oscillation with frequency $\xi$\footnotemark---a ``pure tone.''
+    \footnotetext{
+      We think of $x$ as a \emph{physical} parameter (position), while $\xi$ is a \emph{frequency} parameter.
+      Some confusion comes from the fact that $x$ and $\xi$ are both real numbers; we track the distinction because Fourier analysis generally occurs in cases where physical and frequency space are distinct.
+      In fact, much of this chapter extends to having $\R^n$ as the physical space with little work, which further motivates clear notation of physical variables.
+    }
     Just as interesting sounds are combinations of different frequencies, we can view functions as being built from these oscillations. \todo{sell this much better}
 
-    Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation.
-    The idea is that by looking at what frequencies $f$ matches, we'll know exactly what oscillations it's built out of.
+    Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation by integrating the two against each other.
+    We think of this integration as taking an inner product---measuring the amount to which two vectors parallel one another.
+    Because any two oscillations of different frequency have inner product 0 we think of them as \emph{orthogonal}, meaning that any frequency's inner product with $f$ is independent of any others.
+    We hope that by knowing how well $f$ matches any frequency, we're able to exactly rebuild $f$.
+    This process of translating a function from physical to frequency space, and (hopefully) back, is the subject matter of \emph{Fourier analysis}.
+
     \begin{defn}
       The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function 
       \begin{align*}
@@ -25,9 +34,9 @@
       \vspace{-15pt}
     \end{defn}
 
-    Intuitively we want to be able to say that $\F^{-1}(\F f)$ is a function that has the frequency spectrum described by $\F f$, or that $\F^{-1}\F f = f$, so the normal and inverse Fourier transforms are inverses. \todo{fix this sentence.}
+    We hope that $\F^{-1}$ does in fact invert $\F$, so that for any $f$, $\F^{-1}\F f = f$---that is, applying the inverse Fourier transform to the frequency spectrum of $f$ gives us back $f$.
     However, this claim is difficult to make because the integrals are not always defined.
-    For example, $\F1(0)=\int_{-\infty}^\infty1$ is clearly non-convergent.
+    For example, $\F1(0)=\int_{-\infty}^\infty1$ is clearly divergent.
     In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible, and so we need to limit our space of functions so that the Fourier transform works nicely.
     It is worth noting at this point that $\F^{-1}g(x) = \F g(-x)$, and so any properties of the Fourier transform extend to the inverse Fourier transform, meaning we only need consider the former.
 
@@ -60,7 +69,7 @@
 %            \end{align*}
         \end{itemize}
       \end{defn}
-      The following lemma gives identities that can be computed directly from definition with moderate conditions on the functions considered.
+      The following lemma gives identities that can be computed directly from definition.
       \begin{lemma}
         \label{lemma:fourprops}
 %        Let $a,b\in\R$ and take $f,g:\R\rightarrow\C$ to be piecewise continuous and integrable, which guarantees that their Fourier transforms are always convergent\footnotemark (although they need not be continuous or integrable). 
@@ -98,7 +107,7 @@
       This result demonstrates the key properties of the Fourier transform:
       \begin{itemize}
         \item It is linear;
-        \item It exchanges translation and multiplication by an oscillation;
+        \item It exchanges multiplication by an oscillation and translation;
         \item It exchanges multiplication by $x$ and differentiation.
       \end{itemize}
 
@@ -107,12 +116,14 @@
         \label{ex:heateq}
         Consider a long metal wire whose temperature distribution at time $t=0$ is given by a function $f(x)$.
         We would like to describe the temperature distribution on the wire as time passes.
-        If we write the temperature of a point $x$ on the wire at time $t>0$ as $u(x,t)$, by the \emph{heat equation} from physics we have that
+
+        Write the temperature of a point $x$ on the wire at time $t>0$ as $u(x,t)$.
+        The \emph{heat equation} from physics tells us that
         \begin{align*}
           \frac{\partial}{\partial t}u(x,t) &= \alpha\frac{\partial^2}{\partial x^2}u(x,t)
         \end{align*}
         for some $\alpha$ in \R that depends on the properties of our wire. 
-        Noting that the Fourier transform exchanges differentiation and multiplication by a variable, we take the Fourier transform of our differential equation with respect to the $x$ parameter.
+        Noting that the Fourier transform exchanges differentiation and multiplication by a variable, we take the Fourier transform of our differential equation with respect to the spatial variable ($x$).
         \begin{align*}
           \F_x\left(\frac{\partial}{\partial t}u(x,t)\right) &= \F_x\left(\alpha\frac{\partial^2}{\partial x^2}u(x,t)\right)\\
           \frac{\partial}{\partial t}\F_xu(\xi,t) &= -k\xi^2\F_xu(\xi,t)
@@ -121,23 +132,25 @@
         \todo{double check that passing the derivative through is fine if $u$ is nice.}
         The initial condition $u(x,0)=f(x)$ is transformed to $\F_xu(\xi,0) = \F f(\xi)$.
         
-        Note that these transformations have made the differential equation easier to solve, by replacing $x$ derivatives with multiples of $\xi$.
+        As we hoped, these transformations have made the differential equation easier to solve, by replacing $x$ derivatives with multiples of $\xi$.
         Solving yields
         \begin{align*}
           \F_xu(\xi,t) &= c(\xi)e^{-k\xi^2t}
         \end{align*}
         for some function $c$.
-        Our initial condition gives $c(\xi)=\F f(\xi)$, and so
+        Our initial condition gives $c(\xi)=\F_x f(\xi)$, and so
         \begin{align*}
-          u(x,t) &= \F^{-1}(e^{-k\xi^2t}\F f(\xi))\\
-          &= \int_{\xi\in\R} \F f(\xi)e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
+          u(x,t) &= \F^{-1}_\xi(e^{-k\xi^2t}\F_x f(\xi))\\
+          &= \int_{\xi\in\R} \F_x f(\xi)e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
           &= \int_{\xi\in\R} \int_{y\in\R} f(y)\psi(y,\xi)\,dy\,e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
           &= \int_{y\in\R} f(y) \int_{\xi\in\R} e^{-k\xi^2t}\psi(x+y,\xi)\,d\xi\,dy\\
           &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-(x-y)^2/4kt}\,dy
         \end{align*}
         which is verifiably a solution to the heat equation.
-
+        An example of this solution is shown in \autoref{fig:heateq}.
         \todo{more discussion}
+        \todo{mention at some point that this is a convolution with spikes that widen as time goes on -- still has meaning at t=0, but only as a distribution}
+
         \begin{figure}
           \begin{center}
             \begin{sagesilent}
@@ -149,20 +162,24 @@
             \end{sagesilent}
             \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false) for t,c in [(1/1000,(0,0,0)), (1/8,(.2,.2,.2)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
           \end{center}
-          \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ derived in Example \ref*{ex:heateq}}
+          \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ derived in Example \ref*{ex:heateq}.}
           \label{fig:heateq}
         \end{figure}
-        An example of this solution is shown in \autoref{fig:heateq}.
       \end{example}
 
     \section{Schwartz Functions}
-      We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, and so we may take Fourier transforms without concern, as we will always understand the result.
+      We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, so that we may take Fourier transforms without concern, as we will always understand the result.
 
-      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ \emph{vanishes at infinity}---that is, for any $\varepsilon>0$ there exists $N>0$ such that
+      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ is $L^1$-integrable---that is, when 
       \begin{align*}
-        |x|>N \Rightarrow f(x)<\epsilon
+        \int_{-\infty}^\infty f(x)\,dx < \infty
       \end{align*}
-      Thus the Fourier transform is always defined for functions that vanish at infinity.
+      Thus the Fourier transform is always defined for functions that \emph{vanish at infinity}\footnotemark and decay at least as fast as $x^{-2}$, which are sufficient conditions for $L^1$-integrability. \todo{fix this up}
+      \footnotetext{
+        That is, for any $\varepsilon>0$ there exists $N>0$ such that
+        \begin{align*}
+          |x|>N \Rightarrow f(x)<\epsilon
+        \end{align*}}
 
       We also observed in \thref{ex:heateq} that the Fourier transform is useful because of its ability to exchange differentiation and multiplication.
       To make use of this fact, we also want our space to be closed when we take derivatives or multiply by $x$.
@@ -219,8 +236,7 @@
           \begin{align*}
             \xi^k\F f(\xi) &= \left(\frac{1}{2\pi i}\right)^k \int_{x\in\R}f^{(k)}(x)\psi(x,\xi)\,dx
           \end{align*}
-          By definition $f^{(k)}$ is Schwartz, so we can apply the Riemann-Lebesgue Lemma because our decay conditions ensure that it will be integrable.
-          Thus $\lim_{|\xi|\rightarrow\infty} \xi^k\F f(\xi) = 0$, which is exactly the decay condition on Schwartz functions.
+          By definition $f^{(k)}$ is Schwartz, so we can apply the Riemann--Lebesgue Lemma and conclude $\lim_{|\xi|\rightarrow\infty} \xi^k\F f(\xi) = 0$, which is exactly the decay condition on Schwartz functions.
 
           Now we must show that $\F f$ is differentiable. 
           By \eqref{eq:xisdiff} we see
@@ -249,7 +265,7 @@
       \end{thm}
       To prove \thref{thm:fourinv} we first reduce it to the single case of $x=0$:
       \begin{claim}[Fourier inversion, granting inversion at 0]
-        Suppose that for all $\phi\in\S$, $(\F^{-1}\F\phi)(0) = \phi(0)$.
+        Suppose that for all\\$\phi\in\S$, $(\F^{-1}\F\phi)(0) = \phi(0)$.
         Then for all $\varphi\in\S$ and $x\in\R$, $(\F^{-1}\F\varphi)(x)=\varphi(x)$.
         \begin{proof}
           \begin{align*}
@@ -267,7 +283,7 @@
         The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
       \end{rmk}
       \begin{proof}[Proof of \thref{thm:fourinv}]
-        We first reduce the problem further, using a tricky function:
+        We first reduce the problem further, using a trick with simple function:
         Recall that the \emph{Gaussian} function $\gamma:\R\rightarrow\R$ given by $\gamma(x) = e^{-\pi x^2}$ has $\gamma=\F\gamma=\F^{-1}\gamma$, and that (clearly) $\gamma(0)=1$.
         Then 
         \begin{align*}
@@ -285,6 +301,7 @@
           \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
         \end{align*}
         Call this integral $\varphi$.
+        See that $\varphi$ is defined for \emph{all} $x$, which allows us to say that $\varphi(0)/0=\varphi'(0)$.
         We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
         Thus $\varphi\in\S$.
 
