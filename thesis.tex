@@ -1,4 +1,4 @@
-\documentclass[12pt]{reedthesis} %FIXME
+\documentclass[draft,12pt]{reedthesis}
 \usepackage{longtable,booktabs,setspace}
 \usepackage{indentfirst}
 
@@ -30,27 +30,20 @@
 \input{vc.tex}
 
 % Draft compiling options
-\usepackage[draft]{ifdraft}
+\usepackage{ifdraft}
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{! Custom Error: Unaddressed TODO!}}}}
+
+% Headers / Footers
+\setlength{\headheight}{15pt}
+
+% Draft revision footer
 \newcommand{\draftid}{DRAFT rev. \VCRevisionMod\ -- \VCDateRAW}
-\AtBeginDocument{%
-  \ifdraft{
-    \fancypagestyle{empty}{%
-      \fancyfoot[CO,CE]\draftid
-    }
-    \fancypagestyle{plain}{%
-      \fancyfoot[CO,CE]\draftid
-    }
-    \fancyfoot[CO,CE]\draftid
-  }{}
-}
 
 % Define a new style for the url package that will use a smaller font.
 \makeatletter
 \def\url@leostyle{%
   \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
 \makeatother
-% Now actually use the newly defined style.
 \urlstyle{leo}
 
 % Math symbols
@@ -117,7 +110,22 @@
 
   \maketitle
   \frontmatter
+
   \pagestyle{empty} % this removes page numbers from the frontmatter
+  \ifdraft{
+    \fancyfoot[CO,CE]\draftid
+    \fancypagestyle{plain}{%
+      \fancyhead{}%
+      \renewcommand\headrulewidth{0pt}
+      \fancyfoot[CO,CE]\draftid%
+    }
+  }{
+    \fancypagestyle{plain}{%
+      \fancyhead{}
+      \renewcommand\headrulewidth{0pt}
+      \fancyfoot{}
+    }
+  }
 
   \input{ack}
 
@@ -128,7 +136,21 @@
   \input{abstract}
 
   \mainmatter
-  \pagestyle{fancyplain} % turns page numbering back on
+
+  \pagestyle{fancy} % turns page numbering back on
+  \fancyhf{}
+  \fancyhead[LE,RO]{\thepage}
+  \fancyhead[RE]{\slshape \nouppercase \leftmark} % This makes the headers on the RIGHT side pages be italic and use lowercase With Capitals When Specified.
+  \fancyhead[LO]{\slshape \nouppercase \rightmark} % This does the same thing to the LEFT side pages
+  \ifdraft{
+    \fancyfoot[CO,CE]\draftid
+    \fancypagestyle{plain}{%
+      \fancyhead{}
+      \renewcommand\headrulewidth{0pt}
+      \fancyfoot[CO,CE]\draftid
+    }
+  }{
+  }
 
   % Content
   \subfile{intro}

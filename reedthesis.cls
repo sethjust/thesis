@@ -31,18 +31,6 @@
 
 % This gives us rules below the headers
 \AtBeginDocument{%
-  \fancyhf{}
-  \fancyhead[LE,RO]{\thepage}
-%  \fancyhead[RE]{\slshape \leftmark}
-%  \fancyhead[LO]{\slshape \rightmark}
-%	The above makes your headers in all caps. If you would like different headers, choose one of the following options (be sure to remove the % symbol from both the right and left headers):
-	\fancyhead[RE]{\slshape \nouppercase \leftmark} % This makes the headers on the RIGHT side pages be italic and use lowercase With Capitals When Specified.
-	\fancyhead[LO]{\slshape \nouppercase \rightmark} % This does the same thing to the LEFT side pages
-%	or
-%	\fancyhead[RE]{\scshape \leftmark} % The RIGHT headers will be in small caps.
-%	\fancyhead[LO]{\scshape \rightmark} %  And so will the LEFT headers
-  \pagestyle{fancy}
-
 % Psych majors: You do not need the following six lines, as it conflicts with apacite, so comment them out.
   \let\oldthebibliography=\thebibliography
   \let\endoldthebibliography=\endthebibliography
