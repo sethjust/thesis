@@ -24,7 +24,7 @@ sections: intro.pdf fourier.pdf schwartz.pdf
 # Check if bib changed
 	make $*-bib
 # Check if sage changed; can't make recursively b/c latex overwrites the .sage
-	!(diff $*.sage .$*.sage.bak) && (python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak ) || echo "\n Did not run sage; re-run with a valid connection!\n"
+	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
 # Final run(s) of latex
 	$(LATEX) $< $(REDIR)
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
