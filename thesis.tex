@@ -1,27 +1,19 @@
 \documentclass[12pt]{reedthesis} %FIXME
 \usepackage{longtable,booktabs,setspace}
 \usepackage{indentfirst}
-\usepackage[final]{graphicx} %final so that draft options don't mess w/ images
-\usepackage[hyphens]{url}
-  % Define a new 'leo' style for the url package that will use a smaller font.
-  \makeatletter
-  \def\url@leostyle{%
-    \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
-  \makeatother
-  % Now actually use the newly defined style.
-  \urlstyle{leo}
 
 % Start my packages here
+\usepackage[final]{graphicx} %final so that draft options don't mess w/ images
+\usepackage[final]{microtype}
 \usepackage{amsmath,amssymb}
 \usepackage{pdfsync}
+\usepackage[hyphens]{url}
 \usepackage{natbib}
-\usepackage{xspace}
 \usepackage{sagetex/sagetex}
-\usepackage[final]{microtype}
-
+\usepackage{xspace}
 \usepackage{subfiles}
-
 \usepackage{xcolor}
+
 \usepackage[utopia]{quotchap}
 \colorlet{chaptergrey}{black}
 
@@ -52,6 +44,14 @@
     \fancyfoot[CO,CE]\draftid
   }{}
 }
+
+% Define a new style for the url package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+% Now actually use the newly defined style.
+\urlstyle{leo}
 
 % Math symbols
 \DeclareMathOperator{\spt}{spt}
@@ -95,7 +95,7 @@
 
 % Proof-like environments
 \theorembodyfont{\normalfont}
-\theoremsymbol{\ensuremath{\Box}}
+\theoremsymbol{\makebox[-.1em][l]{\ensuremath{\Box}}} % Set QED outside margin
 \newtheoremstyle{proof} % Define a new style with bold header and upright body
   {\item[\hskip\labelsep \it ##1.]}%
   {\item[\hskip\labelsep \it ##3.]}
