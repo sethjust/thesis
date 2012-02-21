@@ -19,8 +19,7 @@ pdf: thesis.pdf
 sections: intro.pdf fourier.pdf schwartz.pdf
 
 %.pdf: %.tex %.aux %.sout %.bbl %.blg chpreamble.tex vc.tex
-	$(warning pdf target)
-	$(LATEX) $< $(REDIR)
+	$(LATEX) $< #$(REDIR)
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	echo "*** Errors for $< ***"; true
@@ -36,7 +35,6 @@ thesis.aux thesis.sage: $(TEXFILES)
 	$(LATEX) $< $(REDIR); true
 
 %.sout: %.sage
-	$(warning sout target)
 # Check if sage changed; can't use dates b/c latex overwrites the .sage
 	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
 
