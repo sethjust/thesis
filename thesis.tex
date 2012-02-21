@@ -57,35 +57,30 @@
 \newtheorem{thm}{Theorem}[chapter]
 \surroundwithmdframed[%
   skipabove=0.5\baselineskip,
-%  skipbelow=\baselineskip,
   ]{thm}
 
 \theoremstyle{plain}
 \theorembodyfont{\normalfont}
-\newtheorem{claim}[thm]{Claim}
-\newtheorem{lemma}[thm]{Lemma}
 
-% Definition-like environments
-\theoremstyle{definition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{claim}[thm]{Claim}
+
+\newtheorem{rmk}{Remark}[chapter]
+\newtheorem{example}{Example}[chapter]
+
 \newtheorem{defn}{Definition}[chapter]
 \surroundwithmdframed[%
   topline=false,
   rightline=false,
   bottomline=false,
   skipabove=0.5\baselineskip,
-%  skipbelow=\baselineskip,
   linewidth=1pt
   ]{defn}
-
-% Remark-like environments
-\theoremstyle{remark}
-\newtheorem{rmk}{Remark}[chapter]
-\newtheorem{example}{Example}[chapter]
 
 % Proof-like environments
 \theorembodyfont{\normalfont}
 \theoremsymbol{\makebox[-.1em][l]{\ensuremath{\Box}}} % Set QED outside margin
-\newtheoremstyle{proof} % Define a new style with bold header and upright body
+\newtheoremstyle{proof} % Define a new style with italic header and upright body
   {\item[\hskip\labelsep \it ##1.]}%
   {\item[\hskip\labelsep \it ##3.]}
 \theoremstyle{proof}
