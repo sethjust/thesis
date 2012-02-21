@@ -18,8 +18,9 @@ pdf: thesis.pdf
 
 sections: intro.pdf fourier.pdf schwartz.pdf
 
-%.pdf: %.tex %.aux %.sout %-bib chpreamble.tex vc.tex
-	$(LATEX) $< #$(REDIR)
+%.pdf: %.tex %.aux %.sout %.bbl %.blg chpreamble.tex vc.tex
+	$(warning pdf target)
+	$(LATEX) $< $(REDIR)
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	echo "*** Errors for $< ***"; true
@@ -28,22 +29,22 @@ sections: intro.pdf fourier.pdf schwartz.pdf
 vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
 	sh vc -m
 
-%.sout: %.sage
-# Check if sage changed; can't use dates b/c latex overwrites the .sage
-	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
-
-%-bib: %.tex thesis.bib %.bbl %.blg
-	true
-
-thesis-bib: $(TEXFILES) thesis.bib thesis.bbl thesis.blg
-
-%.bbl %.blg: %.aux thesis.bib
-	$(BIBTEX) $* $(REDIR); true
+thesis.aux thesis.sage: $(TEXFILES)
 	$(LATEX) $< $(REDIR); true
-	egrep -c $(RERUNBIB) $*.log $(REDIR) && ($(BIBTEX) $* $(REDIR);$(LATEX) $< $(REDIR)) ; true
 
 %.aux %.sage: %.tex
 	$(LATEX) $< $(REDIR); true
+
+%.sout: %.sage
+	$(warning sout target)
+# Check if sage changed; can't use dates b/c latex overwrites the .sage
+	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
+
+%.bbl %.blg: %.aux thesis.bib
+# Dependence on the aux makes sure we rerun when changed, but will fire too often
+	$(BIBTEX) $* $(REDIR); true
+	$(LATEX) $* $(REDIR); true
+	egrep -c $(RERUNBIB) $*.log $(REDIR) && ($(BIBTEX) $* $(REDIR);$(LATEX) $* $(REDIR)) ; true
 
 %-diff: %.tex thesis.tex chpreamble.tex vc.tex
 	latexdiff-git --force $<
