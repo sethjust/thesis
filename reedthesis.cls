@@ -31,6 +31,16 @@
 
 % This gives us rules below the headers
 \AtBeginDocument{%
+  \fancypagestyle{plain}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+  }
+  \pagestyle{fancy}
+  \fancyhf{}
+  \fancyhead[LE,RO]{\thepage}
+  \fancyhead[RE]{\slshape \nouppercase \leftmark}
+  \fancyhead[LO]{\slshape \nouppercase \rightmark}
+
 % Psych majors: You do not need the following six lines, as it conflicts with apacite, so comment them out.
   \let\oldthebibliography=\thebibliography
   \let\endoldthebibliography=\endthebibliography

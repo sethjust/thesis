@@ -18,15 +18,8 @@ pdf: thesis.pdf
 
 sections: intro.pdf fourier.pdf schwartz.pdf
 
-%.pdf: %.tex chpreamble.tex vc.tex thesis.bib
-# Run latex
-	$(LATEX) $< $(REDIR); true
-# Check if bib changed
-	make $*-bib
-# Check if sage changed; can't make recursively b/c latex overwrites the .sage
-	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
-# Final run(s) of latex
-	$(LATEX) $< $(REDIR)
+%.pdf: %.tex %.aux %.sout %-bib chpreamble.tex vc.tex
+	$(LATEX) $< #$(REDIR)
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	egrep $(RERUN) $*.log && $(LATEX) $< $(REDIR); true
 	echo "*** Errors for $< ***"; true
@@ -34,6 +27,10 @@ sections: intro.pdf fourier.pdf schwartz.pdf
 
 vc.tex: vc vc-git.awk .git/logs/HEAD $(TEXFILES)
 	sh vc -m
+
+%.sout: %.sage
+# Check if sage changed; can't use dates b/c latex overwrites the .sage
+	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
 
 %-bib: %.tex thesis.bib %.bbl %.blg
 	true
@@ -44,6 +41,9 @@ thesis-bib: $(TEXFILES) thesis.bib thesis.bbl thesis.blg
 	$(BIBTEX) $* $(REDIR); true
 	$(LATEX) $< $(REDIR); true
 	egrep -c $(RERUNBIB) $*.log $(REDIR) && ($(BIBTEX) $* $(REDIR);$(LATEX) $< $(REDIR)) ; true
+
+%.aux %.sage: %.tex
+	$(LATEX) $< $(REDIR); true
 
 %-diff: %.tex thesis.tex chpreamble.tex vc.tex
 	latexdiff-git --force $<
@@ -60,8 +60,8 @@ diffclean:
 	$(RM) *_new.tex *_old.tex *_diff.*
 
 sageclean:
-	$(RM) *.sage *.sout
+	$(RM) *.sage *.sout .*.sage.bak
 	$(RM) -r sage-plots-for-*
 
 reallyclean:
-	$(RM) *.pdf .*.sage.bak
+	$(RM) *.pdf
