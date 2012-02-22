@@ -58,6 +58,8 @@
 \theoremseparator{.}
 \newtheorem{thm}{Theorem}[chapter]
 \surroundwithmdframed[%
+  innertopmargin=3pt,
+  innerbottommargin=3pt,
   skipabove=0.5\baselineskip,
   ]{thm}
 
@@ -72,6 +74,11 @@
 
 \newtheorem{defn}{Definition}[chapter]
 \surroundwithmdframed[%
+  usetwoside=false,
+  leftmargin=-5pt,
+  innerleftmargin=5pt,
+  innertopmargin=0pt,
+  innerbottommargin=0pt,
   topline=false,
   rightline=false,
   bottomline=false,
