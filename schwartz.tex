@@ -294,8 +294,9 @@
       We hope that this work will allow us to find useful topological structure for the space of Schwartz functions, which have \emph{infinitely} many derivatives and infinitely fast decay.
       This is exactly the process of taking a limit---we want to say $\S=\lim\limits_{k,\ell}C^k_\ell$, but this tells us nothing about the \emph{topology} of such a limit.
       Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behaviour of the limit object we can see what the topology on \S must be.
-
-      First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
+      Thus we define the product by a mapping-property:
+%
+%      First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
       \begin{defn}
         Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
         The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
@@ -344,6 +345,48 @@
           Because the identity mapping trivially satisfies the requirements for $p\circ q$, by uniqueness $p\circ q=id$, and so $p=q^{-1}$, and so $X$ and $Y$ are (continuously) isomorphic.
         \end{proof}
       \end{claim}
+
+      Now that we have shown that our mapping-property definition gives a unique product, we hope to investigate properties of this product.
+      From our definition, we hope that by considering various sets $Z$ and maps $f_\alpha$ we can learn about $X$.
+      \todo{discussion around these proofs}
+      \begin{claim}
+        For $x,y\in X$, $x\ne y$, there is some $\alpha\in A$ such that $p_\alpha(x)\ne p_\alpha(y)$.
+        \begin{proof}
+          First, suppose that $p_\alpha(x)=p_\alpha(y)$ for all $\alpha$.
+          Now let $Z$ be the one-element set $\{z\}$, and define $f_\alpha(z)=p_\alpha(x)$.
+          By hypothesis, there exists some map $f:Z\rightarrow X$ satisfying $f_\alpha = p_\alpha \circ f$.
+          Because maps from one-element sets are wholly determined by their images, we see that $p_\alpha(f(z))=f_\alpha(z)$, so $p_\alpha(f(z))=p_\alpha(x)$.
+          But $f(z)=x$ \emph{and} $f(z)=y$ satisfy this condition, contradicting the uniqueness of the mapping $f$.
+        \end{proof}
+      \end{claim}
+
+      \begin{claim}
+        For any set $\{x_\alpha:\alpha\in A\}$ with $x_\alpha\in X_\alpha$ there exists some $x\in X$ such that $p_\alpha(x)=x_\alpha$ for all $\alpha$.
+        \begin{proof}
+          Again take the one-element set $Z=\{z\}$ with maps $f_\alpha(z)=x_\alpha$.
+          Then $p_\alpha(f(z))=f_\alpha(z)=x_\alpha$.
+          The element $x=f(z)$ is the desired one.
+        \end{proof}
+      \end{claim}
       
+      Moving on, we hope to gain an understanding of the product as a \emph{set} before considering its topology.
+      \begin{claim}
+        As a \emph{set} the product of topological spaces is the normal (Cartesian) product
+        \begin{align*}
+          X = \{\{x_\beta:\beta\in A\}: x_\beta\in X_\beta\}
+        \end{align*}
+        with projections
+        \begin{align*}
+          p_\alpha(\{x_\beta:\beta\in A\}) = x_\alpha\text{.}
+        \end{align*}
+        \begin{proof}
+          Consider a collection of $X_\alpha$.
+          For a set $Z$ and some collection of maps $f_\alpha:Z\rightarrow X_\alpha$, the map $f:Z\rightarrow X$ given by
+          \begin{align*}
+            f(z) = \{f_\alpha(z):\alpha\in A\}
+          \end{align*}
+          will be compatible with the $p_\alpha$, and is visibly the only such map.
+        \end{proof}
+      \end{claim}
 
 \end{document}
