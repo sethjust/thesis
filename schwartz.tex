@@ -11,6 +11,7 @@
     Particularly, understanding \S as a topological space allows us to easily understand $\S^*$, as duals of topological spaces are well understood.
 
     \section{Spaces of Functions}
+      \label{sec:spcoffunc}
       We are interested in \emph{topology} on spaces of functions, with the goal of finding a topology for the space of distributions.
       Recall:
       \begin{defn}
@@ -284,6 +285,65 @@
         Thus, by the definition of $C^k_0$, $f\in C^k_0$, and so $C^k_\ell$ is complete in its topology, and thus Banach.
       \end{proof}
 
-    \section{Products and Limits of Topological Spaces}
+    \section{Limits of Topological Spaces}
+      \todo{decide what belongs in an appendix}
+      \todo{worry about convexity}
+      
+      \noindent
+      In \autoref{sec:spcoffunc} we constructed a space of functions with \emph{arbitrarily} many derivatives and arbitrarily fast decay and showed that this space can be given the topological structure of a Banach space.
+      We hope that this work will allow us to find useful topological structure for the space of Schwartz functions, which have \emph{infinitely} many derivatives and infinitely fast decay.
+      This is exactly the process of taking a limit---we want to say $\S=\lim\limits_{k,\ell}C^k_\ell$, but this tells us nothing about the \emph{topology} of such a limit.
+      Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behaviour of the limit object we can see what the topology on \S must be.
+
+      First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
+      \begin{defn}
+        Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
+        The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
+        \begin{align*}
+          p_\alpha:X\longrightarrow X_\alpha
+        \end{align*}
+        such that for all topological spaces $Z$ with continuous maps $f_\alpha:Z\rightarrow X_\alpha$ there is a \emph{unique} continuous map 
+        \begin{align*}
+          f:Z\longrightarrow X
+        \end{align*}
+        satisfying $f_\alpha=p_\alpha\circ f$.
+        (We say that $f_\alpha$ \emph{factors through} the $p_\alpha$ uniquely.)
+      \end{defn}
+      Pictorially, the definition of a product says that all triangles commute in the diagram
+      \begin{displaymath}
+        \xymatrix{
+          && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+          \cdots & X_\alpha && X_\beta & \cdots\\
+          && Z \ar@/^/[ull] \ar@/^/[ul]_{f_\alpha} \ar@{-->}[uu]_f \ar@/_/[ur]^{f_\beta} \ar@/_/[urr]
+         }
+      \end{displaymath}
+
+      \begin{claim}
+        The product is \emph{unique}, up to (continuous) isomorphism.
+        \begin{proof}
+          Suppose we have a collection of topological spaces $X_\alpha$ and two products, $X$ with projection maps $p_\alpha$ and $Y$ with projection maps $q_\alpha$.
+          Considering $X$ and putting $Y$ in the position of $Z$ from the definition we have a unique $q$ so that the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+              && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+              \cdots & X_\alpha && X_\beta & \cdots\\
+              && Y \ar@/^/[ull] \ar@/^/[ul]_{q_\alpha} \ar@{-->}[uu]_q \ar@/_/[ur]^{q_\beta} \ar@/_/[urr]
+             }
+          \end{displaymath}
+          so $q_\alpha=p_\alpha\circ q$.
+          Reversing the positions of $X$ and $Y$ we have a unique $p:X\rightarrow Y$ so that $p_\alpha=q_\alpha\circ p$.
+          Finally, we see that $p\circ q:X\rightarrow X$ makes the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+              && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+              \cdots & X_\alpha && X_\beta & \cdots\\
+              && X \ar@/^/[ull] \ar@/^/[ul]_{p_\alpha} \ar@{-->}[uu]_{p\circ q} \ar@/_/[ur]^{p_\beta} \ar@/_/[urr]
+             }
+          \end{displaymath}
+          Because $X$ is a product of the $X_\alpha$ by hypothesis, the map $p\circ q$ is unique.
+          Because the identity mapping trivially satisfies the requirements for $p\circ q$, by uniqueness $p\circ q=id$, and so $p=q^{-1}$, and so $X$ and $Y$ are (continuously) isomorphic.
+        \end{proof}
+      \end{claim}
+      
 
 \end{document}
