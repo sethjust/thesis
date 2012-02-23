@@ -17,7 +17,7 @@
       \begin{defn}
         A \emph{topological space} is a set $X$ and a set $\tau$ of subsets of $X$ that satisfies:
         \begin{itemize}
-          \item The empty set $\emptyset$ and the whole space $X$ are elemets of $\tau$,
+          \item The empty set $\emptyset$ and the whole space $X$ are elements of $\tau$,
           \item $\tau$ is closed under arbitrary union,
           \item $\tau$ is closed under finite intersection.
         \end{itemize}
@@ -293,7 +293,7 @@
       In \autoref{sec:spcoffunc} we constructed a space of functions with \emph{arbitrarily} many derivatives and arbitrarily fast decay and showed that this space can be given the topological structure of a Banach space.
       We hope that this work will allow us to find useful topological structure for the space of Schwartz functions, which have \emph{infinitely} many derivatives and infinitely fast decay.
       This is exactly the process of taking a limit---we want to say $\S=\lim\limits_{k,\ell}C^k_\ell$, but this tells us nothing about the \emph{topology} of such a limit.
-      Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behaviour of the limit object we can see what the topology on \S must be.
+      Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behavior of the limit object we can see what the topology on \S must be.
       Thus we define the product by a mapping-property:
 %
 %      First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
@@ -510,7 +510,7 @@
             Thus we have the diagram
             \begin{displaymath}
               \xymatrix{
-                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
                 & Y \ar@/^20pt/[rr]_{p_1} \ar@/^30pt/[rrr]^{p_0}
                 & \cdots
                 & X_1
@@ -521,19 +521,19 @@
             However, the maps $p_i$ do not respect the transition maps of our limit, and so we have the diagram
             \begin{displaymath}
               \xymatrix{
-                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
                 & Y \ar@/^20pt/@{..>}[rr]_{p_1} \ar@/^30pt/@{..>}[rrr]^{p_0}
                 & \cdots \ar[r]^{\varphi_{21}}
                 & X_1 \ar[r]^{\varphi_{10}}
                 & X_0
               }
             \end{displaymath}
-            where solid triangles commute.
+            where solid triangles commute, but not necessarily triangles with dotted edges.
             
             Now, for any space $Z$ and \emph{any} family of maps $f_i$, we have, from the definition of the product, a unique map $F$ so that all triangles commute in the diagram
             \begin{displaymath}
               \xymatrix{
-                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
                 & Y \ar@/^20pt/[rr]_{p_1} \ar@/^30pt/[rrr]^{p_0}
                 & \cdots
                 & X_1
@@ -549,10 +549,10 @@
               p_{i-1}(F(z)) = f_{i-1}(z) = \varphi_{i,i-1}(f_i(z)) = \varphi_{i,i-1}(p_i(F(z)))
             \end{align*}
             By our definition of $X$, $F(z)\in X$, and so $F(Z)\subseteq X$.
-            Thus define $f:Z\rightarrow X$ by $f(z) = F(z)$, so we have the diagram with commuting solid or dashed (but not dotted) triangles
+            Thus define $f:Z\rightarrow X$ by $f(z) = F(z)$, so we have the diagram with commuting solid or dashed (but not necessarily dotted) triangles
             \begin{displaymath}
               \xymatrix{
-                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
                 & Y \ar@/^20pt/@{..>}[rr]_{p_1} \ar@/^30pt/@{..>}[rrr]^{p_0}
                 & \cdots \ar[r]^{\varphi_{21}}
                 & X_1 \ar[r]^{\varphi_{10}}
