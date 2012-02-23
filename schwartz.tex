@@ -438,4 +438,133 @@
           The topology generated from the $X_\alpha$ might have been \emph{too fine} for the map $f$ to be continuous, but we this is not the case.
           Having shown existence, the continuity of the isomorphism in \thref{claim:uniqprod} then shows that \emph{any} product with \emph{any}  topology (provided that it is consistent with the product definition) will be homeomorphic to the Cartesian product with the topology given above.
         \end{rmk}
+
+      \subsection{Projective Limits}
+        We now turn our attention to limits of topological spaces.
+        Once again, we characterize the limit by a mapping property before constructing it.
+        \begin{defn}[Projective Limit]
+          Consider a collection of topological spaces $X_i$ with continuous \emph{transition maps} $\varphi_{i,i-1}:X_i\rightarrow X_{i-1}$:
+          \begin{displaymath}
+            \xymatrix{
+              \cdots \ar[r]^{\varphi_{n+1,n}} & X_n \ar[r]^{\varphi_{n,n-1}} & X_{n-1} \ar[r]^{\varphi_{n-1,n-2}} & \cdots \ar[r]^{\varphi_{21}} & X_1 \ar[r]^{\varphi_{10}} & X_0
+            }
+          \end{displaymath}
+          The \emph{projective limit} of the $X_i$, denoted $\lim\limits_i X_i$ (suppressing reference to the transition maps) is a topological space $X$ and maps $\varphi_n:X\rightarrow X_n$ that are \emph{compatible} with the maps $\varphi_{n,n-1}$, in the sense that 
+          \begin{align*}
+            \varphi_{n-1}=\varphi_{n,n-1}\circ\varphi_n
+          \end{align*}
+          so the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+              X \ar@/^20pt/[rr]_{\varphi_1} \ar@/^30pt/[rrr]^{\varphi_0}
+              & \cdots \ar[r]^{\varphi_{21}}
+              & X_1 \ar[r]^{\varphi_{10}}
+              & X_0
+            }
+          \end{displaymath}
+          We require that for \emph{any} space $Z$ with maps $f_n:Z\rightarrow X_n$ that are compatible with the $\varphi_{n,n-1}$ there is a unique $f:Z\rightarrow X$ through which the $f_n$ factor.
+          Thus, whenever the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+               \cdots \ar[r]^{\varphi_{21}}
+              & X_1 \ar[r]^{\varphi_{10}}
+              & X_0
+              \\ \cdots \\
+              Z \ar[uur]^{f_1} \ar[uurr]^{f_0}
+            }
+          \end{displaymath}
+          there is a unique map $f$ that makes the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+              X \ar@/^20pt/[rr]_{\varphi_1} \ar@/^30pt/[rrr]^{\varphi_0}
+              & \cdots \ar[r]^{\varphi_{21}}
+              & X_1 \ar[r]^{\varphi_{10}}
+              & X_0
+              \\ & \cdots \\
+              & Z \ar@{-->}[uul]^f \ar[uur]_{f_1} \ar[uurr]_{f_0}
+            }
+          \end{displaymath}
+        \end{defn}
+        \begin{claim}
+          The projective limit is unique up to (continuous) isomorphism.
+          \begin{proof}
+            As in the proof of the uniqueness of the product, we see that for any two limits $X$ and $Y$ of the same objects\footnote{with the same transition maps} there are unique $p:X\rightarrow Y$ and $q:Y\rightarrow X$.
+            By the uniqueness of the induced map in our definition, we then see that $p\circ q=id$ and so $X$ and $Y$ are homeomorphic.
+          \end{proof}
+        \end{claim}
+
+        Having defined the (projective) limit of topological spaces in terms of a mapping-property, we hope that such an object does exist.
+        To see this, we show that the limit can be constructed as a subset of the product.
+        \begin{claim}
+          The limit $X$ of topological spaces $X_i$ can be constructed as subset of the product $Y=\prod_i X_i$ (with projections $p_i:Y\rightarrow X_i$).
+          Namely, $X$ is the subset of $Y$ on which the transition maps $\varphi_{i,i-1}$ and projections are compatible, so
+          \begin{align*}
+            X = \{x\in Y: \varphi_{i,i-1}(p_i(x)) = p_{i-1}(x) \text{ for all } i\}
+          \end{align*}
+          with maps $\varphi_i:X\rightarrow X_i$ given by restrictions of those from the product:
+          \begin{align*}
+            \varphi_i = p_i|_X :X\rightarrow X_i
+          \end{align*}
+          \begin{proof}
+            Let $j$ be the inclusion map $X\rightarrow Y$.
+            Thus we have the diagram
+            \begin{displaymath}
+              \xymatrix{
+                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                & Y \ar@/^20pt/[rr]_{p_1} \ar@/^30pt/[rrr]^{p_0}
+                & \cdots
+                & X_1
+                & X_0
+              }
+            \end{displaymath}
+            of commuting (curvy) triangles.
+            However, the maps $p_i$ do not respect the transition maps of our limit, and so we have the diagram
+            \begin{displaymath}
+              \xymatrix{
+                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                & Y \ar@/^20pt/@{..>}[rr]_{p_1} \ar@/^30pt/@{..>}[rrr]^{p_0}
+                & \cdots \ar[r]^{\varphi_{21}}
+                & X_1 \ar[r]^{\varphi_{10}}
+                & X_0
+              }
+            \end{displaymath}
+            where solid triangles commute.
+            
+            Now, for any space $Z$ and \emph{any} family of maps $f_i$, we have, from the definition of the product, a unique map $F$ so that all triangles commute in the diagram
+            \begin{displaymath}
+              \xymatrix{
+                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                & Y \ar@/^20pt/[rr]_{p_1} \ar@/^30pt/[rrr]^{p_0}
+                & \cdots
+                & X_1
+                & X_0
+                \\ && \cdots \\
+                && Z \ar@{-->}[uul]^F \ar[uur]_{f_1} \ar[uurr]_{f_0}
+              }
+            \end{displaymath}
+            However, because we are concerning ourselves with the limit, we suppose that the $f_i$ are compatible with the transition maps $\varphi_{i,i-1}$, so that $f_{i-1} = \varphi_{i,i-1}\circ f_i$.
+            We hope that we can find a unique $f:Z\rightarrow X$.
+            Taking $z\in Z$, we see that
+            \begin{align*}
+              p_{i-1}(F(z)) = f_{i-1}(z) = \varphi_{i,i-1}(f_i(z)) = \varphi_{i,i-1}(p_i(F(z)))
+            \end{align*}
+            By our definition of $X$, $F(z)\in X$, and so $F(Z)\subseteq X$.
+            Thus define $f:Z\rightarrow X$ by $f(z) = F(z)$, so we have the diagram with commuting solid or dashed (but not dotted) triangles
+            \begin{displaymath}
+              \xymatrix{
+                X \ar[r]^j \ar@/^40pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+                & Y \ar@/^20pt/@{..>}[rr]_{p_1} \ar@/^30pt/@{..>}[rrr]^{p_0}
+                & \cdots \ar[r]^{\varphi_{21}}
+                & X_1 \ar[r]^{\varphi_{10}}
+                & X_0
+                \\ && \cdots \\
+                && Z \ar@{-->}[uull]^f \ar@{-->}[uul]^F \ar[uur]_{f_1} \ar[uurr]_{f_0}
+              }
+            \end{displaymath}
+            Because the map $F$ is unique by hypothesis, we see that $f$ is unique, and so the compatibility conditions on the $f_i$ cause them to factor through the subset $X$ of the product.
+          \end{proof}
+        \end{claim}
+
+        Having constructed the limit as a subset of the product, we hope to do similarly with the \emph{topology} of the limit.
+        Recall the \emph{subset topology}: for a subset $X$ of a topological space $Y$, we define a set $U\subseteq X$ to be open iff there is some $V$ open in $Y$ such that $U=X\cap V$.
 \end{document}
