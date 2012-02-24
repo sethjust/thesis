@@ -180,6 +180,7 @@
       \end{proof}
 
     \subsection{Spaces of decaying functions}
+      \label{sec:decayfunc}
       Now consider the issue of \emph{decay}.
       Recall that Schwartz functions are \emph{rapidly decaying}, so their product with any power of $x$ vanishes at infinity.
       For $\ell\ge0$ define (for now)
@@ -241,6 +242,7 @@
       \end{align*}
       Note that for $k=0$, $C^k_\ell=C^0_\ell$, and their respective norms agree.
       \begin{thm}
+        \label{thm:cklcomplete}
         $C^k_\ell(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
@@ -488,7 +490,7 @@
         \begin{claim}
           The projective limit is unique up to (continuous) isomorphism.
           \begin{proof}
-            As in the proof of the uniqueness of the product, we see that for any two limits $X$ and $Y$ of the same objects\footnote{with the same transition maps} there are unique $p:X\rightarrow Y$ and $q:Y\rightarrow X$.
+            As in the proof of the uniqueness of the product, we see that for any two limits $X$ and $Y$ of the same objects there are unique $p:X\rightarrow Y$ and $q:Y\rightarrow X$.
             By the uniqueness of the induced map in our definition, we then see that $p\circ q=id$ and so $X$ and $Y$ are homeomorphic.
           \end{proof}
         \end{claim}
@@ -565,6 +567,25 @@
           \end{proof}
         \end{claim}
 
-        Having constructed the limit as a subset of the product, we hope to do similarly with the \emph{topology} of the limit.
-        Recall the \emph{subset topology}: for a subset $X$ of a topological space $Y$, we define a set $U\subseteq X$ to be open iff there is some $V$ open in $Y$ such that $U=X\cap V$.
+        Our use of mapping-property characterizations to define the product and limit allow us now to infer the topology of the limit from that of the product.
+        Particularly, the (implied) continuity of the maps in our definition allows us to see what the topology must be.
+        The result is the \emph{subset topology}: for a subset $X$ of a topological space $Y$, we define a set $U\subseteq X$ to be open in $X$ iff there is some $V$ open in $Y$ such that $U=X\cap V$.%
+        \footnote{We can define the subset topology by a mapping-property characterization: we require that inclusion $i:X\rightarrow Y$ is continuous, and for any space $Z$ and continuous $F:Z\rightarrow Y$ satisfying $F(Z)\subset X$, there is a unique $f:Z\rightarrow X$ such that $f=i\circ F$.}
+        \todo{push some symbol patterns around to show this works}
+
+    \section{\S as a topological limit}
+      Recall from \autoref{sec:decayfunc} the spaces $C^k_\ell$ of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$.
+      From \thref{thm:cklcomplete} we have that for all $k,\ell>0$, $C^k_\ell$ is a Banach space (complete normed vectorspace).
+      We hope that \S is exactly the (projective) limit of these spaces, but we must show that such a doubly-indexed limit still holds the correct topology.
+
+      First we must define transition maps $\varphi^{k,k-1}_\ell$ and $\phi^k_{\ell,\ell-1}$:
+      \begin{displaymath}
+        \xymatrix{
+          C^1_1  & C^2_1 \ar[l]_{\varphi^{21}_1} & C^3_1 \ar[l]_{\varphi^{32}_1} & \cdots \ar[l]_{\varphi^{43}_1} \\
+          C^1_2 \ar[u]_{\phi^1_{21}} & C^2_2 \ar[l]_{\varphi^{21}_2} \ar[u]_{\phi^2_{21}} & \cdots \ar[l]_{\varphi^{32}_2} \ar[u]_{\phi^3_{21}} \\
+          C^1_3 \ar[u]_{\phi^1_{32}} & \cdots \ar[l]_{\varphi^{21}_3} \ar[u]_{\phi^2_{32}} \\
+          \cdots \ar[u]_{\phi^1_{43}} 
+        }
+      \end{displaymath}
+      These maps must be continuous in order to take the limit.
 \end{document}
