@@ -447,6 +447,7 @@
         We now turn our attention to limits of topological spaces.
         Once again, we characterize the limit by a mapping property before constructing it.
         \begin{defn}[Projective Limit]
+          \label{defn:projlim}
           Consider a collection of topological spaces $X_i$ with continuous \emph{transition maps} $\varphi_{i,i-1}:X_i\rightarrow X_{i-1}$:
           \begin{displaymath}
             \xymatrix{
@@ -579,7 +580,101 @@
         Our present definition of limits allows indexing only by a countable set.
         However, we need to allow more general schemes of ordering limitands in order to take interesting limits.
         Particularly, in taking the limit of the Banach Spaces $C^k_\ell$ with regard to $k$ \emph{and} $\ell$ we hope that a doubly-indexed limit shares the pleasant behaviour of the singly-indexed variety.
-        \todo{keep going!}
+        
+        Recall that a \emph{partial ordering} on a set $A$ is a relation $>$ that is antisymmetric (so $a>b$ implies $b\not>a$)\footnote{and thus antireflexive: $a\not>a$.} and transitive (so $a>b$ and $b>c$ implies $a>c$).
+        A set with a partial ordering is called a \emph{poset}.
+
+        A \emph{projective system} indexed by a poset $I$ is a collection of objects $X_i$ for $i\in I$, along with transition maps $\varphi_{ij}:X_i\rightarrow X_j$ for all $i,j\in I$ with $i>j$.
+        These maps must be \emph{compatible}, so for all $i>j>k$ in $I$, we have the commutative triangle
+        \begin{displaymath}
+          \xymatrix{
+            X_i \ar[r]^{\varphi_{ij}} \ar[dr]_{\varphi_{ik}} & X_j \ar[d]^{\varphi_{jk}} \\
+            & X_k
+          }
+        \end{displaymath}
+
+        The limit of a projective system is a set $X$ with projection maps $p_i$ for all $i\in I$ that are compatible with the transition maps, so for $i>j$ we have the commutative triangle
+        \begin{displaymath}
+          \xymatrix{
+            X \ar[rr]^{p_i} \ar[drr]_{p_j} && X_i \ar[d]^{\varphi_{ij}} \\
+            && X_j
+          }
+        \end{displaymath}
+        \emph{And} for any space $Z$ with maps $f_i$ into each $X_i$ that are compatible with the $\varphi_{ij}$, there is a unique map $f$ through with all the $f_i$ factor, so that for all $i\in I$ the maps commute in
+        \begin{displaymath}
+          \xymatrix{
+            X \ar[rr]^{p_i} && X_i  \\
+            Z \ar@{-->}[u]^f \ar[urr]_{f_i} 
+          }
+        \end{displaymath}
+        Note that this definition of a limit matches \thref{defn:projlim} except for allowing more general indexing.
+        Notably, proofs of uniqueness and construction as a subset of the product exist for projective systems indexed by a poset.
+        \todo{double check that}
+        
+        The next result shows that picking a suitable sub-system of a projective system will give the same limit object.
+        Define some notation:
+        \begin{itemize}
+          \item A poset $A$ is called \emph{directed} if for all $a,b\in A$ there is some $c\in A$ such that $c>a$ and $c>b$.
+          \item Two subsets of a poset $I,J\subseteq A$ are called \emph{cofinal} if for any $i\in I$ there is some $j\in J$ with $j\ge i$ and for any $j\in J$ there is some $i\in I$ with $i\ge j$.
+        \end{itemize}
+        \begin{thm}[Cofinal Limits are Isomorphic]
+          Let $I$ and $J$ be mutually cofinal \emph{directed} subsets of a poset $A$ and let a collection of objects $X_i$ for $i\in A$ be a projective system.
+          Then there is a natural isomorphism
+          \begin{align*}
+            \lim_{i\in I} X_i \cong \lim_{j\in J} X_j
+          \end{align*}
+        \end{thm}
+        \begin{proof}
+          Write $X=\lim_I X_i$ and $X'=\lim_J X_j$.
+          By definition, we make a map $\alpha:X\rightarrow X'$ by giving a compatible family of maps $X\rightarrow X_j$ for all $j\in J$.
+          Using cofinality we may pick $i\in I$ with $i\ge j$ and make a map $X\rightarrow X_j$ by the composite
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[rr]^{p_i} \ar@{-->}[drr] && X_i \ar[d]^{\varphi_{ij}} \\
+              && X_j
+            }
+          \end{displaymath}
+          This definition is independent of $i$: for $i>i'>j$, use the directedness of $I$ to pick $\tilde{i}>i>i'$.
+          The compatibility of the projections $p_i$ with the transition maps $\varphi_{ij}$ give a fully commutative diagram:
+          \begin{displaymath}
+            \xymatrix{
+              X \ar@/^20pt/[rr]_{p_i} \ar@/^30pt/[rrr]^{p_{i'}} \ar[dr]^{p_{\tilde{i}}} && X_i \ar[ddr] & X_{i'} \ar[dd] \\
+              & X_{\tilde{i}} \ar[ur] \ar[urr] \ar[drr] \\
+              &&& X_j
+            }
+          \end{displaymath}
+          leaving the transition maps $\varphi$ unlabeled.
+
+          It remains to show that these induced maps are \emph{compatible}.
+          Let $j>j'$ in $J$; for $i>j$ in $I$ we have commutativity in
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[rr] && X_i \ar[d] \ar[dr] \\
+              && X_j \ar[r] & X_{j'}
+            }
+          \end{displaymath}
+          Thus the induced (composite) maps are compatible in the commutative diagram
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[rr] \ar@/^35pt/@{-->}[drrr]^{} \ar@/^10pt/@{-->}[drr] && X_i \ar[d] \ar[dr] \\
+              && X_j \ar[r] & X_{j'}
+            }
+          \end{displaymath}
+          Thus we have the map $X\rightarrow X'$.
+          By a symmetric argument we have an induced map in the reverse direction.
+          It remains to show that these maps are mutual inverses; the proof is similar to the proof that any two limits are isomorphic.
+          So far we have a commutative diagram with induced dashed maps
+          \begin{displaymath}
+            \xymatrix{
+              X \ar@/^/@{-->}[d] \ar@/^10pt/[rr] \ar@/^20pt/[rrr]^{}
+              && X_i \ar[dr] & X_{i'} \\
+              X' \ar@/^/@{-->}[u] \ar@/_10pt/[rr] \ar@/_20pt/[rrr]_{}
+              && X_j \ar[ur] & X_{j'}
+            }
+          \end{displaymath}
+          By construction, the composite $X\rightarrow X' \rightarrow X_{i'}$ is the same as projection $X\rightarrow X_{i'}$, so the map $X\rightarrow X' \rightarrow X$ will respect projections to the $X_i$, and so must be the identity.
+          Symmetrically, we see that \emph{both} maps are isomorphisms.
+        \end{proof}
 
     \section{\S as a topological limit}
       Recall from \autoref{sec:decayfunc} the spaces $C^k_\ell$ of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$.
