@@ -296,101 +296,103 @@
       We hope that this work will allow us to find useful topological structure for the space of Schwartz functions, which have \emph{infinitely} many derivatives and infinitely fast decay.
       This is exactly the process of taking a limit---we want to say $\S=\lim\limits_{k,\ell}C^k_\ell$, but this tells us nothing about the \emph{topology} of such a limit.
       Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behavior of the limit object we can see what the topology on \S must be.
-      Thus we define the product by a mapping-property:
-%
-%      First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
-      \begin{defn}
-        Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
-        The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
-        \begin{align*}
-          p_\alpha:X\longrightarrow X_\alpha
-        \end{align*}
-        such that for all topological spaces $Z$ with continuous maps $f_\alpha:Z\rightarrow X_\alpha$ there is a \emph{unique} continuous map 
-        \begin{align*}
-          f:Z\longrightarrow X
-        \end{align*}
-        satisfying $f_\alpha=p_\alpha\circ f$.
-        (We say that $f_\alpha$ \emph{factors through} the $p_\alpha$ uniquely.)
-      \end{defn}
-      Pictorially, the definition of a product says that all triangles commute in the diagram
-      \begin{displaymath}
-        \xymatrix{
-          && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
-          \cdots & X_\alpha && X_\beta & \cdots\\
-          && Z \ar@/^/[ull] \ar@/^/[ul]_{f_\alpha} \ar@{-->}[uu]_f \ar@/_/[ur]^{f_\beta} \ar@/_/[urr]
-         }
-      \end{displaymath}
 
-      \begin{claim}
-        \label{claim:uniqprod}
-        The product is \emph{unique}, up to (continuous) isomorphism.
-        \begin{proof}
-          Suppose we have a collection of topological spaces $X_\alpha$ and two products, $X$ with projection maps $p_\alpha$ and $Y$ with projection maps $q_\alpha$.
-          Considering $X$ and putting $Y$ in the position of $Z$ from the definition we have a unique $q$ so that the triangles commute in
-          \begin{displaymath}
-            \xymatrix{
-              && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
-              \cdots & X_\alpha && X_\beta & \cdots\\
-              && Y \ar@/^/[ull] \ar@/^/[ul]_{q_\alpha} \ar@{-->}[uu]_q \ar@/_/[ur]^{q_\beta} \ar@/_/[urr]
-             }
-          \end{displaymath}
-          so $q_\alpha=p_\alpha\circ q$.
-          Reversing the positions of $X$ and $Y$ we have a unique $p:X\rightarrow Y$ so that $p_\alpha=q_\alpha\circ p$.
-          Finally, we see that $p\circ q:X\rightarrow X$ makes the triangles commute in
-          \begin{displaymath}
-            \xymatrix{
-              && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
-              \cdots & X_\alpha && X_\beta & \cdots\\
-              && X \ar@/^/[ull] \ar@/^/[ul]_{p_\alpha} \ar@{-->}[uu]_{p\circ q} \ar@/_/[ur]^{p_\beta} \ar@/_/[urr]
-             }
-          \end{displaymath}
-          Because $X$ is a product of the $X_\alpha$ by hypothesis, the map $p\circ q$ is unique.
-          Because the identity mapping trivially satisfies the requirements for $p\circ q$, by uniqueness $p\circ q=id$, and so $p=q^{-1}$, and so $X$ and $Y$ are (continuously) isomorphic.
-        \end{proof}
-      \end{claim}
-
-      Now that we have shown that our mapping-property definition gives a unique product, we hope to investigate properties of this product.
-      From our definition, we hope that by considering various sets $Z$ and maps $f_\alpha$ we can learn about $X$.
-      \todo{discussion around these proofs}
-      \begin{claim}
-        For $x,y\in X$, $x\ne y$, there is some $\alpha\in A$ such that $p_\alpha(x)\ne p_\alpha(y)$.
-        \begin{proof}
-          First, suppose that $p_\alpha(x)=p_\alpha(y)$ for all $\alpha$.
-          Now let $Z$ be the one-element set $\{z\}$, and define $f_\alpha(z)=p_\alpha(x)$.
-          By hypothesis, there exists some map $f:Z\rightarrow X$ satisfying $f_\alpha = p_\alpha \circ f$.
-          Because maps from one-element sets are wholly determined by their images, we see that $p_\alpha(f(z))=f_\alpha(z)$, so $p_\alpha(f(z))=p_\alpha(x)$.
-          But $f(z)=x$ \emph{and} $f(z)=y$ satisfy this condition, contradicting the uniqueness of the mapping $f$.
-        \end{proof}
-      \end{claim}
-
-      \begin{claim}
-        For any set $\{x_\alpha:\alpha\in A\}$ with $x_\alpha\in X_\alpha$ there exists some $x\in X$ such that $p_\alpha(x)=x_\alpha$ for all $\alpha$.
-        \begin{proof}
-          Again take the one-element set $Z=\{z\}$ with maps $f_\alpha(z)=x_\alpha$.
-          Then $p_\alpha(f(z))=f_\alpha(z)=x_\alpha$.
-          The element $x=f(z)$ is the desired one.
-        \end{proof}
-      \end{claim}
-      
-      Moving on, we hope to gain an understanding of the product as a \emph{set} before considering its topology.
-      \begin{claim}
-        As a \emph{set} the product of topological spaces is the normal (Cartesian) product
-        \begin{align*}
-          X = \{\{x_\beta:\beta\in A\}: x_\beta\in X_\beta\}
-        \end{align*}
-        with projections
-        \begin{align*}
-          p_\alpha(\{x_\beta:\beta\in A\}) = x_\alpha\text{.}
-        \end{align*}
-        \begin{proof}
-          Consider a collection of $X_\alpha$.
-          For a set $Z$ and some collection of maps $f_\alpha:Z\rightarrow X_\alpha$, the map $f:Z\rightarrow X$ given by
+      \subsection{Products of Topological Spaces}
+        Thus we define the product by a mapping-property:
+  %
+  %      First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
+        \begin{defn}
+          Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
+          The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
           \begin{align*}
-            f(z) = \{f_\alpha(z):\alpha\in A\}
+            p_\alpha:X\longrightarrow X_\alpha
           \end{align*}
-          will be compatible with the $p_\alpha$, and is visibly the only such map.
-        \end{proof}
-      \end{claim}
+          such that for all topological spaces $Z$ with continuous maps $f_\alpha:Z\rightarrow X_\alpha$ there is a \emph{unique} continuous map 
+          \begin{align*}
+            f:Z\longrightarrow X
+          \end{align*}
+          satisfying $f_\alpha=p_\alpha\circ f$.
+          (We say that $f_\alpha$ \emph{factors through} the $p_\alpha$ uniquely.)
+        \end{defn}
+        Pictorially, the definition of a product says that all triangles commute in the diagram
+        \begin{displaymath}
+          \xymatrix{
+            && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+            \cdots & X_\alpha && X_\beta & \cdots\\
+            && Z \ar@/^/[ull] \ar@/^/[ul]_{f_\alpha} \ar@{-->}[uu]_f \ar@/_/[ur]^{f_\beta} \ar@/_/[urr]
+           }
+        \end{displaymath}
+
+        \begin{claim}
+          \label{claim:uniqprod}
+          The product is \emph{unique}, up to (continuous) isomorphism.
+          \begin{proof}
+            Suppose we have a collection of topological spaces $X_\alpha$ and two products, $X$ with projection maps $p_\alpha$ and $Y$ with projection maps $q_\alpha$.
+            Considering $X$ and putting $Y$ in the position of $Z$ from the definition we have a unique $q$ so that the triangles commute in
+            \begin{displaymath}
+              \xymatrix{
+                && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+                \cdots & X_\alpha && X_\beta & \cdots\\
+                && Y \ar@/^/[ull] \ar@/^/[ul]_{q_\alpha} \ar@{-->}[uu]_q \ar@/_/[ur]^{q_\beta} \ar@/_/[urr]
+               }
+            \end{displaymath}
+            so $q_\alpha=p_\alpha\circ q$.
+            Reversing the positions of $X$ and $Y$ we have a unique $p:X\rightarrow Y$ so that $p_\alpha=q_\alpha\circ p$.
+            Finally, we see that $p\circ q:X\rightarrow X$ makes the triangles commute in
+            \begin{displaymath}
+              \xymatrix{
+                && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+                \cdots & X_\alpha && X_\beta & \cdots\\
+                && X \ar@/^/[ull] \ar@/^/[ul]_{p_\alpha} \ar@{-->}[uu]_{p\circ q} \ar@/_/[ur]^{p_\beta} \ar@/_/[urr]
+               }
+            \end{displaymath}
+            Because $X$ is a product of the $X_\alpha$ by hypothesis, the map $p\circ q$ is unique.
+            Because the identity mapping trivially satisfies the requirements for $p\circ q$, by uniqueness $p\circ q=id$, and so $p=q^{-1}$, and so $X$ and $Y$ are (continuously) isomorphic.
+          \end{proof}
+        \end{claim}
+
+        Now that we have shown that our mapping-property definition gives a unique product, we hope to investigate properties of this product.
+        From our definition, we hope that by considering various sets $Z$ and maps $f_\alpha$ we can learn about $X$.
+        \todo{discussion around these proofs}
+        \begin{claim}
+          For $x,y\in X$, $x\ne y$, there is some $\alpha\in A$ such that $p_\alpha(x)\ne p_\alpha(y)$.
+          \begin{proof}
+            First, suppose that $p_\alpha(x)=p_\alpha(y)$ for all $\alpha$.
+            Now let $Z$ be the one-element set $\{z\}$, and define $f_\alpha(z)=p_\alpha(x)$.
+            By hypothesis, there exists some map $f:Z\rightarrow X$ satisfying $f_\alpha = p_\alpha \circ f$.
+            Because maps from one-element sets are wholly determined by their images, we see that $p_\alpha(f(z))=f_\alpha(z)$, so $p_\alpha(f(z))=p_\alpha(x)$.
+            But $f(z)=x$ \emph{and} $f(z)=y$ satisfy this condition, contradicting the uniqueness of the mapping $f$.
+          \end{proof}
+        \end{claim}
+
+        \begin{claim}
+          For any set $\{x_\alpha:\alpha\in A\}$ with $x_\alpha\in X_\alpha$ there exists some $x\in X$ such that $p_\alpha(x)=x_\alpha$ for all $\alpha$.
+          \begin{proof}
+            Again take the one-element set $Z=\{z\}$ with maps $f_\alpha(z)=x_\alpha$.
+            Then $p_\alpha(f(z))=f_\alpha(z)=x_\alpha$.
+            The element $x=f(z)$ is the desired one.
+          \end{proof}
+        \end{claim}
+        
+        Moving on, we hope to gain an understanding of the product as a \emph{set} before considering its topology.
+        \begin{claim}
+          As a \emph{set} the product of topological spaces is the normal (Cartesian) product
+          \begin{align*}
+            X = \{\{x_\beta:\beta\in A\}: x_\beta\in X_\beta\}
+          \end{align*}
+          with projections
+          \begin{align*}
+            p_\alpha(\{x_\beta:\beta\in A\}) = x_\alpha\text{.}
+          \end{align*}
+          \begin{proof}
+            Consider a collection of $X_\alpha$.
+            For a set $Z$ and some collection of maps $f_\alpha:Z\rightarrow X_\alpha$, the map $f:Z\rightarrow X$ given by
+            \begin{align*}
+              f(z) = \{f_\alpha(z):\alpha\in A\}
+            \end{align*}
+            will be compatible with the $p_\alpha$, and is visibly the only such map.
+          \end{proof}
+        \end{claim}
 
       \subsection{Product Topology}
         We now turn our attention to the \emph{topology} on a product of topological spaces.
@@ -573,6 +575,12 @@
         \footnote{We can define the subset topology by a mapping-property characterization: we require that inclusion $i:X\rightarrow Y$ is continuous, and for any space $Z$ and continuous $F:Z\rightarrow Y$ satisfying $F(Z)\subset X$, there is a unique $f:Z\rightarrow X$ such that $f=i\circ F$.}
         \todo{push some symbol patterns around to show this works}
 
+      \subsection{Indexing by Larger Sets}
+        Our present definition of limits allows indexing only by a countable set.
+        However, we need to allow more general schemes of ordering limitands in order to take interesting limits.
+        Particularly, in taking the limit of the Banach Spaces $C^k_\ell$ with regard to $k$ \emph{and} $\ell$ we hope that a doubly-indexed limit shares the pleasant behaviour of the singly-indexed variety.
+        \todo{keep going!}
+
     \section{\S as a topological limit}
       Recall from \autoref{sec:decayfunc} the spaces $C^k_\ell$ of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$.
       From \thref{thm:cklcomplete} we have that for all $k,\ell>0$, $C^k_\ell$ is a Banach space (complete normed vectorspace).
@@ -587,5 +595,6 @@
           \cdots \ar[u]_{\phi^1_{43}} 
         }
       \end{displaymath}
-      These maps must be continuous in order to take the limit.
+      These maps must be continuous in order to take the limit, and furthermore, we hope that the above diagram is commutative, so we don't need to worry about what path we take between two spaces.
+      \todo{keep going!}
 \end{document}
