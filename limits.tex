@@ -1,0 +1,390 @@
+\input{chpreamble}
+  \chapter{Products and Limits of Topological Spaces}
+    In \autoref{sec:spcoffunc} we constructed a space of functions with \emph{arbitrarily} many derivatives and arbitrarily fast decay and showed that this space can be given the topological structure of a Banach space.
+    We hope that this work will allow us to find useful topological structure for the space of Schwartz functions, which have \emph{infinitely} many derivatives and infinitely fast decay.
+    This is exactly the process of taking a limit---we want to say $\S=\lim\limits_{k,\ell}C^k_\ell$, but this tells us nothing about the \emph{topology} of such a limit.
+    Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behavior of the limit object we can see what the topology on \S must be.
+
+    First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
+    \todo{say anything about closedness}
+    \todo{worry about convexity}
+
+    \section{Products of Topological Spaces}
+      We define the product of a collection of topological spaces by a mapping-property; this definition allows us easily infer the correct topology on the product.
+      \begin{defn}
+        Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
+        The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
+        \begin{align*}
+          p_\alpha:X\longrightarrow X_\alpha
+        \end{align*}
+        such that for all topological spaces $Z$ with continuous maps $f_\alpha:Z\rightarrow X_\alpha$ there is a \emph{unique} continuous map 
+        \begin{align*}
+          f:Z\longrightarrow X
+        \end{align*}
+        satisfying $f_\alpha=p_\alpha\circ f$.
+        (We say that $f_\alpha$ \emph{factors through} the $p_\alpha$ uniquely.)
+      \end{defn}
+      Pictorially, the definition of a product says that all triangles commute in the diagram
+      \begin{displaymath}
+        \xymatrix{
+          && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+          \cdots & X_\alpha && X_\beta & \cdots\\
+          && Z \ar@/^/[ull] \ar@/^/[ul]_{f_\alpha} \ar@{-->}[uu]_f \ar@/_/[ur]^{f_\beta} \ar@/_/[urr]
+         }
+      \end{displaymath}
+
+      \begin{claim}
+        \label{claim:uniqprod}
+        The product is \emph{unique}, up to (continuous) isomorphism.
+        \begin{proof}
+          Suppose we have a collection of topological spaces $X_\alpha$ and two products, $X$ with projection maps $p_\alpha$ and $Y$ with projection maps $q_\alpha$.
+          Considering $X$ and putting $Y$ in the position of $Z$ from the definition we have a unique $q$ so that the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+              && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+              \cdots & X_\alpha && X_\beta & \cdots\\
+              && Y \ar@/^/[ull] \ar@/^/[ul]_{q_\alpha} \ar@{-->}[uu]_q \ar@/_/[ur]^{q_\beta} \ar@/_/[urr]
+             }
+          \end{displaymath}
+          so $q_\alpha=p_\alpha\circ q$.
+          Reversing the positions of $X$ and $Y$ we have a unique $p:X\rightarrow Y$ so that $p_\alpha=q_\alpha\circ p$.
+          Finally, we see that $p\circ q:X\rightarrow X$ makes the triangles commute in
+          \begin{displaymath}
+            \xymatrix{
+              && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
+              \cdots & X_\alpha && X_\beta & \cdots\\
+              && X \ar@/^/[ull] \ar@/^/[ul]_{p_\alpha} \ar@{-->}[uu]_{p\circ q} \ar@/_/[ur]^{p_\beta} \ar@/_/[urr]
+             }
+          \end{displaymath}
+          Because $X$ is a product of the $X_\alpha$ by hypothesis, the map $p\circ q$ is unique.
+          Because the identity mapping trivially satisfies the requirements for $p\circ q$, by uniqueness $p\circ q=id$, and so $p=q^{-1}$, and so $X$ and $Y$ are (continuously) isomorphic.
+        \end{proof}
+      \end{claim}
+
+      Now that we have shown that our mapping-property definition gives a unique product, we hope to investigate properties of this product.
+      From our definition, we hope that by considering various sets $Z$ and maps $f_\alpha$ we can learn about $X$.
+      \todo{discussion around these proofs}
+      \begin{claim}
+        For $x,y\in X$, $x\ne y$, there is some $\alpha\in A$ such that $p_\alpha(x)\ne p_\alpha(y)$.
+        \begin{proof}
+          First, suppose that $p_\alpha(x)=p_\alpha(y)$ for all $\alpha$.
+          Now let $Z$ be the one-element set $\{z\}$, and define $f_\alpha(z)=p_\alpha(x)$.
+          By hypothesis, there exists some map $f:Z\rightarrow X$ satisfying $f_\alpha = p_\alpha \circ f$.
+          Because maps from one-element sets are wholly determined by their images, we see that $p_\alpha(f(z))=f_\alpha(z)$, so $p_\alpha(f(z))=p_\alpha(x)$.
+          But $f(z)=x$ \emph{and} $f(z)=y$ satisfy this condition, contradicting the uniqueness of the mapping $f$.
+        \end{proof}
+      \end{claim}
+
+      \begin{claim}
+        For any set $\{x_\alpha:\alpha\in A\}$ with $x_\alpha\in X_\alpha$ there exists some $x\in X$ such that $p_\alpha(x)=x_\alpha$ for all $\alpha$.
+        \begin{proof}
+          Again take the one-element set $Z=\{z\}$ with maps $f_\alpha(z)=x_\alpha$.
+          Then $p_\alpha(f(z))=f_\alpha(z)=x_\alpha$.
+          The element $x=f(z)$ is the desired one.
+        \end{proof}
+      \end{claim}
+      
+      Moving on, we hope to gain an understanding of the product as a \emph{set} before considering its topology.
+      \begin{claim}
+        As a \emph{set} the product of topological spaces is the normal (Cartesian) product
+        \begin{align*}
+          X = \{\{x_\beta:\beta\in A\}: x_\beta\in X_\beta\}
+        \end{align*}
+        with projections
+        \begin{align*}
+          p_\alpha(\{x_\beta:\beta\in A\}) = x_\alpha\text{.}
+        \end{align*}
+        \begin{proof}
+          Consider a collection of $X_\alpha$.
+          For a set $Z$ and some collection of maps $f_\alpha:Z\rightarrow X_\alpha$, the map $f:Z\rightarrow X$ given by
+          \begin{align*}
+            f(z) = \{f_\alpha(z):\alpha\in A\}
+          \end{align*}
+          will be compatible with the $p_\alpha$, and is visibly the only such map.
+        \end{proof}
+      \end{claim}
+
+    \section{Product Topology}
+      We now turn our attention to the \emph{topology} on a product of topological spaces.
+      We hope that we can construct the appropriate topology on a product of spaces using only the topologies on those spaces and our mapping property definition.
+      Recall that a map $f:A\rightarrow B$ is continuous iff the inverse image of open is open; that is, for any open $u\subseteq B$, the set
+      \begin{align*}
+        f^{-1}(u) = \{x\in A:f(x)\in P\}
+      \end{align*}
+      is open in $A$.
+
+      Recall that our definition requires that all the maps be continuous.
+      So, for any $u_\alpha$ open in $X_\alpha$, $p_\alpha^{-1}(u_\alpha)$ is open in $X$.
+%        See that
+%        \begin{align*}
+%          p_\alpha^{-1}(u_\alpha)=\prod_{\beta\in A}
+%          \begin{cases}
+%            u_\alpha&\text{if }\alpha=\beta\\
+%            X_\alpha&\text{if }\alpha\ne\beta
+%          \end{cases}
+%        \end{align*}
+      Thus the topology on $X$ contains the topology generated by $\{p_\alpha^{-1}(u_\alpha):\alpha\in A\text{ and } u_\alpha\text{ open in }X_\alpha\}$.
+      We say that the topology on $X$ is ``no coarser than'' this topology, as it cannot contain fewer sets.
+      
+      Now, given a family of continuous functions $f_\alpha:Z\rightarrow X_\alpha$, the (unique) induced map $f:Z\rightarrow X$ must be continuous, so for all $u$ open in $X$, $f^{-1}(u)$ is open in $Z$.
+      Thus the topology on $X$ must be sufficiently coarse to satisfy $f^{-1}(u)$ being open in $Z$ for all $Z$ and $f$.
+      Ideally, the topology given by the $X_\alpha$ is coarse enough to satisfy continuity of $f$.
+
+      \begin{claim}
+        The topology generated by 
+        \begin{align*}
+          \{p_\alpha^{-1}(u_\alpha):\alpha\in A\text{ and } u_\alpha\text{ open in }X_\alpha\}
+        \end{align*}
+        is coarse enough to be the product topology on $X$.
+        \begin{proof}
+          By the properties of inverse images it is sufficient to show that the inverse image of each element of the generating set is open in $Z$.
+          Recall that $p_\alpha\circ f=f_\alpha$, so 
+          \begin{align*}
+            f^{-1}(p_\alpha^{-1}(u_\alpha)) = f_\alpha^{-1}(u_\alpha)
+          \end{align*}
+          See that each of the $f_\alpha$ are continuous, so for $u_\alpha$ open in $X_\alpha$, the set $f_\alpha^{-1}(u_\alpha)$ is open in $Z$.
+          Thus each $f^{-1}(p_\alpha^{-1}(u_\alpha))$ is open in $Z$.
+        \end{proof}
+      \end{claim}
+
+      \begin{rmk}
+        The key point here was the \emph{existence} of a topology on the product that is consistent with our definition. 
+        The topology generated from the $X_\alpha$ might have been \emph{too fine} for the map $f$ to be continuous, but we this is not the case.
+        Having shown existence, the continuity of the isomorphism in \thref{claim:uniqprod} then shows that \emph{any} product with \emph{any}  topology (provided that it is consistent with the product definition) will be homeomorphic to the Cartesian product with the topology given above.
+      \end{rmk}
+
+    \section{Projective Limits}
+      We now turn our attention to limits of topological spaces.
+      Once again, we characterize the limit by a mapping property before constructing it.
+      \begin{defn}[Projective Limit]
+        \label{defn:projlim}
+        Consider a collection of topological spaces $X_i$ with continuous \emph{transition maps} $\varphi_{i,i-1}:X_i\rightarrow X_{i-1}$:
+        \begin{displaymath}
+          \xymatrix{
+            \cdots \ar[r]^{\varphi_{n+1,n}} & X_n \ar[r]^{\varphi_{n,n-1}} & X_{n-1} \ar[r]^{\varphi_{n-1,n-2}} & \cdots \ar[r]^{\varphi_{21}} & X_1 \ar[r]^{\varphi_{10}} & X_0
+          }
+        \end{displaymath}
+        The \emph{projective limit} of the $X_i$, denoted $\lim\limits_i X_i$ (suppressing reference to the transition maps) is a topological space $X$ and maps $\varphi_n:X\rightarrow X_n$ that are \emph{compatible} with the maps $\varphi_{n,n-1}$, in the sense that 
+        \begin{align*}
+          \varphi_{n-1}=\varphi_{n,n-1}\circ\varphi_n
+        \end{align*}
+        so the triangles commute in
+        \begin{displaymath}
+          \xymatrix{
+            X \ar@/^20pt/[rr]_{\varphi_1} \ar@/^30pt/[rrr]^{\varphi_0}
+            & \cdots \ar[r]^{\varphi_{21}}
+            & X_1 \ar[r]^{\varphi_{10}}
+            & X_0
+          }
+        \end{displaymath}
+        We require that for \emph{any} space $Z$ with maps $f_n:Z\rightarrow X_n$ that are compatible with the $\varphi_{n,n-1}$ there is a unique $f:Z\rightarrow X$ through which the $f_n$ factor.
+        Thus, whenever the triangles commute in
+        \begin{displaymath}
+          \xymatrix{
+             \cdots \ar[r]^{\varphi_{21}}
+            & X_1 \ar[r]^{\varphi_{10}}
+            & X_0
+            \\ \cdots \\
+            Z \ar[uur]^{f_1} \ar[uurr]^{f_0}
+          }
+        \end{displaymath}
+        there is a unique map $f$ that makes the triangles commute in
+        \begin{displaymath}
+          \xymatrix{
+            X \ar@/^20pt/[rr]_{\varphi_1} \ar@/^30pt/[rrr]^{\varphi_0}
+            & \cdots \ar[r]^{\varphi_{21}}
+            & X_1 \ar[r]^{\varphi_{10}}
+            & X_0
+            \\ & \cdots \\
+            & Z \ar@{-->}[uul]^f \ar[uur]_{f_1} \ar[uurr]_{f_0}
+          }
+        \end{displaymath}
+      \end{defn}
+      \begin{claim}
+        The projective limit is unique up to (continuous) isomorphism.
+        \begin{proof}
+          As in the proof of the uniqueness of the product, we see that for any two limits $X$ and $Y$ of the same objects there are unique $p:X\rightarrow Y$ and $q:Y\rightarrow X$.
+          By the uniqueness of the induced map in our definition, we then see that $p\circ q=id$ and so $X$ and $Y$ are homeomorphic.
+        \end{proof}
+      \end{claim}
+
+      Having defined the (projective) limit of topological spaces in terms of a mapping-property, we hope that such an object does exist.
+      To see this, we show that the limit can be constructed as a subset of the product.
+      \begin{claim}
+        The limit $X$ of topological spaces $X_i$ can be constructed as subset of the product $Y=\prod_i X_i$ (with projections $p_i:Y\rightarrow X_i$).
+        Namely, $X$ is the subset of $Y$ on which the transition maps $\varphi_{i,i-1}$ and projections are compatible, so
+        \begin{align*}
+          X = \{x\in Y: \varphi_{i,i-1}(p_i(x)) = p_{i-1}(x) \text{ for all } i\}
+        \end{align*}
+        with maps $\varphi_i:X\rightarrow X_i$ given by restrictions of those from the product:
+        \begin{align*}
+          \varphi_i = p_i|_X :X\rightarrow X_i
+        \end{align*}
+        \begin{proof}
+          Let $j$ be the inclusion map $X\rightarrow Y$.
+          Thus we have the diagram
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+              & Y \ar@/^20pt/[rr]_{p_1} \ar@/^30pt/[rrr]^{p_0}
+              & \cdots
+              & X_1
+              & X_0
+            }
+          \end{displaymath}
+          of commuting (curvy) triangles.
+          However, the maps $p_i$ do not respect the transition maps of our limit, and so we have the diagram
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+              & Y \ar@/^20pt/@{..>}[rr]_{p_1} \ar@/^30pt/@{..>}[rrr]^{p_0}
+              & \cdots \ar[r]^{\varphi_{21}}
+              & X_1 \ar[r]^{\varphi_{10}}
+              & X_0
+            }
+          \end{displaymath}
+          where solid triangles commute, but not necessarily triangles with dotted edges.
+          
+          Now, for any space $Z$ and \emph{any} family of maps $f_i$, we have, from the definition of the product, a unique map $F$ so that all triangles commute in the diagram
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+              & Y \ar@/^20pt/[rr]_{p_1} \ar@/^30pt/[rrr]^{p_0}
+              & \cdots
+              & X_1
+              & X_0
+              \\ && \cdots \\
+              && Z \ar@{-->}[uul]^F \ar[uur]_{f_1} \ar[uurr]_{f_0}
+            }
+          \end{displaymath}
+          However, because we are concerning ourselves with the limit, we suppose that the $f_i$ are compatible with the transition maps $\varphi_{i,i-1}$, so that $f_{i-1} = \varphi_{i,i-1}\circ f_i$.
+          We hope that we can find a unique $f:Z\rightarrow X$.
+          Taking $z\in Z$, we see that
+          \begin{align*}
+            p_{i-1}(F(z)) = f_{i-1}(z) = \varphi_{i,i-1}(f_i(z)) = \varphi_{i,i-1}(p_i(F(z)))
+          \end{align*}
+          By our definition of $X$, $F(z)\in X$, and so $F(Z)\subseteq X$.
+          Thus define $f:Z\rightarrow X$ by $f(z) = F(z)$, so we have the diagram with commuting solid or dashed (but not necessarily dotted) triangles
+          \begin{displaymath}
+            \xymatrix{
+              X \ar[r]^j \ar@/^37pt/[rrr]_{\varphi_1} \ar@/^50pt/[rrrr]^{\varphi_0}
+              & Y \ar@/^20pt/@{..>}[rr]_{p_1} \ar@/^30pt/@{..>}[rrr]^{p_0}
+              & \cdots \ar[r]^{\varphi_{21}}
+              & X_1 \ar[r]^{\varphi_{10}}
+              & X_0
+              \\ && \cdots \\
+              && Z \ar@{-->}[uull]^f \ar@{-->}[uul]^F \ar[uur]_{f_1} \ar[uurr]_{f_0}
+            }
+          \end{displaymath}
+          Because the map $F$ is unique by hypothesis, we see that $f$ is unique, and so the compatibility conditions on the $f_i$ cause them to factor through the subset $X$ of the product.
+        \end{proof}
+      \end{claim}
+
+      Our use of mapping-property characterizations to define the product and limit allow us now to infer the topology of the limit from that of the product.
+      Particularly, the (implied) continuity of the maps in our definition allows us to see what the topology must be.
+      The result is the \emph{subset topology}: for a subset $X$ of a topological space $Y$, we define a set $U\subseteq X$ to be open in $X$ iff there is some $V$ open in $Y$ such that $U=X\cap V$.%
+      \footnote{We can define the subset topology by a mapping-property characterization: we require that inclusion $i:X\rightarrow Y$ is continuous, and for any space $Z$ and continuous $F:Z\rightarrow Y$ satisfying $F(Z)\subset X$, there is a unique $f:Z\rightarrow X$ such that $f=i\circ F$.}
+      \todo{push some symbol patterns around to show this works}
+
+    \section{Indexing by Larger Sets}
+      Our present definition of limits allows indexing only by a countable set.
+      However, we need to allow more general schemes of ordering limitands in order to take interesting limits.
+      Particularly, in taking the limit of the Banach Spaces $C^k_\ell$ with regard to $k$ \emph{and} $\ell$ we hope that a doubly-indexed limit shares the pleasant behaviour of the singly-indexed variety.
+      
+      Recall that a \emph{partial ordering} on a set $A$ is a relation $>$ that is antisymmetric (so $a>b$ implies $b\not>a$)\footnote{and thus antireflexive: $a\not>a$.} and transitive (so $a>b$ and $b>c$ implies $a>c$).
+      A set with a partial ordering is called a \emph{poset}.
+
+      A \emph{projective system} indexed by a poset $I$ is a collection of objects $X_i$ for $i\in I$, along with transition maps $\varphi_{ij}:X_i\rightarrow X_j$ for all $i,j\in I$ with $i>j$.
+      These maps must be \emph{compatible}, so for all $i>j>k$ in $I$, we have the commutative triangle
+      \begin{displaymath}
+        \xymatrix{
+          X_i \ar[r]^{\varphi_{ij}} \ar[dr]_{\varphi_{ik}} & X_j \ar[d]^{\varphi_{jk}} \\
+          & X_k
+        }
+      \end{displaymath}
+
+      The limit of a projective system is a set $X$ with projection maps $p_i$ for all $i\in I$ that are compatible with the transition maps, so for $i>j$ we have the commutative triangle
+      \begin{displaymath}
+        \xymatrix{
+          X \ar[rr]^{p_i} \ar[drr]_{p_j} && X_i \ar[d]^{\varphi_{ij}} \\
+          && X_j
+        }
+      \end{displaymath}
+      \emph{And} for any space $Z$ with maps $f_i$ into each $X_i$ that are compatible with the $\varphi_{ij}$, there is a unique map $f$ through with all the $f_i$ factor, so that for all $i\in I$ the maps commute in
+      \begin{displaymath}
+        \xymatrix{
+          X \ar[rr]^{p_i} && X_i  \\
+          Z \ar@{-->}[u]^f \ar[urr]_{f_i} 
+        }
+      \end{displaymath}
+      Note that this definition of a limit matches \thref{defn:projlim} except for allowing more general indexing.
+      Notably, proofs of uniqueness and construction as a subset of the product exist for projective systems indexed by a poset.
+      \todo{double check that}
+      
+      The next result shows that picking a suitable sub-system of a projective system will give the same limit object.
+      Define some notation:
+      \begin{itemize}
+        \item A poset $A$ is called \emph{directed} if for all $a,b\in A$ there is some $c\in A$ such that $c>a$ and $c>b$.
+        \item Two subsets of a poset $I,J\subseteq A$ are called \emph{cofinal} if for any $i\in I$ there is some $j\in J$ with $j\ge i$ and for any $j\in J$ there is some $i\in I$ with $i\ge j$.
+      \end{itemize}
+      \begin{thm}[Cofinal Limits are Isomorphic]
+        Let $I$ and $J$ be mutually cofinal \emph{directed} subsets of a poset $A$ and let a collection of objects $X_i$ for $i\in A$ be a projective system.
+        Then there is a natural isomorphism
+        \begin{align*}
+          \lim_{i\in I} X_i \cong \lim_{j\in J} X_j
+        \end{align*}
+      \end{thm}
+      \begin{proof}
+        Write $X=\lim_I X_i$ and $X'=\lim_J X_j$.
+        By definition, we make a map $\alpha:X\rightarrow X'$ by giving a compatible family of maps $X\rightarrow X_j$ for all $j\in J$.
+        Using cofinality we may pick $i\in I$ with $i\ge j$ and make a map $X\rightarrow X_j$ by the composite
+        \begin{displaymath}
+          \xymatrix{
+            X \ar[rr]^{p_i} \ar@{-->}[drr] && X_i \ar[d]^{\varphi_{ij}} \\
+            && X_j
+          }
+        \end{displaymath}
+        This definition is independent of $i$: for $i>i'>j$, use the directedness of $I$ to pick $\tilde{i}>i>i'$.
+        The compatibility of the projections $p_i$ with the transition maps $\varphi_{ij}$ give a fully commutative diagram:
+        \begin{displaymath}
+          \xymatrix{
+            X \ar@/^20pt/[rr]_{p_i} \ar@/^30pt/[rrr]^{p_{i'}} \ar[dr]^{p_{\tilde{i}}} && X_i \ar[ddr] & X_{i'} \ar[dd] \\
+            & X_{\tilde{i}} \ar[ur] \ar[urr] \ar[drr] \\
+            &&& X_j
+          }
+        \end{displaymath}
+        leaving the transition maps $\varphi$ unlabeled.
+
+        It remains to show that these induced maps are \emph{compatible}.
+        Let $j>j'$ in $J$; for $i>j$ in $I$ we have commutativity in
+        \begin{displaymath}
+          \xymatrix{
+            X \ar[rr] && X_i \ar[d] \ar[dr] \\
+            && X_j \ar[r] & X_{j'}
+          }
+        \end{displaymath}
+        Thus the induced (composite) maps are compatible in the commutative diagram
+        \begin{displaymath}
+          \xymatrix{
+            X \ar[rr] \ar@/^35pt/@{-->}[drrr]^{} \ar@/^10pt/@{-->}[drr] && X_i \ar[d] \ar[dr] \\
+            && X_j \ar[r] & X_{j'}
+          }
+        \end{displaymath}
+        Thus we have the map $X\rightarrow X'$.
+        By a symmetric argument we have an induced map in the reverse direction.
+        It remains to show that these maps are mutual inverses; the proof is similar to the proof that any two limits are isomorphic.
+        So far we have a commutative diagram with induced dashed maps
+        \begin{displaymath}
+          \xymatrix{
+            X \ar@/^/@{-->}[d] \ar@/^10pt/[rr] \ar@/^20pt/[rrr]^{}
+            && X_i \ar[dr] & X_{i'} \\
+            X' \ar@/^/@{-->}[u] \ar@/_10pt/[rr] \ar@/_20pt/[rrr]_{}
+            && X_j \ar[ur] & X_{j'}
+          }
+        \end{displaymath}
+        By construction, the composite $X\rightarrow X' \rightarrow X_{i'}$ is the same as projection $X\rightarrow X_{i'}$, so the map $X\rightarrow X' \rightarrow X$ will respect projections to the $X_i$, and so must be the identity.
+        Symmetrically, we see that \emph{both} maps are isomorphisms.
+      \end{proof}
+
+
+\end{document}
