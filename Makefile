@@ -34,9 +34,11 @@ thesis.aux thesis.sage: $(TEXFILES)
 %.aux %.sage: %.tex
 	$(LATEX) $< $(REDIR); true
 
+#SAGE = python sagetex/remote-sagetex.py -s http://cerberus.sethjust.com:8000 -u admin -p robots
+SAGE = ~/bin/sage/sage
 %.sout: %.sage
 # Check if sage changed; can't use dates b/c latex overwrites the .sage
-	(!(diff $*.sage .$*.sage.bak) && ((python sagetex/remote-sagetex.py -f remote-sagetex.conf $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
+	(!(diff $*.sage .$*.sage.bak) && (($(SAGE) $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
 
 %.bbl %.blg: %.aux thesis.bib
 # Dependence on the aux makes sure we rerun when changed, but will fire too often
