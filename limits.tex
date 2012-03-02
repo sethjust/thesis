@@ -1,16 +1,19 @@
 \input{chpreamble}
   \chapter{Products and Limits of Topological Spaces}
-    In \autoref{sec:spcoffunc} we constructed a space of functions with \emph{arbitrarily} many derivatives and arbitrarily fast decay and showed that this space can be given the topological structure of a Banach space.
+    \label{ch:topprod}
+
+    In \autoref{sec:spcoffunc} we constructed a space of functions with finitely many derivatives and finitely fast decay and showed that this space can be given the topological structure of a Banach space.
     We hope that this work will allow us to find useful topological structure for the space of Schwartz functions, which have \emph{infinitely} many derivatives and infinitely fast decay.
     This is exactly the process of taking a limit---we want to say $\S=\lim\limits_{k,\ell}C^k_\ell$, but this tells us nothing about the \emph{topology} of such a limit.
     Rather than laboriously \emph{construct} such a topology, we hope that by \emph{characterizing} the behavior of the limit object we can see what the topology on \S must be.
 
-    First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of objects will be a closed subspace of the corresponding product.
+    This appendix develops general facts about limits of topological spaces.
+    First we will define the \emph{product} of topological spaces; we will see that the \emph{limit} of such spaces will be a closed subspace of the corresponding product.
     \todo{say anything about closedness}
     \todo{worry about convexity}
 
     \section{Products of Topological Spaces}
-      We define the product of a collection of topological spaces by a mapping-property; this definition allows us easily infer the correct topology on the product.
+    We define the product of a collection of topological spaces by a mapping property; this definition will \emph{force} the product to assume a unique topology.
       \begin{defn}
         Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
         The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
@@ -21,7 +24,7 @@
         \begin{align*}
           f:Z\longrightarrow X
         \end{align*}
-        satisfying $f_\alpha=p_\alpha\circ f$.
+        satisfying $f_\alpha=p_\alpha\circ f$ for all $\alpha$.
         (We say that $f_\alpha$ \emph{factors through} the $p_\alpha$ uniquely.)
       \end{defn}
       Pictorially, the definition of a product says that all triangles commute in the diagram
@@ -57,7 +60,8 @@
              }
           \end{displaymath}
           Because $X$ is a product of the $X_\alpha$ by hypothesis, the map $p\circ q$ is unique.
-          Because the identity mapping trivially satisfies the requirements for $p\circ q$, by uniqueness $p\circ q=id$, and so $p=q^{-1}$, and so $X$ and $Y$ are (continuously) isomorphic.
+          Trivially the identity mapping satisfies the requirements for $p\circ q$ and symmetrically for $q\circ p$.
+          By uniqueness $p\circ q=id$ and $q\circ p=id$,  so $p=q^{-1}$ and thus $X$ and $Y$ are (continuously) isomorphic.
         \end{proof}
       \end{claim}
 
@@ -86,6 +90,7 @@
       
       Moving on, we hope to gain an understanding of the product as a \emph{set} before considering its topology.
       \begin{claim}
+        \label{claim:prodiscart}
         As a \emph{set} the product of topological spaces is the normal (Cartesian) product
         \begin{align*}
           X = \{\{x_\beta:\beta\in A\}: x_\beta\in X_\beta\}
@@ -94,8 +99,13 @@
         \begin{align*}
           p_\alpha(\{x_\beta:\beta\in A\}) = x_\alpha\text{.}
         \end{align*}
-        \begin{proof}
-          Consider a collection of $X_\alpha$.
+        \begin{rmk}
+          For this proof we make no reference to topology (continuity of maps).
+          By working in the category of \emph{sets} we prove that the product is the Cartesian one \emph{regardless of topology}.
+          This set-theoretic construction proves that we may construct limits as sets, leaving us to prove only the existence of a suitable topology later.
+        \end{rmk}
+        \begin{proof}[Proof of \thref{claim:prodiscart}]
+          Consider a collection of $X_\alpha$, and suppose they have a limit $X$ as above.
           For a set $Z$ and some collection of maps $f_\alpha:Z\rightarrow X_\alpha$, the map $f:Z\rightarrow X$ given by
           \begin{align*}
             f(z) = \{f_\alpha(z):\alpha\in A\}
