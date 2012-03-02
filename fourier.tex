@@ -20,7 +20,7 @@
     We hope that by knowing how well $f$ matches any frequency, we're able to exactly rebuild $f$.
     This process of translating a function from physical to frequency space, and (hopefully) back, is the subject matter of \emph{Fourier analysis}.
 
-    \begin{defn}
+    \begin{nbdefn}
       The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function 
       \begin{align*}
         \F f&:\R\longrightarrow\C\\
@@ -32,7 +32,7 @@
         \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi
       \end{align*}
       \vspace{-15pt}
-    \end{defn}
+    \end{nbdefn}
 
     We hope that $\F^{-1}$ does in fact invert $\F$, so that for any $f$, $\F^{-1}\F f = f$---that is, applying the inverse Fourier transform to the frequency spectrum of $f$ gives us back $f$.
     However, this claim is difficult to make because the integrals are not always defined.

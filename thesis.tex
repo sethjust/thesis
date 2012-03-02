@@ -1,4 +1,4 @@
-\documentclass[12pt]{reedthesis}
+\documentclass[11pt]{reedthesis}
 
 % Draft compiling options
 \usepackage[draft]{ifdraft}
@@ -85,6 +85,20 @@
   skipabove=0.5\baselineskip,
   linewidth=1pt
   ]{defn}
+\newtheorem{nbdefn}[defn]{Definition}
+\surroundwithmdframed[%
+  usetwoside=false,
+  leftmargin=-5pt,
+  innerleftmargin=5pt,
+  innertopmargin=0pt,
+  innerbottommargin=0pt,
+  topline=false,
+  rightline=false,
+  bottomline=false,
+  skipabove=0.5\baselineskip,
+  linewidth=1pt,
+  nobreak=true
+  ]{nbdefn}
 
 % Proof-like environments
 \theorembodyfont{\normalfont}
