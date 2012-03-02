@@ -221,6 +221,7 @@
       Having defined the (projective) limit of topological spaces in terms of a mapping-property, we hope that such an object does exist.
       To see this, we show that the limit can be constructed as a subset of the product.
       \begin{claim}
+        \label{claim:limitexists}
         The limit $X$ of topological spaces $X_i$ can be constructed as subset of the product $Y=\prod_i X_i$ (with projections $p_i:Y\rightarrow X_i$).
         Namely, $X$ is the subset of $Y$ on which the transition maps $\varphi_{i,i-1}$ and projections are compatible, so
         \begin{align*}
@@ -336,8 +337,10 @@
       \begin{itemize}
         \item A poset $A$ is called \emph{directed} if for all $a,b\in A$ there is some $c\in A$ such that $c>a$ and $c>b$.
         \item Two subsets of a poset $I,J\subseteq A$ are called \emph{cofinal} if for any $i\in I$ there is some $j\in J$ with $j\ge i$ and for any $j\in J$ there is some $i\in I$ with $i\ge j$.
+          A subset $I\subset A$ is called \emph{cofinal in A} (or simply ``cofinal'') if $I$ and $A$ are cofinal as subsets of $A$.
       \end{itemize}
       \begin{thm}[Cofinal Limits are Isomorphic]
+        \label{thm:cofinalisom}
         Let $I$ and $J$ be mutually cofinal \emph{directed} subsets of a poset $A$ and let a collection of objects $X_i$ for $i\in A$ be a projective system.
         Then there is a natural isomorphism
         \begin{align*}
