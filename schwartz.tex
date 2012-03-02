@@ -221,13 +221,13 @@
         Then it has a limit in $C^0_0$, say $g$.
         We hope that $g(x)=(1+x^2)^\ell f(x)$.
         For $\varepsilon>0$ use the fact that \emph{both} sequences are Cauchy to pick $i$ so that $|(1+x^2)^\ell f_i - g|<\varepsilon$ and $|f_i - f|<\varepsilon$.
-        Then for all $x$ 
+        Fix some $x\in\R$.
+        Then
         \begin{align*}
           |g(x) - (1+x^2)^\ell f(x)| &\le |(1+x^2)^\ell f_i(x) - g(x)|+|(1+x^2)^\ell||f_i(x)-f(x)|\\
           &< \varepsilon + |(1+x^2)^\ell|\varepsilon
         \end{align*}
-        Because $\varepsilon$ is arbitrarily small we can force $|g(x)-(1+x^2)^\ell f(x)|$ to become arbitrarily small for any $x$, and so we conclude that $g=(1+x^2)^\ell f$.
-        \todo{make sure it's okay that this isn't uniform}
+        Because $x$ is fixed we can force $|g(x)-(1+x^2)^\ell f(x)|$ to become arbitrarily small, and so we conclude that $g(x)=(1+x^2)^\ell f(x)$.
         Thus $(1+x^2)^\ell f$ is $C^0_0$, and so $f\in C^0_\ell$.
       \end{proof}
 
