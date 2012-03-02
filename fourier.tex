@@ -128,29 +128,26 @@
           \F_x\left(\frac{\partial}{\partial t}u(x,t)\right) &= \F_x\left(\alpha\frac{\partial^2}{\partial x^2}u(x,t)\right)\\
           \frac{\partial}{\partial t}\F_xu(\xi,t) &= -k\xi^2\F_xu(\xi,t)
         \end{align*}
-        folding $\alpha$ and the constants of \eqref{eq:xisdiff2} into $k$.
-        \todo{double check that passing the derivative through is fine if $u$ is nice.}
+        passing the $t$ derivative through the $x$ integral and folding $\alpha$ and the constants of \eqref{eq:xisdiff2} into $k$.
 
-        The initial condition $u(x,0)=f(x)$ is transformed to $\F_xu(\xi,0) = \F f(\xi)$.
-        
         As we hoped, these transformations have made the differential equation easier to solve, by replacing $x$ derivatives with multiples of $\xi$.
         Solving yields
         \begin{align*}
           \F_xu(\xi,t) &= c(\xi)e^{-k\xi^2t}
         \end{align*}
         for some function $c$.
-        Our initial condition gives $c(\xi)=\F_x f(\xi)$, and so
-        \begin{align*}
-          u(x,t) &= \F^{-1}_\xi(e^{-k\xi^2t}\F_x f(\xi))\\
-          &= \int_{\xi\in\R} \F_x f(\xi)e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
-          &= \int_{\xi\in\R} \int_{y\in\R} f(y)\psi(y,\xi)\,dy\,e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
-          &= \int_{y\in\R} f(y) \int_{\xi\in\R} e^{-k\xi^2t}\psi(x+y,\xi)\,d\xi\,dy\\
-          &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-(x-y)^2/4kt}\,dy
-        \end{align*}
+        The initial condition $u(x,0)=f(x)$ is transformed to $\F_xu(\xi,0) = \F_x f(\xi)$, so $c(\xi)=\F_x f(\xi)$.
+
+        Having solved the differential equation in frequency space, we use the inverse Fourier transform to recover the solution in physical space:
+        \begin{align}
+          \notag u(x,t) &= \F^{-1}_\xi(e^{-k\xi^2t}\F_x f(\xi))\\
+          \notag &= \int_{\xi\in\R} \F_x f(\xi)e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
+          \notag &= \int_{\xi\in\R} \int_{y\in\R} f(y)\psi(y,\xi)\,dy\,e^{-k\xi^2t}\psi(x,\xi)\,d\xi\\
+          \notag &= \int_{y\in\R} f(y) \int_{\xi\in\R} e^{-k\xi^2t}\psi(x+y,\xi)\,d\xi\,dy\\
+          \label{eq:heatsoln} &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-(x-y)^2/4kt}\,dy
+        \end{align}
         which is verifiably a solution to the heat equation.
         An example of this solution is shown in \autoref{fig:heateq}.
-        \todo{more discussion}
-        \todo{mention at some point that this is a convolution with spikes that widen as time goes on -- still has meaning at t=0, but only as a distribution}
 
         \begin{figure}
           \begin{center}
@@ -161,25 +158,72 @@
               assume(t>0)
               u(x,t) = (1/sqrt(t))*(integral(f(y)*gamma(x-y,t),y,-Infinity,0)+integral(f(y)*gamma(x-y,t),y,0,1)+integral(f(y)*gamma(x-y,t),y,1,Infinity))
             \end{sagesilent}
-            \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false) for t,c in [(1/1000,(0,0,0)), (1/8,(.2,.2,.2)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
+            \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false) for t,c in [(1/1000,(0,0,0)), (1/32,(.1,.1,.1)), (1/8,(.3,.3,.3)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
           \end{center}
-          \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ derived in Example \ref*{ex:heateq}.}
+          \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ (\autoref{eq:heatsoln}) derived in Example \ref*{ex:heateq}.}
           \label{fig:heateq}
         \end{figure}
       \end{example}
+      
+      The solution $u(x,t)$ is an example of convolution---roughly, the averaging of one function by another.
+      For some fixed $t>0$ we have
+      \begin{align*}
+        u(x,t)= C_1\cdot\int_{y\in\R}f(y)e^{-(x-y)^2/C_2}\,dy
+      \end{align*}
+      At any $x$, the value of $u$ is determined by integrating $f(y)$ against a Gaussian\footnote{Recall the Gaussian function $e^{-x^2}$ is a small pulse with integral $\sqrt\pi$ centered around $x=0$.} pulse centered at $y=x$.
+      This is exactly the idea of convolution.
+      \begin{defn}
+        Working formally, for two functions $f$ and $g$, the \emph{convolution} $f*g$ is the function
+        \begin{align*}
+          (f*g)(x) = \int_{-\infty}^\infty f(y)g(x-y)\,dy\text{.}
+        \end{align*}
+        By the change of variable $y\rightarrow x-y$
+        \begin{align*}
+          (f*g)(x) &= -\int_\infty^{-\infty} f(x-y)g(y)\,dy
+          \\&=(g*f)(x)
+        \end{align*}
+      \end{defn}
+      We think of the convolution of two functions at some point as an average, weighted by (a translated copy of) the other.
+
+      The function $u(x,t)$ is a convolution of the initial state $f(x)$ with a Gaussian pulse $e^{-(x-y)^2/4kt}$.
+      As $t$ increases this pulse gets wider, reflecting the physical intuition of heat spreading out over time.
+
+      \begin{figure}
+        \begin{center}
+          \begin{sagesilent}
+            from matplotlib import ticker
+            x,y=var('x,y')
+            z=1.6
+            l,r=[.5,2.5]
+            f = lambda x: (x^3+x^2-x+6)/10
+            g = lambda j: lambda x: e^(-(j*x)^2)
+            fg = lambda x: g(pi)(x-z)*(f(x)-1)
+            a=plot(f(x)-1,x,[l,r],color="black",legend_label="f(y)")
+            b=plot(g(pi)(x-z),x,[l,r],color=(.5,.5,.5),legend_label="g(x-y)")
+            c = plot(fg,[l,r],color="grey",fill=true,ticks=[[z],[]],tick_formatter=ticker.FixedFormatter('x'))
+            d=a+b+c
+            d.axes_range(l,r,-1/2,3/2)
+            d.set_legend_options(loc='upper right')
+          \end{sagesilent}
+          \sageplot{d}
+          \vspace{-.5cm}
+        \end{center}
+        \caption{Evaluation of a convolution. The value $(f*g)(x)$ is given by the integral of the shaded area, the product of $f(y)$ with $g(x-y)$.}
+        \label{fig:convolve}
+      \end{figure}
 
     \section{Schwartz Functions}
       We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, so that we may take Fourier transforms without concern, as we will always understand the result.
 
       Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ is $L^1$-integrable---that is, when 
       \begin{align*}
-        \int_{-\infty}^\infty f(x)\,dx < \infty
+        \int_{x\in\R} f(x)\,dx < \infty\text{.}
       \end{align*}
       Thus the Fourier transform is always defined for functions that \emph{vanish at infinity}\footnotemark and decay at least as fast as $x^{-2}$, which are sufficient conditions for $L^1$-integrability. \todo{fix this up}
       \footnotetext{
         That is, for any $\varepsilon>0$ there exists $N>0$ such that
         \begin{align*}
-          |x|>N \Rightarrow f(x)<\epsilon
+          |x|>N \Rightarrow f(x)<\epsilon\text{.}
         \end{align*}}
 
       We also observed in \thref{ex:heateq} that the Fourier transform is useful because of its ability to exchange differentiation and multiplication.
