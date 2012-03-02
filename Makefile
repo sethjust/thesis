@@ -10,7 +10,7 @@ TEXFILES = thesis.tex ack.tex intro.tex fourier.tex schwartz.tex tfcns.tex dists
 
 .SILENT:
 
-.PHONY: all pdf sections %-bib thesis-bib clean diffclean sageclean reallyclean
+.PHONY: all pdf sections clean diffclean sageclean reallyclean
 
 all: thesis.pdf
 
