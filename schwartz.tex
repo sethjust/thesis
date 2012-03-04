@@ -368,6 +368,33 @@
         The space of Schwartz Functions is the limit of the projective system formed by the $C^k_\ell$.
       \end{thm}
       \begin{proof}
-        
+        To show that $\S=\lim_{k,\ell}C^k_\ell$ we need only show that $\S$ meets the definition of limit for some cofinal directed subfamily of the $C^k_\ell$.
+        See that any Schwartz function is by definition an element of every $C^k_\ell$, and so we take the maps $\varphi^k_\ell:X\rightarrow C^k_\ell$ to be inclusions.
+        These maps are visibly compatible with the transition maps of the projective system.
+
+        Now consider an arbitrary space $Z$ with a family of maps $f^k_\ell:Z\rightarrow C^k_\ell$.
+        We must show there is a unique $f:Z\rightarrow\S$ such that for all $k,\ell$, $\varphi^k_\ell\circ f = f^k_\ell$.
+        For some index $(i,j)$, pick some $(k,\ell)>(i,j)$ so that we have (by hypothesis) the commutative diagram:
+        \begin{displaymath}
+          \xymatrix{
+            \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && C^k_\ell \ar[r] & C^i_j \\
+            & Z \ar[ur]^{f^k_\ell} \ar[urr]_{f^i_j}
+          }
+        \end{displaymath}
+        For any $z\in Z$, $f^i_j(z)=f^k_\ell(z)$ because the horizontal (transition) map is inclusion.
+        Because this holds for arbitrary $(k,\ell)$, $f^i_j(z)$ has arbitrarily many derivatives and decays arbitrarily quickly, and thus is Schwartz.
+        Thus for all $(k,\ell)$, $f^k_\ell(z)=s$ for some fixed $s\in\S$; we define $f(z)$ to be exactly this $s$.
+        This $f$ is unique because if $g(z)\ne f(z)$ we have that $\varphi^k_\ell(g(z))\ne\varphi^k_\ell(f(z))$ by the nature of inclusion, and so the $f^k_\ell$ do not factor through $g$.
+        Thus $\S=\lim_{k,\ell}C^k_\ell$.
       \end{proof}
+      \begin{rmk}
+        The language of projective limits somewhat obscures the intuition that $\S$ is exactly the intersection of the $C^k_\ell$.
+        Importantly, this description allows us to easily describe the topology on $\S$, while the set-theoretic construction offers no help.
+      \end{rmk}
+      \begin{cor}
+        As the projective limit of Banach spaces, \S is a \emph{Fr\'echet} space.
+        \todo{speak to defn. of Fr\'echet}
+        \todo{show that we can construct a family of seminorms from the banachs}
+      \end{cor}
+
 \end{document}
