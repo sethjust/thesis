@@ -371,11 +371,11 @@
       Note that we have not yet defined a notion of topology on \S, and so have no notion of continuity of functionals on \S, and so this definition is not yet exact.
       We will introduce a topology on \S in \autoref{ch:topons}; until then we will not rely on topological notions.
 
-      In general, the space \S is not interesting, but note the inclusion:
+      Schwartz functions naturally give rise to tempered distributions, so we have the inclusion:
       \begin{align*}
         \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
       \end{align*}
-      We will show that for any $\varphi$ this functional is continuous once we define a topology on $\S^*$. \todo{maybe handle this a little better}
+      For any $\varphi$ the integration-against functional is continuous; this will be clear after considering topology on \S and $\S^*$.
       
       The inclusion allows us to define the Fourier transform for tempered distributions.
       For $f$ and $\varphi$ in \S, treat $f$ as a distribution:
@@ -423,5 +423,5 @@
       We will revisit these ideas when we have a more powerful set of (topological) tools at our disposal.
       We hope that by more closely examining \S and $\S^*$ we can discover what the answers \emph{must} be.
 
-      \todo{give an example of tempered distributions being useful at this level of understanding}
+      \todo{maybe give an example of tempered distributions being useful at this level of understanding}
 \end{document}
