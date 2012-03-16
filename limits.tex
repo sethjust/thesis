@@ -219,15 +219,16 @@
       \end{claim}
 
       Having defined the (projective) limit of topological spaces in terms of a mapping-property, we hope that such an object does exist.
-      To see this, we show that the limit can be constructed as a subset of the product.
       \begin{thm}
         \label{claim:limitexists}
-        The limit $X$ of topological spaces $X_i$ can be constructed as subset of the product $Y=\prod_i X_i$ with projections $p_i:Y\rightarrow X_i$.
-        Namely, $X$ is the subset of $Y$ on which the transition maps $\varphi_{i,i-1}$ and projections are compatible, so
+        Consider a collection of topological spaces $X_i$ with continuous transition maps $\varphi_{i,i-1}$.
+        Suppose $Y$, with projection maps $p_i$, is the product of the $X_i$.
+        Then the limit $X$ of the $X_i$ exists as a subset of $Y$.
+        Namely, $X$ is where the transition maps and projections are compatible, so
         \begin{align*}
           X = \{x\in Y: \varphi_{i,i-1}(p_i(x)) = p_{i-1}(x) \text{ for all } i\}
         \end{align*}
-        with maps $\varphi_i:X\rightarrow X_i$ given by restrictions of those from the product:
+        with the maps $\varphi_i:X\rightarrow X_i$ given by restrictions of the projections from the product:
         \begin{align*}
           \varphi_i = p_i|_X :X\rightarrow X_i
         \end{align*}
