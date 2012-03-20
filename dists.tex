@@ -3,7 +3,7 @@
   \label{ch:dist}
   
   With a firm grasp of the topology of \S, we now turn back to topological issues.
-  Recall the space of \emph{tempered distributions} defined in \autoref{sec:tempdist}:
+  Recall from \autoref{sec:tempdist} that continuous linear dual of \S is the space of \emph{tempered distributions}:
   \begin{align*}
     \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
   \end{align*}
@@ -12,40 +12,56 @@
   \begin{align*}
     \varphi \longmapsto \left( \phi \mapsto \int_{x\in\R} \varphi(x) \phi(x)\,dx \right)
   \end{align*}
-  In \autoref{sec:tempdist} we saw that treating this map as an inclusion allowed us to define the Fourier transform on all of $\S^*$.
-  \begin{claim}
+  \begin{thm}
     The integration-against functional is continuous and linear.
     Thus, the mapping above gives an inclusion $\S\rightarrow\S^*$.
-    \begin{proof}
-      Fix some $\varphi\in\S$, and let $U\subseteq\C$ be open.
-      Continuity of the integration-against-$\varphi$ functional is equivalent to the openness of the inverse image
-      \begin{align*}
-        \left\{\phi\in\S:\int_{x\in\R}\varphi(x)\phi(x)\,dx\in U \right\}\text{.}
-      \end{align*}
-      Call this set $I$.
-      By our description of our topology on \S, $I$ is open if any point in $I$ is contained in an open $V$ in some $C^k_\ell$ with $V\cap\S\subseteq I$.
-      For some $\phi\in I$ we have
-      \begin{align*}
-        \int_{x\in\R} \varphi(x)\phi(x) \,dx \overset{\text{call}}{=} a \in U
-      \end{align*}
-      Pick $\varepsilon>0$ so that the open ball of radius $\varepsilon$ around $a$ is inside $U$. 
-      For $\phi'\in\S$
-      \begin{align*}
-        \left|\int_{x\in\R}\varphi(x)\phi'(x)\,dx - a\right|
-        &= \left|\int_{x\in\R}\varphi(x)\left(\phi(x)-\phi'(x)\right)\,dx\right|
-        \\&\le |\phi-\phi'|_{C^1_1}\cdot\int_{x\in\R} |\varphi(x)|\,dx\text{.}
-      \end{align*}
-      Thus for Schwartz functions $\phi'$ in the open ball of radius $\varepsilon/\int_{x\in\R}|\varphi(x)|\,dx$ around $\phi$ in $C^1_1$, we have
-      \begin{align*}
-        \left|a-\int_{x\in\R}\varphi(x)\phi'(x)\,dx\right|
-        &< \varepsilon
-      \end{align*}
-      and so $\int_{x\in\R}\varphi(x)\phi'(x)\,dx\in U$.
-      Because the point $\phi\in I$ was arbitrary, we see that the inverse image of $U$ is open.
-    \end{proof}
-  \end{claim}
+  \end{thm}
+  \begin{proof}
+    Linearity follows trivially from the definition.
+    Thus we need only show that small inputs give small outputs, and continuity everywhere will follow from linearity.
+    Fix some $\varphi\in\S$ and let $\{\phi_i\}$ be a sequence in \S approaching the zero function (which is trivially Schwartz).
+    See that
+    \begin{align*}
+      |\langle\varphi,\phi_i\rangle| 
+      &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
+      \\&\le \int_{x\in\R}| \varphi(x)\phi_i(x)|\,dx
+      \\&\le |\phi_i|_{C^1_1}\cdot\int_{x\in\R}|\varphi(x)|\,dx
+    \end{align*}
+    Thus the sequence $\{\langle\varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
+  \end{proof}
 
   The continuity of the integration-against functional shows that each Schwartz function corresponds naturally to a tempered distribution.
+  In \autoref{sec:tempdist} we saw that this inclusion allowed us to define the Fourier transform for any $f\in\S^*$ by the formula
+  \begin{align*}
+    \langle\F f, \varphi\rangle &= \langle f, \F\varphi\rangle
+  \end{align*}
+  for $\varphi\in\S$.
+  
+  We may define the derivative of a tempered distribution similarly.
+  For Schwartz functions $f$ and $\varphi$, apply integration by parts:
+  \begin{align*}
+    \langle f', \varphi\rangle
+    &= \int_{x\in\R} f'(x)\varphi(x)\,dx
+    \\&= [f(x)\varphi(x)]_{-\infty}^\infty -\int_{x\in\R} f(x)\varphi'(x)\,dx
+    \\&= -\int_{x\in\R} f(x)\varphi'(x)\,dx
+    \\&= -\langle f,\varphi'\rangle
+  \end{align*}
+  \begin{defn}
+    For a tempered distribution $u$, the distributional derivative of $u$ (denoted as usual by $u'$) is given by
+    \begin{align*}
+      \langle u', \varphi\rangle = -\langle u, \varphi'\rangle
+    \end{align*}
+    for any Schwartz function $\varphi$.
+    When $u$ corresponds to a Schwartz function $f$, the distribution $u'$ visibly corresponds to the derivative $f'\in\S$ by the calculation above. 
+  \end{defn}
+
+  \todo{introduce weak-* topology}
+  \begin{claim}
+    The differentiation map $D:\S^*\rightarrow\S^*$ is continuous.
+  \end{claim}
+  \begin{proof}
+    
+  \end{proof}
 
 
 \end{document}
