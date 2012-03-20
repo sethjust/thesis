@@ -438,16 +438,25 @@
 
       \begin{claim}
         Differentiation $D:\S\rightarrow\S$ is continuous.
-        \todo{ismorphism?}
         \begin{proof}
-          Consider some open $U\subseteq\S$ and some $\varphi\in\S$ such that $D\varphi\in U$.
-          Because $U$ is open, there is some $C^k_\ell$ and open $u\subseteq C^k_\ell$ such that $u\cap\S\subseteq U$, and $D\varphi\in u$.
-          Pick $\varepsilon$ such that the open ball in $C^k_\ell$ with radius $\varepsilon$ and centered at $D\varphi$ is contained by $u$.
-
-%          Now pick $\phi\in\S$ such that $|\varphi-\phi|_{C^k_\ell}<\varepsilon$.
-By the continuity of differentiation $D:C^k_\ell\rightarrow C^{k-1}_\ell$ from \thref{claim:diffcontCkl}, there is some $\delta>0$ such that for $\phi\in C^{k+1}_\ell$ with $|\varphi-\phi|_{C^{k+1}_\ell}<\delta$, we have $|D\varphi-D\phi|_{C^k_\ell}<\varepsilon$.
-          Intersecting the radius-$\delta$ ball with \S yields an open subset of \S containing $\varphi$, whose image under $D$ is contained in $u\cap\S$.
-          Thus, because each point in $D^{-1}(U)$ is surrounded by an open ball whose image under differentiation is in $U$, see that $D:\S\rightarrow\S$ is continuous.
+          Recall that the differentiation map $D:C^k_\ell\rightarrow C^{k-1}_\ell$ and the inclusion $C^k_\ell\rightarrow C^i_j$ (for $(k,\ell)>(i,j)$ in $A$) are continuous.
+          Composing such functions gives us a continuous map $D:C^k_\ell\rightarrow C^i_j$ for any $(k,\ell)>(i,j)$ that takes a function in one space to its derivative in another.
+          Thus we have the commutative diagram of continuous maps
+          \begin{displaymath}
+            \xymatrix{
+              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && C^k_\ell \ar[r] & C^i_j \ar[r] & \cdots \\
+              \S \ar@/_20pt/[rr]^{\varphi^k_\ell} \ar@/_30pt/[rrr]_{\varphi^i_j} & \cdots \ar[r] \ar[ur]^D & C^k_\ell \ar[r] \ar[ur]^D & C^i_j \ar[ur]^D \\
+            }
+          \end{displaymath}
+          Composition of functions give a family of maps $D^k_\ell:\S\rightarrow C^k_\ell$ so that the diagram below commutes:
+          \begin{displaymath}
+            \xymatrix{
+              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && C^k_\ell \ar[r] & C^i_j \\
+              \S \ar[urr] \ar[urrr] \\
+            }
+          \end{displaymath}
+          These maps take Schwartz functions to their derivatives in some $C^k_\ell$ and commute with the inclusions $\varphi^k_\ell:\S\rightarrow C^k_\ell$.
+          Thus the induced map $D:\S\rightarrow\S$ takes functions to their derivatives, and is continuous.
         \end{proof}
       \end{claim}
 
