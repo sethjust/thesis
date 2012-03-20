@@ -6,7 +6,7 @@ RM = rm -f
 RERUN = "(There were undefined references|Rerun to get ((cross-references|the bars) right|citations correct))"
 RERUNBIB = "No file.*\.bbl|Citation.*undefined"
 
-TEXFILES = thesis.tex ack.tex intro.tex fourier.tex schwartz.tex tfcns.tex dists.tex conclusion.tex limits.tex
+TEXFILES = thesis.tex ack.tex intro.tex fourier.tex schwartz.tex dists.tex conclusion.tex limits.tex
 
 .SILENT:
 
@@ -16,7 +16,7 @@ all: thesis.pdf
 
 pdf: thesis.pdf
 
-sections: intro.pdf fourier.pdf schwartz.pdf limits.pdf
+sections: intro.pdf fourier.pdf schwartz.pdf dists.pdf limits.pdf
 
 %.pdf: %.tex %.aux %.sout %.bbl %.blg chpreamble.tex vc.tex
 	$(LATEX) $< #$(REDIR)
