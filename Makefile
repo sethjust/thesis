@@ -34,9 +34,13 @@ thesis.aux thesis.sage: $(TEXFILES)
 %.aux %.sage: %.tex
 	$(LATEX) $< $(REDIR); true
 
+# Generate file that sage needs (it only has to exist, apparently)
+%.sagetex.sage:
+	touch $@
+
 #SAGE = python sagetex/remote-sagetex.py -s http://cerberus.sethjust.com:8000 -u admin -p robots
 SAGE = ~/bin/sage/sage
-%.sout: %.sage
+%.sout: %.sage %.sagetex.sage
 # Check if sage changed; can't use dates b/c latex overwrites the .sage
 	(!(diff $*.sage .$*.sage.bak) && (($(SAGE) $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
 
@@ -61,7 +65,7 @@ diffclean:
 	$(RM) *_new.tex *_old.tex *_diff.*
 
 sageclean:
-	$(RM) *.sage *.sout .*.sage.bak
+	$(RM) *.sage *.sout .*.sage.bak *.sagetex.sage *.sagetex.scmd
 	$(RM) -r sage-plots-for-*
 
 reallyclean:

@@ -7,7 +7,9 @@
 *.out
 *.pdf
 *.pdfsync
+*.py
 *.sage
+*.scmd
 *.sout
 *.swp
 *.thm
