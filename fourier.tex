@@ -88,7 +88,7 @@
             \F(f') &= -2\pi i\xi\F f
 %          \F(f_x) &= \frac{1}{|x|}(\F f)_{x^{-1}}
         \end{align}
-        \begin{proof}[Proof of \eqref{eq:tsltispsi}]
+        \begin{proof}[Proof of \cref{eq:tsltispsi}]
           \begin{align*}
             (T_x\F^{-1}f)(y) &= (\F^{-1}f)(x+y)\\
             &= \int_{\xi\in\R}f(\xi)e^{2\pi i(x+y)\xi}\,d\xi\\
@@ -96,7 +96,7 @@
             &= \F^{-1}(\psi_xf)(y)
           \end{align*}
         \end{proof}
-        \begin{proof}[Proof of \eqref{eq:xisdiff}]
+        \begin{proof}[Proof of \cref{eq:xisdiff}]
           \begin{align*}
             (\F f)'(\xi) &= \frac{d}{d\xi}\int_{x\in\R} f(x)e^{-2\pi i x\xi}\,dx\\
             &= -2\pi i \int_{x\in\R} xf(x)e^{2\pi i x\xi}\,dx\\
@@ -128,7 +128,7 @@
           \F_x\left(\frac{\partial}{\partial t}u(x,t)\right) &= \F_x\left(\alpha\frac{\partial^2}{\partial x^2}u(x,t)\right)\\
           \frac{\partial}{\partial t}\F_xu(\xi,t) &= -k\xi^2\F_xu(\xi,t)
         \end{align*}
-        passing the $t$ derivative through the $x$ integral and folding $\alpha$ and the constants of \eqref{eq:xisdiff2} into $k$.
+        passing the $t$ derivative through the $x$ integral and folding $\alpha$ and the constants of \cref{eq:xisdiff2} into $k$.
 
         As we hoped, these transformations have made the differential equation easier to solve, by replacing $x$ derivatives with multiples of $\xi$.
         Solving yields
@@ -147,7 +147,7 @@
           \label{eq:heatsoln} &= \frac{1}{\sqrt{4\pi kt}}\int_{y\in\R} f(y)e^{-(x-y)^2/4kt}\,dy
         \end{align}
         which is verifiably a solution to the heat equation.
-        An example of this solution is shown in \autoref{fig:heateq}.
+        An example of this solution is shown in \cref{fig:heateq}.
 
         \begin{figure}
           \begin{center}
@@ -160,7 +160,7 @@
             \end{sagesilent}
             \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false) for t,c in [(1/1000,(0,0,0)), (1/32,(.1,.1,.1)), (1/8,(.3,.3,.3)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
           \end{center}
-          \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ (\autoref{eq:heatsoln}) derived in Example \ref*{ex:heateq}.}
+          \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ \cref{eq:heatsoln} derived in \cref{ex:heateq}.}
           \label{fig:heateq}
         \end{figure}
       \end{example}
@@ -213,7 +213,7 @@
       \end{figure}
 
     \section{Schwartz Functions}
-      We hope to use \thref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, so that we may take Fourier transforms without concern, as we will always understand the result.
+      We hope to use \cref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, so that we may take Fourier transforms without concern, as we will always understand the result.
 
       Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ is $L^1$-integrable---that is, when 
       \begin{align*}
@@ -226,7 +226,7 @@
           |x|>N \Rightarrow f(x)<\epsilon\text{.}
         \end{align*}}
 
-      We also observed in \thref{ex:heateq} that the Fourier transform is useful because of its ability to exchange differentiation and multiplication.
+      We also observed in \cref{ex:heateq} that the Fourier transform is useful because of its ability to exchange differentiation and multiplication.
       To make use of this fact, we also want our space to be closed when we take derivatives or multiply by $x$.
       This leaves us with the following requirements on our space of functions:
       \begin{enumerate}[label=(\alph*)]
@@ -235,10 +235,6 @@
         \item \label{i:mult}It is closed under multiplication by $x$.
       \end{enumerate}
       We call such functions \emph{Schwartz functions}:
-
-%      Now suppose that $f$ is such a function.
-%      By \ref{i:diff} $f$ will be infinitely differentiable.
-%      For any $k,\ell\ge0$, we see from \ref{i:vanish} and \ref{i:mult} that $x^kf^{(\ell)}$ will vanish at infinity.
 
       \begin{defn}
         A Schwartz function is a function
@@ -284,17 +280,17 @@
           By definition $f^{(k)}$ is Schwartz, so we can apply the Riemann--Lebesgue Lemma and conclude $\lim_{|\xi|\rightarrow\infty} \xi^k\F f(\xi) = 0$, which is exactly the decay condition on Schwartz functions.
 
           Now we must show that $\F f$ is differentiable. 
-          By \eqref{eq:xisdiff} we see
+          By \cref{eq:xisdiff} we see
           \begin{align*}
             (\F f)'(\xi) &= -2\pi i \F(\xi f)(\xi)
           \end{align*}
           Because $\xi f$ is Schwartz by definition, we can see (from above) that $\F f$ is differentiable.
           In fact, $\F(\xi f)$, and thus $(\F f)'$, will decay faster than any power of $\xi$.
-          Repeated applications of \eqref{eq:xisdiff} will show this for all derivatives of $\F f$, and thus $\F f$ is Schwartz.
+          Repeated applications of \cref{eq:xisdiff} will show this for all derivatives of $\F f$, and thus $\F f$ is Schwartz.
         \end{proof}
       \end{lemma}
       \begin{rmk}
-        The proof of \thref{lemma:sclosed} relies on the (near-)symmetry of the Fourier transform with respect to differentiation and multiplication by $x$:
+        The proof of \cref{lemma:sclosed} relies on the (near-)symmetry of the Fourier transform with respect to differentiation and multiplication by $x$:
         \begin{itemize}
           \item $\F f$ decays faster than any power of $x$ because $f$ has infinitely many derivatives.
           \item $\F f$ has infinitely many derivatives because $f$ decays faster than any power of~$x$.
@@ -308,15 +304,15 @@
         Let $\varphi$ be a Schwartz function.
         Then \[\F^{-1}\F \varphi = \varphi\text{.}\]
       \end{thm}
-      To prove \thref{thm:fourinv} we first reduce it to the single case of $x=0$:
+      To prove \cref{thm:fourinv} we first reduce it to the single case of $x=0$:
       \begin{claim}[Fourier inversion, granting inversion at 0]
         Suppose that for all\\$\phi\in\S$, $(\F^{-1}\F\phi)(0) = \phi(0)$.
         Then for all $\varphi\in\S$ and $x\in\R$, $(\F^{-1}\F\varphi)(x)=\varphi(x)$.
         \begin{proof}
           \begin{align*}
             (\F^{-1}\F\varphi)(x) &= (T_x\F^{-1}\F\varphi)(0) &\text{by defn. of $T_x$}\\
-            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by \eqref{eq:tsltispsi}}\\
-            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by \eqref{eq:tsltispsi2}}\\
+            &= (\F^{-1}(\psi_x\F\varphi))(0) &\text{by \cref{eq:tsltispsi}}\\
+            &= (\F^{-1}\F T_x\varphi)(0)  &\text{by \cref{eq:tsltispsi2}}\\
             &= (T_x\varphi)(0) &\text{by hypothesis}\\
             &= \varphi(x)
           \end{align*}
@@ -327,7 +323,7 @@
       \begin{rmk}
         The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
       \end{rmk}
-      \begin{proof}[Proof of \thref{thm:fourinv}]
+      \begin{proof}[Proof of \cref{thm:fourinv}]
         We first reduce the problem further, using a trick with simple function:
         Recall that the \emph{Gaussian} function $\gamma:\R\rightarrow\R$ given by $\gamma(x) = e^{-\pi x^2}$ has $\gamma=\F\gamma=\F^{-1}\gamma$, and that (clearly) $\gamma(0)=1$.
         Then 
@@ -350,7 +346,7 @@
         We can easily calculate that $\varphi^{(k)}(x) = \int_0^1t^k\phi^{(k+1)}(xt)\,dt$, and so $\varphi$ and its derivatives will be smooth for all $x$ and will inherit rapid decay from $\phi$.
         Thus $\varphi\in\S$.
 
-        By \eqref{eq:xisdiff}:
+        By \cref{eq:xisdiff}:
         \begin{align*}
           (\F\phi)(\xi) = (\F x\varphi)(\xi)= -\frac{1}{2\pi i}(\F\varphi)'(\xi)
         \end{align*}
@@ -370,7 +366,7 @@
       We call $\S^*$ the space of \emph{tempered distributions}.
 
       Note that we have not yet defined a notion of topology on \S, and so have no notion of continuity of functionals on \S, and so this definition is not yet exact.
-      We will introduce a topology on \S in \autoref{ch:topons}; until then we will not rely on topological notions.
+      We will introduce a topology on \S in \cref{ch:topons}; until then we will not rely on topological notions.
 
       Schwartz functions naturally give rise to tempered distributions, so we have the inclusion:
       \begin{align*}
@@ -410,7 +406,7 @@
           \F^{-1}\F\varphi &= \varphi
         \end{align*}
       \end{thm}
-      \begin{proof}[Proof of \thref{thm:fourinv_td}]
+      \begin{proof}[Proof of \cref{thm:fourinv_td}]
         For $\phi\in\S$:
         \begin{align*}
           \langle\F^{-1}\F\varphi, \phi\rangle &= \langle \F\varphi, \F^{-1}\phi\rangle\\
@@ -419,7 +415,7 @@
         \end{align*}
       \end{proof}
 
-      In fact, similar (although admittedly less straightforward) proofs show all of the identities of \thref{lemma:fourprops} for tempered distributions.
+      In fact, similar (although admittedly less straightforward) proofs show all of the identities of \cref{lemma:fourprops} for tempered distributions.
       However, this undertaking also requires us to clarify just what is meant by the derivative of a tempered distribution, or multiplying a distribution by $x$.
       We will revisit these ideas when we have a more powerful set of (topological) tools at our disposal.
       We hope that by more closely examining \S and $\S^*$ we can discover what the answers \emph{must} be.

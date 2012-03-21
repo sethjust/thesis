@@ -5,21 +5,26 @@
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{! Custom Error: Unaddressed TODO!}}}}
 
 % Start my packages here
-\usepackage{setspace}
+\usepackage{amsmath,amssymb}
 \usepackage[final]{graphicx} %final so that draft options don't mess w/ images
 \usepackage[final]{microtype}
-\usepackage{amsmath,amssymb}
-\usepackage{pdfsync}
-\usepackage[hyphens]{url}
+\usepackage{multicol}
 \usepackage{natbib}
+\usepackage{pdfsync}
 \usepackage{sagetex/sagetex}
-\usepackage{xspace}
+\usepackage{setspace}
 \usepackage{subfiles}
+\usepackage[hyphens]{url}
 \usepackage{xcolor}
+\usepackage{xspace}
 
 \usepackage[utopia]{quotchap}
 \colorlet{chaptergrey}{black}
 
+\usepackage{enumitem}
+\setlist{itemsep=2pt,parsep=0pt,topsep=5pt}
+
+% The following packages care about order of loading
 \usepackage{framed}
 \usepackage[amsmath, thmmarks, thref, framed, hyperref]{ntheorem}
 \usepackage[ntheorem]{mdframed}
@@ -28,9 +33,7 @@
 
 \usepackage{xypic}
 
-\usepackage{multicol}
-\usepackage{enumitem}
-\setlist{itemsep=2pt,parsep=0pt,topsep=5pt}
+\usepackage[nameinlink,noabbrev]{cleveref}
 
 % Import version control definitions
 \input{vc.tex}
@@ -111,6 +114,25 @@
   {\item[\hskip\labelsep \it ##3.]}
 \theoremstyle{proof}
 \newtheorem{proof}{Proof}
+
+% Cross-referencing names
+\crefname{equation}{}{}
+\Crefname{equation}{Equation}{Equations}
+\crefname{thm}{theorem}{theorems}
+\Crefname{thm}{Theorem}{Theorems}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{claim}{claim}{claims}
+\Crefname{claim}{Claim}{Claims}
+\crefname{cor}{corollary}{corollaries}
+\Crefname{cor}{Corollary}{Corollaries}
+\crefname{rmk}{remark}{remarks}
+\Crefname{rmk}{Remark}{Remarks}
+\crefname{example}{example}{examples}
+\Crefname{example}{Example}{Examples}
+\crefname{defn}{definition}{definitions}
+\Crefname{defn}{Definition}{Definitions}
+\crefalias{nbdefn}{defn}
 
 % Metadata
 \title{Functions on the Line}

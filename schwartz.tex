@@ -176,7 +176,7 @@
         Consider the case $k=1$; this will extend inductively to all $k$.
         Let $\{f_i\}$ be Cauchy in $C^1_0$.
         Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in $C^0_0$, by definition of the $C^0_0$ (sup) norm and $C^1_0$ norm, each is Cauchy in $C^0_0$.
-        Thus by \thref{thm:c00complete} each sequence converges uniformly pointwise, so we can write:
+        Thus by \cref{thm:c00complete} each sequence converges uniformly pointwise, so we can write:
         \begin{align*}
           &f(x)=\lim_n f_i(x) &g(x)=\lim_n f_i'(x)
         \end{align*}
@@ -222,7 +222,7 @@
       \end{thm}
       \begin{proof}
         Take a Cauchy sequence of $C^0_\ell$ functions $\{f_i\}$.
-        Because each $f_i\in C^0_0$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $C^0_0$, as in the proof of \thref{thm:c00complete}.
+        Because each $f_i\in C^0_0$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $C^0_0$, as in the proof of \cref{thm:c00complete}.
         However, this only holds if $\{f_i\}$ is Cauchy in $C^0_0$. 
 
         By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$
@@ -285,10 +285,10 @@
       \end{thm}
       \begin{proof}
         Again we consider the case of $k=1$ and allow proof to extend inductively to all $k$.
-        This proof is similar to \thref{thm:ck0complete}, with the added complication(s) of proving decay along with differentiability.
+        This proof is similar to \cref{thm:ck0complete}, with the added complication(s) of proving decay along with differentiability.
 
         Take $\{f_i\}$ to be Cauchy in $C^1_\ell$.
-%        We want to show that the sequence is Cauchy in another norm, as in \thref{thm:c0lcomplete}.
+%        We want to show that the sequence is Cauchy in another norm, as in \cref{thm:c0lcomplete}.
         By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$ we have $|f_i -f_j|_{C^1_\ell} < \varepsilon$.
         Calculate
         \begin{align*}
@@ -298,10 +298,10 @@
           &= |f_i-f_j|_{C^1}
         \end{align*}
         Thus $\{f_i\}$ is Cauchy in $C^1_0$.
-        From \thref{thm:ck0complete} we then see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in $C^0_0$ with $f'=g$.
+        From \cref{thm:ck0complete} we then see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in $C^0_0$ with $f'=g$.
 
         We now only need to show that $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in C^0_0$.
-        If we can show that $\{f_i\}$ is Cauchy in $C^0_\ell$ then we'll see that $(1+x^2)^\ell f\in C^0_0$ by \thref{thm:c0lcomplete}.
+        If we can show that $\{f_i\}$ is Cauchy in $C^0_\ell$ then we'll see that $(1+x^2)^\ell f\in C^0_0$ by \cref{thm:c0lcomplete}.
         Similarly, if we show that $\{f_i'\}$ is Cauchy in $C^0_\ell$, we'll see that $(1+x^2)^\ell g\in C^0_0$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^1_0$.
         Calculate
         \begin{align*}
@@ -335,9 +335,9 @@
 
     \section{\S as a topological limit}
       
-      From \thref{thm:cklcomplete} we have that for all $k,\ell>0$, the space $C^k_\ell$ of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$ is a Banach space (complete normed vectorspace).
+      From \cref{thm:cklcomplete} we have that for all $k,\ell>0$, the space $C^k_\ell$ of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$ is a Banach space (complete normed vectorspace).
       Because the space of Schwartz functions is made up \emph{infinitely} differentiable functions with infinitely fast decay, it seems natural that $\S$ is the limit of these Banach spaces.
-      \autoref{ch:topprod} defines the \emph{projective limit} of topological spaces and shows that these limits are themselves topological spaces.
+      \cref{ch:topprod} defines the \emph{projective limit} of topological spaces and shows that these limits are themselves topological spaces.
       We hope to show that this doubly-indexed limit is still topologically well-behaved and converges to \S.
       With this accomplished we will be able to completely understand $\S$ as a topological space, and thus understand the tempered distributions $\S^*$ as a topological \emph{dual} space.
 
@@ -364,7 +364,7 @@
           \lim_{k,\ell}C^k_\ell = \bigcap_{k,\ell=0}^\infty C^k_\ell\text{.}
         \end{align*}
       \end{rmk}
-      \begin{proof}[Proof of \thref{claim:inclcont}]
+      \begin{proof}[Proof of \cref{claim:inclcont}]
         First see that by definition of set inclusion, the diagram must be commutative.
         Because any $f$ in some $C^k_\ell$ is an element of every $C^i_j$ with $i\le k$ and $j\le\ell$ by definition, any composition of inclusions $C^k_\ell\rightarrow C^i_j$ will agree.
 
@@ -397,8 +397,8 @@
         (k,\ell) > (i,j) \quad\text{when $k\ge i$, $\ell\ge j$ and $(k,\ell) \ne (i,j)$.} 
       \end{align*}
       Indexing the $C^k_\ell$ naturally by $A$, we have a projective system with inclusions as transition maps.
-      Thus, by \thref{claim:limitexists} the $C^k_\ell$ have a projective limit.
-%      Furthermore, by \thref{thm:cofinalisom} we need only take the limit of a \emph{cofinal, directed} subfamily of the $C^k_\ell$, as it will be homeomorphic to the limit of the whole collection.
+      Thus, by \cref{claim:limitexists} the $C^k_\ell$ have a projective limit.
+%      Furthermore, by \cref{thm:cofinalisom} we need only take the limit of a \emph{cofinal, directed} subfamily of the $C^k_\ell$, as it will be homeomorphic to the limit of the whole collection.
 
       \begin{thm}
         The space of Schwartz Functions is the limit of the projective system formed by the $C^k_\ell$.
