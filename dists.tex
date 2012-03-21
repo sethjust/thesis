@@ -8,10 +8,11 @@
     \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
   \end{align*}
   This definition is now fully sensible, as we know what it means to be a continuous functional on \S.
-  Recall the mapping $\S\rightarrow\S^*$ taking a test function $\varphi$ to the integration-against-$\varphi$ functional on \S:
+  Recall the mapping taking a test function $\varphi$ to the integration-against-$\varphi$ functional on \S:
   \begin{align*}
     \varphi \longmapsto \left( \phi \mapsto \int_{x\in\R} \varphi(x) \phi(x)\,dx \right)
   \end{align*}
+  We hope that this map takes elements of \S into elements of $\S^*$, as we might expect it to.
   \begin{thm}
     The integration-against functional is continuous and linear.
     Thus, the mapping above gives an inclusion $\S\rightarrow\S^*$.
@@ -25,8 +26,12 @@
       |\langle\varphi,\phi_i\rangle| 
       &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
       \\&\le \int_{x\in\R}| \varphi(x)\phi_i(x)|\,dx
-      \\&\le |\phi_i|_{C^1_1}\cdot\int_{x\in\R}|\varphi(x)|\,dx
+      \\&= \int_{x\in\R}|\varphi(x)|\cdot|\phi_i(x)|\,dx
+      \\&\le \int_{x\in\R}|\varphi(x)|\cdot|\phi_i|_{C^k_\ell}\,dx
+      \\&= |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
     \end{align*}
+    for any $k$ and $\ell$, by definition of the $C^k_\ell$ norm.
+    Because $\{\phi_i\}$ approaches zero in \S, we see that $\{|\phi_i|_{C^k_\ell}\}$ also approaches zero.
     Thus the sequence $\{\langle\varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
   \end{proof}
 
