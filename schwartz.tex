@@ -174,13 +174,13 @@
       \end{thm}
       \begin{proof}
         Consider the case $k=1$; this will extend inductively to all $k$.
-        Let $\{f_i\}$ be Cauchy in $C^k_0$.
-        Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in $C^0_0$, by definition of the $C^0_0$ (sup) norm and $C^k_0$ norm, each is Cauchy in $C^0_0$.
+        Let $\{f_i\}$ be Cauchy in $C^1_0$.
+        Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in $C^0_0$, by definition of the $C^0_0$ (sup) norm and $C^1_0$ norm, each is Cauchy in $C^0_0$.
         Thus by \thref{thm:c00complete} each sequence converges uniformly pointwise, so we can write:
         \begin{align*}
           &f(x)=\lim_n f_i(x) &g(x)=\lim_n f_i'(x)
         \end{align*}
-        We now hope to show that $f$ is differentiable, and so an element of $C^k_0$.
+        We now hope to show that $f$ is differentiable, and so an element of $C^1_0$.
         Since each $f_i$ is continuous and differentiable, write
         \begin{align*}
           f_i(x)-f_i(a) = \int_a^x f_i'(t)\,dt
@@ -191,7 +191,12 @@
           &= \int_a^x\lim_if_i(t)\,dt\\
           f(x)-f(a) &= \int_a^x g(t)\,dt
         \end{align*}
-        so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^k_0$.
+        so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^1_0$.
+        Thus $C^1_0$ is complete in the $C^1$-norm topology.
+
+        Now suppose that $\{f_i\}$ is Cauchy in $C^k_0$ for $k>1$, and that $C^{k-1}_0$ is complete in the topology induced by its norm.
+        Again, both $\{f_i\}$ and $\{f_i'\}$ are Cauchy in $C^0_0$, so letting $f$ and $g$ be the limits of the sequences (as above), we see that $f'=g$.
+        Because $\{f_i'\}$ is also Cauchy in $C^{k-1}_0$, by the inductive hypothesis we have $g\in C^{k-1}_0$, and so $f\in C^k_0$, finishing the proof.
       \end{proof}
 
     \subsection{Spaces of decaying functions}
@@ -206,9 +211,11 @@
       \begin{align*}
         |f| = |(1+x^2)^\ell f|_{C^0_0} = \sup_{x\in\R} |(1+x^2)^\ell f(x)|
       \end{align*}
-      These definitions are slightly ugly -- secretly we want the $(1+x^2)$ to be an $x$, but importantly $(1+x^2)^\ell\ge1$ for all $x$ and $\ell$.
+      Note that for $\ell=0$ we have $C^0_\ell=C^0_0$, and their respective norms agree.
+
+      The definition of $C^k_\ell$ is slightly ugly -- secretly we want the $(1+x^2)$ to be an $x$, but importantly $(1+x^2)^\ell\ge1$ for all $x$ and $\ell$.
       As the next proof shows, this is important!
-      Replacing $(1+x^2)^\ell$ with $x^\ell$ in the definition would allow our functions to be misbehaved near the origin, which would allow us to construct a non-convergent Cauchy sequence.
+      Replacing $(1+x^2)^\ell$ with $x^\ell$ in the definition would allow our functions to blow near the origin, which would allow us to construct a Cauchy sequence that does not converge in $C^k_\ell$.
       \begin{thm}
         \label{thm:c0lcomplete}
         $C^0_\ell(\R)$ is complete in its topology.
@@ -277,33 +284,29 @@
         $C^k_\ell(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
-        \todo{IMPORTANT!!! Fix this proof so that it holds well; namely, ensure that the relationship between the $C^k_\ell$ and $C^k$ norms is treated properly.}
-        Again we consider the case of $k=1$ and allow the argument to extend inductively.\todo{give this some attention to make it solid}
+        Again we consider the case of $k=1$ and allow proof to extend inductively to all $k$.
+        This proof is similar to \thref{thm:ck0complete}, with the added complication(s) of proving decay along with differentiability.
 
-        Take $\{f_i\}$ to be Cauchy in $C^k_\ell$.
-
-        We want to show that the sequence is Cauchy in another norm, as in \thref{thm:c0lcomplete}.
-        By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$
-        \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^k} < \varepsilon
-        \end{align*}
+        Take $\{f_i\}$ to be Cauchy in $C^1_\ell$.
+%        We want to show that the sequence is Cauchy in another norm, as in \thref{thm:c0lcomplete}.
+        By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$ we have $|f_i -f_j|_{C^1_\ell} < \varepsilon$.
         Calculate
         \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^k}
-          &= \sum_{0\le h\le k}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
-          &\ge \sum_{0\le h\le k}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
-          &= |f_i-f_j|_{C^k}
+          |f_i -f_j|_{C^1_\ell}
+          &= \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
+          &\ge \sum_{0\le h\le 1}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
+          &= |f_i-f_j|_{C^1}
         \end{align*}
-        Thus $\{f_i\}$ is Cauchy in $C^k_0$.
-        From \thref{thm:ck0complete} we then see that $\{f_i\}$ is Cauchy in $C^k_0$ and so $\{f_i\}\rightarrow f$ in $C^k_0$ and $\{f_i'\}\rightarrow g$ in $C^{k-1}_0$ with $f'=g$.
+        Thus $\{f_i\}$ is Cauchy in $C^1_0$.
+        From \thref{thm:ck0complete} we then see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in $C^0_0$ with $f'=g$.
 
-        We now only need to show that $(1+x^2)^\ell f\in C^k_0$ and $(1+x^2)^\ell g\in C^{k-1}_0$.
+        We now only need to show that $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in C^0_0$.
         If we can show that $\{f_i\}$ is Cauchy in $C^0_\ell$ then we'll see that $(1+x^2)^\ell f\in C^0_0$ by \thref{thm:c0lcomplete}.
-        Similarly, if we show that $\{f_i'\}$ is Cauchy in $C^0_\ell$, we'll see that $(1+x^2)^\ell g\in C^0_0$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^k_0$.
+        Similarly, if we show that $\{f_i'\}$ is Cauchy in $C^0_\ell$, we'll see that $(1+x^2)^\ell g\in C^0_0$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^1_0$.
         Calculate
         \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^k}
-          &= \sum_{0\le h\le k}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
+          |f_i -f_j|_{C^1_\ell}
+          &= \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
           &\ge \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
         \end{align*}
         which is exactly the norm of $f_i-f_j$ in $C^0_\ell$.
@@ -316,7 +319,18 @@
           &\le (1+x^2)^\ell g(x) + 2\ell(1+x^2)^\ell f(x)
         \end{align*}
         We have just shown that both summands are $C^0_0$, and so vanish at infinity.
-        Thus, by the definition of $C^k_0$, $f\in C^k_0$, and so $C^k_\ell$ is complete in its topology, and thus Banach.
+        Thus, by the definition of $C^1_0$, $f\in C^1_0$.
+
+        Now take $\{f_i\}$ to be Cauchy in $C^k_\ell$ for $k>1$, and suppose that $C^{k-1}_\ell$ is complete.
+        Then by the argument above see that $f=\lim_i f_i$ is $C^1_\ell$, $g=\lim_i f_i'$ is $C^0_\ell$, and $f'=g$.
+        Calculate
+        \begin{align*}
+          |f_i'-f_j'|_{C^{k-1}_\ell}
+          &= \sum_{1\le h\le k} (1+x^2)^\ell\left|f_i^{(h)}-f_j^{(h)}\right|
+          \\&\le |f_i-f_j|_{C^k_\ell}
+        \end{align*}
+        and so $g\in C^{k-1}_\ell$.
+        Thus $f\in C^k_\ell$ so $C^k_\ell$ is complete in its topology, and thus Banach.
       \end{proof}
 
     \section{\S as a topological limit}
@@ -440,12 +454,12 @@
         Differentiation $D:\S\rightarrow\S$ is continuous.
         \begin{proof}
           Recall that the differentiation map $D:C^k_\ell\rightarrow C^{k-1}_\ell$ and the inclusion $C^k_\ell\rightarrow C^i_j$ (for $(k,\ell)>(i,j)$ in $A$) are continuous.
-          Composing such functions gives us a continuous map $D:C^k_\ell\rightarrow C^i_j$ for any $(k,\ell)>(i,j)$ that takes a function in one space to its derivative in another.
+           Composing such functions for any $(k,\ell)>(i,j)$ gives a continuous map $D:C^k_\ell\rightarrow C^i_j$ that takes a function in one space to its derivative in another.
           Thus we have the commutative diagram of continuous maps
           \begin{displaymath}
             \xymatrix{
-              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && C^k_\ell \ar[r] & C^i_j \ar[r] & \cdots \\
-              \S \ar@/_20pt/[rr]^{\varphi^k_\ell} \ar@/_30pt/[rrr]_{\varphi^i_j} & \cdots \ar[r] \ar[ur]^D & C^k_\ell \ar[r] \ar[ur]^D & C^i_j \ar[ur]^D \\
+              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} & \cdots \ar[r] & C^k_\ell \ar[r] & C^i_j \ar[r] & \cdots \\
+              \S \ar@/_20pt/[rr]^{\varphi^k_\ell} \ar@/_30pt/[rrr]_{\varphi^i_j} & \cdots \ar[r] \ar[ur]^D & C^k_\ell \ar[r] \ar[ur]^D & C^i_j \ar[r] \ar[ur]^D & \cdots\\
             }
           \end{displaymath}
           Composition of functions give a family of maps $D^k_\ell:\S\rightarrow C^k_\ell$ so that the diagram below commutes:
@@ -455,8 +469,8 @@
               \S \ar[urr] \ar[urrr] \\
             }
           \end{displaymath}
-          These maps take Schwartz functions to their derivatives in some $C^k_\ell$ and commute with the inclusions $\varphi^k_\ell:\S\rightarrow C^k_\ell$.
-          Thus the induced map $D:\S\rightarrow\S$ takes functions to their derivatives, and is continuous.
+          These maps take Schwartz functions to their derivatives in some $C^k_\ell$ and commute with the transitions $C^k_\ell\rightarrow C^i_j$.
+          Thus the map $D:\S\rightarrow\S$ induced by the limit definition takes functions to their derivatives, and is continuous.
         \end{proof}
       \end{claim}
 
