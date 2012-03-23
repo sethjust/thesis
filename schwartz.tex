@@ -5,14 +5,18 @@
   \end{savequote}
   \chapter{Topology on Schwartz Functions}
     \label{ch:topons}
-    Our development of Schwartz functions and tempered distributions showed that these spaces have nice properties with regard to the Fourier transform.
+    Our development of Schwartz functions and tempered distributions showed that these spaces have good properties with regard to the Fourier transform.
     However, our discussion has mainly concerned itself with set-theoretic notions---that is, with the properties of elements of these spaces.
-    We hope that these spaces are also nicely behaved with regard to \emph{topological} properties such as limits and continuity.
-    Particularly, understanding \S as a topological space allows us to easily understand $\S^*$, as duals of topological spaces are well understood.
+    We hope that these spaces are also nicely behaved with regard to \emph{topological} properties such as continuity and limits.
+    In fact, understanding \S as a topological space allows us to easily understand $\SS$ as a topological space without getting caught up in details.
+    This understanding allows us to carefully discuss approximating tempered distributions with other functions; we will eventually see that any distribution is a limit (in the appropriate topology) of Schwartz functions.
+
+%    Topological understanding also offers great power for .
+%    By working in the category of continuous maps between topological spaces we are able to avoid much of the clutter of a classical working environment.
 
     \section{Spaces of Functions}
       \label{sec:spcoffunc}
-      We are interested in \emph{topology} on spaces of functions, with the goal of finding a topology for the space of distributions.
+      We are interested in topology on spaces of functions, with the goal of finding a topology for the space of distributions.
       Recall:
       \begin{defn}
         A \emph{topological space} is a set $X$ and a set $\tau$ of subsets of $X$ that satisfies:
@@ -23,80 +27,129 @@
         \end{itemize}
         We call $\tau$ a \emph{topology on $X$}.
 
-        Given a set $X$ with a \emph{metric} $d:X^2\rightarrow\R$, we take all sets of the form 
+        Given a subset of the power set $S\subseteq2^X$ that contains $\emptyset$ and $X$, we generate a topology $\tau$ on $X$ by completing $S$ with respect to union and finite intersection (that is, taking all possible unions and intersections of sets in $S$ repeatedly until no new open sets are generated).
+        We call $S$ the \emph{generating set} of the topology $\tau$.
+
+        Given a set $X$ with a metric\footnotemark $d:X^2\rightarrow\R_{\ge 0}$, we take all sets of the form 
         \begin{align*}
           \{x\in X:d(x,y)<\alpha\}
         \end{align*}
-        for $y\in X$ and $\alpha\in\R_{\ge0}\cup\{\infty\}$ as a topological basis basis for a set $\tau_d$, which is verifiably a topology on $X$.
+        for $y\in X$ and $\alpha\in\R_{\ge0}\cup\{\infty\}$ as a generating set for a topology $\tau_d$.
       \end{defn}
+      \footnotetext{Recall that a metric satisfies (a) $d(x,y)=0\Leftrightarrow x=y$, (b) $d(x,y)=d(y,x)$, and (c) $d(x,z)\le d(x,y)+d(y,z)$.}
 
-      Working with this definition for arbitrary sets is not fun---it is only by taking advantage of additional structure on $X$ (such as a metric) that the topology is easily understood, in part because it allows us to apply physical intuition about \emph{size}. 
-      We hope that we can find some structure in spaces of functions that will allow us to easily understand the topologies we work with.
+      The category of general topological spaces is too general to usefully apply to our context.
+      By moving to a category that offers additional structure (such as the category of metric spaces, where we may use intuition about size) we are able to more easily grasp the topologies we work with.
+      We hope that we can find some such structure on spaces of functions that allow us to easily understand them as topological spaces.
+      Happily, properly chosen sets of functions naturally form vectorspaces over \C, by defining operations pointwise:
+      \begin{align*}
+        (f+g)(x) &= f(x)+g(x)\\
+        (a\cdot f)(x) &= a\cdot f(x)
+      \end{align*}
+      This vectorspace structure lets us easily construct topologies.
+
       Recall:
       \begin{defn}
-        A \emph{norm} on a vectorspace $X$ over a field $F$ is a function
+        A \emph{norm} on a complex vectorspace $X$ is a function
         \begin{align*}
           |\cdot|_X:X\longrightarrow\R_{\ge0}
         \end{align*}
-        that satisfies for all $x,y\in X$, $a\in F$:
+        that satisfies for all $x,y\in X$, $a\in\C$:
         \begin{itemize}
           \item Positive Scalability: $|ax|_X=|a|\cdot|x|_X$
           \item Triangle Inequality: $|x+y|_X\le|x|_X+|y|_X$
           \item Separation of points: $|x|_X=0\Longleftrightarrow x=0_X$.
         \end{itemize}
-        Notationally, some subscripts are dropped and we distinguish between a norm and the real absolute-value function by context.
+        Notationally, some subscripts are dropped and we distinguish between a norm and the complex absolute-value function by context.
       \end{defn}
 
-      Now suppose that $X$ is a normed vectorspace over $\C$.
+      Now suppose that $X$ is a vectorspace over $\C$ with a norm $|\cdot|$.
       We define a metric on $X$ by $d(x,y)=|x-y|$, and so can define a topology on $X$ by means of this metric.
-      This construction is particularly useful in our context, as sets of functions \emph{naturally} form vectorspaces over \C, by defining operations pointwise:
-      \begin{align*}
-        (f+g)(x) &= f(x)+g(x)\\
-        (a\cdot f)(x) &= a\cdot f(x)
-      \end{align*}
-      As such, we need only introduce a concept of size (via a \emph{norm}) on functions in order to get a topology on a set of functions (supposing it is closed under vectorspace operations).
-      Importantly though, we care much more about the resulting \emph{topology} than we do about the norm, as topology is a more general (and relevant) concept.
+      Importantly though, distinct norms can give rise to the same topology (which we will see later).
+      Thus the norm we use to induce a topology is not itself important, but rather a tool that lets us easily find the topology which we are interested in.
 
-      Consider the space $C^0_0(\R)$ of complex-valued, continuous functions vanishing at infinity, which is a vectorspace over $\C$.
-      Give $C^0_0(\R)$ the ``sup norm'' and its associated metric:
+      Topologies arising from norms naturally respect vectorspace operations:
+      \begin{claim}
+        The addition and scalar multiplication maps $+:X\times X\rightarrow X$ and $\cdot:\C\times X\rightarrow X$) are (jointly) continuous\footnotemark.
+        \footnotetext{
+          Recall that a map $f:\prod_{1\le i\le n}X_i\rightarrow K$ is jointly continuous if for any set $Z$ with a family of continuous maps $g_i:Z\rightarrow X_i$ the map $Z\rightarrow K$ given by $z\mapsto f(g_1(z),g_2(z),\ldots,f_n(z))$ is continuous.
+        }
+      \end{claim}
+      \begin{proof}
+        Consider some space $Z$ with continuous maps $g_1,g_2:Z\rightarrow X$.
+        Then the map $Z\rightarrow X$ given by $z\mapsto g_1(z)+g_2(z)$ is visibly continuous, by the continuity of the $g_i$, and so the addition map is jointly continuous.
+
+        Now consider a pair of continuous maps $g_1:Z\rightarrow\C$ and $g_2:Z\rightarrow X$.
+        For some sequence $\{z_i\}$ with either $\{g_1(z_i)\}\rightarrow 0$ or $\{g_2(z_i)\}\rightarrow 0$, the sequence $\{g_1(z)\cdot g_2(z)\}\rightarrow 0$, and so the multiplication map is jointly continuous.
+      \end{proof}
+
+      \subsection{A space of continuous, vanishing functions}
+
+      We have see that we need only introduce a concept of size on functions (via a norm) in order to get a topology on a set of functions (supposing it is closed under vectorspace operations).
+
+      Now consider the space $\Coo(\R)$ of complex-valued, continuous functions vanishing at infinity, which is a vectorspace over $\C$.
+      Notationally, take $\Coo=\Coo(\R)$ for clarity, as we are concerned only with functions on the line.
+      Give $\Coo$ the ``sup norm'' and its associated metric:
       \begin{align*}
-        |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
-        d(f,g) &= |f-g|_{C^0}
+        |f|_\Coo &= \sup_{x\in\R}|f(x)|\\
+        d(f,g) &= |f-g|_\Coo
       \end{align*}
       It is trivial that the sup norm is positive-definite and obeys the triangle inequality, by properties of the absolute value and sup.
       Thus the following completes the proof that sup norm is in fact a norm:
       \begin{claim}
-        The sup norm on $C^0_0(\R)$ is always finite.
+        The sup norm on $\Coo$ is always finite.
         \begin{proof}
-          Let $f\in C^0_0(\R)$, so it vanishes at infinity.
+          Let $f\in \Coo$, so it vanishes at infinity.
           Thus, given $\varepsilon>0$ we have $N>0$ such that $|x|>N\Rightarrow f(x)<\varepsilon$.
           This allows us to write
           \begin{align*}
-            |f|_{C^0} &= \sup_{x\in\R}|f(x)|\\
-            &= \max\left(\varepsilon,\,\sup_{|x|<N}|f(x)|\right)
+            |f|_\Coo
+            = \sup_{x\in\R}|f(x)|
+            = \max\left(\varepsilon,\,\sup_{|x|<N}|f(x)|\right)
           \end{align*}
           which is finite by the extreme value theorem.
         \end{proof}
       \end{claim}
-
-      The simplicity of the following proof illustrates the naturalness of the sup norm applied to $C^0_0(\R)$.
-      \todo{Why is this important?}
+      We thus see that \Coo is a topological vectorspace with topology induced by the sup norm.
+      This structure allows us to easily interact with interesting properties of the space.
+      For example:
       \begin{claim}
-        For $x\in\R$, the evaluation functional $C^0_0(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
+        For $x\in\R$, the evaluation functional $\Coo(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
         \begin{proof}
-          Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$ for all $x$, showing continuity.
-  %        Given $\varepsilon > 0$, $d(f,g)<\varepsilon \Rightarrow |f(x)-g(x)|<\varepsilon$ because $\forall x$ $|f(x)-g(x)|\le\sup_{y\in\R}|f(y)-g(y)|=d(f,g)$.
-  %        Thus the evaluation functional is continuous.
+          See that $|f(x)| \le \sup_{x\in\R} |f(x)| = |f|_\Coo$.
+          Thus the evaluation functional is continuous.
         \end{proof}
       \end{claim}
+      While this proof seems silly in its simplicity, or even completely obvious, we have in fact proved the topology on \Coo agrees nicely with an intuitive sense of the structure of functions:
+      \begin{cor}
+        \label{cor:limitworks}
+        Limits of functions in \Coo agree with the normal (pointwise) limit of functions.
+        That is, supposing a sequence $\{f_i\}$ in \Coo has a limit $f\in\Coo$, we have for any $x\in\R$:
+        \begin{align*}
+          (\lim_i f_i)(x) &= \lim_i f_i(x)\text{.}
+        \end{align*}
+      \end{cor}
+      \begin{proof}
+        It suffices to show that if $\{f_i\}\rightarrow 0$ we have $\{f_i(x)\}\rightarrow 0$ for all $x\in\R$.
+        This is immediate by observing that $|f_i(x)|\le |f_i|_\Coo$.
+      \end{proof}
 
-      Finally, we see that we have managed to construct a nicely behaved topological space:
+      The result above requires that we assume the sequence $\{f_i\}$ has a limit in \Coo.
+      We hope that this is always that case when the sequence is well-behaved, or \emph{Cauchy}.
+      \begin{defn}
+        A sequence $\{x_i\}$ in a space $X$ with a topology arising from a metric $d$ is called Cauchy when elements of the sequence become arbitrarily close to one another.
+        That is the sequence is Cauchy iff for any $\varepsilon>0$ there is some $N>0$ such that for all $i,j>N$ we have $d(x_i,x_j)<\varepsilon$.
+
+        If every such sequence in $X$ converges to a limit in $X$, we say \emph{$X$ is complete in its topology}.
+      \end{defn}
+
       \begin{thm}
         \label{thm:c00complete}
-        The space $C^0_0(\R)$ of continuous functions vanishing at infinity is \emph{complete}.
+        The space $\Coo(\R)$ of continuous functions vanishing at infinity is complete.
       \end{thm}
       \begin{proof}
-        Consider a Cauchy sequence of $C^0_0$ functions $\{f_i\}$.
+        \todo{Eschew epsilons.}
+        Consider a Cauchy sequence of \Coo functions $\{f_i\}$.
         First we will see that this sequence has a pointwise limit.
 
         Given $\varepsilon<0$ pick $N$ such that for $i,j>N$ we have $|f_i-f_j|<\varepsilon$.
@@ -111,6 +164,7 @@
         Taking the limit as $\varepsilon'\rightarrow0$, we see $|f_i(x)-f(x)|<\varepsilon$ for \emph{all} $x$.
         Thus the convergence $\{f_i\}\rightarrow f$ is \emph{uniform} in $x$.
         Quoting the fact that the limit of continuous is continuous when convergence is uniform, we see that $f$ is continuous.\footnotemark
+        \footnotetext{This is easily verified by combining the inequalities above with the continuity of the $f_i$.}
 
         It remains to show only that $f$ vanishes at infinity.
         Take $\varepsilon$ and $N$ as above, and fix some $i>N$.
@@ -120,66 +174,68 @@
         \begin{align*}
           |f(x)|\le|f_i(x)-f(x)|+|f_i(x)|<\varepsilon+\varepsilon'\text{,}
         \end{align*}
-        so for large $|x|$, we can make $f(x)$ arbitrarily small, and so $f\in C^0_0$.
+        so for large $|x|$, we can make $f(x)$ arbitrarily small, and so $f\in \Coo$.
       \end{proof}
-      \footnotetext{This is easily verified by combining the inequalities above with the continuity of the $f_i$.}
       \begin{rmk}
-        Thus, being complete with respect to the topology arising from a norm, $C^0_0(\R)$ is a \emph{Banach} space, by definition.
+        Thus, being complete with respect to the topology arising from a norm, \Coo is a \emph{Banach} space, by definition.
       \end{rmk}
       \begin{rmk}
         Note that this completeness is a consequence of our norm forcing sequences of functions to converge \emph{uniformly}.
-        This is particularly important as pointwise limits of continuous functions need not be continuous!
+        This is particularly important as pointwise limits of continuous functions need not be continuous.
       \end{rmk}
 
     \subsection{Spaces of differentiable functions}
       We now turn to the issue of \emph{differentiability}.
       For $k>0$ define the space 
       \begin{align*}
-        C^k_0(\R) = \{f\in C^0_0(\R) : f'\in C^{k-1}_0(\R)\}
+        \Cko(\R) = \{f\in \Coo(\R) : f'\in \Ckmo(\R)\}
       \end{align*}
-      Note that this definition requires that all $k+1$ derivatives $f,f',\ldots,f^{(k)}$ be $C^0_0$, and so they are \emph{all} continuous and vanish at infinity.
-      Give $C^k_0(\R)$ the topology of the $C^k$-norm:
+      Note that this definition requires that all $k+1$ derivatives $f,f',\ldots,f^{(k)}$ be \Coo, and so they are \emph{all} continuous and vanish at infinity.
+      Give $\Cko(\R)$ the topology of the \Cko-norm:
       \begin{align*}
-        |f|_{C^k} = \sum_{0\le i\le k} |f^{(i)}|_{C^0} = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)|
+        |f|_\Cko = \sum_{0\le i\le k} |f^{(i)}|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)|
       \end{align*}
-      Note that for $k=0$, this is exactly the sup norm, and so the notation $C^k_0$ is consistent with writing $C^0_0$.
+      Note that for $k=0$, this is exactly the sup norm, and so the notation \Cko is consistent with writing \Coo.
       \begin{rmk}
-        The $C^k$ norm (or ``sum~sup'' norm) gives the same topology as the ``sup~sup'' norm:
+        The \Cko norm (or ``sum~sup'' norm) gives the same topology as the ``sup~sup'' norm:
         \begin{align*}
-          |f|=\sup_{0\le i\le k}|f^{(i)}|_{C^0_0}=\sup_{0\le i\le k}\sup_{x\in\R}|f^{(i)}(x)|
+          |f|_\Cko=\sup_{0\le i\le k}|f^{(i)}|_\Coo=\sup_{0\le i\le k}\sup_{x\in\R}|f^{(i)}(x)|
         \end{align*}
         because for complex numbers $a_1,\ldots,a_k$
         \begin{align*}
-          \sup_i a_i \le \sum_i a_i \le k\cdot\sup_i a_i\text{.}
+          \sup_i |a_i| \le \sum_i |a_i| \le k\cdot\sup_i |a_i|\text{.}
         \end{align*}
         Thus the two can be used interchangeably, as we are concerned only with the resultant topology.
       \end{rmk}
       \begin{claim}
         \label{claim:diffcontCk0}
-        The differentiation map $D:C^k_0\rightarrow C^{k-1}_0$ is continuous.
+        The differentiation map $D:\Cko\rightarrow\Ckmo$ is continuous.
         \begin{proof}
-          Let $f,g\in C^k_0$.
-          Given some $\varepsilon<0$, see that $|f-g|_{C^k} < \varepsilon$ means
+          Let $f\in \Cko$.
           \begin{align*}
-            \varepsilon &> \sum_{0\le i\le k} |(f-g)^{(i)}|_{C^0}\\
-            &\ge \sum_{1\le i\le k} |(f-g)^{(i)}|_{C^0}\\
-            &= |(Df-Dg)^{(i)}|_{C^{k-1}}
+            |f|_\Cko
+            &= \sum_{0\le i\le k} |f^{(i)}|_\Coo
+            \\&\ge \sum_{1\le i\le k} |f^{(i)}|_\Coo
+            \\&= |Df|_\Ckmo
           \end{align*}
-          Thus when $f$ and $g$ are close in $C^k_0$, $Df$ and $Dg$ are close in $C^{k-1}_0$.
+          Thus when $f$ is small in \Cko, $Df$ is small in \Ckmo.
         \end{proof}
       \end{claim}
       \begin{thm}
         \label{thm:ck0complete}
-        $C^k_0(\R)$ is complete in the $C^k$-norm topology.
+        $\Cko(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
+        \todo{Eschew epsilons.}
         Consider the case $k=1$; this will extend inductively to all $k$.
         Let $\{f_i\}$ be Cauchy in $C^1_0$.
-        Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in $C^0_0$, by definition of the $C^0_0$ (sup) norm and $C^1_0$ norm, each is Cauchy in $C^0_0$.
+        Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in \Coo, by definition of the \Coo (sup) norm and $C^1_0$ norm, each is Cauchy in \Coo.
         Thus by \cref{thm:c00complete} each sequence converges uniformly pointwise, so we can write:
         \begin{align*}
-          &f(x)=\lim_n f_i(x) &g(x)=\lim_n f_i'(x)
+          &f(x)=\lim_i f_i(x) &g(x)=\lim_i f_i'(x)
         \end{align*}
+        See that these expressions are unambiguous by \cref{cor:limitworks}.
+
         We now hope to show that $f$ is differentiable, and so an element of $C^1_0$.
         Since each $f_i$ is continuous and differentiable, write
         \begin{align*}
@@ -187,16 +243,16 @@
         \end{align*}
         Taking the limit, and exchanging limit and integral (by the Lebesgue Dominated Convergence Theorem)
         \begin{align*}
-          \lim_i f_i(x)-f_i(a) &= \lim_i\int_a^x f_i'(t)\,dt\\
+          \lim_i \left( f_i(x)-f_i(a) \right) &= \lim_i\int_a^x f_i'(t)\,dt\\
           &= \int_a^x\lim_if_i(t)\,dt\\
           f(x)-f(a) &= \int_a^x g(t)\,dt
         \end{align*}
         so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^1_0$.
-        Thus $C^1_0$ is complete in the $C^1$-norm topology.
+        Thus $C^1_0$ is complete in its topology.
 
-        Now suppose that $\{f_i\}$ is Cauchy in $C^k_0$ for $k>1$, and that $C^{k-1}_0$ is complete in the topology induced by its norm.
-        Again, both $\{f_i\}$ and $\{f_i'\}$ are Cauchy in $C^0_0$, so letting $f$ and $g$ be the limits of the sequences (as above), we see that $f'=g$.
-        Because $\{f_i'\}$ is also Cauchy in $C^{k-1}_0$, by the inductive hypothesis we have $g\in C^{k-1}_0$, and so $f\in C^k_0$, finishing the proof.
+        Now suppose that $\{f_i\}$ is Cauchy in \Cko for $k>1$, and that \Ckmo is complete in the topology induced by its norm.
+        Again, both $\{f_i\}$ and $\{f_i'\}$ are Cauchy in \Coo, so letting $f$ and $g$ be the limits of the sequences (as above), we see that $f'=g$.
+        Because $\{f_i'\}$ is also Cauchy in \Ckmo, by the inductive hypothesis we have $g\in\Ckmo$, and so $f\in\Cko$, finishing the proof.
       \end{proof}
 
     \subsection{Spaces of decaying functions}
@@ -205,42 +261,45 @@
       Recall that Schwartz functions are \emph{rapidly decaying}, so their product with any power of $x$ vanishes at infinity.
       For $\ell\ge0$ define (for now)
       \begin{align*}
-        C^0_\ell(\R) = \{f\in C^0_0(\R):(1+x^2)^\ell f(x)\in C^0_0\}
+        \Cl(\R) = \{f\in \Coo(\R):(1+x^2)^\ell f(x)\in \Coo(\R)\}
       \end{align*}
       with the norm:
       \begin{align*}
-        |f| = |(1+x^2)^\ell f|_{C^0_0} = \sup_{x\in\R} |(1+x^2)^\ell f(x)|
+        |f|_\Cl = |(1+x^2)^\ell f|_{\Coo} = \sup_{x\in\R} |(1+x^2)^\ell f(x)|
       \end{align*}
-      Note that for $\ell=0$ we have $C^0_\ell=C^0_0$, and their respective norms agree.
+      \todo{fix labeling of norm}
+      Note that for $\ell=0$ we have $\Cl=\Coo$, and their respective norms agree.
 
-      The definition of $C^k_\ell$ is slightly ugly -- secretly we want the $(1+x^2)$ to be an $x$, but importantly $(1+x^2)^\ell\ge1$ for all $x$ and $\ell$.
-      As the next proof shows, this is important!
-      Replacing $(1+x^2)^\ell$ with $x^\ell$ in the definition would allow our functions to blow near the origin, which would allow us to construct a Cauchy sequence that does not converge in $C^k_\ell$.
+      The definition of \Cl is more complicated that we might hope.
+      Ideally the $(1+x^2)$ would be an $x$, but importantly $(1+x^2)^\ell\ge1$ for all $x$ and $\ell$.
+      As the next proof shows, this detail is vital.
+      Replacing $(1+x^2)^\ell$ with $x^\ell$ in the definition would allow our functions to blow up near the origin (where $x^\ell$ is very small), which would allow us to construct a Cauchy sequence that does not converge in \Cl.
       \begin{thm}
         \label{thm:c0lcomplete}
-        $C^0_\ell(\R)$ is complete in its topology.
+        $\Cl(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
-        Take a Cauchy sequence of $C^0_\ell$ functions $\{f_i\}$.
-        Because each $f_i\in C^0_0$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $C^0_0$, as in the proof of \cref{thm:c00complete}.
-        However, this only holds if $\{f_i\}$ is Cauchy in $C^0_0$. 
+        \todo{Eschew epsilons.}
+        Take a Cauchy sequence of \Cl functions $\{f_i\}$.
+        Because each $f_i\in \Coo$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $\Coo$, as in the proof of \cref{thm:c00complete}.
+        However, this holds only if $\{f_i\}$ is Cauchy in \Coo. 
 
         By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$
         \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^0_0} < \varepsilon
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_\Coo < \varepsilon
         \end{align*}
         Calculate 
         \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_{C^0_0}
+          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_\Coo
           &= \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|\\
           &\ge \sup_{x\in\R}|f_i(x)-f_j(x)|\\
-          &= |f_i-f_j|_{C^0_0}
+          &= |f_i-f_j|_\Coo
         \end{align*}
-        So $|f_i-f_j|_{C^0_0}<\varepsilon$, and so $\{f_i\}\rightarrow f\in C^0_0$.
-        Thus it remains only to show that $(1+x^2)^\ell f(x)$ is $C^0_0$.
+        So $|f_i-f_j|_\Coo<\varepsilon$, and so $\{f_i\}\rightarrow f\in \Coo$.
+        Thus it remains only to show that $(1+x^2)^\ell f(x)$ is \Coo.
         
-        By hypothesis the sequence $\{(1+x^2)^\ell f_i\}$ in $C^0_0$ is Cauchy.
-        Then it has a limit in $C^0_0$, say $g$.
+        By hypothesis the sequence $\{(1+x^2)^\ell f_i\}$ in \Coo is Cauchy.
+        Then it has a limit in \Coo, say $g$.
         We hope that $g(x)=(1+x^2)^\ell f(x)$.
         For $\varepsilon>0$ use the fact that \emph{both} sequences are Cauchy to pick $i$ so that $|(1+x^2)^\ell f_i - g|<\varepsilon$ and $|f_i - f|<\varepsilon$.
         Fix some $x\in\R$.
@@ -250,40 +309,41 @@
           &< \varepsilon + |(1+x^2)^\ell|\varepsilon
         \end{align*}
         Because $x$ is fixed we can force $|g(x)-(1+x^2)^\ell f(x)|$ to become arbitrarily small, and so we conclude that $g(x)=(1+x^2)^\ell f(x)$.
-        Thus $(1+x^2)^\ell f$ is $C^0_0$, and so $f\in C^0_\ell$.
+        Thus $(1+x^2)^\ell f$ is \Coo, and so $f\in\Cl$.
       \end{proof}
 
-      With the basic cases proved, we now hope to define a Banach space that is parameterized by both smoothness and decay properties.
-      We define
-      \begin{align*}
-        C^k_\ell(\R) = \{f\in C^k_0(\R):(1+x^2)^\ell f^{(i)}(x)\in C^{k-i}_0\text{ for all } i\le k\}
-      \end{align*}
-      with the norm
-      \begin{align*}
-        |f|_{C^k_\ell} = \sum_{0\le i\le k} \left|(1+x^2)^\ell f^{(i)}\right|_{C^0} = \sum_{0\le i\le k} \sup_{x\in\R} \left|(1+x^2)^\ell f^{(i)}(x)\right|
-      \end{align*}
-      Note that for $k=0$, $C^k_\ell=C^0_\ell$, and their respective norms agree.
+      With the basic cases proved, we now hope to define a Banach space that is parameterized both by smoothness and decay properties.
+      \begin{defn}
+        The space of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$ is
+        \begin{align*}
+          \Ckl(\R) = \{f\in \Cko(\R):(1+x^2)^\ell f^{(i)}(x)\in C^{k-i}_0\text{ for all } i\le k\}
+        \end{align*}
+        with the norm
+        \begin{align*}
+          |f|_\Ckl = \sum_{0\le i\le k} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R} \left|(1+x^2)^\ell f^{(i)}(x)\right|
+        \end{align*}
+        Note that for $k=0$, $\Ckl=\Cl$, and their respective norms agree.
+      \end{defn}
       \begin{claim}
         \label{claim:diffcontCkl}
-        The differentiation map $D:C^k_\ell\rightarrow C^{k-1}_\ell$ is continuous.
+        The differentiation map $D:\Ckl\rightarrow\Ckml$ is continuous.
         \begin{proof}
-          Let $f,g\in C^k_\ell$.
-          Given some $\varepsilon<0$, see that $|f-g|_{C^k_\ell} < \varepsilon$ means
+          Let $f\in\Ckl$.
+          Then
           \begin{align*}
-            \varepsilon
-            &> \sum_{0\le i\le k} \left|(1+x^2)^\ell(f-g)^{(i)}\right|_{C^0}
-            \\&\ge \sum_{1\le i\le k} \left|(1+x^2)^\ell(f-g)^{(i)}\right|_{C^0}
-            \\&= \sum_{0\le i\le k-1} \left|(1+x^2)^\ell(Df-Dg)^{(i)}\right|_{C^0}
-            \\&= |Df-Dg|_{C^{k-1}_\ell}
+            |f|_\Ckl
+            &= \sum_{0\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
+            \\&\ge \sum_{1\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
+            \\&= |Df|_\Ckml
           \end{align*}
-%          Thus when $f$ and $g$ are close in $C^k_0$, $Df$ and $Dg$ are close in $C^{k-1}_0$.
         \end{proof}
       \end{claim}
       \begin{thm}
         \label{thm:cklcomplete}
-        $C^k_\ell(\R)$ is complete in its topology.
+        $\Ckl(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
+        \todo{Eschew epsilons.}
         Again we consider the case of $k=1$ and allow proof to extend inductively to all $k$.
         This proof is similar to \cref{thm:ck0complete}, with the added complication(s) of proving decay along with differentiability.
 
@@ -295,22 +355,22 @@
           |f_i -f_j|_{C^1_\ell}
           &= \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
           &\ge \sum_{0\le h\le 1}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
-          &= |f_i-f_j|_{C^1}
+          &= |f_i-f_j|_{C^1_0}
         \end{align*}
         Thus $\{f_i\}$ is Cauchy in $C^1_0$.
-        From \cref{thm:ck0complete} we then see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in $C^0_0$ with $f'=g$.
+        From \cref{thm:ck0complete} we then see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in \Coo with $f'=g$.
 
-        We now only need to show that $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in C^0_0$.
-        If we can show that $\{f_i\}$ is Cauchy in $C^0_\ell$ then we'll see that $(1+x^2)^\ell f\in C^0_0$ by \cref{thm:c0lcomplete}.
-        Similarly, if we show that $\{f_i'\}$ is Cauchy in $C^0_\ell$, we'll see that $(1+x^2)^\ell g\in C^0_0$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^1_0$.
+        We now only need to show that $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in\Coo$.
+        If we can show that $\{f_i\}$ is Cauchy in \Cl then we'll see that $(1+x^2)^\ell f\in\Coo$ by \cref{thm:c0lcomplete}.
+        Similarly, if we show that $\{f_i'\}$ is Cauchy in \Cl, we'll see that $(1+x^2)^\ell g\in\Coo$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^1_0$.
         Calculate
         \begin{align*}
           |f_i -f_j|_{C^1_\ell}
           &= \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
           &\ge \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
         \end{align*}
-        which is exactly the norm of $f_i-f_j$ in $C^0_\ell$.
-        The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in $C^0_\ell$, and so $(1+x^2)^\ell f$ and $(1+x^2)^\ell g$ are elements of $C^0_0$.
+        which is exactly the norm of $f_i-f_j$ in \Cl.
+        The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in \Cl, and so $(1+x^2)^\ell f$ and $(1+x^2)^\ell g$ are elements of \Coo.
 
         Finally we calculate
         \begin{align*}
@@ -318,102 +378,103 @@
           &= (1+x^2)^\ell f'(x) + \ell(1+x^2)^{\ell-1}2xf(x)\\
           &\le (1+x^2)^\ell g(x) + 2\ell(1+x^2)^\ell f(x)
         \end{align*}
-        We have just shown that both summands are $C^0_0$, and so vanish at infinity.
+        We have just shown that both summands are \Coo, and so vanish at infinity.
         Thus, by the definition of $C^1_0$, $f\in C^1_0$.
 
-        Now take $\{f_i\}$ to be Cauchy in $C^k_\ell$ for $k>1$, and suppose that $C^{k-1}_\ell$ is complete.
-        Then by the argument above see that $f=\lim_i f_i$ is $C^1_\ell$, $g=\lim_i f_i'$ is $C^0_\ell$, and $f'=g$.
+        Now take $\{f_i\}$ to be Cauchy in \Ckl for $k>1$, and suppose that \Ckml is complete.
+        Then by the argument above see that $f=\lim_i f_i$ is $C^1_\ell$, $g=\lim_i f_i'$ is \Cl, and $f'=g$.
         Calculate
         \begin{align*}
-          |f_i'-f_j'|_{C^{k-1}_\ell}
+          |f_i'-f_j'|_\Ckml
           &= \sum_{1\le h\le k} (1+x^2)^\ell\left|f_i^{(h)}-f_j^{(h)}\right|
-          \\&\le |f_i-f_j|_{C^k_\ell}
+          \\&\le |f_i-f_j|_\Ckl
         \end{align*}
-        and so $g\in C^{k-1}_\ell$.
-        Thus $f\in C^k_\ell$ so $C^k_\ell$ is complete in its topology, and thus Banach.
+        and so $g\in\Ckml$.
+        Thus $f\in\Ckl$ so \Ckl is complete in its topology, and thus Banach.
       \end{proof}
 
     \section{\S as a topological limit}
       
-      From \cref{thm:cklcomplete} we have that for all $k,\ell>0$, the space $C^k_\ell$ of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$ is a Banach space (complete normed vectorspace).
-      Because the space of Schwartz functions is made up \emph{infinitely} differentiable functions with infinitely fast decay, it seems natural that $\S$ is the limit of these Banach spaces.
+      We have just see in \cref{thm:cklcomplete} that for all $k,\ell>0$, the space \Ckl of $k$-times differentiable functions decaying faster than $(1+x^2)^\ell$ is a Banach space (complete normed vectorspace).
+      Because the space of Schwartz functions is made up \emph{infinitely} differentiable functions with infinitely fast decay, it seems natural that \S is the limit of these Banach spaces.
       \cref{ch:topprod} defines the \emph{projective limit} of topological spaces and shows that these limits are themselves topological spaces.
       We hope to show that this doubly-indexed limit is still topologically well-behaved and converges to \S.
-      With this accomplished we will be able to completely understand $\S$ as a topological space, and thus understand the tempered distributions $\S^*$ as a topological \emph{dual} space.
+      With this accomplished we will be able to completely understand \S as a topological space, and thus understand the tempered distributions \SS as a topological dual space.
 
-      To take the limit of the $C^k_\ell$ we must first define transition maps $\varphi^{k,k-1}_\ell$ and $\phi^k_{\ell,\ell-1}$:
+      To take the limit of the \Ckl we must first define transition maps $\varphi^{k,k-1}_\ell$ and $\phi^k_{\ell,\ell-1}$:
       \begin{displaymath}
         \xymatrix{
-          C^1_1  & C^2_1 \ar[l]_{\varphi^{21}_1} & C^3_1 \ar[l]_{\varphi^{32}_1} & \cdots \ar[l]_{\varphi^{43}_1} \\
-          C^1_2 \ar[u]_{\phi^1_{21}} & C^2_2 \ar[l]_{\varphi^{21}_2} \ar[u]_{\phi^2_{21}} & \cdots \ar[l]_{\varphi^{32}_2} \ar[u]_{\phi^3_{21}} \\
-          C^1_3 \ar[u]_{\phi^1_{32}} & \cdots \ar[l]_{\varphi^{21}_3} \ar[u]_{\phi^2_{32}} \\
-          \cdots \ar[u]_{\phi^1_{43}} 
+          &&& \cdots \ar[d]_{\phi^1_{43}}\\
+          && \cdots \ar[d]_{\phi^2_{32}} \ar[r]^{\varphi^{21}_3} & C^1_3 \ar[d]_{\phi^1_{32}}\\
+          & \cdots \ar[d]_{\phi^3_{21}} \ar[r]^{\varphi^{32}_2} & C^2_2 \ar[d]_{\phi^2_{21}} \ar[r]^{\varphi^{21}_2} & C^1_2 \ar[d]_{\phi^1_{21}}\\
+          \cdots \ar[r]^{\varphi^{43}_1} & C^3_1 \ar[r]^{\varphi^{32}_1} & C^2_1 \ar[r]^{\varphi^{21}_1} & C^1_1
         }
       \end{displaymath}
       To meet the limit definition these maps must be continuous and compatible.
-      A natural idea is to make these maps \emph{inclusions}.
-      See that by definition $C^k_\ell\subset C^{k-1}_\ell$ (in the sense of sets), and similarly $C^k_\ell\subset C^k_{\ell-1}$.
+      A natural idea is to make these maps inclusions.
+      See that by definition $\Ckl\subset\Ckml$ (in the sense of sets), and similarly $\Ckl\subset C^k_{\ell-1}$.
       \begin{claim}
         \label{claim:inclcont}
-        The inclusions $C^k_\ell\rightarrow C^{k-1}_\ell$ and $C^k_\ell\rightarrow C^k_{\ell-1}$ are continuous and compatible.
+        The inclusions $\Ckl\rightarrow \Ckml$ and $\Ckl\rightarrow C^k_{\ell-1}$ are continuous and compatible.
         Thus, letting the maps $\varphi^{k,k-1}_\ell$ and $\phi^k_{\ell,\ell-1}$ be these inclusions, the diagram above is a commutative diagram of continuous maps.
       \end{claim}
-      \begin{rmk}
-        This shows that the limit of the $C^k_\ell$ is a nested intersection:
-        \begin{align*}
-          \lim_{k,\ell}C^k_\ell = \bigcap_{k,\ell=0}^\infty C^k_\ell\text{.}
-        \end{align*}
-      \end{rmk}
       \begin{proof}[Proof of \cref{claim:inclcont}]
+        \todo{Eschew epsilons}.
         First see that by definition of set inclusion, the diagram must be commutative.
-        Because any $f$ in some $C^k_\ell$ is an element of every $C^i_j$ with $i\le k$ and $j\le\ell$ by definition, any composition of inclusions $C^k_\ell\rightarrow C^i_j$ will agree.
+        Because any $f$ in some \Ckl is an element of every \Cij with $i\le k$ and $j\le\ell$ by definition, any composition of inclusions $\Ckl\rightarrow\Cij$ will agree.
 
         It now remains to show that the mappings are continuous.
         First consider $\varphi^{k,k-1}_\ell$ (the horizontal direction).
-        Let $f$ and $g$ be functions in $C^k_\ell$.
-        Then for some given $\varepsilon>0$, $|f-g|_{C^k_\ell}<\varepsilon$ implies
+        Let $f$ and $g$ be functions in \Ckl.
+        Then for some given $\varepsilon>0$, $|f-g|_\Ckl<\varepsilon$ implies
+        \todo{the norms are wrong here}
         \begin{align*}
-          \varepsilon &> \left|(1+x^2)^\ell(f-g)\right|_{C^k}
-          \\&= \sup_{0\le i\le k} \left|((1+x^2)^\ell(f-g))^{(i)}\right|_{C^0}
-          \\&\ge \sup_{0\le i\le k-1} \left|((1+x^2)^\ell(f-g))^{(i)}\right|_{C^0} 
-          \\&= \left|(1+x^2)^\ell(f-g)\right|_{C^{k-1}}
-          \\&= \left|\varphi^{k,k-1}_\ell(f-g)\right|_{C^{k-1}_\ell}
+          \varepsilon &> \left|(1+x^2)^\ell(f-g)\right|_\Cko
+          \\&= \sup_{0\le i\le k} \left|((1+x^2)^\ell(f-g))^{(i)}\right|_\Coo
+          \\&\ge \sup_{0\le i\le k-1} \left|((1+x^2)^\ell(f-g))^{(i)}\right|_\Coo 
+          \\&= \left|(1+x^2)^\ell(f-g)\right|_{C^{k-1}_0}
+          \\&= \left|\varphi^{k,k-1}_\ell(f-g)\right|_\Ckml
         \end{align*}
         and so $\varphi^{k,k-1}_\ell$ is continuous.
 
         Now consider $\phi^k_{\ell,\ell-1}$ (the vertical direction).
-        Let $f$ and $g$ be functions in $C^k_\ell$.
-        Then for some given $\varepsilon>0$, $|f-g|_{C^k_\ell}<\varepsilon$ implies
+        Let $f$ and $g$ be functions in \Ckl.
+        Then for some given $\varepsilon>0$, $|f-g|_\Ckl<\varepsilon$ implies
         \begin{align*}
-          \varepsilon &> \left|(1+x^2)^\ell(f-g)\right|_{C^k}
-          \\&\ge \left|(1+x^2)^{\ell-1}(f-g)\right|_{C^k}
-          \\&= \left|\phi^k_{\ell,\ell-1}(f-g)\right|_{C^k_{\ell-1}}
+          \varepsilon &> \left|(1+x^2)^\ell(f-g)\right|_\Cko
+          \\&\ge \left|(1+x^2)^{\ell-1}(f-g)\right|_\Cko
+          \\&= \left|\phi^k_{\ell,\ell-1}(f-g)\right|_\Ckml
         \end{align*}
         and so $\phi^k_{\ell,\ell-1}$ is continuous.
       \end{proof}
+      \begin{rmk}
+        This shows that the limit of the \Ckl is a nested intersection:
+        \begin{align*}
+          \lim_{k,\ell}\Ckl = \bigcap_{k,\ell=0}^\infty \Ckl\text{.}
+        \end{align*}
+        Observing that any Schwartz functions is by definition an element of every \Ckl, we see that $\S\subseteq\lim_{k,\ell}\Ckl$.
+      \end{rmk}
 
       Give the index set $A=\{(k,\ell):k,\ell\ge0\}$ a partial ordering
       \begin{align*}
         (k,\ell) > (i,j) \quad\text{when $k\ge i$, $\ell\ge j$ and $(k,\ell) \ne (i,j)$.} 
       \end{align*}
-      Indexing the $C^k_\ell$ naturally by $A$, we have a projective system with inclusions as transition maps.
-      Thus, by \cref{claim:limitexists} the $C^k_\ell$ have a projective limit.
-%      Furthermore, by \cref{thm:cofinalisom} we need only take the limit of a \emph{cofinal, directed} subfamily of the $C^k_\ell$, as it will be homeomorphic to the limit of the whole collection.
+      Indexing the \Ckl naturally by $A$, we have a projective system with inclusions as transition maps.
+      Thus, by \cref{claim:limitexists} the \Ckl have a projective limit.
 
       \begin{thm}
-        The space of Schwartz Functions is the limit of the projective system formed by the $C^k_\ell$.
+        The space of Schwartz Functions is the limit of the projective system formed by the \Ckl.
       \end{thm}
       \begin{proof}
-%        To show that $\S=\lim_{k,\ell}C^k_\ell$ we need only show that $\S$ meets the definition of limit for some cofinal directed subfamily of the $C^k_\ell$.
-        See that any Schwartz function is by definition an element of every $C^k_\ell$, and so we take the maps $\varphi^k_\ell:\S\rightarrow C^k_\ell$ to be inclusions.
+        See that any Schwartz function is by definition an element of every \Ckl, and so we take the maps $\varphi^k_\ell:\S\rightarrow\Ckl$ to be inclusions.
         These maps are visibly compatible with the transition maps of the projective system.
 
-        Now consider an arbitrary space $Z$ with a family of maps $f^k_\ell:Z\rightarrow C^k_\ell$ compatible with the transition maps.
+        Now consider an arbitrary space $Z$ with a family of maps $f^k_\ell:Z\rightarrow\Ckl$ compatible with the transition maps.
         We must show there is a unique $f:Z\rightarrow\S$ such that for all $k,\ell$, $\varphi^k_\ell\circ f = f^k_\ell$.
         For some index $(i,j)$, pick some $(k,\ell)>(i,j)$ so that we have (by hypothesis) the commutative diagram:
         \begin{displaymath}
           \xymatrix{
-            \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && C^k_\ell \ar[r] & C^i_j \\
+            \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && \Ckl \ar[r] & \Cij \\
             & Z \ar[ur]^{f^k_\ell} \ar[urr]_{f^i_j}
           }
         \end{displaymath}
@@ -421,10 +482,10 @@
         Because this holds for arbitrary $(k,\ell)$, $f^i_j(z)$ has arbitrarily many derivatives and decays arbitrarily quickly, and thus is Schwartz.
         Thus for all $(k,\ell)$, $f^k_\ell(z)=s$ for some fixed $s\in\S$; we define $f(z)$ to be exactly this $s$.
         This $f$ is unique because if $g(z)\ne f(z)$ we have that $\varphi^k_\ell(g(z))\ne\varphi^k_\ell(f(z))$ by the nature of inclusion, and so the $f^k_\ell$ do not factor through $g$.
-        Thus $\S=\lim_{k,\ell}C^k_\ell$.
+        Thus $\S=\lim_{k,\ell}\Ckl$.
       \end{proof}
       \begin{rmk}
-        The language of projective limits somewhat obscures the intuition that $\S$ is exactly the intersection of the $C^k_\ell$.
+        The language of projective limits somewhat obscures the intuition that $\S$ is exactly the intersection of the \Ckl.
         Because the limit is an intersection the transition maps are inclusions, and so picking compatible maps into each limitand is the same as picking a map into the limit.
         Importantly, by setting the proof in a topological context, the description of \S as a limit allows us to easily describe its topology, while the set-theoretic construction offers no help.
       \end{rmk}
@@ -437,14 +498,14 @@
       \end{defn}
 
       Now consider the limit topology on \S.
-      For $i=(k,\ell)$ in the index set $A$, write $\varphi^k_\ell = \varphi_i$ and $C^k_\ell=X_i$ to reduce clutter.
+      For $i=(k,\ell)$ in the index set $A$, write $\varphi^k_\ell = \varphi_i$ and $\Ckl=X_i$ to reduce clutter.
       Open subsets of \S are abitrary unions and finite intersections of sets with the form $\varphi_i^{-1}(u_i)$ where $u_i$ is open in $X_i$.
       Because union and intersection pass through taking inverse images, see that the topology on \S is in fact generated by sets of the form $\varphi_i^{-1}(\{f\in X_i:|f-f_0|_{X_i}<r\})$ for $r\in\R_{>0}$ and $f_0\in X_i$.
       But because $\varphi_i$ is inclusion, taking its inverse image is exactly intersection with \S.
       Thus a subset $U$ of \S is open if and only if for each point $u\in U$ there is some $j\in A$ and open $V\subseteq X_j$ so that $u\in V$ and $V\cap\S\subseteq U$.
-      Comparing this expression with the seminorm definition of a Fr\'echet space shows that the $C^k_\ell$ norms form a family of seminorms on \S that give the limit topology.
+      Comparing this expression with the seminorm definition of a Fr\'echet space shows that the \Ckl norms form a family of seminorms on \S that give the limit topology.
 
-      \todo{this description of open sets seems to imply that \S is dense in $C^k_\ell$, but I need to examine it.}
+      \todo{this description of open sets seems to imply that \S is dense in \Ckl, but I need to examine it.}
 
     \section{Consequences of Topology on \S}
       The following results arise from the limit topology on \S.
@@ -453,23 +514,23 @@
       \begin{claim}
         Differentiation $D:\S\rightarrow\S$ is continuous.
         \begin{proof}
-          Recall that the differentiation map $D:C^k_\ell\rightarrow C^{k-1}_\ell$ and the inclusion $C^k_\ell\rightarrow C^i_j$ (for $(k,\ell)>(i,j)$ in $A$) are continuous.
-           Composing such functions for any $(k,\ell)>(i,j)$ gives a continuous map $D:C^k_\ell\rightarrow C^i_j$ that takes a function in one space to its derivative in another.
+          Recall that the differentiation map $D:\Ckl\rightarrow\Ckml$ and the inclusion $\Ckl\rightarrow\Cij$ (for $(k,\ell)>(i,j)$ in $A$) are continuous.
+           Composing such functions for any $(k,\ell)>(i,j)$ gives a continuous map $D:\Ckl\rightarrow\Cij$ that takes a function in one space to its derivative in another.
           Thus we have the commutative diagram of continuous maps
           \begin{displaymath}
             \xymatrix{
-              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} & \cdots \ar[r] & C^k_\ell \ar[r] & C^i_j \ar[r] & \cdots \\
-              \S \ar@/_20pt/[rr]^{\varphi^k_\ell} \ar@/_30pt/[rrr]_{\varphi^i_j} & \cdots \ar[r] \ar[ur]^D & C^k_\ell \ar[r] \ar[ur]^D & C^i_j \ar[r] \ar[ur]^D & \cdots\\
+              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} & \cdots \ar[r] & \Ckl \ar[r] & \Cij \ar[r] & \cdots \\
+              \S \ar@/_20pt/[rr]^{\varphi^k_\ell} \ar@/_30pt/[rrr]_{\varphi^i_j} & \cdots \ar[r] \ar[ur]^D & \Ckl \ar[r] \ar[ur]^D & \Cij \ar[r] \ar[ur]^D & \cdots\\
             }
           \end{displaymath}
-          Composition of functions give a family of maps $D^k_\ell:\S\rightarrow C^k_\ell$ so that the diagram below commutes:
+          Composition of functions give a family of maps $D^k_\ell:\S\rightarrow\Ckl$ so that the diagram below commutes:
           \begin{displaymath}
             \xymatrix{
-              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && C^k_\ell \ar[r] & C^i_j \\
+              \S \ar@/^20pt/[rr]_{\varphi^k_\ell} \ar@/^30pt/[rrr]^{\varphi^i_j} && \Ckl \ar[r] & \Cij \\
               \S \ar[urr] \ar[urrr] \\
             }
           \end{displaymath}
-          These maps take Schwartz functions to their derivatives in some $C^k_\ell$ and commute with the transitions $C^k_\ell\rightarrow C^i_j$.
+          These maps take Schwartz functions to their derivatives in some \Ckl and commute with the transitions $\Ckl\rightarrow\Cij$.
           Thus the map $D:\S\rightarrow\S$ induced by the limit definition takes functions to their derivatives, and is continuous.
         \end{proof}
       \end{claim}
