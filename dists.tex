@@ -59,14 +59,37 @@
     for any Schwartz function $\varphi$.
     When $u$ corresponds to a Schwartz function $f$, the distribution $u'$ visibly corresponds to the derivative $f'\in\S$ by the calculation above. 
   \end{defn}
+  
+  As with the Fourier Transform, the definition of the distributional derivative extends nice properties of \S to nice properties of $\S^*$.
+  It is immediately obvious that any tempered distribution has infinitely many derivatives which are all themselves tempered distributions.
+  We might also expect that, as on $\S$, the differentiation map is continuous on $\S^*$, but this involves topology on $S^*$, which we have not yet developed.
+  We thus give the space of tempered distributions the so-called ``initial topology'', which allows us to carry topology from a space to its dual.
+  \begin{defn}
+    Let $X^*$ be the continuous linear dual of a topological space $X$.
+    The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology (the one with the fewest open sets) in which the evaluation functionals
+    \begin{gather*}
+      X^*\longrightarrow\C\\
+      u\mapsto \langle u,\varphi\rangle\quad\text{for }\varphi\in X
+    \end{gather*}
+    are continuous.
+  \end{defn}
 
-  \todo{introduce weak-* topology}
   \begin{claim}
-    The differentiation map $D:\S^*\rightarrow\S^*$ is continuous.
+    The differentiation map $D:\SS\rightarrow\SS$ is continuous under the weak-* topology.
   \end{claim}
   \begin{proof}
-    
+    Consider a sequence of tempered distributions $\{u_i\}$ that converges to zero.
+    By definition of the weak-* topology, we have for any Schwartz function $\varphi$, the sequence $\{\langle u_i,\varphi\rangle\}$ converges to zero by continuity of the evaluation-at-$\varphi$ functional.
+    Thus the sequence 
+    \begin{align*}
+      \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0
+    \end{align*}
+    and so $\{Du_i\}\rightarrow 0$ in the \ws.
   \end{proof}
 
+  \section{Approximation by Schwartz Functions}
+    \begin{claim}
+      The space of Schwartz functions is dense in the space of tempered distributions.
+    \end{claim}
 
 \end{document}
