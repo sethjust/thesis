@@ -14,7 +14,8 @@ TEXFILES = thesis.tex ack.tex intro.tex fourier.tex schwartz.tex dists.tex concl
 
 all: thesis.pdf
 
-pdf: thesis.pdf
+pdf: $(TEXFILES) vc.tex
+	$(LATEX) thesis.tex
 
 sections: intro.pdf fourier.pdf schwartz.pdf dists.pdf limits.pdf
 
