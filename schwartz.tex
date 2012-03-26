@@ -166,9 +166,9 @@
         \end{align*}
         Thus $f$ vanishes at infinity, so $\lim_i f_i = f\in\Coo$.
       \end{proof}
-      \begin{rmk}
-        Thus, being complete with respect to the topology arising from a norm, \Coo is a Banach space, by definition.
-      \end{rmk}
+      \begin{cor}
+        Being complete with respect to the topology arising from a norm, \Coo is a Banach space, by definition.
+      \end{cor}
       \begin{rmk}
         Note that this completeness is a consequence of our norm forcing sequences of functions to converge \emph{uniformly}.
         This is particularly important as pointwise limits of continuous functions need not be continuous.
@@ -189,7 +189,7 @@
       \begin{rmk}
         The \Cko norm (or ``sum~sup'' norm) gives the same topology as the ``sup~sup'' norm:
         \begin{align*}
-          |f|_\Cko=\sup_{0\le i\le k}|f^{(i)}|_\Coo=\sup_{0\le i\le k}\sup_{x\in\R}|f^{(i)}(x)|
+          |f|=\sup_{0\le i\le k}|f^{(i)}|_\Coo=\sup_{0\le i\le k}\sup_{x\in\R}|f^{(i)}(x)|
         \end{align*}
         because for complex numbers $a_1,\ldots,a_k$
         \begin{align*}
@@ -217,7 +217,6 @@
         $\Cko(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
-        \todo{Eschew epsilons.}
         Consider the case $k=1$; this will extend inductively to all $k$.
         Let $\{f_i\}$ be Cauchy in $C^1_0$.
         Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in \Coo, by definition of the \Coo (sup) norm and $C^1_0$ norm, each is Cauchy in \Coo.
@@ -239,7 +238,7 @@
           f(x)-f(a) &= \int_a^x g(t)\,dt
         \end{align*}
         so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^1_0$.
-        Thus $C^1_0$ is complete in its topology.
+        Thus $C^1_0$ is complete in its topology, proving the base case.
 
         Now suppose that $\{f_i\}$ is Cauchy in \Cko for $k>1$, and that \Ckmo is complete in the topology induced by its norm.
         Again, both $\{f_i\}$ and $\{f_i'\}$ are Cauchy in \Coo, so letting $f$ and $g$ be the limits of the sequences (as above), we see that $f'=g$.
@@ -256,7 +255,7 @@
       \end{align*}
       with the norm:
       \begin{align*}
-        |f|_\Cl = |(1+x^2)^\ell f|_{\Coo} = \sup_{x\in\R} |(1+x^2)^\ell f(x)|
+        |f|_\Cl = |(1+x^2)^\ell f|_{\Coo} = \sup_{x\in\R} (1+x^2)^\ell|f(x)|
       \end{align*}
       Note that for $\ell=0$ we have $\Cl=\Coo$, and their respective norms agree.
 
@@ -269,36 +268,28 @@
         $\Cl(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
-        \todo{Eschew epsilons.}
         Take a Cauchy sequence of \Cl functions $\{f_i\}$.
         Because each $f_i\in \Coo$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $\Coo$, as in the proof of \cref{thm:c00complete}.
         However, this holds only if $\{f_i\}$ is Cauchy in \Coo. 
 
-        By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$
+        See that for any $i$ and $j$ 
         \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_\Coo < \varepsilon
+          |f_i-f_j|_\Coo
+          &= \sup_{x\in\R}|f_i(x)-f_j(x)|
+          \\&\le \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
+          \\&=|f_i-f_j|_\Cl
         \end{align*}
-        Calculate 
-        \begin{align*}
-          |(1+x^2)^\ell f_i - (1+x^2)^\ell f_j|_\Coo
-          &= \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|\\
-          &\ge \sup_{x\in\R}|f_i(x)-f_j(x)|\\
-          &= |f_i-f_j|_\Coo
-        \end{align*}
-        So $|f_i-f_j|_\Coo<\varepsilon$, and so $\{f_i\}\rightarrow f\in \Coo$.
+        and so we may write $f=\lim_i f_i$ in \Coo.
         Thus it remains only to show that $(1+x^2)^\ell f(x)$ is \Coo.
         
         By hypothesis the sequence $\{(1+x^2)^\ell f_i\}$ in \Coo is Cauchy.
         Then it has a limit in \Coo, say $g$.
         We hope that $g(x)=(1+x^2)^\ell f(x)$.
-        For $\varepsilon>0$ use the fact that \emph{both} sequences are Cauchy to pick $i$ so that $|(1+x^2)^\ell f_i - g|<\varepsilon$ and $|f_i - f|<\varepsilon$.
-        Fix some $x\in\R$.
-        Then
+        Fix some $x\in\R$ and see
         \begin{align*}
-          |g(x) - (1+x^2)^\ell f(x)| &\le |(1+x^2)^\ell f_i(x) - g(x)|+|(1+x^2)^\ell||f_i(x)-f(x)|\\
-          &< \varepsilon + |(1+x^2)^\ell|\varepsilon
+          |g(x) - (1+x^2)^\ell f(x)| &\le |(1+x^2)^\ell f_i(x) - g(x)|+(1+x^2)^\ell|f_i(x)-f(x)|
         \end{align*}
-        Because $x$ is fixed we can force $|g(x)-(1+x^2)^\ell f(x)|$ to become arbitrarily small, and so we conclude that $g(x)=(1+x^2)^\ell f(x)$.
+        Because $x$ is fixed, the right hand expression becomes arbitrarily small as $i$ grows and both limits converge.
         Thus $(1+x^2)^\ell f$ is \Coo, and so $f\in\Cl$.
       \end{proof}
 
@@ -321,10 +312,10 @@
           Let $f\in\Ckl$.
           Then
           \begin{align*}
-            |f|_\Ckl
-            &= \sum_{0\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
-            \\&\ge \sum_{1\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
-            \\&= |Df|_\Ckml
+            |Df|_\Ckml
+            &= \sum_{1\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
+            \\&\le \sum_{0\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
+            \\&= |f|_\Ckl
           \end{align*}
         \end{proof}
       \end{claim}
@@ -333,34 +324,32 @@
         $\Ckl(\R)$ is complete in its topology.
       \end{thm}
       \begin{proof}
-        \todo{Eschew epsilons.}
-        Again we consider the case of $k=1$ and allow proof to extend inductively to all $k$.
+        Again consider the case of $k=1$; proof will extend inductively to all $k$.
         This proof is similar to \cref{thm:ck0complete}, with the added complication(s) of proving decay along with differentiability.
 
         Take $\{f_i\}$ to be Cauchy in $C^1_\ell$.
-%        We want to show that the sequence is Cauchy in another norm, as in \cref{thm:c0lcomplete}.
-        By hypothesis, given $\varepsilon>0$ there exists $N>0$ such that for all $i,j>N$ we have $|f_i -f_j|_{C^1_\ell} < \varepsilon$.
-        Calculate
         \begin{align*}
-          |f_i -f_j|_{C^1_\ell}
-          &= \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
-          &\ge \sum_{0\le h\le 1}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
-          &= |f_i-f_j|_{C^1_0}
+          |f_i-f_j|_{C^1_0}
+          &= \sum_{0\le h\le 1}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|
+          \\&\le \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|
+          \\&= |f_i -f_j|_{C^1_\ell}
         \end{align*}
         Thus $\{f_i\}$ is Cauchy in $C^1_0$.
-        From \cref{thm:ck0complete} we then see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in \Coo with $f'=g$.
+        From \cref{thm:ck0complete} see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in \Coo with $f'=g$.
 
-        We now only need to show that $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in\Coo$.
-        If we can show that $\{f_i\}$ is Cauchy in \Cl then we'll see that $(1+x^2)^\ell f\in\Coo$ by \cref{thm:c0lcomplete}.
-        Similarly, if we show that $\{f_i'\}$ is Cauchy in \Cl, we'll see that $(1+x^2)^\ell g\in\Coo$, and can use that fact to show that $(1+x^2)^\ell f$ is in fact in $C^1_0$.
+        It remains to show that $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in\Coo$.
+        If $\{f_i\}$ is Cauchy in \Cl then $(1+x^2)^\ell f\in\Coo$ by \cref{thm:c0lcomplete}.
+        Similarly, if $\{f_i'\}$ is Cauchy in \Cl, we'll see that $(1+x^2)^\ell g\in\Coo$.
+        Thus proving the two sequences are Cauchy will show that $(1+x^2)^\ell f\in C^1_0$.
         Calculate
         \begin{align*}
-          |f_i -f_j|_{C^1_\ell}
-          &= \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|\\
-          &\ge \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
+          |f_i-f_j|_\Cl
+          &= \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
+          \\&\le \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|
+          \\&= |f_i -f_j|_{C^1_\ell}
         \end{align*}
-        which is exactly the norm of $f_i-f_j$ in \Cl.
-        The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in \Cl, and so $(1+x^2)^\ell f$ and $(1+x^2)^\ell g$ are elements of \Coo.
+%        which is exactly the norm of $f_i-f_j$ in \Cl.
+        The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in \Cl, and so $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in\Coo$.
 
         Finally we calculate
         \begin{align*}
@@ -369,7 +358,7 @@
           &\le (1+x^2)^\ell g(x) + 2\ell(1+x^2)^\ell f(x)
         \end{align*}
         We have just shown that both summands are \Coo, and so vanish at infinity.
-        Thus, by the definition of $C^1_0$, $f\in C^1_0$.
+        Thus, by the definition of $C^1_0$, $f\in C^1_0$, proving the theorem for $k=1$.
 
         Now take $\{f_i\}$ to be Cauchy in \Ckl for $k>1$, and suppose that \Ckml is complete.
         Then by the argument above see that $f=\lim_i f_i$ is $C^1_\ell$, $g=\lim_i f_i'$ is \Cl, and $f'=g$.
@@ -409,31 +398,26 @@
         Thus, letting the maps $\varphi^{k,k-1}_\ell$ and $\phi^k_{\ell,\ell-1}$ be these inclusions, the diagram above is a commutative diagram of continuous maps.
       \end{claim}
       \begin{proof}[Proof of \cref{claim:inclcont}]
-        \todo{Eschew epsilons}.
         First see that by definition of set inclusion, the diagram must be commutative.
         Because any $f$ in some \Ckl is an element of every \Cij with $i\le k$ and $j\le\ell$ by definition, any composition of inclusions $\Ckl\rightarrow\Cij$ will agree.
 
         It now remains to show that the mappings are continuous.
         First consider $\varphi^{k,k-1}_\ell$ (the horizontal direction).
-        Let $f$ and $g$ be functions in \Ckl.
-        Then for some given $\varepsilon>0$, $|f-g|_\Ckl<\varepsilon$ implies
-        \todo{the norms are wrong here}
+        Let $f$ be a function in \Ckl.
         \begin{align*}
-          \varepsilon &> \left|(1+x^2)^\ell(f-g)\right|_\Cko
-          \\&= \sup_{0\le i\le k} \left|((1+x^2)^\ell(f-g))^{(i)}\right|_\Coo
-          \\&\ge \sup_{0\le i\le k-1} \left|((1+x^2)^\ell(f-g))^{(i)}\right|_\Coo 
-          \\&= \left|(1+x^2)^\ell(f-g)\right|_{C^{k-1}_0}
-          \\&= \left|\varphi^{k,k-1}_\ell(f-g)\right|_\Ckml
+          |\varphi^{k,k-1}_\ell(f)|_\Ckml
+          &= \sum_{0\le i \le k-1} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo
+          \\&\le \sum_{0\le i \le k} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo
+          \\&= |f|_\Ckl
         \end{align*}
         and so $\varphi^{k,k-1}_\ell$ is continuous.
 
         Now consider $\phi^k_{\ell,\ell-1}$ (the vertical direction).
-        Let $f$ and $g$ be functions in \Ckl.
-        Then for some given $\varepsilon>0$, $|f-g|_\Ckl<\varepsilon$ implies
         \begin{align*}
-          \varepsilon &> \left|(1+x^2)^\ell(f-g)\right|_\Cko
-          \\&\ge \left|(1+x^2)^{\ell-1}(f-g)\right|_\Cko
-          \\&= \left|\phi^k_{\ell,\ell-1}(f-g)\right|_\Ckml
+          |\phi^k_{\ell,\ell-1}(f)|_{C^k_{\ell-1}}
+          &= \sum_{0\le i \le k} \left|(1+x^2)^{\ell-1} f^{(i)}\right|_\Coo
+          \\&\le \sum_{0\le i \le k} \left|(1+x^2)^{\ell} f^{(i)}\right|_\Coo
+          \\&= |f|_\Ckl
         \end{align*}
         and so $\phi^k_{\ell,\ell-1}$ is continuous.
       \end{proof}
