@@ -203,10 +203,11 @@
         \begin{proof}
           Let $f\in \Cko$.
           \begin{align*}
-            |f|_\Cko
-            &= \sum_{0\le i\le k} |f^{(i)}|_\Coo
-            \\&\ge \sum_{1\le i\le k} |f^{(i)}|_\Coo
-            \\&= |Df|_\Ckmo
+            |Df|_\Ckmo
+            &= \sum_{0\le i\le k-1} |Df^{(i})|_\Coo
+            \\&= \sum_{1\le i\le k} |f^{(i)}|_\Coo
+            \\&\le \sum_{0\le i\le k} |f^{(i)}|_\Coo
+            \\&= |f|_\Cko
           \end{align*}
           Thus when $f$ is small in \Cko, $Df$ is small in \Ckmo.
         \end{proof}
