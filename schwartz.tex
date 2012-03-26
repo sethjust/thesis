@@ -46,9 +46,7 @@
         (f+g)(x) &= f(x)+g(x)\\
         (a\cdot f)(x) &= a\cdot f(x)
       \end{align*}
-      This vectorspace structure lets us easily construct topologies.
-
-      Recall:
+      This vectorspace structure lets us easily construct topologies by providing a concept of the \emph{size} of functions.
       \begin{defn}
         A \emph{norm} on a complex vectorspace $X$ is a function
         \begin{align*}
@@ -116,23 +114,19 @@
       \begin{claim}
         For $x\in\R$, the evaluation functional $\Coo(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
         \begin{proof}
-          See that $|f(x)| \le \sup_{x\in\R} |f(x)| = |f|_\Coo$.
-          Thus the evaluation functional is continuous.
+          It suffices to show that $f(x)\rightarrow 0$ whenever $f\rightarrow 0$ because $f(x)\rightarrow g(x)$ iff $(f-g)(x)\rightarrow~0$.
+          See that $|f(x)| \le \sup_{x\in\R} |f(x)| = |f|_\Coo$, so the evaluation functional is continuous.
         \end{proof}
       \end{claim}
       While this proof seems silly in its simplicity, or even completely obvious, we have in fact proved the topology on \Coo agrees nicely with an intuitive sense of the structure of functions:
       \begin{cor}
         \label{cor:limitworks}
         Limits of functions in \Coo agree with the normal (pointwise) limit of functions.
-        That is, supposing a sequence $\{f_i\}$ in \Coo has a limit $f\in\Coo$, we have for any $x\in\R$:
+        That is, supposing a sequence $\{f_i\}$ in \Coo has a limit $f\in\Coo$, we have for any $x\in\R$
         \begin{align*}
           (\lim_i f_i)(x) &= \lim_i f_i(x)\text{.}
         \end{align*}
       \end{cor}
-      \begin{proof}
-        It suffices to show that if $\{f_i\}\rightarrow 0$ we have $\{f_i(x)\}\rightarrow 0$ for all $x\in\R$.
-        This is immediate by observing that $|f_i(x)|\le |f_i|_\Coo$.
-      \end{proof}
 
       The result above requires that we assume the sequence $\{f_i\}$ has a limit in \Coo.
       We hope that this is always that case when the sequence is well-behaved, or \emph{Cauchy}.
@@ -140,7 +134,8 @@
         A sequence $\{x_i\}$ in a space $X$ with a topology arising from a metric $d$ is called Cauchy when elements of the sequence become arbitrarily close to one another.
         That is the sequence is Cauchy iff for any $\varepsilon>0$ there is some $N>0$ such that for all $i,j>N$ we have $d(x_i,x_j)<\varepsilon$.
 
-        If every such sequence in $X$ converges to a limit in $X$, we say \emph{$X$ is complete in its topology}.
+        If every such sequence in $X$ converges to a limit in $X$, we say \emph{$X$ is complete in its topology}, or simply \emph{complete}.
+        A complete topological vectorspace is a \emph{Banach space}.
       \end{defn}
 
       \begin{thm}
@@ -148,36 +143,31 @@
         The space $\Coo(\R)$ of continuous functions vanishing at infinity is complete.
       \end{thm}
       \begin{proof}
-        \todo{Eschew epsilons.}
         Consider a Cauchy sequence of \Coo functions $\{f_i\}$.
-        First we will see that this sequence has a pointwise limit.
+        First, see that this sequence has a pointwise limit.
+        For any $i,j$ and $x\in\R$ see that $|f_i(x)-f_j(x)| \le |f_i-f_j|_\Coo$, so the sequence of complex outputs $\{f_i(x)\}$ is Cauchy and has a limit $f(x)$.
+        By \cref{cor:limitworks} we may then write $f=\lim_i f_i$.
 
-        Given $\varepsilon<0$ pick $N$ such that for $i,j>N$ we have $|f_i-f_j|<\varepsilon$.
-        Then for any $x\in\R$, $|f_i(x)-f_j(x)|<\varepsilon$, and so the sequence of complex outputs $\{f_i(x)\}$ is Cauchy and has a limit $f(x)$.
-        Thus the pointwise limit of $\{f_i\}$ is $f$.
-       
-        Now for $\varepsilon'>0$ take $j>N$ so that $|f_j(x)-f(x)|<\varepsilon'$.
-        Then for $i>N$
+        The limit $f$ must be continuous, by definition of \Coo.
+        Fix some $a\in\R$, so letting $x$ vary
         \begin{align*}
-          |f_i(x)-f(x)|\le|f_i(x)-f_j(x)|+|f_j(x)-f(x)|<\varepsilon+\varepsilon'\text{.}
+          |f(x)-f(a)|
+          &\le |f(x)-f_i(x)|+|f_i(x)-f_i(a)|+|f_i(a)-f(a)|
         \end{align*}
-        Taking the limit as $\varepsilon'\rightarrow0$, we see $|f_i(x)-f(x)|<\varepsilon$ for \emph{all} $x$.
-        Thus the convergence $\{f_i\}\rightarrow f$ is \emph{uniform} in $x$.
-        Quoting the fact that the limit of continuous is continuous when convergence is uniform, we see that $f$ is continuous.\footnotemark
-        \footnotetext{This is easily verified by combining the inequalities above with the continuity of the $f_i$.}
+        by the triangle inequality.
+        The outer terms approach zero as $i\rightarrow\infty$, and the middle term vanishes as $x\rightarrow a$.
+        Thus $f$ is continuous.
 
-        It remains to show only that $f$ vanishes at infinity.
-        Take $\varepsilon$ and $N$ as above, and fix some $i>N$.
-        Then $|f_i(x)-f(x)|<\varepsilon$ for all $x$.
-        Let $\varepsilon'>0$ and choose $M$ such that $|x|>M\Rightarrow |f_i(x)|<\varepsilon'$.
-        Then
+        Finally, we hope that $f$ vanishes at infinity.
+        Applying the triangle inequality for any $x$ and $i$, see
         \begin{align*}
-          |f(x)|\le|f_i(x)-f(x)|+|f_i(x)|<\varepsilon+\varepsilon'\text{,}
+          |f(x)| \le |f(x)-f_i(x)| + |f_i(x)|
+          \underset{i, |x|\rightarrow\infty}{\longrightarrow} 0\text{.}
         \end{align*}
-        so for large $|x|$, we can make $f(x)$ arbitrarily small, and so $f\in \Coo$.
+        Thus $f$ vanishes at infinity, so $\lim_i f_i = f\in\Coo$.
       \end{proof}
       \begin{rmk}
-        Thus, being complete with respect to the topology arising from a norm, \Coo is a \emph{Banach} space, by definition.
+        Thus, being complete with respect to the topology arising from a norm, \Coo is a Banach space, by definition.
       \end{rmk}
       \begin{rmk}
         Note that this completeness is a consequence of our norm forcing sequences of functions to converge \emph{uniformly}.
@@ -267,7 +257,6 @@
       \begin{align*}
         |f|_\Cl = |(1+x^2)^\ell f|_{\Coo} = \sup_{x\in\R} |(1+x^2)^\ell f(x)|
       \end{align*}
-      \todo{fix labeling of norm}
       Note that for $\ell=0$ we have $\Cl=\Coo$, and their respective norms agree.
 
       The definition of \Cl is more complicated that we might hope.
