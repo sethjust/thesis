@@ -71,7 +71,7 @@
 % Theorem-like environments
 \theoremstyle{break}
 \theoremseparator{.}
-\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{thm}{Theorem}[section]
 \surroundwithmdframed[%
   innertopmargin=3pt,
   innerbottommargin=3pt,
@@ -85,10 +85,10 @@
 \newtheorem{claim}[thm]{Claim}
 \newtheorem{cor}[thm]{Corollary}
 
-\newtheorem{rmk}{Remark}[chapter]
-\newtheorem{example}{Example}[chapter]
+\newtheorem{rmk}{Remark}[section]
+\newtheorem{example}{Example}[section]
 
-\newtheorem{defn}{Definition}[chapter]
+\newtheorem{defn}{Definition}[section]
 \surroundwithmdframed[%
   usetwoside=false,
   leftmargin=-5pt,
@@ -115,6 +115,13 @@
   linewidth=1pt,
   nobreak=true
   ]{nbdefn}
+
+% Fix broken numbering
+\makeatletter
+\@addtoreset{thm}{chapter}
+\@addtoreset{defn}{chapter}
+\@addtoreset{rmk}{chapter}
+\makeatother
 
 % Proof-like environments
 \theorembodyfont{\normalfont}
