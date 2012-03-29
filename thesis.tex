@@ -57,7 +57,7 @@
 \newcommand{\F}{\ensuremath{\mathcal{F}}\xspace}
 \let\s\S % This is the 'section' symbol
 \renewcommand{\S}{\ensuremath{\mathcal{S}}\xspace}
-\renewcommand{\SS}{\ensuremath{\S^*}}
+\renewcommand{\SS}{\ensuremath{\S^*}\xspace}
 \newcommand{\ws}{weak-* topology\xspace}
 \newcommand{\Coo}{\ensuremath{{C^0_0}}\xspace}
 \newcommand{\Cko}{\ensuremath{{C^k_0}}\xspace}
@@ -133,22 +133,15 @@
 \newtheorem{proof}{Proof}
 
 % Cross-referencing names
-\crefname{equation}{}{}
+\crefformat{equation}{#2(#1)#3}
 \Crefname{equation}{Equation}{Equations}
 \crefname{thm}{theorem}{theorems}
-\Crefname{thm}{Theorem}{Theorems}
 \crefname{lemma}{lemma}{lemmas}
-\Crefname{lemma}{Lemma}{Lemmas}
 \crefname{claim}{claim}{claims}
-\Crefname{claim}{Claim}{Claims}
 \crefname{cor}{corollary}{corollaries}
-\Crefname{cor}{Corollary}{Corollaries}
 \crefname{rmk}{remark}{remarks}
-\Crefname{rmk}{Remark}{Remarks}
 \crefname{example}{example}{examples}
-\Crefname{example}{Example}{Examples}
 \crefname{defn}{definition}{definitions}
-\Crefname{defn}{Definition}{Definitions}
 \crefalias{nbdefn}{defn}
 
 % Metadata
