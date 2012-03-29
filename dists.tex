@@ -24,11 +24,9 @@
     See that
     \begin{align*}
       |\langle\varphi,\phi_i\rangle| 
-      &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
-      \\&\le \int_{x\in\R}| \varphi(x)\phi_i(x)|\,dx
-      \\&= \int_{x\in\R}|\varphi(x)|\cdot|\phi_i(x)|\,dx
-      \\&\le \int_{x\in\R}|\varphi(x)|\cdot|\phi_i|_{C^k_\ell}\,dx
-      \\&= |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
+%      &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
+      &\le \int_{x\in\R}| \varphi(x)\phi_i(x)|\,dx
+      \\&\le |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
     \end{align*}
     for any $k$ and $\ell$, by definition of the $C^k_\ell$ norm.
     Because $\{\phi_i\}$ approaches zero in \S, we see that $\{|\phi_i|_{C^k_\ell}\}$ also approaches zero.
@@ -60,18 +58,17 @@
     When $u$ corresponds to a Schwartz function $f$, the distribution $u'$ visibly corresponds to the derivative $f'\in\S$ by the calculation above. 
   \end{defn}
   
-  As with the Fourier Transform, the definition of the distributional derivative extends nice properties of \S to nice properties of $\S^*$.
+  As with the Fourier Transform, the definition of the distributional derivative extends good properties of \S to all of $\S^*$.
   It is immediately obvious that any tempered distribution has infinitely many derivatives which are all themselves tempered distributions.
   We might also expect that, as on $\S$, the differentiation map is continuous on $\S^*$, but this involves topology on $S^*$, which we have not yet developed.
   We thus give the space of tempered distributions the so-called ``initial topology'', which allows us to carry topology from a space to its dual.
   \begin{defn}
     Let $X^*$ be the continuous linear dual of a topological space $X$.
-    The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology (the one with the fewest open sets) in which the evaluation functionals
+    The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology (the one with the fewest open sets) ensuring the continuity of the evaluation functionals
     \begin{gather*}
       X^*\longrightarrow\C\\
-      u\mapsto \langle u,\varphi\rangle\quad\text{for }\varphi\in X
+      u\mapsto \langle u,\varphi\rangle\qquad\text{for }\varphi\in X\text{.}
     \end{gather*}
-    are continuous.
   \end{defn}
 
   \begin{claim}
