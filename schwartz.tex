@@ -19,7 +19,7 @@
       We are interested in topology on spaces of functions, with the goal of finding a topology for the space of distributions.
       Recall:
       \begin{defn}
-        A \emph{topological space} is a set $X$ and a set $\tau$ of subsets of $X$ that satisfies:
+        A \emph{topological space} is a set $X$ and a set $\tau\subseteq2^X$ that satisfies:
         \begin{itemize}
           \item The empty set $\emptyset$ and the whole space $X$ are elements of $\tau$,
           \item $\tau$ is closed under arbitrary union,
@@ -27,8 +27,8 @@
         \end{itemize}
         We call $\tau$ a \emph{topology on $X$}.
 
-        Given a subset of the power set $S\subseteq2^X$ that contains $\emptyset$ and $X$, we generate a topology $\tau$ on $X$ by completing $S$ with respect to union and finite intersection (that is, taking all possible unions and intersections of sets in $S$ repeatedly until no new open sets are generated).
-        We call $S$ the \emph{generating set} of the topology $\tau$.
+        Given a set $S$ of subsets of $X$ that contains $\emptyset$ and $X$, generate a topology $\tau$ on $X$ by completing $S$ with respect to union and finite intersection (that is, taking all possible unions and intersections of sets in $S$ repeatedly until no new open sets are generated).
+        $S$ is called a \emph{generating set} or \emph{basis} of the topology $\tau$.
 
         Given a set $X$ with a metric\footnotemark $d:X^2\rightarrow\R_{\ge 0}$, we take all sets of the form 
         \begin{align*}
@@ -54,9 +54,9 @@
         \end{align*}
         that satisfies for all $x,y\in X$, $a\in\C$:
         \begin{itemize}
-          \item Positive Scalability: $|ax|_X=|a|\cdot|x|_X$
-          \item Triangle Inequality: $|x+y|_X\le|x|_X+|y|_X$
-          \item Separation of points: $|x|_X=0\Longleftrightarrow x=0_X$.
+          \item positive scalability: $|ax|_X=|a|\cdot|x|_X$;
+          \item triangle inequality: $|x+y|_X\le|x|_X+|y|_X$;
+          \item separation of points: $|x|_X=0\Longleftrightarrow x=0_X$.
         \end{itemize}
         Notationally, some subscripts are dropped and we distinguish between a norm and the complex absolute-value function by context.
       \end{defn}
@@ -68,17 +68,39 @@
 
       Topologies arising from norms naturally respect vectorspace operations:
       \begin{claim}
-        The addition and scalar multiplication maps $+:X\times X\rightarrow X$ and $\cdot:\C\times X\rightarrow X$) are (jointly) continuous\footnotemark.
-        \footnotetext{
-          Recall that a map $f:\prod_{1\le i\le n}X_i\rightarrow K$ is jointly continuous if for any set $Z$ with a family of continuous maps $g_i:Z\rightarrow X_i$ the map $Z\rightarrow K$ given by $z\mapsto f(g_1(z),g_2(z),\ldots,f_n(z))$ is continuous.
-        }
+        The addition and scalar multiplication maps 
+        \begin{align*}
+          +:X\times X\rightarrow X
+          \qquad\text{and}\qquad
+          \cdot:\C\times X\rightarrow X
+        \end{align*}
+        are (jointly) continuous.\footnotemark
       \end{claim}
+      \footnotetext{
+        Recall that a map $f:\prod_{1\le i\le n}X_i\rightarrow K$ is jointly continuous if for any set $Z$ with a family of continuous maps $g_i:Z\rightarrow X_i$ the map $Z\rightarrow K$ given by $z\mapsto f(g_1(z),g_2(z),\ldots,f_n(z))$ is continuous.
+      }
       \begin{proof}
         Consider some space $Z$ with continuous maps $g_1,g_2:Z\rightarrow X$.
-        Then the map $Z\rightarrow X$ given by $z\mapsto g_1(z)+g_2(z)$ is visibly continuous, by the continuity of the $g_i$, and so the addition map is jointly continuous.
+        We hope the map $g:Z\rightarrow X$ given by $z\mapsto g_1(z)+g_2(z)$ is continuous.
+        Let $\{z_i\}$ be a sequence converging to some $z\in Z$; to show that $\{g(z_i)\}\rightarrow g(z)$ it suffices to show $\{|g(z_i)-g(z)|\}\rightarrow0$.
+        See that 
+        \begin{align*}
+          |g(z_i)-g(z)|
+          &\le |g_1(z_i) - g_1(z)| + |g_2(z_i) - g_2(z)|\text{.}
+        \end{align*}
+        Because the $g_i$ are continuous each of the right-hand summands approaches zero.
+        Thus $g$ is continuous, so the addition map is jointly continuous.
 
-        Now consider a pair of continuous maps $g_1:Z\rightarrow\C$ and $g_2:Z\rightarrow X$.
-        For some sequence $\{z_i\}$ with either $\{g_1(z_i)\}\rightarrow 0$ or $\{g_2(z_i)\}\rightarrow 0$, the sequence $\{g_1(z)\cdot g_2(z)\}\rightarrow 0$, and so the multiplication map is jointly continuous.
+        Now consider a pair of continuous maps $g_1:Z\rightarrow\C$ and $g_2:Z\rightarrow X$ and the corresponding $g:Z\rightarrow X$ given by $z\mapsto g_1(z)\cdot g_2(z)$.
+        As above, calculate
+        \begin{align*}
+          |g(z_i)-g(z)|
+          &= |g_1(z_i)\cdot g_2(z_i) - g_1(z)\cdot g_2(z)|
+          \\&= |(g_1(z_i)-g_1(z)+g_1(z))\cdot g_2(z_i) - g_1(z)\cdot g_2(z)|
+          \\&= |(g_1(z_i)-g_1(z))\cdot g_2(z_i) + g_1(z)\cdot(g_2(z_i)-g_2(z))|
+          \\&\le |g_1(z_i)-g_1(z)|\cdot|g_2(z_i)| + |g_1(z)|\cdot|g_2(z_i)-g_2(z)|
+        \end{align*}
+        Again, the continuity of the $g_i$ force both summands to zero, so the multiplication map is jointly continuous.
       \end{proof}
 
       \subsection{A space of continuous, vanishing functions}
@@ -88,11 +110,11 @@
       Now consider the space $\Coo(\R)$ of complex-valued, continuous functions vanishing at infinity, which is a vectorspace over $\C$.
       Notationally, take $\Coo=\Coo(\R)$ for clarity, as we are concerned only with functions on the line.
       Give $\Coo$ the ``sup norm'' and its associated metric:
-      \begin{align*}
-        |f|_\Coo &= \sup_{x\in\R}|f(x)|\\
-        d(f,g) &= |f-g|_\Coo
-      \end{align*}
-      It is trivial that the sup norm is positive-definite and obeys the triangle inequality, by properties of the absolute value and sup.
+      \begin{gather*}
+        |f|_\Coo = \sup_{x\in\R}|f(x)|\\
+        d(f,g) = |f-g|_\Coo
+      \end{gather*}
+      It is trivial that the sup norm separates points and obeys positive scalability and the triangle inequality, by properties of the absolute value and sup.
       Thus the following completes the proof that sup norm is in fact a norm:
       \begin{claim}
         The sup norm on $\Coo$ is always finite.
@@ -114,19 +136,17 @@
       \begin{claim}
         For $x\in\R$, the evaluation functional $\Coo(\R)\rightarrow\C$ given by $f\mapsto f(x)$ is continuous.
         \begin{proof}
-          It suffices to show that $f(x)\rightarrow 0$ whenever $f\rightarrow 0$ because $f(x)\rightarrow g(x)$ iff $(f-g)(x)\rightarrow~0$.
           See that $|f(x)| \le \sup_{x\in\R} |f(x)| = |f|_\Coo$, so the evaluation functional is continuous.
         \end{proof}
       \end{claim}
-      While this proof seems silly in its simplicity, or even completely obvious, we have in fact proved the topology on \Coo agrees nicely with an intuitive sense of the structure of functions:
-      \begin{cor}
+      \begin{rmk}
         \label{cor:limitworks}
-        Limits of functions in \Coo agree with the normal (pointwise) limit of functions.
+        While this proof seems silly in its simplicity, or even completely obvious, we have in fact proved the topology on \Coo agrees nicely with an intuitive sense of the structure of functions: limits of functions in \Coo agree with the normal (pointwise) limit of functions.
         That is, supposing a sequence $\{f_i\}$ in \Coo has a limit $f\in\Coo$, we have for any $x\in\R$
         \begin{align*}
           (\lim_i f_i)(x) &= \lim_i f_i(x)\text{.}
         \end{align*}
-      \end{cor}
+      \end{rmk}
 
       The result above requires that we assume the sequence $\{f_i\}$ has a limit in \Coo.
       We hope that this is always that case when the sequence is well-behaved, or \emph{Cauchy}.
@@ -146,7 +166,7 @@
         Consider a Cauchy sequence of \Coo functions $\{f_i\}$.
         First, see that this sequence has a pointwise limit.
         For any $i,j$ and $x\in\R$ see that $|f_i(x)-f_j(x)| \le |f_i-f_j|_\Coo$, so the sequence of complex outputs $\{f_i(x)\}$ is Cauchy and has a limit $f(x)$.
-        By \cref{cor:limitworks} we may then write $f=\lim_i f_i$.
+        By \cref{cor:limitworks} we may unambiguously write $f=\lim_i f_i$.
 
         The limit $f$ must be continuous, by definition of \Coo.
         Fix some $a\in\R$, so letting $x$ vary
@@ -172,15 +192,34 @@
       \begin{rmk}
         Note that this completeness is a consequence of our norm forcing sequences of functions to converge \emph{uniformly}.
         This is particularly important as pointwise limits of continuous functions need not be continuous.
+        For example, the function
+        \begin{align*}
+          f_n(x)=
+          \begin{cases}
+            -1 &\text{if } x<-\frac1n\\
+            nx &\text{if } |x|<\frac1n\\
+            1 &\text{if } x>\frac1n
+          \end{cases}
+        \end{align*}
+        is continuous for all $n$, but the limiting function is discontinuous at zero:
+        \begin{align*}
+          \lim_nf_n(x)=
+          \begin{cases}
+            -1 &\text{if } x<0\\
+            0 &\text{if } x=0\\
+            1 &\text{if } x>0
+          \end{cases}
+        \end{align*}
       \end{rmk}
 
     \subsection{Spaces of differentiable functions}
-      We now turn to the issue of \emph{differentiability}.
+      Recall that Schwartz functions are infinitely differentiable, while functions in \Coo are only guaranteed to have one derivative (though they may have more).
+      We hope that we can find a space of functions with any finite number of derivatives. 
       For $k>0$ define the space 
       \begin{align*}
         \Cko(\R) = \{f\in \Coo(\R) : f'\in \Ckmo(\R)\}
       \end{align*}
-      Note that this definition requires that all $k+1$ derivatives $f,f',\ldots,f^{(k)}$ be \Coo, and so they are \emph{all} continuous and vanish at infinity.
+      This definition requires that all $k+1$ derivatives $f,f',\ldots,f^{(k)}$ be \Coo, and so they are \emph{all} continuous and vanish at infinity.
       Give $\Cko(\R)$ the topology of the \Cko-norm:
       \begin{align*}
         |f|_\Cko = \sum_{0\le i\le k} |f^{(i)}|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)|
@@ -204,10 +243,8 @@
           Let $f\in \Cko$.
           \begin{align*}
             |Df|_\Ckmo
-            &= \sum_{0\le i\le k-1} |Df^{(i})|_\Coo
-            \\&= \sum_{1\le i\le k} |f^{(i)}|_\Coo
-            \\&\le \sum_{0\le i\le k} |f^{(i)}|_\Coo
-            \\&= |f|_\Cko
+            = \sum_{1\le i\le k} |f^{(i)}|_\Coo
+            \le |f|_\Cko
           \end{align*}
           Thus when $f$ is small in \Cko, $Df$ is small in \Ckmo.
         \end{proof}
@@ -247,7 +284,7 @@
 
     \subsection{Spaces of decaying functions}
       \label{sec:decayfunc}
-      Now consider the issue of \emph{decay}.
+      Having constructed a topological space of functions with any finite number of derivatives, we now consider the issue of decay.
       Recall that Schwartz functions are \emph{rapidly decaying}, so their product with any power of $x$ vanishes at infinity.
       For $\ell\ge0$ define (for now)
       \begin{align*}
@@ -270,17 +307,15 @@
       \begin{proof}
         Take a Cauchy sequence of \Cl functions $\{f_i\}$.
         Because each $f_i\in \Coo$ we want to say that $\{f_i\}$ has a pointwise limit $f$ that itself is $\Coo$, as in the proof of \cref{thm:c00complete}.
-        However, this holds only if $\{f_i\}$ is Cauchy in \Coo. 
-
-        See that for any $i$ and $j$ 
+        This holds only if $\{f_i\}$ is Cauchy in \Coo, but for any $i$ and $j$ 
         \begin{align*}
           |f_i-f_j|_\Coo
-          &= \sup_{x\in\R}|f_i(x)-f_j(x)|
-          \\&\le \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
-          \\&=|f_i-f_j|_\Cl
+          = \sup_{x\in\R}|f_i(x)-f_j(x)|
+          \le \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
+          =|f_i-f_j|_\Cl
         \end{align*}
         and so we may write $f=\lim_i f_i$ in \Coo.
-        Thus it remains only to show that $(1+x^2)^\ell f(x)$ is \Coo.
+        Thus it remains only to show that $(1+x^2)^\ell f(x)$~is~\Coo.
         
         By hypothesis the sequence $\{(1+x^2)^\ell f_i\}$ in \Coo is Cauchy.
         Then it has a limit in \Coo, say $g$.
@@ -313,9 +348,9 @@
           Then
           \begin{align*}
             |Df|_\Ckml
-            &= \sum_{1\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
-            \\&\le \sum_{0\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
-            \\&= |f|_\Ckl
+            = \sum_{1\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
+            \le \sum_{0\le i\le k} \left| (1+x^2)^\ell f^{(i)} \right|_\Coo
+            = |f|_\Ckl\text{.}
           \end{align*}
         \end{proof}
       \end{claim}
@@ -344,11 +379,9 @@
         Calculate
         \begin{align*}
           |f_i-f_j|_\Cl
-          &= \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
-          \\&\le \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|
-          \\&= |f_i -f_j|_{C^1_\ell}
+          = \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
+          \le |f_i -f_j|_{C^1_\ell}
         \end{align*}
-%        which is exactly the norm of $f_i-f_j$ in \Cl.
         The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in \Cl, and so $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in\Coo$.
 
         Finally we calculate
@@ -365,8 +398,8 @@
         Calculate
         \begin{align*}
           |f_i'-f_j'|_\Ckml
-          &= \sum_{1\le h\le k} (1+x^2)^\ell\left|f_i^{(h)}-f_j^{(h)}\right|
-          \\&\le |f_i-f_j|_\Ckl
+          = \sum_{1\le h\le k} (1+x^2)^\ell\left|f_i^{(h)}-f_j^{(h)}\right|
+          \le |f_i-f_j|_\Ckl
         \end{align*}
         and so $g\in\Ckml$.
         Thus $f\in\Ckl$ so \Ckl is complete in its topology, and thus Banach.
@@ -397,7 +430,7 @@
         The inclusions $\Ckl\rightarrow \Ckml$ and $\Ckl\rightarrow C^k_{\ell-1}$ are continuous and compatible.
         Thus, letting the maps $\varphi^{k,k-1}_\ell$ and $\phi^k_{\ell,\ell-1}$ be these inclusions, the diagram above is a commutative diagram of continuous maps.
       \end{claim}
-      \begin{proof}[Proof of \cref{claim:inclcont}]
+      \begin{proof}
         First see that by definition of set inclusion, the diagram must be commutative.
         Because any $f$ in some \Ckl is an element of every \Cij with $i\le k$ and $j\le\ell$ by definition, any composition of inclusions $\Ckl\rightarrow\Cij$ will agree.
 
@@ -406,30 +439,31 @@
         Let $f$ be a function in \Ckl.
         \begin{align*}
           |\varphi^{k,k-1}_\ell(f)|_\Ckml
-          &= \sum_{0\le i \le k-1} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo
-          \\&\le \sum_{0\le i \le k} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo
-          \\&= |f|_\Ckl
+          = \sum_{0\le i \le k-1} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo
+          \le \sum_{0\le i \le k} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo
+          = |f|_\Ckl
         \end{align*}
         and so $\varphi^{k,k-1}_\ell$ is continuous.
 
         Now consider $\phi^k_{\ell,\ell-1}$ (the vertical direction).
         \begin{align*}
           |\phi^k_{\ell,\ell-1}(f)|_{C^k_{\ell-1}}
-          &= \sum_{0\le i \le k} \left|(1+x^2)^{\ell-1} f^{(i)}\right|_\Coo
-          \\&\le \sum_{0\le i \le k} \left|(1+x^2)^{\ell} f^{(i)}\right|_\Coo
-          \\&= |f|_\Ckl
+          = \sum_{0\le i \le k} \left|(1+x^2)^{\ell-1} f^{(i)}\right|_\Coo
+          \le \sum_{0\le i \le k} \left|(1+x^2)^{\ell} f^{(i)}\right|_\Coo
+          = |f|_\Ckl
         \end{align*}
         and so $\phi^k_{\ell,\ell-1}$ is continuous.
       \end{proof}
       \begin{rmk}
-        This shows that the limit of the \Ckl is a nested intersection:
+        This shows that, as a set, the limit of the \Ckl is a nested intersection:
         \begin{align*}
           \lim_{k,\ell}\Ckl = \bigcap_{k,\ell=0}^\infty \Ckl\text{.}
         \end{align*}
-        Observing that any Schwartz functions is by definition an element of every \Ckl, we see that $\S\subseteq\lim_{k,\ell}\Ckl$.
+        Because any Schwartz functions is by definition an element of every \Ckl, as sets $\S\subseteq\lim_{k,\ell}\Ckl$.
       \end{rmk}
 
-      Give the index set $A=\{(k,\ell):k,\ell\ge0\}$ a partial ordering
+      To understand the limit as a topological space, we must do slightly more work.
+      Give the index set $A=\{(k,\ell):k,\ell>0\}$ a partial ordering
       \begin{align*}
         (k,\ell) > (i,j) \quad\text{when $k\ge i$, $\ell\ge j$ and $(k,\ell) \ne (i,j)$.} 
       \end{align*}

@@ -149,7 +149,7 @@
         which is verifiably a solution to the heat equation.
         An example of this solution is shown in \cref{fig:heateq}.
 
-        \begin{figure}
+        \begin{figure}[p]
           \begin{center}
             \begin{sagesilent}
               x,y,t=var('x,y,t')
@@ -184,11 +184,12 @@
         \end{align*}
       \end{defn}
       We think of the convolution of two functions at some point as an average, weighted by (a translated copy of) the other.
+      \Cref{fig:convolve} shows an example of evaluating a convolution.
 
-      The function $u(x,t)$ is a convolution of the initial state $f(x)$ with a Gaussian pulse $e^{-(x-y)^2/4kt}$.
+      The function $u(x,t)$ \cref{eq:heatsoln} is a convolution of the initial state $f(x)$ with a Gaussian pulse $e^{-(x-y)^2/4kt}$.
       As $t$ increases this pulse gets wider, reflecting the physical intuition of heat spreading out over time.
 
-      \begin{figure}
+      \begin{figure}[p]
         \begin{center}
           \begin{sagesilent}
             from matplotlib import ticker
@@ -200,7 +201,7 @@
             fg = lambda x: g(pi)(x-z)*(f(x)-1)
             a=plot(f(x)-1,x,[l,r],color="black",legend_label="f(y)")
             b=plot(g(pi)(x-z),x,[l,r],color=(.5,.5,.5),legend_label="g(x-y)")
-            c = plot(fg,[l,r],color="grey",fill=true,ticks=[[z],[]],tick_formatter=ticker.FixedFormatter('x'))
+            c = plot(fg,[l,r],color="grey",fill=true,ticks=[[z],[]],tick_formatter=ticker.FixedFormatter('x'),axes_labels=['y',''])
             d=a+b+c
             d.axes_range(l,r,-1/2,3/2)
             d.set_legend_options(loc='upper right')
@@ -222,9 +223,8 @@
       Thus the Fourier transform is always defined for functions that \emph{vanish at infinity}\footnotemark and decay at least as fast as $x^{-2}$, which are sufficient conditions for $L^1$-integrability. \todo{fix this up}
       \footnotetext{
         That is, for any $\varepsilon>0$ there exists $N>0$ such that
-        \begin{align*}
-          |x|>N \Rightarrow f(x)<\epsilon\text{.}
-        \end{align*}}
+        $ |x|>N \Longrightarrow f(x)<\epsilon\text{.} $
+      }
 
       We also observed in \cref{ex:heateq} that the Fourier transform is useful because of its ability to exchange differentiation and multiplication.
       To make use of this fact, we also want our space to be closed when we take derivatives or multiply by $x$.
@@ -248,7 +248,6 @@
         \end{align*}
         The set of all Schwartz functions is denoted \S.
       \end{defn}
-
       It is verifiable that \S is:
       \begin{itemize}
         \item the largest possible space satisfying the requirements above;
