@@ -103,6 +103,26 @@
         Again, the continuity of the $g_i$ force both summands to zero, so the multiplication map is jointly continuous.
       \end{proof}
 
+      We call any vectorspace with a topology in which this joint continuity holds a \emph{topological vectorspace} (distinguishing them from vectorspaces with a less-well-behaved topology).
+      Thus we see that any normed vectorspace is naturally a topological vectorspace.
+
+      It is also worth noting that certain maps on topological vectorspaces are easy to work with.
+      By the definition of continuity, a map from a topological vector space into some topological set $f:X\rightarrow Y$ is continuous iff for all $a\in X$
+      \begin{align*}
+        \lim_{x\rightarrow a} f(x) = f(a)\text{.}
+      \end{align*}
+      However, when $f$ is linear, we may simplify this condition.
+      For any $a\in X$ the following are equivalent:
+      \begin{gather*}
+        \lim_{x\rightarrow a} f(x) = f(a) \\
+        \lim_{x\rightarrow 0} f(a+x) = f(a) \\
+        \lim_{x\rightarrow 0} f(a)+f(x) = f(a) \\
+        \lim_{x\rightarrow 0} f(x) = 0\text{.}
+      \end{gather*}
+      Thus a linear map on a topological vectorspace is continuous anywhere if and only if it is continuous at zero.
+      Essentially, this is because to topology anywhere is just a translated copy of the topology around zero and linear maps respect translation.
+      \todo{clean this up a touch.}
+
       \subsection{A space of continuous, vanishing functions}
 
       We have see that we need only introduce a concept of size on functions (via a norm) in order to get a topology on a set of functions (supposing it is closed under vectorspace operations).
