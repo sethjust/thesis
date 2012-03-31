@@ -578,6 +578,16 @@
         Thus the map $D:\S\rightarrow\S$ induced by the limit definition takes functions to their derivatives, and is continuous.
       \end{proof}
 
+      \begin{claim}
+        For any $x\in\R$ the translation operator $T_x:\S\rightarrow\S$ is continuous.
+      \end{claim}
+      \begin{proof}
+        Translation is trivially continuous on \Ckl, as translates of a sequence approaching zero approach zero.
+        Thus composition of translation with inclusion into \Ckl gives a family of maps from \S into each \Ckl that take Schwartz functions to their translates.
+        As above, the induced translation map $\S\rightarrow\S$ will be continuous.
+      \end{proof}
+      \todo{proof that it is JOINTLY cts.}
+
       \begin{thm}
         \label{thm:sevalcts}
         For any $x\in\R$, the evaluation functional $\S\rightarrow\C$ given by $ \varphi\mapsto\varphi(x) $ is continuous.
