@@ -41,13 +41,11 @@
   for $\varphi\in\S$.
   
   We may define the derivative of a tempered distribution similarly.
-  For Schwartz functions $f$ and $\varphi$, apply integration by parts:
+  For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that $f\varphi$ vanishes at infinity:
   \begin{align*}
     \langle f', \varphi\rangle
-    &= \int_{x\in\R} f'(x)\varphi(x)\,dx
-    \\&= [f(x)\varphi(x)]_{-\infty}^\infty -\int_{x\in\R} f(x)\varphi'(x)\,dx
-    \\&= -\int_{x\in\R} f(x)\varphi'(x)\,dx
-    \\&= -\langle f,\varphi'\rangle
+    &= [f(x)\varphi(x)]_{-\infty}^\infty -\int_{x\in\R} f(x)\varphi'(x)\,dx
+    = -\langle f,\varphi'\rangle\text{.}
   \end{align*}
   \begin{defn}
     For a tempered distribution $u$, the distributional derivative of $u$ (denoted as usual by $u'$) is given by
@@ -77,11 +75,7 @@
   \begin{proof}
     Consider a sequence of tempered distributions $\{u_i\}$ that converges to zero.
     By definition of the \ws, we have for any Schwartz function $\varphi$, the sequence $\{\langle u_i,\varphi\rangle\}$ converges to zero by continuity of the evaluation-at-$\varphi$ functional.
-    Thus the sequence 
-    \begin{align*}
-      \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0
-    \end{align*}
-    and so $\{Du_i\}\rightarrow 0$ in the \ws.
+    Thus the sequence $ \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0 $ and so $\{Du_i\}\rightarrow 0$ in the \ws.
   \end{proof}
 
   \section{Approximation by Schwartz Functions}
@@ -96,35 +90,22 @@
       \{\{u:\langle u,\varphi\rangle \in B(z,r)\}:\varphi\in\S,~z\in\C,~r>0 \}\text{.}
     \end{align*}
 
-    Now that we have a nice description of the \ws, we may prove the following theorem.
     \begin{thm}
       \label{thm:sdenseinss}
       The space of Schwartz functions is dense\footnotemark in the space of tempered distributions.
     \end{thm}
     \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
     \begin{proof}
-      Consider some tempered distribution $u$.
-      We hope to find a Schwartz function in any open set containing $u$, so let $U\ni u$ be open in \SS.
-      By our description of open sets in \SS there is some $\varphi\in\S$, $z\in\C$ and $r>0$ so that $\{v: |\langle v,\varphi\rangle-z|<r\}\subseteq U$.
-      Thus it remains only to show that there is some $\phi\in\S$ so that (treating it as a distribution) $\phi\in U$.
-      Clearly, if $|\langle\phi,\varphi\rangle-z|<r$, then $\phi\in U$.
-
-      Because $\varphi$ is fixed, write $\langle\varphi,\varphi\rangle=C$.
-      Let $\phi = (z/C)\cdot\varphi$, so $\langle\phi,\varphi\rangle = (z/C)\cdot\langle\varphi,\varphi\rangle = z$.
-      Thus $\phi\in U$.  
-      Because $u$ and $U$ were arbitrary, we see that \S is dense in \SS.
-    \end{proof}
-
-    \begin{proof}[Alternate proof of \cref{thm:sdenseinss}]
-      \todo{introduce convolution}
-      Again, $u\in\SS$.
-      Let $\phi$ be some Schwartz function with integral 1, so that for any $n$, the function $x\mapsto n\varphi(nx) \call \phi_n$ has integral 1.
-      Because $\{\phi_n\}\rightarrow\delta$, see that $\{\F\phi_n\}\rightarrow 1$.
+      Let $u\in\SS$.
+      Let $\phi$ be some Schwartz function with integral 1, so that for any $n$, the function $x\mapsto n\phi(nx) \call \phi_n$ has integral 1, so $\{\phi_n\}\rightarrow\delta$.
       Thus the sequence of mollifications $\{u*\phi_n\}$ approximates $u$ in the \ws because for all $\psi\in\S$, 
       \begin{align*}
-        \langle u*\phi_n, \psi\rangle = \langle u, \F\phi_n*\psi\rangle \underset{n}{\longrightarrow} \langle u,\psi\rangle \text{.}
+        \langle u*\phi_n, \psi\rangle = \langle u, \tilde{\phi}_n*\psi\rangle \underset{n}{\longrightarrow} \langle u,\psi\rangle
       \end{align*}
+      where $\tilde\phi(x) = \phi(-x)$.
+
       Each $u*\phi_n$ is Schwartz by properties of convolution, so because $u$ was arbitrary, \S is dense in \SS.
     \end{proof}
+    \todo{introduce convolution on $\SS{\times}\S$ (using \cref{defn:convolution}) before we use it}
 
 \end{document}
