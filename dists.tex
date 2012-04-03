@@ -96,24 +96,27 @@
     \begin{align*}
       \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
     \end{align*}
+    Because \SS is complete in the \ws \todo{explain why}, there is some tempered distribution that is the limit of the sequence $\{\phi_n\}$.
+    Thus by the continuity of evaluation at any $\varphi\in\S$, we may write $\langle\lim_n\phi_n,\varphi\rangle=\varphi(0)$, and so $\lim_n\phi_n=\delta$.
 
     \begin{thm}[Approximate Identity]
-      There is a sequence $\{\phi_n\}$ in \S so that $\lim_n \phi_n = \delta$.
+      There is a sequence $\{\phi_n\}$ in \S so that $\langle\lim_n \phi_n,\varphi\rangle = \varphi(0)$ for all $\varphi\in\S$.
     \end{thm}
     \begin{proof}
       Let $\phi$ be some positive Schwartz function with integral 1, so that for any $n\in\mathbb{N}_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is Schwartz and has integral 1.
-      Consider for some arbitrary $\varphi\in\S$:
+      For any $\varphi\in\S$ consider the limit
       \begin{align*}
         \lim_{n\rightarrow\infty}\langle\phi_n,\varphi\rangle 
         &=\lim_{n\rightarrow\infty}\int_{x\in\R} \phi_n(x)\varphi(x)\,dx\text{.}
       \end{align*}
       We hope this converges to $\varphi(0)$.
       First, we bound error in the integral away from the origin.
-      Fix some $\varepsilon>0$ and for any $\rho>0$ let 
+      Fix some $\rho>0$ and let $\varepsilon$ be some small positive number.
+      Write
       \begin{align*}
         \sup_{|x|>\rho} |\varphi(x)| = C_\rho \text{.}
       \end{align*}
-      As $n$ grows the integral $\int_{x\in\R}\phi_n(x)$ is constantly 1, so
+      As $n$ grows the integral $\int_{x\in\R}\phi_n(x)\,dx$ is constantly 1, so
       \begin{align*}
         \int_{|x|>\rho} \phi_n(x)\,dx
         = 1-n\cdot\int_{|x|\le n\rho} \phi(x)\,dx
@@ -138,26 +141,94 @@
       \end{align*}
 
       It remains to show that the integral on $[-\rho,\rho]$ converges to the desired value.
-      By the continuity of $\varphi$, there is some $\delta_\rho$ so that $|x|\le\rho$ implies $|\varphi(x)-\varphi(0)|<\delta_\rho$, so
+      By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|\le\rho$ implies $|\varphi(x)-\varphi(0)|<\varepsilon_\rho$, so
       \begin{align*}
-        (\varphi(0)-\delta_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\,dx
+        (\varphi(0)-\varepsilon_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\,dx
         \le \int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx
-        \le (\varphi(0)+\delta_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\, dx
+        \le (\varphi(0)+\varepsilon_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\, dx
       \end{align*}
-      Taking the limit of the bounds as $n$ grows the integrals approach one, so
+      Because $n$ and $\rho$ are independent of one another we may take the limits in any order, so we consider $n$ first.
+      Taking the limit of the bounding terms as $n$ grows, the integrals approach 1, so
       \begin{align*}
         \left| \int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx - \varphi(0) \right|
-        < \delta_\rho
+        < \varepsilon_\rho
       \end{align*}
-      As $\rho\rightarrow0$ continuity forces $\delta_\rho$ to zero, and so
+      As $\rho\rightarrow0$ the continuity of $\varphi$ forces $\varepsilon_\rho$ to zero, and so
       \begin{align*}
         \lim_{n\rightarrow\infty} \left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \varphi(0) \right|
-        = \lim_{\rho\rightarrow 0} \delta_\rho
+        = \lim_{\rho\rightarrow 0} \varepsilon_\rho
         = 0 \text{.}
       \end{align*}
     \end{proof}
 
     The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
+
+    \todo{introduce convolution on $\S^2$ (using \cref{defn:convolution}) before we use it here.}
+    Recall that the convolution of two Schwartz functions $f$ and $g$ is a Schwartz function $f*g$ given by
+    \begin{align*}
+      (f*g)(x) = \int_{y\in\R} f(x-y)g(y)\,dy \text{.}
+    \end{align*}
+    Treating this function as a distribution, exchange order of integration and calculate
+    \begin{align*}
+      \langle f*g,\varphi\rangle
+  %    &= \int_{x\in\R} (f*g)(x)\varphi(x)\,dx
+      &= \int_{x\in\R} \varphi(x) \int_{y\in\R} f(x-y)g(y)\,dy\,dx
+      \\&= \int_{y\in\R} g(y) \int_{x\in\R} f(x-y)\varphi(x)\,dx\,dy
+      = \langle g, \tilde f*\varphi\rangle
+    \end{align*}
+    where $\tilde f(x) = f(-x)$.
+    As with the derivative, this formula allows us to extend our definition of convolution.
+    Observing the role $g$ plays, define the convolution of a distribution $u$ with a Schwartz function $\phi$ by the adjoint identity
+    \begin{align*}
+      \langle \phi*u, \varphi\rangle
+      = \langle u, \tilde\phi*\varphi\rangle \text{.}
+    \end{align*}
+    Clearly such a convolution is a tempered distribution, but we wonder if it is in fact a Schwartz function.
+    
+    Again, letting $f,g\in\S$
+    \begin{align*}
+      (f*g)(x)
+      &= \int_{y\in\R} f(x-y)g(y)\,dy
+      \\&= \int_{y\in\R} T_{-x}\tilde f(y) g(y)\, dy
+      \\&= \langle g, T_{-x}\tilde f\rangle
+    \end{align*}
+    which suggests a sensible expression for pointwise values of the convolution even when $g\in\SS$.
+    We hope that this expression is consistent with the adjoint definition above.
+    For $u\in\SS$ and $\phi,\varphi\in\S$ calculate
+    \begin{align*}
+      \left\langle \langle u,T_{-x}\tilde\phi\rangle, \varphi \right\rangle
+      &= \int_{x\in\R} \langle u,T_{-x}\tilde\phi\rangle\varphi(x)\,dx
+      \\&= \left\langle u, \int_{x\in\R} (T_{-x}\tilde\phi)\varphi(x)\,dx \right\rangle
+      \\&= \left\langle u, \int_{x\in\R} \tilde\phi(y-x)\varphi(x)\,dx \right\rangle
+      \\&= \langle u, \tilde\phi*\varphi\rangle
+    \end{align*}
+    with the second equality exchanging the order of integration.
+    Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\langle u, T_{-x}\tilde\phi\rangle$.
+
+    In fact, $\phi*u$ has infinitely many derivatives.
+    Treating $u$ as a Schwartz function we may exchange an $x$ derivative and a $y$ integral, so
+    \begin{align*}
+      \frac{d}{dx} (\phi*u)(x)
+      &= \frac{d}{dx} \int_{y\in\R} \phi(x-y)u(y)\,dy
+      \\&= \int_{y\in\R} \frac{d}{dx} \phi(x-y)u(y)\,dy
+      \\&= \int_{y\in\R} \phi'(x-y)u(y)\,dy
+      \\&= (\phi'*u)(x)
+    \end{align*}
+    Because differentiation of tempered distributions is consistent with differentiation of Schwartz functions, this equality holds for any $u$, and so we see that $\phi*u$ is a smooth function.
+    \todo{argue this better, without hand-waving.}
+
+    To see that the convolution is also rapidly decaying it suffices to show that it is bounded above by some Schwartz function, at least for large $|x|$.
+    \todo{waiting to hear from Jerry}
+
+%    \end{proof}
+%    \begin{claim}
+%      Convolution $*:\S{\times}\SS \rightarrow \S$ is jointly continuous.
+%      \begin{align*}
+%      \end{align*}
+%    \end{claim}
+%    \begin{proof}
+%      
+%    \end{proof}
 
     \begin{thm}
       \label{thm:sdenseinss}
@@ -166,14 +237,13 @@
     \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$. This is equivalent to the condition that any $x\in X$ is the limit of a sequence in $A$.}
     \begin{proof}
       Let $u\in\SS$.
-      Let $\phi$ be an even Schwartz function with integral 1, so that for any $n$, the function $x\mapsto n\phi(nx) \call \phi_n$ has integral 1, so $\{\phi_n\}\rightarrow\delta$.
-      Thus the sequence of mollifications $\{u*\phi_n\}$ approximates $u$ in the \ws because for all $\psi\in\S$, 
+      Let $\phi$ be a positive even Schwartz function with integral 1, so that for any $n$, the function $x\mapsto n\phi(nx) \call \phi_n$ has integral 1, so $\{\phi_n\}$ is an approximate identity.
+      Thus the sequence of mollifications $\{\phi_n*u\}$ approximates $u$ in the \ws because for all $\psi\in\S$, 
       \begin{align*}
-        \langle u*\phi_n, \psi\rangle = \langle u, \phi_n*\psi\rangle \underset{n}{\longrightarrow} \langle u,\psi\rangle \text{.}
+        \langle \phi_n*u, \psi\rangle = \langle u, \phi_n*\psi\rangle \underset{n}{\longrightarrow} \langle u,\psi\rangle \text{.}
       \end{align*}
 
-      Each $u*\phi_n$ is Schwartz by properties of convolution, so because $u$ was arbitrary, \S is dense in \SS.
+      Each $\phi_n*u$ is Schwartz by properties of convolution, so because $u$ was arbitrary, \S is dense in \SS.
     \end{proof}
-    \todo{introduce convolution on $\SS{\times}\S$ (using \cref{defn:convolution}) before we use it}
 
 \end{document}
