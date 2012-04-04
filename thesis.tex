@@ -101,27 +101,10 @@
   skipabove=0.5\baselineskip,
   linewidth=1pt
   ]{defn}
-\newtheorem{nbdefn}[defn]{Definition}
-\surroundwithmdframed[%
-  usetwoside=false,
-  leftmargin=-5pt,
-  innerleftmargin=5pt,
-  innertopmargin=0pt,
-  innerbottommargin=0pt,
-  topline=false,
-  rightline=false,
-  bottomline=false,
-  skipabove=0.5\baselineskip,
-  linewidth=1pt,
-  nobreak=true
-  ]{nbdefn}
 
-% Fix broken numbering
-\makeatletter
-\@addtoreset{thm}{chapter}
-\@addtoreset{defn}{chapter}
-\@addtoreset{rmk}{chapter}
-\makeatother
+% Fix numbering so it's consistent for all sorts of objects
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
 
 % Proof-like environments
 \theorembodyfont{\normalfont}

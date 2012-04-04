@@ -20,8 +20,9 @@
     We hope that by knowing how well $f$ matches any frequency, we're able to exactly rebuild $f$.
     This process of translating a function from physical to frequency space, and (hopefully) back, is the subject matter of \emph{Fourier analysis}.
 
-    \begin{nbdefn}
-      The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function 
+    \begin{defn}
+      The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function denoted $\F f$, taking a real parameter $\xi$.
+      The value $\F f(\xi)$ can be though of as an inner product of $f$ with a frequency-$\xi$ oscillation:
       \begin{align*}
         \F f&:\R\longrightarrow\C\\
         \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx
@@ -31,10 +32,9 @@
         \F^{-1}g&:\R\longrightarrow\C\\
         \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi
       \end{align*}
-      \vspace{-15pt}
-    \end{nbdefn}
+    \end{defn}
 
-    We hope that $\F^{-1}$ does in fact invert $\F$, so that for any $f$, $\F^{-1}\F f = f$---that is, applying the inverse Fourier transform to the frequency spectrum of $f$ gives us back $f$.
+    We hope that $\F^{-1}$ does in fact invert $\F$, so that for any function $f$, $\F^{-1}\F f = f$---that is, applying the inverse Fourier transform to the frequency spectrum of $f$ gives us back $f$.
     However, this claim is difficult to make because the integrals are not always defined.
     For example, $\F1(0)=\int_{-\infty}^\infty1$ is clearly divergent.
     In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible, and so we need to limit our space of functions so that the Fourier transform works nicely.
@@ -42,20 +42,17 @@
 
     \section{Properties of the Fourier Transform}
       Before we develop a space of functions on which the Fourier transform is well-behaved, it is helpful to have an idea of how the Fourier transform acts.
-      First we define some notation:
-      \begin{defn}
-        For any $x\in\R$ define:
-        \begin{itemize}
-          \item the frequency-$x$ oscillation $\psi_x$:
-            \begin{align*}
-              \psi_x:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
-            \end{align*}
-          \item the translation operator $T_x$ on functions $f:\R\rightarrow\C$:
-            \begin{align*}
-              (T_xf)(y) = f(x+y)
-            \end{align*}
-        \end{itemize}
-      \end{defn}
+      First, for any $x\in\R$ define:
+      \begin{itemize}
+        \item the frequency-$x$ oscillation $\psi_x$:
+          \begin{align*}
+            \psi_x:\R\rightarrow\C,\ \psi_x(\xi) = \psi(x,\xi) = e^{2\pi i x \xi}
+          \end{align*}
+        \item the translation operator $T_x$ on functions $f:\R\rightarrow\C$:
+          \begin{align*}
+            (T_xf)(y) = f(x+y)
+          \end{align*}
+      \end{itemize}
       The following lemma gives identities that can be computed directly from definition.
       \begin{lemma}
         \label{lemma:fourprops}
