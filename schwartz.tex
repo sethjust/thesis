@@ -110,12 +110,11 @@
       It is also worth noting that certain maps on topological vectorspaces are easy to work with.
       By the definition of continuity, a map from a topological vector space into some topological set $f:X\rightarrow Y$ is continuous iff for all $a\in X$
       \begin{align*}
-        \lim_{x\rightarrow a} f(x) = f(a)\text{.}
+        \lim_{x\rightarrow 0} f(a+x) = f(a) \text{.}
       \end{align*}
       However, when $f$ is linear, we may simplify this condition.
       For any $a\in X$ the following are equivalent:
       \begin{gather*}
-        \lim_{x\rightarrow a} f(x) = f(a) \\
         \lim_{x\rightarrow 0} f(a+x) = f(a) \\
         \lim_{x\rightarrow 0} f(a)+f(x) = f(a) \\
         \lim_{x\rightarrow 0} f(x) = 0\text{.}
@@ -547,6 +546,7 @@
       But because $\varphi_i$ is inclusion, taking its inverse image is exactly intersection with \S.
       Thus a subset $U$ of \S is open if and only if for each point $u\in U$ there is some $j\in A$ and open $V\subseteq X_j$ so that $u\in V$ and $V\cap\S\subseteq U$.
       Comparing this expression with the seminorm definition of a Fr\'echet space shows that the \Ckl norms form a family of seminorms on \S that give the limit topology.
+      \todo{Address intersections}
       \todo{Show that these are in fact \emph{semi}-norms, and \emph{not} proper norms.}
       \todo{this description of open sets seems to imply that \S is dense in \Ckl, but I need to examine it.}
 
@@ -579,14 +579,36 @@
       \end{proof}
 
       \begin{claim}
-        For any $x\in\R$ the translation operator $T_x:\S\rightarrow\S$ is continuous.
+        \label{claim:translcont}
+        For any $x\in\R$ the translation operator $T:\R\times\S\rightarrow\S$ given by $T(x,\varphi) = T_x\varphi$ is jointly continuous.
       \end{claim}
       \begin{proof}
-        Translation is trivially continuous on \Ckl, as translates of a sequence approaching zero approach zero.
-        Thus composition of translation with inclusion into \Ckl gives a family of maps from \S into each \Ckl that take Schwartz functions to their translates.
-        As above, the induced translation map $\S\rightarrow\S$ will be continuous.
+        Let $Z$ be a topological space with continuous functions $f:Z\rightarrow\R$ and $g:Z\rightarrow\S$.
+        By definition, $T$ is (jointly) continuous if and only if the map $h(z)=T_{f(z)}g(z)$ is continuous.
+
+        Let $\{z_i\}\rightarrow z$ be a convergent sequence in $Z$, and consider the sequence $\{h(z_i)-h(z)\}$ in \S, which we hope to show approaches the zero function.
+        Calculate
+        \begin{align*}
+          \left| (h(z_i)-h(z))(x) \right|
+          &= \left| (T_{f(z_i)}g(z_i)-T_{f(z)}g(z))(x) \right|
+          \\&= \left| g(z_i)(x+f(z_i)) - g(z)(x+f(z)) \right|
+        \end{align*}
+        Given some $\varepsilon>0$, for sufficiently large $i$ see that $|f(z_i)-f(z)|<\varepsilon$.
+        For any fixed $i$ and some $a\in\R$, by the continuity of Schwartz functions there is a $\delta_a$ so that $|x-a|<\varepsilon$ implies $|g(z_i)(a+x)-g(z_i)(a)|<\delta_a$.
+        Let $\delta=\sup_{a\in\R} \delta_a$, which is finite because each $\delta_a$ is finite, as it is the sup norm of a Schwartz function.
+        As $\varepsilon\rightarrow0$ we see that $\delta$ approaches zero because each $\delta_a$ does.
+
+        Thus for sufficiently large $i$ 
+        \begin{align*}
+          \left| (h(z_i)-h(z))(x) \right|
+          &= \left| g(z_i)(x+f(z_i)) - g(z)(x+f(z)) \right|
+          \\&\le \delta + \left| g(z_i)(x+f(z)) - g(z)(x+f(z)) \right|
+          \\&\le \delta + \left|g(z_i)-g(z)\right|_\Ckl
+        \end{align*}
+        for any $k,\ell>0$.
+        See that the right hand side becomes arbitrarily small as $\varepsilon\rightarrow0$ and $i\rightarrow\infty$, so the sequence $\{h(z_i)-h(z)\}$ approaches zero in \S.
+        Thus the translation map $T$ is continuous.
       \end{proof}
-      \todo{proof that it is JOINTLY cts.}
 
       \begin{thm}
         \label{thm:sevalcts}
