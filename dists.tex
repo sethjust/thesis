@@ -177,15 +177,17 @@
       = \langle g, \tilde f*\varphi\rangle
     \end{align*}
     where $\tilde f(x) = f(-x)$.
-    As with the derivative, this formula allows us to extend our definition of convolution.
-    Observing the role $g$ plays, define the convolution of a distribution $u$ with a Schwartz function $\phi$ by the adjoint identity
+
+    As with the derivative, this formula allows us to extend our definition of convolution to allow one of the arguments to be a distribution.
+    Observing the role $g$ plays, define the action of a Schwartz function $\phi$ on a distribution $u$ by the adjoint identity
     \begin{align*}
       \langle \phi*u, \varphi\rangle
       = \langle u, \tilde\phi*\varphi\rangle \text{.}
     \end{align*}
-    Clearly such a convolution is a tempered distribution, but we wonder if it is in fact a Schwartz function.
-    
-    Again, letting $f,g\in\S$
+    Notably, unlike the convolution of Schwartz functions, this action is assymetric, as we may not convolve two distributions.
+    Thus we refer to the distribution $\phi*u$ as the \emph{mollification} of $u$ by $\phi$.
+    We wonder if this distribution is in fact given by (integration against) some classical function.
+    Again letting $f,g\in\S$, calculate
     \begin{align*}
       (f*g)(x)
       &= \int_{y\in\R} f(x-y)g(y)\,dy
@@ -204,14 +206,21 @@
     \end{align*}
     with the second equality exchanging the order of integration.
     Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\langle u, T_{-x}\tilde\phi\rangle$.
-
-    We hope that $\phi*u$ is in fact Schwartz.
-    Because $\tilde\cdot$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
+    Because $f\mapsto\tilde f$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
     \begin{align*}
       x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
     \end{align*}
     is a continuous function of $x\in\R$.
-    \todo{show it is smooth and decays}
+    
+    See that the derivative of $\phi*u$ at any $x\in\R$ is given by
+    \begin{align*}
+      \lim_{t\rightarrow0} \frac{\langle u, T_{-x+t}\phi\rangle - \langle u, T_{-x}\phi\rangle}{t}
+      &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x+t}\phi-T_{-x}\phi\rangle}{t}
+      \\&= \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x+t}\phi-T_{-x}\phi}{t}\right\rangle
+      \\&= \left\langle u, T_{-x}\phi'\right\rangle
+    \end{align*}
+    and so $\phi*u$ is a smooth function because we may put all derivatives on the Schwartz function~$\phi$.
+    \todo{justify passing limit into $\langle\cdot,\cdot\rangle$.}
 
 %    \begin{claim}
 %      Convolution $*:\S{\times}\SS \rightarrow \S$ is jointly continuous.
@@ -226,16 +235,33 @@
       \label{thm:sdenseinss}
       The space of Schwartz functions is dense\footnotemark in the space of tempered distributions.
     \end{thm}
-    \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$. This is equivalent to the condition that any $x\in X$ is the limit of a sequence in $A$.}
+    \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
     \begin{proof}
       Let $u\in\SS$.
       Let $\phi$ be a positive even Schwartz function with integral 1, so that for any $n$, the function $x\mapsto n\phi(nx) \call \phi_n$ has integral 1, so $\{\phi_n\}$ is an approximate identity.
-      Thus the sequence of mollifications $\{\phi_n*u\}$ approximates $u$ in the \ws because for all $\psi\in\S$, 
+      Thus the sequence of mollifications $\{\phi_n*u\}$ approximates $u$ in the \ws because for all $f\in\S$, 
       \begin{align*}
-        \langle \phi_n*u, \psi\rangle = \langle u, \phi_n*\psi\rangle \underset{n}{\longrightarrow} \langle u,\psi\rangle \text{.}
+        \langle \phi_n*u, f\rangle
+        &= \langle u, \phi_n*f\rangle
+        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(x-y)f(y)\,dy \right\rangle
+        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)f(x-y)\,dy \right\rangle
+        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(-y)\,dy \right\rangle
+        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(y)\,dy \right\rangle
+        \\&\underset{n}{\longrightarrow} \left\langle u, x\mapsto T_xf(0) \right\rangle
+        \\&= \left\langle u, x\mapsto f(x) \right\rangle
+        \\&= \langle u,f\rangle \text{.}
       \end{align*}
 
-      Each $\phi_n*u$ is Schwartz by properties of convolution, so because $u$ was arbitrary, \S is dense in \SS.
+      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity.
+      Let $\psi_i$ be a Schwartz function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$.
+      \todo{argue such fcns exist.}
+      Then for any $i,n$ the function $x\mapsto\psi_i(x)(\phi_n*u)(x)$ is Schwartz because pointwise multiplication of functions does not affect smoothness or decay. \todo{argue this better.}
+      Clearly $\lim_{i\rightarrow\infty}\psi_i(x)(\phi_n*u)(x)=(\phi_n*u)(x)$, so the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ in the \ws.
+
+      Now pick a neighborhood $U$ of $u$ in \SS.
+      Because the sequence $\{\phi_n*u\}\rightarrow u$ there is some $n$ so that $\phi_n*u\in U$.
+      Then because the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ there is some $i$ so that $\psi_i(\phi_n*u)\in U$.
+      Each $\psi_j(\phi_n*u)$ is Schwartz, so because $u$ and $U$ were arbitrary, \S is dense in \SS.
     \end{proof}
 
 \end{document}
