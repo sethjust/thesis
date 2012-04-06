@@ -138,7 +138,7 @@
               assume(t>0)
               u(x,t) = (1/sqrt(t))*(integral(f(y)*gamma(x-y,t),y,-Infinity,0)+integral(f(y)*gamma(x-y,t),y,0,1)+integral(f(y)*gamma(x-y,t),y,1,Infinity))
             \end{sagesilent}
-            \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false) for t,c in [(1/1000,(0,0,0)), (1/32,(.1,.1,.1)), (1/8,(.3,.3,.3)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
+            \sageplot{reduce(lambda x,y: x+y,[plot(u(x,t),x,(-1,2),color=c,legend_label='$t='+str(t)+'$',axes=false,figsize=[6,4]) for t,c in [(1/1000,(0,0,0)), (1/32,(.1,.1,.1)), (1/8,(.3,.3,.3)), (1/4,(.4,.4,.4)), (1/2,(.5,.5,.5)), (1,(.6,.6,.6)), (2,(.7,.7,.7))]])}
           \end{center}
           \caption{An example solution to the heat equation for a square pulse of heat, calculated from the function $u(x,t)$ derived in \cref{ex:heateq}.}
           \label{fig:heateq}
@@ -180,9 +180,9 @@
             f = lambda x: (x^3+x^2-x+6)/10
             g = lambda j: lambda x: e^(-(j*x)^2)
             fg = lambda x: g(pi)(x-z)*(f(x)-1)
-            a=plot(f(x)-1,x,[l,r],color="black",legend_label="f(y)")
-            b=plot(g(pi)(x-z),x,[l,r],color=(.5,.5,.5),legend_label="g(x-y)")
-            c = plot(fg,[l,r],color="grey",fill=true,ticks=[[z],[]],tick_formatter=ticker.FixedFormatter('x'),axes_labels=['y',''])
+            a=plot(f(x)-1,x,[l,r],color="black",legend_label="$f(y)$")
+            b=plot(g(pi)(x-z),x,[l,r],color=(.5,.5,.5),legend_label="$g(x-y)$")
+            c = plot(fg,[l,r],color="grey",fill=true,ticks=[[z],[]],tick_formatter=ticker.FixedFormatter(['$x$']),axes_labels=['$y$',''],figsize=[6,4])
             d=a+b+c
             d.axes_range(l,r,-1/2,3/2)
             d.set_legend_options(loc='upper right')
