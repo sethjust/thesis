@@ -15,11 +15,11 @@
     We define the product of a collection of topological spaces by a mapping property; this definition will \emph{force} the product to assume a unique topology.
       \begin{defn}
         Consider a collection of non-empty topological sets $X_\alpha$, indexed by $\alpha\in A$, some (possibly uncountable) index set.
-        The \emph{product} of the $X_\alpha$ is a topological space $X$ along with continuous \emph{projection maps} 
+        We call a topological space $X$ a \emph{product} of the $X_\alpha$ if there are continuous \emph{projection maps} 
         \begin{align*}
           p_\alpha:X\longrightarrow X_\alpha
         \end{align*}
-        such that for all topological spaces $Z$ with continuous maps $f_\alpha:Z\rightarrow X_\alpha$ there is a \emph{unique} continuous map 
+        such that for all topological spaces $Z$ with continuous maps $f_\alpha:Z\rightarrow X_\alpha$ there is a unique continuous map 
         \begin{align*}
           f:Z\longrightarrow X
         \end{align*}
@@ -50,7 +50,7 @@
           \end{displaymath}
           so $q_\alpha=p_\alpha\circ q$.
           Reversing the positions of $X$ and $Y$ we have a unique $p:X\rightarrow Y$ so that $p_\alpha=q_\alpha\circ p$.
-          Finally, we see that $p\circ q:X\rightarrow X$ makes the triangles commute in
+          Thus the map $p\circ q:X\rightarrow X$ makes the triangles commute in
           \begin{displaymath}
             \xymatrix{
               && X \ar@/_/[dll] \ar@/_/[dl]^{p_\alpha} \ar@/^/[dr]_{p_\beta} \ar@/^/[drr] \\
@@ -59,36 +59,40 @@
              }
           \end{displaymath}
           Because $X$ is a product of the $X_\alpha$ by hypothesis, the map $p\circ q$ is unique.
-          Trivially the identity mapping satisfies the requirements for $p\circ q$ and symmetrically for $q\circ p$.
-          By uniqueness $p\circ q=id$ and $q\circ p=id$,  so $p=q^{-1}$ and thus $X$ and $Y$ are (continuously) isomorphic.
+          Trivially the identity mapping satisfies the requirements for $p\circ q$ (and symmetrically for $q\circ p$).
+          By uniqueness $p\circ q=\id$ and $q\circ p=\id$,  so $X$ and $Y$ are (continuously) isomorphic.
         \end{proof}
       \end{claim}
 
-      Now that we have shown that our mapping-property definition gives a unique product, we hope to investigate properties of this product.
-      From our definition, we hope that by considering various sets $Z$ and maps $f_\alpha$ we can learn about $X$.
+      Now that we have shown that our mapping-property definition gives a unique product (provided one exists), we hope to investigate properties of this product.
+      From our definition, we hope that by considering various sets $Z$ and maps $f_\alpha$ we can learn about $X$ (supposing that it exists).
 
-      First we see that the product has no more elements than we could reasonably expect; that is, we see that distinct points in the product project into some factor distinctly. 
-      \begin{claim}
-        For $x,y\in X$, $x\ne y$, there is some $\alpha\in A$ such that $p_\alpha(x)\ne p_\alpha(y)$.
-        \begin{proof}
-          First, suppose that $p_\alpha(x)=p_\alpha(y)$ for all $\alpha$.
-          Now let $Z$ be the one-element set $\{z\}$, and define $f_\alpha(z)=p_\alpha(x)$.
-          By hypothesis, there exists some map $f:Z\rightarrow X$ satisfying $f_\alpha = p_\alpha \circ f$.
-          Because maps from one-element sets are wholly determined by their images, we see that $p_\alpha(f(z))=f_\alpha(z)$, so $p_\alpha(f(z))=p_\alpha(x)$.
-          But $f(z)=x$ \emph{and} $f(z)=y$ satisfy this condition, contradicting the uniqueness of the mapping $f$.
-        \end{proof}
-      \end{claim}
-
-      Now see that the product has no fewer elements than we expect; if we pick an element from each factor, we may find an element of the product that projects to each of those elements.
+      First, the product has no fewer elements than we expect; if we pick an element from each factor, we may find an element of the product that projects to each of those elements.
       \begin{claim}
         For any set $\{x_\alpha:\alpha\in A\}$ with $x_\alpha\in X_\alpha$ there exists some $x\in X$ such that $p_\alpha(x)=x_\alpha$ for all $\alpha$.
         \begin{proof}
-          Again take the one-element set $Z=\{z\}$ with maps $f_\alpha(z)=x_\alpha$.
+          Take the one-element set $Z=\{z\}$ with maps $f_\alpha(z)=x_\alpha$.
           Then $p_\alpha(f(z))=f_\alpha(z)=x_\alpha$.
           The element $x=f(z)$ is the desired one.
         \end{proof}
       \end{claim}
       
+      The product also has no more elements than we could reasonably expect; that is, we see that distinct points in the product project into some factor distinctly. 
+      \begin{claim}
+%        For $x,y\in X$, $x\ne y$, there is some $\alpha\in A$ such that $p_\alpha(x)\ne p_\alpha(y)$.
+        Let $x,y\in X$ have $p_\alpha(x)\ne p_\alpha(y)$.
+        Then $x\ne y$.
+        \begin{proof}
+%          First, suppose that $p_\alpha(x)=p_\alpha(y)$ for all $\alpha$.
+%          Now let $Z$ be the one-element set $\{z\}$, and define $f_\alpha(z)=p_\alpha(x)$.
+%          By hypothesis, there exists some map $f:Z\rightarrow X$ satisfying $f_\alpha = p_\alpha \circ f$.
+%          Because maps from one-element sets are wholly determined by their images, we see that $p_\alpha(f(z))=f_\alpha(z)$, so $p_\alpha(f(z))=p_\alpha(x)$.
+%          But $f(z)=x$ \emph{and} $f(z)=y$ satisfy this condition, contradicting the uniqueness of the mapping $f$.
+          Again, let $Z=\{z\}$ and define $f_\alpha(z)=p_\alpha(x)$.
+          Then $f(z)=x$ gives the unique induced map, and by definition $f(z)$ cannot equal $y$ (as by hypothesis $f$ could not factor through every $p_\alpha$ if it were the case), proving the claim.
+        \end{proof}
+      \end{claim}
+
       These results suggest that as a set (that is, without consider topology) we may construct the product as we might expect.
       \begin{claim}
         \label{claim:prodiscart}
@@ -106,7 +110,7 @@
           This set-theoretic construction proves that we may construct limits as sets, leaving us to prove only the existence of a suitable topology later.
         \end{rmk}
         \begin{proof}[Proof of \cref{claim:prodiscart}]
-          Consider a collection of $X_\alpha$, and suppose they have a limit $X$ as above.
+          Consider a collection of $X_\alpha$, and suppose they have a product $X$ as above.
           For a set $Z$ and some collection of maps $f_\alpha:Z\rightarrow X_\alpha$, the map $f:Z\rightarrow X$ given by
           \begin{align*}
             f(z) = \{f_\alpha(z):\alpha\in A\}
@@ -120,20 +124,12 @@
       We hope that we can construct the appropriate topology on a product of spaces using only the topologies on those spaces and our mapping property definition.
       Recall that a map $f:A\rightarrow B$ is continuous iff the inverse image of open is open; that is, for any open $u\subseteq B$, the set
       \begin{align*}
-        f^{-1}(u) = \{x\in A:f(x)\in P\}
+        f^{-1}(u) = \{x\in A:f(x)\in u\}
       \end{align*}
       is open in $A$.
 
-      Recall that our definition requires that all the maps be continuous.
+      Recall that our definition of the product requires that all the maps be continuous.
       So, for any $u_\alpha$ open in $X_\alpha$, $p_\alpha^{-1}(u_\alpha)$ is open in $X$.
-%        See that
-%        \begin{align*}
-%          p_\alpha^{-1}(u_\alpha)=\prod_{\beta\in A}
-%          \begin{cases}
-%            u_\alpha&\text{if }\alpha=\beta\\
-%            X_\alpha&\text{if }\alpha\ne\beta
-%          \end{cases}
-%        \end{align*}
       Thus the topology on $X$ contains the topology generated by $\{p_\alpha^{-1}(u_\alpha):\alpha\in A\text{ and } u_\alpha\text{ open in }X_\alpha\}$.
       We say that the topology on $X$ is ``no coarser than'' this topology, as it cannot contain fewer sets.
       
@@ -149,7 +145,7 @@
         is coarse enough to be the product topology on $X$.
       \end{thm}
       \begin{proof}
-        By the properties of inverse images it is sufficient to show that the inverse image of each element of the generating set is open in $Z$.
+        By the properties of inverse images it is sufficient to show that the inverse image under $f$ of each element of the generating set is open in $Z$.
         Recall that $p_\alpha\circ f=f_\alpha$, so 
         \begin{align*}
           f^{-1}(p_\alpha^{-1}(u_\alpha)) = f_\alpha^{-1}(u_\alpha)
@@ -162,6 +158,7 @@
         The key point here was the \emph{existence} of a topology on the product that is consistent with our definition. 
         The topology generated from the $X_\alpha$ might have been \emph{too fine} for the map $f$ to be continuous, but we this is not the case.
         Having shown existence, the continuity of the isomorphism in \cref{claim:uniqprod} then shows that \emph{any} product with \emph{any}  topology (provided that it is consistent with the product definition) will be homeomorphic to the Cartesian product with the topology given above.
+      \todo{contrast product and box topologies.}
       \end{rmk}
 
     \section{Projective Limits}
@@ -175,7 +172,7 @@
             \cdots \ar[r]^{\varphi_{n+1,n}} & X_n \ar[r]^{\varphi_{n,n-1}} & X_{n-1} \ar[r]^{\varphi_{n-1,n-2}} & \cdots \ar[r]^{\varphi_{21}} & X_1 \ar[r]^{\varphi_{10}} & X_0
           }
         \end{displaymath}
-        The \emph{projective limit} of the $X_i$, denoted $\lim\limits_i X_i$ (suppressing reference to the transition maps) is a topological space $X$ and maps $\varphi_n:X\rightarrow X_n$ that are \emph{compatible} with the maps $\varphi_{n,n-1}$, in the sense that 
+        The \emph{projective limit} of the $X_i$, denoted $\lim\limits_i X_i$ (suppressing reference to the transition maps) is a topological space $X$ and maps $\varphi_n:X\rightarrow X_n$ that are \emph{compatible} with the transition maps in the sense that 
         \begin{align*}
           \varphi_{n-1}=\varphi_{n,n-1}\circ\varphi_n
         \end{align*}
@@ -215,16 +212,16 @@
         The projective limit is unique up to (continuous) isomorphism.
         \begin{proof}
           As in the proof of the uniqueness of the product, we see that for any two limits $X$ and $Y$ of the same objects there are unique $p:X\rightarrow Y$ and $q:Y\rightarrow X$.
-          By the uniqueness of the induced map in our definition, we then see that $p\circ q=id$ and so $X$ and $Y$ are homeomorphic.
+          By the uniqueness of the induced map in our definition, we then see that $p\circ q=\id$ and so $X$ and $Y$ are homeomorphic.
         \end{proof}
       \end{claim}
 
       Having defined the (projective) limit of topological spaces in terms of a mapping-property, we hope that such an object does exist.
       \begin{thm}
         \label{claim:limitexists}
-        Consider a collection of topological spaces $X_i$ with continuous transition maps $\varphi_{i,i-1}$.
+        Consider a countably-indexed collection of topological spaces $X_i$ with continuous transition maps $\varphi_{i,i-1}$.
         Suppose $Y$, with projection maps $p_i$, is the product of the $X_i$.
-        Then the limit $X$ of the $X_i$ exists as a subset of $Y$.
+        Then the limit $X$ of the $X_i$ exists as a subspace of $Y$.
         Namely, $X$ is where the transition maps and projections are compatible, so
         \begin{align*}
           X = \{x\in Y: \varphi_{i,i-1}(p_i(x)) = p_{i-1}(x) \text{ for all } i\}
@@ -300,13 +297,13 @@
             \item wavy-and-solid triangles commute.
           \end{itemize}
         \end{multicols}
-        Because the map $F$ is unique by hypothesis, we see that $f$ is unique, and so the compatibility conditions on the $f_i$ cause them to factor through the subset $X$ of the product.
+        Because the map $F$ is unique by hypothesis, we see that $f$ is unique, and so the compatibility conditions on the $f_i$ cause them to factor through the subspace $X$ of the product.
       \end{proof}
 
       Our use of mapping-property characterizations to define the product and limit allows us to now infer the topology of the limit from that of the product.
       Particularly, the (implied) continuity of the maps in our definition allows us to see what the topology must be.
-      The result is the \emph{subset topology}: for a subset $X$ of a topological space $Y$, we define a set $U\subseteq X$ to be open in $X$ iff there is some $V$ open in $Y$ such that $U=X\cap V$.%
-      \footnote{We can define the subset topology by a mapping-property characterization: we require that inclusion $i:X\rightarrow Y$ is continuous, and for any space $Z$ and continuous $F:Z\rightarrow Y$ satisfying $F(Z)\subset X$, there is a unique $f:Z\rightarrow X$ such that $f=i\circ F$.}
+      The result is the \emph{subspace topology}: for a subspace $X$ of a topological space $Y$, we define a set $U\subseteq X$ to be open in $X$ iff there is some $V$ open in $Y$ such that $U=X\cap V$.%
+      \footnote{We can define the subspace topology by a mapping-property characterization: we require that inclusion $i:X\rightarrow Y$ is continuous, and for any space $Z$ and continuous $F:Z\rightarrow Y$ satisfying $F(Z)\subset X$, there is a unique $f:Z\rightarrow X$ such that $f=i\circ F$.}
 
       \begin{claim}
         Let $X$ (with transition maps $\varphi_i$) be the limit of topological spaces $X_i$.
