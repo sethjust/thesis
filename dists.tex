@@ -103,8 +103,25 @@
       There is a sequence $\{\phi_n\}$ in \S so that $\langle\lim_n \phi_n,\varphi\rangle = \varphi(0)$ for all $\varphi\in\S$.
     \end{thm}
     \begin{proof}
-      Let $\phi$ be some non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is Schwartz and has integral 1.
-      For any $\varphi\in\S$ consider the limit
+      Let $\phi$ be some non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1.
+      
+      Given any $\delta,\varepsilon>0$ consider the quantity
+      \begin{align*}
+        \int_{|x|\ge\delta} \phi_n(x) \,dx
+        &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
+      \end{align*}
+      Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
+      Thus for $n>X/\delta$ we have 
+      \begin{align*}
+        \int_{|x|\ge\delta} \phi_n(x) \,dx
+        &= \int_{|x|\ge n\delta} \phi(x) \,dx
+        \le \int_{|x|\ge X} \phi(x) \,dx
+        <\varepsilon \text{,}
+      \end{align*}
+      so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
+      Thus we also see that $\lim\limits_{n\rightarrow\infty} \int_{|x|<\delta}\phi_n(x)\,dx=1$.
+
+      Now for any $\varphi\in\S$ consider the limit
       \begin{align*}
         \lim_{n\rightarrow\infty}\langle\phi_n,\varphi\rangle 
         &=\lim_{n\rightarrow\infty}\int_{x\in\R} \phi_n(x)\varphi(x)\,dx\text{.}
@@ -114,50 +131,43 @@
       Fix some $\rho>0$ and let $\varepsilon$ be some small positive number.
       Write
       \begin{align*}
-        \sup_{|x|>\rho} |\varphi(x)| = C_\rho \text{.}
+        \sup_{|x|\ge\rho} |\varphi(x)| = C_\rho \text{.}
       \end{align*}
-      As $n$ grows the integral $\int_{x\in\R}\phi_n(x)\,dx$ is constantly 1, so
+      Pick $N$ so that for $n>N$
       \begin{align*}
-        \int_{|x|>\rho} \phi_n(x)\,dx
-        &= \int_{x\in\R} \phi_n(x)\,dx - \int_{|x|\le \rho} \phi_n(x)\,dx
-        = 1-\int_{|x|\le n\rho} \phi(x)\,dx
-        \underset n\longrightarrow 0 \text{.}
-      \end{align*}
-      Use this convergence to pick $N$ so that for $n>N$
-      \begin{align*}
-        \int_{|x|>\rho} \phi_n(x)\,dx
+        \int_{|x|\ge\rho} \phi_n(x)\,dx
         < \frac\varepsilon{C_\rho}
       \end{align*}
       and so
       \begin{align*}
-        \int_{|x|>\rho} \phi_n(x)\varphi(x)\,dx
-        &\le C_\rho \cdot \int_{|x|>\rho} \phi_n(x)\,dx
+        \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx
+        &\le C_\rho \cdot \int_{|x|\ge\rho} \phi_n(x)\,dx
         < \varepsilon \text{,}
       \end{align*}
       showing that
       \begin{align*}
-        \lim_{n\rightarrow\infty} \int_{|x|>\rho} \phi_n(x)\varphi(x)\,dx
+        \lim_{n\rightarrow\infty} \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx
         = 0 \text{.}
       \end{align*}
 
-      It remains to show that the integral on $[-\rho,\rho]$ converges to the desired value.
-      By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|\le\rho$ implies $|\varphi(x)-\varphi(0)|<\varepsilon_\rho$, so
+      It remains to show that the integral on $(-\rho,\rho)$ converges to the desired value.
+      By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|<\rho$ implies $|\varphi(x)-\varphi(0)|<\varepsilon_\rho$, so
       \begin{align*}
-        (\varphi(0)-\varepsilon_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\,dx
-        \le \int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx
-        \le (\varphi(0)+\varepsilon_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\, dx
+        (\varphi(0)-\varepsilon_\rho)\cdot \int_{|x|<\rho} \phi_n(x)\,dx
+        \le \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx
+        \le (\varphi(0)+\varepsilon_\rho)\cdot \int_{|x|<\rho} \phi_n(x)\, dx
       \end{align*}
       Because $n$ and $\rho$ are independent of one another we may take the limits in any order, so we consider $n$ first.
       Taking the limit of the bounding terms as $n$ grows, the integrals approach 1, so we have
       \begin{align*}
-        \left| \lim_n\left(\int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx\right) - \varphi(0) \right|
+        \left| \lim_{n\rightarrow\infty}\left(\int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx\right) - \varphi(0) \right|
         < \varepsilon_\rho
       \end{align*}
       Thus by combining the previous displays see that 
       \begin{align*}
-        \lim_n\left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right|
-        &\le \lim_n \left( \left| \int_{|x|>\rho} \phi_n(x)\varphi(x)\,dx \right|
-        + \left| \int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right| \right)
+        \lim_{n\rightarrow\infty}\left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right|
+        &\le \lim_{n\rightarrow\infty} \left( \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
+        + \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right| \right)
         \\&< 0 + \varepsilon_\rho
       \end{align*}
       By the continuity of $\varphi$, $\varepsilon_\rho$ approaches zero as $\rho$ does.
