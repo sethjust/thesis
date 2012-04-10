@@ -191,20 +191,25 @@
       &= \int_{y\in\R} x^\ell f(x-y)g(y)\,dy \text{.}
     \end{align*}
     For any fixed $y$ the function $x^\ell f(x-y)$ will vanish at infinity because it is Schwartz, and so the integral vanishes at infinity, because as $x\rightarrow\infty$ the integrand converges pointwise to the zero function.
-    Thus we see that the convolution of two Schwartz functions is another Schwartz function.
+    Thus the convolution of two Schwartz functions is another Schwartz function, and so \S acts on itself by convolution.
 
-    Treating $f*g$ as a distribution, exchange order of integration and calculate
+    The action of \S on itself gives an action of \S on its embedded image in \SS.
+    For some $f,g\in\S$, $f$ acts on the distribution $u_g$ arising from $g$ by
     \begin{align*}
-      \langle f*g,\varphi\rangle
-  %    &= \int_{x\in\R} (f*g)(x)\varphi(x)\,dx
-      &= \int_{x\in\R} \varphi(x) \int_{y\in\R} f(x-y)g(y)\,dy\,dx
+      f*u_g = u_{f*g} \text{.}
+    \end{align*}
+    For any $\varphi\in\S$ we have
+    \begin{align*}
+      \langle f*u_g, \varphi\rangle
+      &= \langle u_{f*g}, \varphi\rangle
+%      \\&= \int_{x\in\R} (f*g)(x)\varphi(x)\,dx
+      \\&= \int_{x\in\R} \int_{y\in\R} f(x-y)g(y)\,dy \varphi(x)\,dx
       \\&= \int_{y\in\R} g(y) \int_{x\in\R} f(x-y)\varphi(x)\,dx\,dy
-      \\&= \langle g, \tilde f*\varphi\rangle
+      \\&= \langle u_g, \tilde f*\varphi\rangle
     \end{align*}
     where $\tilde f(x) = f(-x)$.
-
     As with the derivative, this formula allows us to extend our definition of convolution to allow one of the arguments to be a distribution.
-    Observing the role $g$ plays, define the action of a Schwartz function $\phi$ on a distribution $u$ by the adjoint identity
+    Define the action of a Schwartz function $\phi$ on a distribution $u$ by the adjoint identity
     \begin{align*}
       \langle \phi*u, \varphi\rangle
       = \langle u, \tilde\phi*\varphi\rangle \text{.}
@@ -221,17 +226,18 @@
       = \langle g, T_{-x}\tilde f\rangle
     \end{align*}
     which suggests a sensible expression for pointwise values of the mollification even when $g\in\SS$.
-    We hope that this expression is consistent with the adjoint definition above.
-    For $u\in\SS$ and $\phi,\varphi\in\S$ calculate
+    For $u\in\SS$ and $\phi\in\S$ we wonder if the function $\psi:\R\rightarrow
+    C$ given by $\psi(x)=\langle u, T_{-x}\tilde \phi\rangle$ gives rise to the distribution $\phi*u$ defined above.
+    Calculate for any $\varphi\in\S$
     \begin{align*}
-      \left\langle \langle u,T_{-x}\tilde\phi\rangle, \varphi \right\rangle
+      \left\langle \psi, \varphi \right\rangle
       &= \int_{x\in\R} \langle u,T_{-x}\tilde\phi\rangle\varphi(x)\,dx
       = \left\langle u, \int_{x\in\R} (T_{-x}\tilde\phi)\varphi(x)\,dx \right\rangle
 %      \\&= \left\langle u, \int_{x\in\R} \tilde\phi(y-x)\varphi(x)\,dx \right\rangle
       = \langle u, \tilde\phi*\varphi\rangle
     \end{align*}
     with the second equality exchanging the order of integration.
-    Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\langle u, T_{-x}\tilde\phi\rangle$.
+    Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\psi(x)=\langle u, T_{-x}\tilde\phi\rangle$.
     Because $f\mapsto\tilde f$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
     \begin{align*}
       x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
