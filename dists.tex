@@ -1,5 +1,6 @@
 \input{chpreamble}
   \setcounter{chapter}{2}
+  \setcounter{thm}{0}
   \chapter{Distributions}
   \label{ch:dist}
   
@@ -26,35 +27,34 @@
     \begin{align*}
       |\langle\varphi,\phi_i\rangle| 
 %      &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
-      &\le \int_{x\in\R}| \varphi(x)\phi_i(x)|\,dx
-      \\&\le |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
+      &\le |\phi_i(x)|_\Coo \cdot \int_{x\in\R} |\varphi(x)|\,dx
+%      \\&\le |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
     \end{align*}
-    for any $k$ and $\ell$, by definition of the $C^k_\ell$ norm.
-    Because $\{\phi_i\}$ approaches zero in \S, we see that $\{|\phi_i|_{C^k_\ell}\}$ also approaches zero.
+    Because $\{\phi_i\}$ approaches zero in \S, $\{|\phi_i|_\Coo\}$ also approaches zero.
     Thus the sequence $\{\langle\varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
   \end{proof}
 
-  The continuity of the integration-against functional shows that each Schwartz function corresponds naturally to a tempered distribution.
-  In \cref{sec:tempdist} we saw that this inclusion allowed us to define the Fourier transform for any $f\in\S^*$ by the formula
+  The continuity of the integration-against functional shows that each Schwartz function gives rise to a tempered distribution.
+  In \cref{sec:tempdist} we saw that this inclusion allowed us to define the Fourier transform on \SS by the formula
   \begin{align*}
-    \langle\F f, \varphi\rangle &= \langle f, \F\varphi\rangle
+    \langle\F u, \varphi\rangle &= \langle u, \F\varphi\rangle
+    \qquad u\in\SS, \varphi\in\S \text{.}
   \end{align*}
-  for $\varphi\in\S$.
   
   We may define the derivative of a tempered distribution similarly.
-  For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that $f\varphi$ vanishes at infinity:
+  For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that because $f\varphi$ vanishes at infinity:
   \begin{align*}
     \langle f', \varphi\rangle
-    &= [f(x)\varphi(x)]_{-\infty}^\infty -\int_{x\in\R} f(x)\varphi'(x)\,dx
+    &= -\int_{x\in\R} f(x)\varphi'(x)\,dx
     = -\langle f,\varphi'\rangle\text{.}
   \end{align*}
   \begin{defn}
     For a tempered distribution $u$, the distributional derivative of $u$ (denoted as usual by $u'$) is given by
     \begin{align*}
       \langle u', \varphi\rangle = -\langle u, \varphi'\rangle
+      \qquad u\in\SS,\varphi\in\S \text{.}
     \end{align*}
-    for any Schwartz function $\varphi$.
-    When $u$ corresponds to a Schwartz function $f$, the distribution $u'$ visibly corresponds to the derivative $f'\in\S$ by the calculation above. 
+    When $u$ is given by (integration against) a Schwartz function $f$, the distribution $u'$ is given by the derivative $f'\in\S$ by the calculation above. 
   \end{defn}
   
   As with the Fourier Transform, the definition of the distributional derivative extends good properties of \S to all of $\S^*$.
@@ -63,11 +63,11 @@
   We thus give the space of tempered distributions the so-called ``initial topology'', which allows us to carry topology from a space to its dual.
   \begin{defn}
     Let $X^*$ be the continuous linear dual of a topological space $X$.
-    The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology (the one with the fewest open sets) ensuring the continuity of the evaluation functionals
+    The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology ensuring that for all $\varphi\in X^*$ the evaluation functional
     \begin{gather*}
-      X^*\longrightarrow\C\\
-      u\mapsto \langle u,\varphi\rangle\qquad\text{for }\varphi\in X\text{.}
+      u_\varphi: X^*\rightarrow\C, \qquad f\mapsto\langle\varphi,f\rangle
     \end{gather*}
+    is continuous.
   \end{defn}
 
   \begin{claim}
@@ -97,14 +97,13 @@
     \begin{align*}
       \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
     \end{align*}
-    Because \SS is complete in the \ws \todo{explain why}, there is some tempered distribution that is the limit of the sequence $\{\phi_n\}$.
-    Thus by the continuity of evaluation at any $\varphi\in\S$, we may write $\langle\lim_n\phi_n,\varphi\rangle=\varphi(0)$, and so $\lim_n\phi_n=\delta$.
+    Because $\{\langle\phi_n,\varphi\rangle\}\rightarrow\langle\delta,\varphi\rangle$ for arbitrary $\varphi\in\S$, see that $\{\phi_n\}\rightarrow\delta$ in the \ws.
 
     \begin{thm}[Approximate Identity]
       There is a sequence $\{\phi_n\}$ in \S so that $\langle\lim_n \phi_n,\varphi\rangle = \varphi(0)$ for all $\varphi\in\S$.
     \end{thm}
     \begin{proof}
-      Let $\phi$ be some non-negative Schwartz function with integral 1, so that for any $n\in\mathbb{N}_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is Schwartz and has integral 1.
+      Let $\phi$ be some non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is Schwartz and has integral 1.
       For any $\varphi\in\S$ consider the limit
       \begin{align*}
         \lim_{n\rightarrow\infty}\langle\phi_n,\varphi\rangle 
@@ -120,8 +119,8 @@
       As $n$ grows the integral $\int_{x\in\R}\phi_n(x)\,dx$ is constantly 1, so
       \begin{align*}
         \int_{|x|>\rho} \phi_n(x)\,dx
-        = 1-n\cdot\int_{|x|\le n\rho} \phi(x)\,dx
-        \le 1-\int_{|x|\le n\rho} \phi(x)\,dx
+        &= \int_{x\in\R} \phi_n(x)\,dx - \int_{|x|\le \rho} \phi_n(x)\,dx
+        = 1-\int_{|x|\le n\rho} \phi(x)\,dx
         \underset n\longrightarrow 0 \text{.}
       \end{align*}
       Use this convergence to pick $N$ so that for $n>N$
@@ -149,17 +148,21 @@
         \le (\varphi(0)+\varepsilon_\rho)\cdot \int_{|x|\le\rho} \phi_n(x)\, dx
       \end{align*}
       Because $n$ and $\rho$ are independent of one another we may take the limits in any order, so we consider $n$ first.
-      Taking the limit of the bounding terms as $n$ grows, the integrals approach 1, so
+      Taking the limit of the bounding terms as $n$ grows, the integrals approach 1, so we have
       \begin{align*}
-        \left| \int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx - \varphi(0) \right|
+        \left| \lim_n\left(\int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx\right) - \varphi(0) \right|
         < \varepsilon_\rho
       \end{align*}
-      As $\rho\rightarrow0$ the continuity of $\varphi$ forces $\varepsilon_\rho$ to zero, and so
+      Thus by combining the previous displays see that 
       \begin{align*}
-        \lim_{n\rightarrow\infty} \left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \varphi(0) \right|
-        = \lim_{\rho\rightarrow 0} \varepsilon_\rho
-        = 0 \text{.}
+        \lim_n\left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right|
+        &\le \lim_n \left( \left| \int_{|x|>\rho} \phi_n(x)\varphi(x)\,dx \right|
+        + \left| \int_{|x|\le\rho} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right| \right)
+        \\&< 0 + \varepsilon_\rho
       \end{align*}
+      By the continuity of $\varphi$, $\varepsilon_\rho$ approaches zero as $\rho$ does.
+      Because the left-hand quantity in the display does not depend on $\rho$, by taking small $\rho$ we see that $\int_\R \phi_n\varphi$ must be arbitrarily close to $\varphi(0)$.
+      Thus $\{\phi_n\}$ is an approximate identity.
     \end{proof}
 
     The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
@@ -169,9 +172,16 @@
     \begin{align*}
       (f*g)(x) = \int_{y\in\R} f(x-y)g(y)\,dy \text{.}
     \end{align*}
-    Because $f$ and $g$ are Schwartz, see that $f*g$ is a smooth function of $x$ becaus the $x$ derivative passes through the $y$ integral and attaches itself to the $f$ term.
-    For very large $x$, we have that for any $y\in\R$ at least one of $|x-y|$ or $|y|$ is large, and so either $f(x-y)$ or $g(y)$ is small.
-    Thus as $x$ grows we see that $(f*g)(x)$ will eventually become small, so $f*g$ is Schwartz.
+    Because $f$ and $g$ are Schwartz, see that $f*g$ is a smooth function of $x$ because the $x$ derivative passes through the $y$ integral and attaches itself to the $f$ term.
+    Furthermore, as $|x|$ grows, we have that for any $y\in\R$ at least one of $|x-y|$ or $|y|$ is large, and so either $f(x-y)$ or $g(y)$ will approach zero.
+    Thus we see that $(f*g)(x)$ will vanish as $|x|\rightarrow\infty$.
+    In fact, multiplying the convolution by some power of $x$ we get
+    \begin{align*}
+      x^\ell(f*g)(x)
+      &= \int_{y\in\R} x^\ell f(x-y)g(y)\,dy \text{.}
+    \end{align*}
+    For any fixed $y$ the function $x^\ell f(x-y)$ will vanish at infinity because it is Schwartz, and so the integral vanishes at infinity, because as $x\rightarrow\infty$ the integrand converges pointwise to the zero function.
+    Thus we see that the convolution of two Schwartz functions is another Schwartz function.
 
     Treating $f*g$ as a distribution, exchange order of integration and calculate
     \begin{align*}
@@ -189,7 +199,7 @@
       \langle \phi*u, \varphi\rangle
       = \langle u, \tilde\phi*\varphi\rangle \text{.}
     \end{align*}
-    Notably, unlike the convolution of Schwartz functions, this action is assymetric, as we may not convolve two distributions.
+    Notably, unlike the convolution of Schwartz functions, this action is asymmetric, as we may not convolve two distributions.
     Thus we refer to the distribution $\phi*u$ as the \emph{mollification} of $u$ by $\phi$.
 
     We might wonder if a mollification is in fact given by integration against some classical function.
