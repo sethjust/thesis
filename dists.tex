@@ -303,7 +303,7 @@
             g = Piecewise([[(.5,1), 0],[(1,2), h(x-2)/h(0)], [(2,5), 1], [(5,6), h(x-5)/h(0)], [(6,6.5), 0]])
             p = plot(g, color="black", plot_points=500, ticks=[[1, 2, 5, 6],[]], tick_formatter= ticker.FixedFormatter(['$-A_i-1$','$-A_i$','$A_i$','$A_i+1$']), figsize=[6,1])
           \end{sagesilent}
-          \sageplot{p}
+          \sageplot[width=\figwidth]{p}
         \end{center}
         \caption{A mesa function.}
         \label{fig:mesafunc}
