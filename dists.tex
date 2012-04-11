@@ -10,7 +10,7 @@
     \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
   \end{align*}
   This definition is now fully sensible, as we know what it means to be a continuous functional on \S.
-  Recall the mapping taking a test function $\varphi$ to the integration-against-$\varphi$ functional on \S:
+  Recall the mapping taking a Schwartz function $\varphi$ to the integration-against-$\varphi$ functional on \S:
   \begin{align*}
     \varphi \longmapsto \left( \phi \mapsto \int_{x\in\R} \varphi(x) \phi(x)\,dx \right)
   \end{align*}
@@ -80,10 +80,10 @@
   \end{proof}
 
   \section{Approximation by Schwartz Functions}
-    A simple distribution is Dirac delta:
+    A simple distribution is \emph{Dirac delta}:
     \begin{gather*}
-      \delta:\S\rightarrow\C\\
       \langle\delta,\varphi\rangle = \varphi(0)
+      \qquad\text{for any }\varphi\in\S
     \end{gather*}
     Because $\delta$ is trivially linear, and continuous by \cref{thm:sevalcts}, $\delta\in\SS$.
     In fact, $\delta$ is not a classical function, and so is a ``true distribution'' in that it does not arise from a function with pointwise values.
@@ -227,8 +227,12 @@
       = \langle g, T_{-x}\tilde f\rangle
     \end{align*}
     which suggests a sensible expression for pointwise values of the mollification even when $g\in\SS$.
-    For $u\in\SS$ and $\phi\in\S$ we wonder if the function $\psi:\R\rightarrow
-    C$ given by $\psi(x)=\langle u, T_{-x}\tilde \phi\rangle$ gives rise to the distribution $\phi*u$ defined above.
+    For $u\in\SS$ and $\phi\in\S$ we wonder if the function
+%    $\psi:\R\rightarrow \C$ given by $\psi(x)=\langle u, T_{-x}\tilde \phi\rangle$ gives rise to the distribution $\phi*u$ defined above.
+    \begin{align*}
+      \psi(x) = \langle u, T_{-x}\tilde\phi\rangle
+    \end{align*}
+    gives rise to the distribution $\phi*u$ defined above.
     Calculate for any $\varphi\in\S$
     \begin{align*}
       \left\langle \psi, \varphi \right\rangle
@@ -244,15 +248,15 @@
       x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
     \end{align*}
     is a continuous function of $x\in\R$.
-    
-    See that the derivative of $\phi*u$ at any $x\in\R$ is given by
+    Thus we may calculate that the derivative of $\phi*u$ at any $x\in\R$ is given by
     \begin{align*}
-      \lim_{t\rightarrow0} \frac{\langle u, T_{-x+t}\phi\rangle - \langle u, T_{-x}\phi\rangle}{t}
-      &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x+t}\phi-T_{-x}\phi\rangle}{t}
-      \\&= \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x+t}\phi-T_{-x}\phi}{t}\right\rangle
+      \lim_{t\rightarrow0} \frac{\psi(x+t) - \psi(x)}{t}
+      &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x-t}\phi-T_{-x}\phi\rangle}{t}
+      \\&= \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x-t}\phi-T_{-x}\phi}{t}\right\rangle
       \\&= \left\langle u, T_{-x}\phi'\right\rangle
     \end{align*}
     and so $\phi*u$ is a smooth function because we may put all derivatives on the Schwartz function~$\phi$.
+    Thus mollification is a sort of ``smoothing'' process on distributions---regardless of how strange the distribution $u$ is, the mollification $\phi*u$ is smooth enough to have pointwise values.
 
     \begin{thm}
       \label{thm:sdenseinss}
