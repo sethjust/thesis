@@ -214,18 +214,15 @@
       \begin{rmk}
         Note that this completeness is a consequence of our norm forcing sequences of functions to converge \emph{uniformly}.
         This is particularly important as pointwise limits of continuous functions need not be continuous.
-        For example, the function
+        For example, the function $f_n$ is continuous for all $n$, but the limiting function is discontinuous at zero:
         \begin{align*}
-          f_n(x)=
+          &f_n(x)=
           \begin{cases}
             -1 &\text{if } x<-\frac1n\\
             nx &\text{if } |x|<\frac1n\\
             1 &\text{if } x>\frac1n
           \end{cases}
-        \end{align*}
-        is continuous for all $n$, but the limiting function is discontinuous at zero:
-        \begin{align*}
-          \lim_nf_n(x)=
+          &\lim_nf_n(x)=
           \begin{cases}
             -1 &\text{if } x<0\\
             0 &\text{if } x=0\\
@@ -292,9 +289,9 @@
         \end{align*}
         Taking the limit, and exchanging limit and integral (by the Lebesgue Dominated Convergence Theorem)
         \begin{align*}
-          \lim_i \left( f_i(x)-f_i(a) \right) &= \lim_i\int_a^x f_i'(t)\,dt\\
-          &= \int_a^x\lim_if_i(t)\,dt\\
-          f(x)-f(a) &= \int_a^x g(t)\,dt
+          \lim_i \left( f_i(x)-f_i(a) \right) &= \lim_i\int_a^x f_i'(t)\,dt
+          = \int_a^x\lim_if_i'(t)\,dt
+          \\ f(x)-f(a) &= \int_a^x g(t)\,dt
         \end{align*}
         so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^1_0$.
         Thus $C^1_0$ is complete in its topology, proving the base case.
@@ -415,7 +412,7 @@
         \begin{align*}
           |f_i-f_j|_\Cl
           = \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
-          \le |f_i -f_j|_{C^1_\ell}
+          \le |f_i -f_j|_{C^1_\ell} \text{.}
         \end{align*}
         The same inequality with first derivatives allows us to see that both sequences are indeed Cauchy in \Cl, and so $(1+x^2)^\ell f\in C^1_0$ and $(1+x^2)^\ell g\in\Coo$.
 

@@ -22,8 +22,8 @@
   \begin{proof}
     Linearity follows trivially from the definition.
     Thus we need only show that small inputs give small outputs, and continuity everywhere will follow from linearity.
-    Fix some $\varphi\in\S$ and let $\{\phi_i\}$ be a sequence in \S approaching the zero function (which is trivially Schwartz).
-    See that
+    Let $\{\phi_i\}$ be a sequence in \S approaching the zero function.
+    For any $\varphi\in\S$, calculate
     \begin{align*}
       |\langle\varphi,\phi_i\rangle| 
 %      &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
@@ -314,7 +314,7 @@
       For an approximate identity $\{\phi_n\}$ and some tempered distribution $u$, the mollification $\phi_n*u$ approximates $u$ in the \ws.
     \end{lemma}
     \begin{proof}
-      For all $f\in\S$, 
+      For all $f\in\S$, calculate and apply \cref{lemma:approxbyconv} to see
       \begin{align*}
         \langle \phi_n*u, f\rangle
         &= \langle u, \phi_n*f\rangle
