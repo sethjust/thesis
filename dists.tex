@@ -115,6 +115,7 @@
     Intuitively the limit of such a function is exactly $\delta$: a point-mass gathered at zero.
 
     \begin{thm}[Approximate Identity Theorem]
+      \label{thm:approxid}
       Given an approximate identity $\{\phi_n\}$, $\lim_n\langle \phi_n,\varphi\rangle = \varphi(0)$ for any $\varphi\in\S$.
     \end{thm}
     \begin{proof}
@@ -183,15 +184,15 @@
 
     Having seen that any approximate identity approximates $\delta$ we hope to construct such a sequence.
     See that non-negative real Schwartz functions exist because the function
-    \begin{equation*}
+    \begin{equation}
       \label{eq:extestfcn}
       h(x) =
       \begin{cases}
         e^\frac{1}{x^2-1} &\text{if }|x|<1\\
         0 &\text{otherwise}
       \end{cases}
-    \end{equation*}
-    is verifiable smooth at any $x\in\R$ and vanishes off a compact set, and so is Schwartz.
+    \end{equation}
+    is verifiable smooth at any $x\in\R$ and is identically zero off a bounded set, and so is Schwartz.
     Thus we may let $\phi$ be a non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1.
     Given any $\delta,\varepsilon>0$ consider the quantity
     \begin{align*}
@@ -227,7 +228,22 @@
     For any fixed $y$ the function $x^\ell f(x-y)$ will vanish at infinity because it is Schwartz, and so the integral vanishes at infinity, because as $x\rightarrow\infty$ the integrand converges pointwise to the zero function.
     Thus the convolution of two Schwartz functions is another Schwartz function, and so \S acts on itself by convolution.
 
-    The action of \S on itself gives an action of \S on its embedded image in \SS.
+    It is almost immediate that this action allows approximation of any Schwartz function by convolution with an approximate identity:
+    \begin{lemma}
+      \label{lemma:approxbyconv}
+      For an approximate identity $\{\phi_n\}$ and any $\varphi\in\S$, the sequence of mollifications $\{\phi_n*\varphi\}$ approximates $\varphi$ in \S.
+    \end{lemma}
+    \begin{proof}
+      Use \cref{thm:approxid} to calculate
+      \begin{align*}
+        (\phi_n*\varphi)(x)
+        &= \int_{y\in\R} \phi_n(y)g(x-y)\,dy
+        \underset{n}{\rightarrow} g(x) \text{.}
+      \end{align*}
+    \end{proof}
+
+    We hope to use a similar process to approximate tempered distributions.
+    Happily, the action of \S on itself gives an action of \S on its embedded image in \SS.
     For some $f,g\in\S$, $f$ acts on the distribution $u_g$ arising from $g$ by
     \begin{align*}
       f*u_g = u_{f*g} \text{.}
@@ -235,15 +251,15 @@
     For any $\varphi\in\S$ we have
     \begin{align*}
       \langle f*u_g, \varphi\rangle
-      &= \langle u_{f*g}, \varphi\rangle
+%      &= \langle u_{f*g}, \varphi\rangle
 %      \\&= \int_{x\in\R} (f*g)(x)\varphi(x)\,dx
-      \\&= \int_{x\in\R} \int_{y\in\R} f(x-y)g(y)\,dy \varphi(x)\,dx
+      &= \int_{x\in\R} \int_{y\in\R} f(x-y)g(y)\,dy\,\varphi(x)\,dx
       \\&= \int_{y\in\R} g(y) \int_{x\in\R} f(x-y)\varphi(x)\,dx\,dy
       \\&= \langle u_g, \tilde f*\varphi\rangle
     \end{align*}
     where $\tilde f(x) = f(-x)$.
-    As with the derivative, this formula allows us to extend our definition of convolution to allow one of the arguments to be a distribution.
-    Define the action of a Schwartz function $\phi$ on a distribution $u$ by the adjoint identity
+    Again, this formula allows us to extend our definition of convolution to allow one of the arguments to be a distribution by an adjoint definition.
+    Define the action of a Schwartz function $\phi$ on a distribution $u$ by the identity
     \begin{align*}
       \langle \phi*u, \varphi\rangle
       = \langle u, \tilde\phi*\varphi\rangle \text{.}
@@ -286,21 +302,19 @@
     \begin{align*}
       \lim_{t\rightarrow0} \frac{\psi(x+t) - \psi(x)}{t}
       &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x-t}\phi-T_{-x}\phi\rangle}{t}
-      \\&= \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x-t}\phi-T_{-x}\phi}{t}\right\rangle
-      \\&= \left\langle u, T_{-x}\phi'\right\rangle
+      = \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x-t}\phi-T_{-x}\phi}{t}\right\rangle
+      = \left\langle u, T_{-x}\phi'\right\rangle
     \end{align*}
     and so $\phi*u$ is a smooth function because we may put all derivatives on the Schwartz function~$\phi$.
     Thus mollification is a sort of ``smoothing'' process on distributions---regardless of how strange the distribution $u$ is, the mollification $\phi*u$ is smooth enough to have pointwise values.
+    Furthermore, this smoothing acts as we expect it to, in that we may approximate any distribution by convolution with approximate identity. 
 
-    \begin{thm}
-      \label{thm:sdenseinss}
-      The space of Schwartz functions is dense\footnotemark in the space of tempered distributions.
-    \end{thm}
-    \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
+    \begin{lemma}
+      \label{lemma:mollwithid}
+      For an approximate identity $\{\phi_n\}$ and some tempered distribution $u$, the mollification $\phi_n*u$ approximates $u$ in the \ws.
+    \end{lemma}
     \begin{proof}
-      Let $u\in\SS$.
-      Let $\phi$ be a positive even Schwartz function with integral 1, so that for any $n$, the function $x\mapsto n\phi(nx) \call \phi_n$ has integral 1, so $\{\phi_n\}$ is an approximate identity.
-      Thus the sequence of mollifications $\{\phi_n*u\}$ approximates $u$ in the \ws because for all $f\in\S$, 
+      For all $f\in\S$, 
       \begin{align*}
         \langle \phi_n*u, f\rangle
         &= \langle u, \phi_n*f\rangle
@@ -308,43 +322,74 @@
 %        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(-y)f(x+y)\,dy \right\rangle
 %        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(-y)\,dy \right\rangle
 %        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(y)\,dy \right\rangle
-        \\&= \left\langle u, \langle f, T_{-x}\phi_n\rangle \right\rangle
-        \\&= \left\langle u, \langle \phi_n, T_{x}f\rangle \right\rangle
+        = \left\langle u, \langle f, T_{-x}\phi_n\rangle \right\rangle
+        = \left\langle u, \langle \phi_n, T_{x}f\rangle \right\rangle
         \\&\underset{n}{\longrightarrow} \left\langle u, T_xf(0) \right\rangle
-        \\&= \langle u,f\rangle \text{.}
+        = \langle u,f\rangle \text{.}
       \end{align*}
+    \end{proof}
 
-      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity.
-      Let $\psi_i$ be a Schwartz function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$.
-      See that such $\psi_i$ exist because the integral of the function $h(x)$ (see \cpageref{eq:extestfcn})
+    Thus any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
+    Unfortunately, arbitrary mollifications need not be Schwartz.
+    \todo{mention somewhere that TDs may arise from polynomials, etc.}
+    We wonder whether arbitrary smooth functions may be approximated by Schwartz functions.
+    To this end, consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).
+    Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
+    \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
+    \D is called the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
+    The function $h(x)$ from~\cref{eq:extestfcn} is a prototypical test function.
+    
+    A \emph{mesa function} is non-negative real test function that has constant value on a subset of the line and decays smoothly to zero outside that set.
+    See that such functions exist because the integral of
+    \begin{align*}
+      \int_{-\infty}^x h(t)\,dt
+    \end{align*}
+    has value 0 for $x$ to the left of -1 and grows smoothly on $[-1,1]$ to a positive constant, which it takes for all $x>1$.
+    Glueing this function to a translated and mirrored version of itself gives a mesa function.
+
+    \begin{figure}[t]
+      \begin{center}
+        \begin{sagesilent}
+          from matplotlib import ticker
+          h = lambda x: e^(1/(x^2-1))
+          g = Piecewise([[(.5,1), 0],[(1,2), h(x-2)/h(0)], [(2,5), 1], [(5,6), h(x-5)/h(0)], [(6,6.5), 0]])
+          p = plot(g, color="black", plot_points=500, ticks=[[1, 2, 5, 6],[]], tick_formatter= ticker.FixedFormatter(['$-A_i-1$','$-A_i$','$A_i$','$A_i+1$']), figsize=[6,1])
+        \end{sagesilent}
+        \sageplot[width=\figwidth]{p}
+      \end{center}
+      \caption{An example mesa function $\psi_i$.}
+      \label{fig:mesafunc}
+    \end{figure}
+
+    \begin{lemma}
+      \label{lemma:ddenseins}
+      The space of test functions is dense in the space of Schwartz functions.
+    \end{lemma}
+    \begin{proof}
+      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity and for any $i$ let $\psi_i$ be a mesa function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$, as shown in \cref{fig:mesafunc}.
+      Given some $\varphi\in\S$, for any $i$ the function $\psi_i\varphi$ is a test function because it is zero for $|x|>A_i+1$ and pointwise multiplication of functions does not affect smoothness.
+      Thus it remains only to show that $\{\psi_i\varphi\}\rightarrow\varphi$ in \S; this is the case whenever the sequence converges in every \Ckl.
+      Calculate
       \begin{align*}
-        \int_{-\infty}^x h(t)\,dt
+        |\psi_i\varphi - \varphi|_\Ckl
+        &\le |\psi_i\varphi - \varphi|_\Coo
+        \le \sup_{|x|>A_i} |\varphi(x)|
       \end{align*}
-      has value 0 for $x$ to the left of -1 and grows smoothly on $[-1,1]$ to a positive constant, which it takes for all $x>1$.
-      Glueing this function to a translated and mirrored version of itself gives a ``mesa'' function, as shown in \cref{fig:mesafunc}.
-      We may thus construct the $\psi_i$ through such a process.
+      which approaches zero for large $i$ because $\varphi$ is Schwartz.
+      Thus \D is dense in \S.
+    \end{proof}
 
-      \begin{figure}[t]
-        \begin{center}
-          \begin{sagesilent}
-            from matplotlib import ticker
-            h = lambda x: e^(1/(x^2-1))
-            g = Piecewise([[(.5,1), 0],[(1,2), h(x-2)/h(0)], [(2,5), 1], [(5,6), h(x-5)/h(0)], [(6,6.5), 0]])
-            p = plot(g, color="black", plot_points=500, ticks=[[1, 2, 5, 6],[]], tick_formatter= ticker.FixedFormatter(['$-A_i-1$','$-A_i$','$A_i$','$A_i+1$']), figsize=[6,1])
-          \end{sagesilent}
-          \sageplot[width=\figwidth]{p}
-        \end{center}
-        \caption{A mesa function.}
-        \label{fig:mesafunc}
-      \end{figure}
-
-      For any $i,n$ the function $x\mapsto\psi_i(x)(\phi_n*u)(x)$ is Schwartz because it is zero for $|x|>A_i+1$ and pointwise multiplication of functions does not affect smoothness.
-      Clearly $\lim_{i\rightarrow\infty}\psi_i(x)(\phi_n*u)(x)=(\phi_n*u)(x)$, so the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ in the \ws.
-
+    \begin{thm}
+      \label{thm:sdenseinss}
+      The space of Schwartz functions is dense in the space of tempered distributions.
+    \end{thm}
+    \begin{proof}
+      Let $u\in\SS$.
       Now pick a neighborhood $U$ of $u$ in \SS.
-      Because the sequence $\{\phi_n*u\}\rightarrow u$ there is some $n$ so that $\phi_n*u\in U$.
-      Then because the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ there is some $i$ so that $\psi_i(\phi_n*u)\in U$.
-      Each $\psi_j(\phi_n*u)$ is Schwartz, so because $u$ and $U$ were arbitrary, \S is dense in \SS.
+      Because the sequence $\{\phi_n*u\}\rightarrow u$ by \cref{lemma:mollwithid} there is some $n$ so that $\phi_n*u\in U$.
+%      Then because the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ there is some $i$ so that $\psi_i(\phi_n*u)\in U$.
+      By \cref{lemma:ddenseins}, there is some mesa function $\psi$ so that $\psi(\phi_n*u)\in U$.
+      Because $\psi(\phi_n*u)$ is Schwartz, and $u$ and $U$ were arbitrary, \S is dense in \SS.
     \end{proof}
 
 \end{document}
