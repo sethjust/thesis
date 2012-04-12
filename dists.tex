@@ -93,88 +93,121 @@
       \int_{x\in\R} \delta(x)\,dx = 1
     \end{gather*}
     but for any $z=\delta(0)\in\C$ the integral must be zero.
-    However, $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
+    Instead we think of $\delta$ as an infinitesimally narrow spike with area one.
+    This idea allow us to see that $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
     \begin{align*}
       \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
     \end{align*}
-    We call any sequence that satisfies this condition an \emph{approximate identity}.
-    For an approximate identity $\{\phi_n\}$ we have that $\{\langle\phi_n,\varphi\rangle\}\rightarrow\langle\delta,\varphi\rangle$ for arbitrary $\varphi\in\S$, and so $\{\phi_n\}\rightarrow\delta$ in the \ws.
+    Because $\{\langle\phi_n,\varphi\rangle\}\rightarrow\langle\delta,\varphi\rangle$ for arbitrary $\varphi\in\S$, by definition $\{\phi_n\}\rightarrow\delta$ in the \ws.
 
-    \begin{thm}[Existence of Approximate Identities]
-      There is a sequence $\{\phi_n\}$ in \S so that $\langle\lim_n \phi_n,\varphi\rangle = \varphi(0)$ for all $\varphi\in\S$.
+    \begin{defn}[Approximate Identity]
+      A sequence of Schwartz functions $\{\phi_n\}$ is called an \emph{approximate identity} whenever
+      \begin{itemize}
+        \item $\phi_n(x)$ is non-negative and real for all $n$ and $x\in\R$;
+        \item $\int_{x\in\R}\phi_n(x)\,dx=1$ for all $n$;
+        \item for any $\delta,\varepsilon>0$ there exists some $N$ so that for all $n>N$ 
+          \begin{align*}
+            \int_{|x|\ge\delta}\phi_n(x)\,dx < \varepsilon \text{.}
+          \end{align*}
+      \end{itemize}
+    \end{defn}
+    The idea of an approximate identity is to construct a sequence of functions with constant ``mass'' that clusters around zero as $n$ increases.
+    Intuitively the limit of such a function is exactly $\delta$: a point-mass gathered at zero.
+
+    \begin{thm}[Approximate Identity Theorem]
+      Given an approximate identity $\{\phi_n\}$, $\lim_n\langle \phi_n,\varphi\rangle = \varphi(0)$ for any $\varphi\in\S$.
     \end{thm}
     \begin{proof}
-      Let $\phi$ be some non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1.
-      
-      Given any $\delta,\varepsilon>0$ consider the quantity
+      For an arbitrary $\varphi\in\S$ we hope the quantity
       \begin{align*}
-        \int_{|x|\ge\delta} \phi_n(x) \,dx
-        &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
+        \langle\phi_n,\varphi\rangle 
+        &=\int_{x\in\R} \phi_n(x)\varphi(x)\,dx
       \end{align*}
-      Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
-      Thus for $n>X/\delta$ we have 
+      approaches $\varphi(0)$ as $n$ grows.
+      See that
       \begin{align*}
-        \int_{|x|\ge\delta} \phi_n(x) \,dx
-        &= \int_{|x|\ge n\delta} \phi(x) \,dx
-        \le \int_{|x|\ge X} \phi(x) \,dx
-        <\varepsilon \text{,}
+        \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx
+        &= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \int_{x\in\R} \phi_n(x)\varphi(0)\,dx
+        \\&= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \varphi(0)
       \end{align*}
-      so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
-      Thus we also see that $\lim\limits_{n\rightarrow\infty} \int_{|x|<\delta}\phi_n(x)\,dx=1$.
+      and so we may suppose WLOG that $\varphi(0)=0$.
 
-      Now for any $\varphi\in\S$ consider the limit
-      \begin{align*}
-        \lim_{n\rightarrow\infty}\langle\phi_n,\varphi\rangle 
-        &=\lim_{n\rightarrow\infty}\int_{x\in\R} \phi_n(x)\varphi(x)\,dx\text{.}
-      \end{align*}
-      We hope this converges to $\varphi(0)$.
       First, we bound error in the integral away from the origin.
-      Fix some $\rho>0$ and let $\varepsilon$ be some small positive number.
+      Fix some $\rho>0$.
       Write
       \begin{align*}
         \sup_{|x|\ge\rho} |\varphi(x)| = C_\rho \text{.}
       \end{align*}
-      Pick $N$ so that for $n>N$
+      If $C_\rho=0$, then $\int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx=0$ for all $n$.
+      Otherwise fix some $\varepsilon>0$ and pick $N$ so that for $n>N$
       \begin{align*}
         \int_{|x|\ge\rho} \phi_n(x)\,dx
         < \frac\varepsilon{C_\rho}
       \end{align*}
       and so
       \begin{align*}
-        \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx
+        \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
         &\le C_\rho \cdot \int_{|x|\ge\rho} \phi_n(x)\,dx
-        < \varepsilon \text{,}
+        < \varepsilon \text{.}
       \end{align*}
-      showing that
+      Thus regardless of our choice of $\varphi$, for any $\varepsilon>0$ there is some $N$ so that $n>N$ implies
       \begin{align*}
-        \lim_{n\rightarrow\infty} \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx
-        = 0 \text{.}
+        \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
+        < \varepsilon \text{.}
       \end{align*}
 
       It remains to show that the integral on $(-\rho,\rho)$ converges to the desired value.
-      By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|<\rho$ implies $|\varphi(x)-\varphi(0)|<\varepsilon_\rho$, so
+      By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|<\rho$ implies $|\varphi(x)|<\varepsilon_\rho$.
+      Hence
       \begin{align*}
-        (\varphi(0)-\varepsilon_\rho)\cdot \int_{|x|<\rho} \phi_n(x)\,dx
-        \le \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx
-        \le (\varphi(0)+\varepsilon_\rho)\cdot \int_{|x|<\rho} \phi_n(x)\, dx
+        \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx \right|
+        &< \varepsilon_\rho\cdot \left| \int_{|x|<\rho} \phi_n(x)\,dx \right|
+        \le \varepsilon_\rho
       \end{align*}
-      Because $n$ and $\rho$ are independent of one another we may take the limits in any order, so we consider $n$ first.
-      Taking the limit of the bounding terms as $n$ grows, the integrals approach 1, so we have
+      because $\int_{|x|<\rho} \phi_n(x)\,dx \le 1$ for all $n$.
+
+      Thus, given any $\varepsilon>0$ there is some $N$ so that for any $n>N$
       \begin{align*}
-        \left| \lim_{n\rightarrow\infty}\left(\int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx\right) - \varphi(0) \right|
-        < \varepsilon_\rho
-      \end{align*}
-      Thus by combining the previous displays see that 
-      \begin{align*}
-        \lim_{n\rightarrow\infty}\left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right|
-        &\le \lim_{n\rightarrow\infty} \left( \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
-        + \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx -\varphi(0)\right| \right)
-        \\&< 0 + \varepsilon_\rho
+        \left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx \right|
+        &\le \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
+        + \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx\right|
+        < \varepsilon + \varepsilon_\rho \text{.}
       \end{align*}
       By the continuity of $\varphi$, $\varepsilon_\rho$ approaches zero as $\rho$ does.
-      Because the left-hand quantity in the display does not depend on $\rho$, by taking small $\rho$ we see that $\int_\R \phi_n\varphi$ must be arbitrarily close to $\varphi(0)$.
-      Thus $\{\phi_n\}$ is an approximate identity.
+      Because the left-hand quantity in the display does not depend on $\rho$, by taking small $\rho$ we see that $\int_\R \phi_n\varphi$ must be arbitrarily small.
+      Thus
+      \begin{align*}
+        \lim_n \int_{x\in\R} \phi_n(x)\varphi(x)\,dx = \lim_n\langle\phi_n,\varphi\rangle=0 \text{.}
+      \end{align*}
     \end{proof}
+
+    Having seen that any approximate identity approximates $\delta$ we hope to construct such a sequence.
+    See that non-negative real Schwartz functions exist because the function
+    \begin{equation*}
+      \label{eq:extestfcn}
+      h(x) =
+      \begin{cases}
+        e^\frac{1}{x^2-1} &\text{if }|x|<1\\
+        0 &\text{otherwise}
+      \end{cases}
+    \end{equation*}
+    is verifiable smooth at any $x\in\R$ and vanishes off a compact set, and so is Schwartz.
+    Thus we may let $\phi$ be a non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1.
+    Given any $\delta,\varepsilon>0$ consider the quantity
+    \begin{align*}
+      \int_{|x|\ge\delta} \phi_n(x) \,dx
+      &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
+    \end{align*}
+    Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
+    Thus for $n>X/\delta$ we have 
+    \begin{align*}
+      \int_{|x|\ge\delta} \phi_n(x) \,dx
+      &= \int_{|x|\ge n\delta} \phi(x) \,dx
+      \le \int_{|x|\ge X} \phi(x) \,dx
+      <\varepsilon \text{,}
+    \end{align*}
+    so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
+    Thus $\{\phi_n\}$ is an approximate identity.
 
     The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
     To see this, we must first recall a method for ``smoothing'' functions.
@@ -234,6 +267,7 @@
     \end{align*}
     gives rise to the distribution $\phi*u$ defined above.
     Calculate for any $\varphi\in\S$
+    \todo{fix this calculation}
     \begin{align*}
       \left\langle \psi, \varphi \right\rangle
       &= \int_{x\in\R} \langle u,T_{-x}\tilde\phi\rangle\varphi(x)\,dx
@@ -282,16 +316,7 @@
 
       Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity.
       Let $\psi_i$ be a Schwartz function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$.
-      See that such $\psi_i$ exist because the function
-      \begin{align*}
-        h(x) &=
-        \begin{cases}
-          e^\frac{1}{x^2-1} &\text{if }|x|<1\\
-          0 &\text{otherwise}
-        \end{cases}
-      \end{align*}
-      is verifiable smooth at any $x\in\R$.
-      The integral of $h$ 
+      See that such $\psi_i$ exist because the integral of the function $h(x)$ (see \cpageref{eq:extestfcn})
       \begin{align*}
         \int_{-\infty}^x h(t)\,dt
       \end{align*}
