@@ -23,61 +23,98 @@
     Linearity follows trivially from the definition.
     Thus we need only show that small inputs give small outputs, and continuity everywhere will follow from linearity.
     Let $\{\phi_i\}$ be a sequence in \S approaching the zero function.
-    For any $\varphi\in\S$, calculate
+    For any $f\in\S$ let $u_f$ be the distribution given by integration against $f$.
+    Then
     \begin{align*}
-      |\langle\varphi,\phi_i\rangle| 
-%      &= \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
-      &\le |\phi_i(x)|_\Coo \cdot \int_{x\in\R} |\varphi(x)|\,dx
+      |\langle u_f,\phi_i\rangle| 
+      &= \left|\int_{x\in\R} f(x)\phi_i(x)\,dx\right|
+      \le |\phi_i(x)|_\Coo \cdot \int_{x\in\R} |f(x)|\,dx
 %      \\&\le |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
     \end{align*}
     Because $\{\phi_i\}$ approaches zero in \S, $\{|\phi_i|_\Coo\}$ also approaches zero.
-    Thus the sequence $\{\langle\varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
+    Thus the sequence $\{\langle f,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
   \end{proof}
+  The proof above trivially shows that any $L^1$-integrable function $f$ gives rise to a tempered distribution by integration-against, even if $f$ fails to be Schwartz.
+  However, we wonder if there is some even larger family of classical functions that has such an inclusion into \SS.
+  Recall that \S is closed under multiplication by powers of $x$.
+  In fact, for a sequence $\{\phi_i\}\rightarrow 0$ in \S and any $\ell\in\Z_{>0}$, see that $\{x^\ell\phi_i(x)\}\rightarrow 0$ for any fixed $x\in\R$, and so by \cref{thm:sevalcts} $\{x^\ell\phi_i\}\rightarrow 0$.
+  Thus, pretending that some function $f$ does give rise to a distribution $u_f$, write for any $\ell\in\Z_{>0}$:
+  \begin{align*}
+    |\langle u_f,\phi_i\rangle| 
+    \le |x^\ell\phi_i(x)|_\Coo \cdot \int_{x\in\R} |x^{-\ell}f(x)|\,dx
+  \end{align*}
+  which approaches zero as $i$ grows, provided the integral is finite.
+  Thus a classical function $f$ gives rise to a tempered distribution $u_f$ whenever there is an $\ell$ so that $x^{-\ell}f$ is $L^1$-integrable.
 
-  The continuity of the integration-against functional shows that each Schwartz function gives rise to a tempered distribution.
-  In \cref{sec:tempdist} we saw that this inclusion allowed us to define the Fourier transform on \SS by the formula
-  \begin{align*}
-    \langle\F u, \varphi\rangle &= \langle u, \F\varphi\rangle
-    \qquad u\in\SS, \varphi\in\S \text{.}
-  \end{align*}
-  
-  We may define the derivative of a tempered distribution similarly.
-  For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that because $f\varphi$ vanishes at infinity:
-  \begin{align*}
-    \langle f', \varphi\rangle
-    &= -\int_{x\in\R} f(x)\varphi'(x)\,dx
-    = -\langle f,\varphi'\rangle\text{.}
-  \end{align*}
   \begin{defn}
-    For a tempered distribution $u$, the distributional derivative of $u$ (denoted as usual by $u'$) is given by
+    A continuous function $f$ is called a \emph{slow-growth function} if there exists some $\ell\in\Z_{\ge0}$ so that
     \begin{align*}
-      \langle u', \varphi\rangle = -\langle u, \varphi'\rangle
-      \qquad u\in\SS,\varphi\in\S \text{.}
+      \int_{x\in\R} |x^{-\ell} f(x)|\,dx < \infty \text{.}
     \end{align*}
-    When $u$ is given by (integration against) a Schwartz function $f$, the distribution $u'$ is given by the derivative $f'\in\S$ by the calculation above. 
   \end{defn}
-  
-  As with the Fourier Transform, the definition of the distributional derivative extends good properties of \S to all of $\S^*$.
-  It is immediately obvious that any tempered distribution has infinitely many derivatives which are all themselves tempered distributions.
-  We might also expect that, as on $\S$, the differentiation map is continuous on $\S^*$, but this involves topology on $S^*$, which we have not yet developed.
-  We thus give the space of tempered distributions the so-called ``initial topology'', which allows us to carry topology from a space to its dual.
-  \begin{defn}
-    Let $X^*$ be the continuous linear dual of a topological space $X$.
-    The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology ensuring that for all $\varphi\in X^*$ the evaluation functional
-    \begin{gather*}
-      u_\varphi: X^*\rightarrow\C, \qquad f\mapsto\langle\varphi,f\rangle
-    \end{gather*}
-    is continuous.
-  \end{defn}
+  The discussion above immediately shows that any slow-growth function $f$ gives rise to a tempered distribution $u_f$ by integration-against-$f$.
+  Particularly, any polynomial is a slow-growth function, and so gives rise to a tempered distribution \todo{this is false with defn. given}.
+  However, the exponential function $e^x$ is not of slow-growth, as it grows faster than any power of $x$ for large $x$.
+%  We wonder if the converse of this is also true, so the only functions giving rise to distributions are slow-growth functions.
+%
+%  \begin{thm}
+%    If a distribution $u$ is given by integration against a classical function $f$, then $f$ is of slow growth.
+%  \end{thm}
+%  \begin{proof}
+%    For any Schwartz function $\varphi$, the quantity
+%    \begin{align*}
+%      | \langle u, \varphi\rangle |
+%      &= \left| \int_{x\in\R} f(x)\varphi(x)\,dx \right|
+%      \call C
+%    \end{align*}
+%    is finite.
+%  \end{proof}
 
-  \begin{claim}
-    The differentiation map $D:\SS\rightarrow\SS$ is continuous under the \ws.
-  \end{claim}
-  \begin{proof}
-    Consider a sequence of tempered distributions $\{u_i\}$ that converges to zero.
-    By definition of the \ws, we have for any Schwartz function $\varphi$, the sequence $\{\langle u_i,\varphi\rangle\}$ converges to zero by continuity of the evaluation-at-$\varphi$ functional.
-    Thus the sequence $ \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0 $ and so $\{Du_i\}\rightarrow 0$ in the \ws.
-  \end{proof}
+  \section{Adjoint Identities and Topology on \SS}
+    The continuity of the integration-against functional shows that each Schwartz function gives rise to a tempered distribution.
+    In \cref{sec:tempdist} we saw that this inclusion allowed us to define the Fourier transform on \SS by the formula
+    \begin{align*}
+      \langle\F u, \varphi\rangle &= \langle u, \F\varphi\rangle
+      \qquad u\in\SS, \varphi\in\S \text{.}
+    \end{align*}
+    
+    We may define the derivative of a tempered distribution similarly.
+    For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that because $f\varphi$ vanishes at infinity:
+    \begin{align*}
+      \langle f', \varphi\rangle
+      &= -\int_{x\in\R} f(x)\varphi'(x)\,dx
+      = -\langle f,\varphi'\rangle\text{.}
+    \end{align*}
+    \begin{defn}
+      For a tempered distribution $u$, the distributional derivative of $u$ (denoted as usual by $u'$) is given by
+      \begin{align*}
+        \langle u', \varphi\rangle = -\langle u, \varphi'\rangle
+        \qquad u\in\SS,\varphi\in\S \text{.}
+      \end{align*}
+      When $u$ is given by (integration against) a Schwartz function $f$, the distribution $u'$ is given by the derivative $f'\in\S$ by the calculation above. 
+    \end{defn}
+    
+    As with the Fourier Transform, the definition of the distributional derivative extends good properties of \S to all of $\S^*$.
+    It is immediately obvious that any tempered distribution has infinitely many derivatives which are all themselves tempered distributions.
+    We might also expect that, as on $\S$, the differentiation map is continuous on $\S^*$, but this involves topology on $S^*$, which we have not yet developed.
+    We thus give the space of tempered distributions the so-called ``initial topology'', which allows us to carry topology from a space to its dual.
+    \begin{defn}
+      Let $X^*$ be the continuous linear dual of a topological space $X$.
+      The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology ensuring that for all $\varphi\in X^*$ the evaluation functional
+      \begin{gather*}
+        u_\varphi: X^*\rightarrow\C, \qquad f\mapsto\langle\varphi,f\rangle
+      \end{gather*}
+      is continuous.
+    \end{defn}
+
+    \begin{claim}
+      The differentiation map $D:\SS\rightarrow\SS$ is continuous under the \ws.
+    \end{claim}
+    \begin{proof}
+      Consider a sequence of tempered distributions $\{u_i\}$ that converges to zero.
+      By definition of the \ws, we have for any Schwartz function $\varphi$, the sequence $\{\langle u_i,\varphi\rangle\}$ converges to zero by continuity of the evaluation-at-$\varphi$ functional.
+      Thus the sequence $ \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0 $ and so $\{Du_i\}\rightarrow 0$ in the \ws.
+    \end{proof}
 
   \section{Approximation by Schwartz Functions}
     A simple distribution is \emph{Dirac delta}:
@@ -329,10 +366,9 @@
       \end{align*}
     \end{proof}
 
-    Thus any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
-    Unfortunately, arbitrary mollifications need not be Schwartz.
-    \todo{mention somewhere that TDs may arise from polynomials, etc.}
-    We wonder whether arbitrary smooth functions may be approximated by Schwartz functions.
+    Any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
+    Unfortunately, arbitrary mollifications need not be Schwartz functions; they might be of slow growth and never vanish as $x$ grows.
+    Thus we wonder whether arbitrary smooth functions may be approximated by Schwartz functions.
     To this end, consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).
     Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
     \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
@@ -346,6 +382,7 @@
     \end{align*}
     has value 0 for $x$ to the left of -1 and grows smoothly on $[-1,1]$ to a positive constant, which it takes for all $x>1$.
     Glueing this function to a translated and mirrored version of itself gives a mesa function.
+    Just as approximate identities allow approximation of tempered distributions by smooth functions, mesa functions are used to approximate smooth functions with test functions.
 
     \begin{figure}[t]
       \begin{center}
@@ -379,6 +416,24 @@
       Thus \D is dense in \S.
     \end{proof}
 
+    \begin{lemma}
+      \label{lemma:ddenseinssfromsmooth}
+      Let $u_f$ be a tempered distribution given by integrating against a smooth function $f$.
+      Then there is a sequence of test functions $\{\phi_i\}$ that gives (via integration-against) a sequence of distributions approximating $u_f$ in the \ws.
+    \end{lemma}
+    \begin{proof}
+      Let $\{\psi_i\}$ be a sequence of mesa functions as above, and define $\phi_i$ by $\phi_i(x) = \psi_i(x)f(x)$.
+      See that each $\phi_i$ is test because it is smooth and vanishes identically for large $|x|$.
+      Identifying the $\phi_i$ with the corresponding tempered distributions, calculate for any $\varphi\in\S$
+      \begin{align*}
+        \langle \phi_i, \varphi\rangle
+        &= \int_{x\in\R} \psi_i(x)f(x)\varphi(x)\,dx
+        = \langle u_f, \psi_i\varphi\rangle
+        \underset{i}{\rightarrow} \langle u_f, \varphi\rangle
+      \end{align*}
+      by the continuity of evaluation and \cref{lemma:ddenseins}
+    \end{proof}
+
     \begin{thm}
       \label{thm:sdenseinss}
       The space of Schwartz functions is dense in the space of tempered distributions.
@@ -388,8 +443,8 @@
       Now pick a neighborhood $U$ of $u$ in \SS.
       Because the sequence $\{\phi_n*u\}\rightarrow u$ by \cref{lemma:mollwithid} there is some $n$ so that $\phi_n*u\in U$.
 %      Then because the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ there is some $i$ so that $\psi_i(\phi_n*u)\in U$.
-      By \cref{lemma:ddenseins}, there is some mesa function $\psi$ so that $\psi(\phi_n*u)\in U$.
-      Because $\psi(\phi_n*u)$ is Schwartz, and $u$ and $U$ were arbitrary, \S is dense in \SS.
+      By \cref{lemma:ddenseinssfromsmooth}, there is some mesa function $\psi$ so that $\psi(\phi_n*u)\in U$.
+      Because $\psi(\phi_n*u)$ is test (and thus Schwartz) and $u$ and $U$ were arbitrary, \S is dense in \SS.
     \end{proof}
 
 \end{document}
