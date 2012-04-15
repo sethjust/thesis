@@ -300,7 +300,32 @@
       \end{align*}
     \end{proof}
 
-    We hope to use a similar process to approximate tempered distributions.
+    In fact, we may define convolution by a simpler, vector-valued integral.
+    Compactly supported \todo{define this term} maps $a:\R\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?}
+    \begin{align*}
+      A = \int_\R a
+    \end{align*}
+    that satisfies for any $v\in\SS$
+    \begin{align*}
+      \langle v, A\rangle
+      &= \int_{y\in\R} \langle v, a(y)\rangle\,dy \text{.}
+    \end{align*}
+    Let $f$ be a Schwartz function with compact support and let $g\in\S$.
+    Define $a(y)=f(y)T_{-y}g$, so
+    \begin{align*}
+      \left\langle v, \int_{y\in\R} f(y)T_{-y}g \right\rangle
+      &= \int_{y\in\R} \langle v, f(y)T_{-y}g\rangle\, dy \text{.}
+    \end{align*}
+    Taking $v$ to be a (translated) approximate identity, take the limit and see
+    \begin{align*}
+      \left( \int_{y\in\R} f(y)T_{-y}g \right)(x)
+      &= \int_{y\in\R} f(y)g(x-y)\,dx
+    \end{align*}
+    and so the covolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
+    Additionally, we know that $f*g=g*f$, and so the integral of $g(y)T_{-y}f$ is also $f*g$.
+    \todo{this is total bunk; we can't say that that integral exists}
+
+    We hope to use a process similar to convolution to approximate tempered distributions.
     Happily, the action of \S on itself gives an action of \S on its embedded image in \SS.
     For some $f,g\in\S$, $f$ acts on the distribution $u_g$ arising from $g$ by
     \begin{align*}
@@ -341,7 +366,6 @@
     \end{align*}
     gives rise to the distribution $\phi*u$ defined above.
     Calculate for any $\varphi\in\S$
-    \todo{fix this calculation}
     \begin{align*}
       \left\langle \psi, \varphi \right\rangle
       &= \int_{x\in\R} \langle u,T_{-x}\tilde\phi\rangle\varphi(x)\,dx
@@ -349,7 +373,7 @@
 %      \\&= \left\langle u, \int_{x\in\R} \tilde\phi(y-x)\varphi(x)\,dx \right\rangle
       = \langle u, \tilde\phi*\varphi\rangle
     \end{align*}
-    with the second equality exchanging the order of integration.
+    with the second equality uses the properties of the Gelfand--Pettis integral on \S. \todo{once again this is bunk because the integral may not exist without compact support.}
     Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\psi(x)=\langle u, T_{-x}\tilde\phi\rangle$.
     Because $f\mapsto\tilde f$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
     \begin{align*}
