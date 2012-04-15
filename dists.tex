@@ -7,7 +7,7 @@
   With a firm grasp of the topology of \S, we now turn back to topological issues.
   Recall from \cref{sec:tempdist} that continuous linear dual of \S is the space of \emph{tempered distributions}:
   \begin{align*}
-    \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
+    \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is linear and continuous}\}
   \end{align*}
   This definition is now fully sensible, as we know what it means to be a continuous functional on \S.
   Recall the mapping taking a Schwartz function $\varphi$ to the integration-against-$\varphi$ functional on \S:
@@ -16,49 +16,75 @@
   \end{align*}
   We hope that this map takes elements of \S into elements of $\S^*$, as we might expect it to.
   \begin{thm}
-    The integration-against functional is continuous and linear.
-    Thus, the mapping above gives an inclusion $\S\rightarrow\S^*$.
+    \label{thm:intagainstiscont}
+    For any $\varphi\in\S$ the integration-against-$\varphi$ functional on \S is linear and continuous.
+    Thus the mapping above gives an inclusion of sets $\S\rightarrow\S^*$.
   \end{thm}
   \begin{proof}
     Linearity follows trivially from the definition.
     Thus we need only show that small inputs give small outputs, and continuity everywhere will follow from linearity.
     Let $\{\phi_i\}$ be a sequence in \S approaching the zero function.
-    For any $f\in\S$ let $u_f$ be the distribution given by integration against $f$.
     Then
     \begin{align*}
-      |\langle u_f,\phi_i\rangle| 
-      &= \left|\int_{x\in\R} f(x)\phi_i(x)\,dx\right|
-      \le |\phi_i(x)|_\Coo \cdot \int_{x\in\R} |f(x)|\,dx
-%      \\&\le |\phi_i|_{C^k_\ell}\cdot\int_{x\in\R}|\varphi(x)|\,dx
+      \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
+      \le |\varphi|_{L^1}\cdot |\phi_i|_\Coo
     \end{align*}
     Because $\{\phi_i\}$ approaches zero in \S, $\{|\phi_i|_\Coo\}$ also approaches zero.
-    Thus the sequence $\{\langle f,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
+    Thus the sequence $\{\langle \varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
   \end{proof}
   The proof above trivially shows that any $L^1$-integrable function $f$ gives rise to a tempered distribution by integration-against, even if $f$ fails to be Schwartz.
   However, we wonder if there is some even larger family of classical functions that has such an inclusion into \SS.
   Recall that \S is closed under multiplication by powers of $x$.
-  In fact, for a sequence $\{\phi_i\}\rightarrow 0$ in \S and any $\ell\in\Z_{>0}$, see that $\{x^\ell\phi_i(x)\}\rightarrow 0$ for any fixed $x\in\R$, and so by \cref{thm:sevalcts} $\{x^\ell\phi_i\}\rightarrow 0$.
+  In fact, for a sequence $\{\phi_i\}\rightarrow 0$ in \S and any $\ell\in\Z_{>0}$, see that $\{(1+x^2)^\ell\phi_i(x)\}\rightarrow 0$ for any fixed $x\in\R$, and so by \cref{thm:sevalcts} $\{(1+x^2)^\ell\phi_i\}\rightarrow 0$.
   Thus, pretending that some function $f$ does give rise to a distribution $u_f$, write for any $\ell\in\Z_{>0}$:
   \begin{align*}
     |\langle u_f,\phi_i\rangle| 
-    \le |x^\ell\phi_i(x)|_\Coo \cdot \int_{x\in\R} |x^{-\ell}f(x)|\,dx
+    = \int_{x\in\R} \left( (1+x^2)^\ell\phi_i(x) \right) \cdot \left( (1+x^2)^{-\ell} f(x) \right) \,dx
   \end{align*}
   which approaches zero as $i$ grows, provided the integral is finite.
-  Thus a classical function $f$ gives rise to a tempered distribution $u_f$ whenever there is an $\ell$ so that $x^{-\ell}f$ is $L^1$-integrable.
+  Thus a classical function $f$ gives rise to a tempered distribution $u_f$ if there is an $\ell$ so that $(1+x^2)^{-\ell}f$ times any Schwartz function is $L^1$-integrable.
 
   \begin{defn}
-    A continuous function $f$ is called a \emph{slow-growth function} if there exists some $\ell\in\Z_{\ge0}$ so that
+    A continuous function $f$ is called a \emph{slowly increasing function} if there exists some $\ell\in\Z_{\ge0}$ so that
     \begin{align*}
-      \int_{x\in\R} |x^{-\ell} f(x)|\,dx < \infty \text{.}
+      \lim_{|x|\rightarrow\infty} \left| \frac{f(x)}{(1+x^2)^{\ell}} \right| \,dx < \infty \text{.}
     \end{align*}
+    If $f$ is infinitely differentiable and all of its derivatives (including the zeroth) is slowly increasing, then $f$ is called a \emph{fairly good function}.
   \end{defn}
-  The discussion above immediately shows that any slow-growth function $f$ gives rise to a tempered distribution $u_f$ by integration-against-$f$.
-  Particularly, any polynomial is a slow-growth function, and so gives rise to a tempered distribution \todo{this is false with defn. given}.
-  However, the exponential function $e^x$ is not of slow-growth, as it grows faster than any power of $x$ for large $x$.
-%  We wonder if the converse of this is also true, so the only functions giving rise to distributions are slow-growth functions.
+  See that any slowly increasing function $f$ gives rise to a tempered distribution $u_f$ by integration-against-$f$ because the product of slowly increasing and Schwartz is \li:
+  \begin{lemma}
+    \label{lemma:sitimesschwartzli}
+    Suppose that $f$ is a slowly increasing function.
+    Then for any $g\in\S$, the product $fg$ is \li.
+  \end{lemma}
+  \begin{proof}
+    Because $f$ is slowly increasing there is some $\ell$ so that the function $(1+x^2)^\ell f$ is bounded.
+    Thus there is some $B$ so that $|(1+x^2)^{-\ell} f(x)|<B$ for all $x\in\R$.
+    So calculate
+    \begin{align*}
+      \int_{x\in\R} |(1+x^2)^\ell g(x)|\cdot|(1+x^2)^{-\ell} f(x)|\,dx
+      &\le B\cdot \int_{x\in\R} |(1+x^2)^\ell g(x)|\,dx
+    \end{align*}
+    which is finite because $g$ is Schwartz.
+  \end{proof}
+  \begin{lemma}
+    Suppose that $f$ is a fairly good function.
+    Then for any $g\in\S$, the product $fg$ is Schwartz.
+  \end{lemma}
+  \begin{proof}
+    By the product rule, the product of smooth functions is smooth, thus we need only show that the product (and its derivatives) decay quickly.
+    For any $\ell>0$ see that $(1+x^2)^\ell (fg)(x) = \left(f\cdot((1+x^2)^\ell g)\right)(x)$ which is integrable by \cref{lemma:sitimesschwartzli}.
+    Thus $(1+x^2)^\ell fg$ vanishes at infinity for any $\ell$.
+    By the product rule, any derivative $fg^{(i)}$ is a sum of fairly good times Schwartz, and so each term vanishes independently at infinity.
+    Thus $fg$ is Schwartz.
+  \end{proof}
+
+  Notably, any polynomial is a fairly good function, and so gives rise to a tempered distribution.
+  However, the exponential function $e^x$ is not slowly increasing, as it grows faster than any power of $x$ for large $x$.
+%  We wonder if the converse of this is also true, so the only functions giving rise to distributions are slowly increasing functions.
 %
 %  \begin{thm}
-%    If a distribution $u$ is given by integration against a classical function $f$, then $f$ is of slow growth.
+%    If a distribution $u$ is given by integration against a classical function $f$, then $f$ is slowly increasing
 %  \end{thm}
 %  \begin{proof}
 %    For any Schwartz function $\varphi$, the quantity
@@ -82,7 +108,8 @@
     For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that because $f\varphi$ vanishes at infinity:
     \begin{align*}
       \langle f', \varphi\rangle
-      &= -\int_{x\in\R} f(x)\varphi'(x)\,dx
+      &= \int_{x\in\R} f'(x)\varphi(x)\,dx
+      = -\int_{x\in\R} f(x)\varphi'(x)\,dx
       = -\langle f,\varphi'\rangle\text{.}
     \end{align*}
     \begin{defn}
@@ -116,6 +143,13 @@
       Thus the sequence $ \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0 $ and so $\{Du_i\}\rightarrow 0$ in the \ws.
     \end{proof}
 
+    \begin{thm}
+      The inclusion $\S\rightarrow\SS$ given by $\varphi\longmapsto\left( \phi\mapsto \int_{x\in\R} \varphi(x)\phi(x)\,dx \right)$ is linear and continuous, and thus gives an inclusion of topological vectorspaces.
+    \end{thm}
+    \begin{proof}
+      Linearity is immediate from the definition and continuity follows from the same inequality as \cref{thm:intagainstiscont} with $\varphi$ and $\phi$ exchanged.
+    \end{proof}
+
   \section{Approximation by Schwartz Functions}
     A simple distribution is \emph{Dirac delta}:
     \begin{gather*}
@@ -130,7 +164,7 @@
       \int_{x\in\R} \delta(x)\,dx = 1
     \end{gather*}
     but for any $z=\delta(0)\in\C$ the integral must be zero.
-    Instead we think of $\delta$ as an infinitesimally narrow spike with area one.
+    Instead we think of $\delta$ as an infinitesimally narrow spike with area 1.
     This idea allow us to see that $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
     \begin{align*}
       \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
@@ -142,14 +176,14 @@
       \begin{itemize}
         \item $\phi_n(x)$ is non-negative and real for all $n$ and $x\in\R$;
         \item $\int_{x\in\R}\phi_n(x)\,dx=1$ for all $n$;
-        \item for any $\delta,\varepsilon>0$ there exists some $N$ so that for all $n>N$ 
+        \item for any $\rho>0$ there exists some $N$ so that for all $n>N$ 
           \begin{align*}
-            \int_{|x|\ge\delta}\phi_n(x)\,dx < \varepsilon \text{.}
+            \phi_n(x) = 0 \text{ whenever } |x|\ge\rho \text{.}
           \end{align*}
       \end{itemize}
     \end{defn}
-    The idea of an approximate identity is to construct a sequence of functions with constant ``mass'' that clusters around zero as $n$ increases.
-    Intuitively the limit of such a function is exactly $\delta$: a point-mass gathered at zero.
+    The idea of an approximate identity is to construct a sequence of functions with constant ``mass'' 1 that clusters tightly around zero as $n$ increases.
+    Intuitively the limit of such a function is exactly $\delta$: a unit point-mass gathered at zero.
 
     \begin{thm}[Approximate Identity Theorem]
       \label{thm:approxid}
@@ -164,35 +198,21 @@
       approaches $\varphi(0)$ as $n$ grows.
       See that
       \begin{align*}
-        \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx
-        &= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \int_{x\in\R} \phi_n(x)\varphi(0)\,dx
-        \\&= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \varphi(0)
+        |\langle\phi_n,\varphi\rangle - \varphi(0)|
+        &=\left| \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx \right|
+        \\&\le \int_{x\in\R} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
+%        &= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \int_{x\in\R} \phi_n(x)\varphi(0)\,dx
+%        \\&= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \varphi(0)
       \end{align*}
-      and so we may suppose WLOG that $\varphi(0)=0$.
+      which is arbitrarily small for large $n$ because $\varphi$ is continuous and $\phi_n$ kills everything outside a small neighborhood of 0.
+      Thus we may suppose WLOG that $\varphi(0)=0$.
 
-      First, we bound error in the integral away from the origin.
-      Fix some $\rho>0$.
-      Write
-      \begin{align*}
-        \sup_{|x|\ge\rho} |\varphi(x)| = C_\rho \text{.}
-      \end{align*}
-      If $C_\rho=0$, then $\int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx=0$ for all $n$.
-      Otherwise fix some $\varepsilon>0$ and pick $N$ so that for $n>N$
-      \begin{align*}
-        \int_{|x|\ge\rho} \phi_n(x)\,dx
-        < \frac\varepsilon{C_\rho}
-      \end{align*}
-      and so
+      First, for some $\rho>0$, see that there is some $N$ so that for $n>N$
       \begin{align*}
         \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
-        &\le C_\rho \cdot \int_{|x|\ge\rho} \phi_n(x)\,dx
-        < \varepsilon \text{.}
+        = 0
       \end{align*}
-      Thus regardless of our choice of $\varphi$, for any $\varepsilon>0$ there is some $N$ so that $n>N$ implies
-      \begin{align*}
-        \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
-        < \varepsilon \text{.}
-      \end{align*}
+      by the definition of approximate identity.
 
       It remains to show that the integral on $(-\rho,\rho)$ converges to the desired value.
       By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|<\rho$ implies $|\varphi(x)|<\varepsilon_\rho$.
@@ -204,18 +224,19 @@
       \end{align*}
       because $\int_{|x|<\rho} \phi_n(x)\,dx \le 1$ for all $n$.
 
-      Thus, given any $\varepsilon>0$ there is some $N$ so that for any $n>N$
+      Thus, there is some $N$ so that for any $n>N$
       \begin{align*}
         \left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx \right|
         &\le \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
         + \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx\right|
-        < \varepsilon + \varepsilon_\rho \text{.}
+        < 0+\varepsilon_\rho \text{.}
       \end{align*}
       By the continuity of $\varphi$, $\varepsilon_\rho$ approaches zero as $\rho$ does.
       Because the left-hand quantity in the display does not depend on $\rho$, by taking small $\rho$ we see that $\int_\R \phi_n\varphi$ must be arbitrarily small.
       Thus
       \begin{align*}
-        \lim_n \int_{x\in\R} \phi_n(x)\varphi(x)\,dx = \lim_n\langle\phi_n,\varphi\rangle=0 \text{.}
+%        \lim_n \int_{x\in\R} \phi_n(x)\varphi(x)\,dx =
+        \lim_n\langle\phi_n,\varphi\rangle=0=\varphi(0) \text{.}
       \end{align*}
     \end{proof}
 
@@ -230,21 +251,21 @@
       \end{cases}
     \end{equation}
     is verifiable smooth at any $x\in\R$ and is identically zero off a bounded set, and so is Schwartz.
-    Thus we may let $\phi$ be a non-negative Schwartz function having integral 1, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1.
-    Given any $\delta,\varepsilon>0$ consider the quantity
-    \begin{align*}
-      \int_{|x|\ge\delta} \phi_n(x) \,dx
-      &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
-    \end{align*}
-    Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
-    Thus for $n>X/\delta$ we have 
-    \begin{align*}
-      \int_{|x|\ge\delta} \phi_n(x) \,dx
-      &= \int_{|x|\ge n\delta} \phi(x) \,dx
-      \le \int_{|x|\ge X} \phi(x) \,dx
-      <\varepsilon \text{,}
-    \end{align*}
-    so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
+    Thus we may let $\phi$ be a non-negative Schwartz function having integral 1 and vanishing off of $[-A,A]$, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1 and vanishing off of $[-A/n,A/n]$.
+%    Given any $\delta,\varepsilon>0$ consider the quantity
+%    \begin{align*}
+%      \int_{|x|\ge\delta} \phi_n(x) \,dx
+%      &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
+%    \end{align*}
+%    Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
+%    Thus for $n>X/\delta$ we have 
+%    \begin{align*}
+%      \int_{|x|\ge\delta} \phi_n(x) \,dx
+%      &= \int_{|x|\ge n\delta} \phi(x) \,dx
+%      \le \int_{|x|\ge X} \phi(x) \,dx
+%      <\varepsilon \text{,}
+%    \end{align*}
+%    so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
     Thus $\{\phi_n\}$ is an approximate identity.
 
     The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
@@ -268,12 +289,12 @@
     It is almost immediate that this action allows approximation of any Schwartz function by convolution with an approximate identity:
     \begin{lemma}
       \label{lemma:approxbyconv}
-      For an approximate identity $\{\phi_n\}$ and any $\varphi\in\S$, the sequence of mollifications $\{\phi_n*\varphi\}$ approximates $\varphi$ in \S.
+      For an approximate identity $\{\phi_n\}$ and any $g\in\S$, the sequence of convolutions $\{\phi_n*g\}$ approximates $g$ in \S.
     \end{lemma}
     \begin{proof}
       Use \cref{thm:approxid} to calculate
       \begin{align*}
-        (\phi_n*\varphi)(x)
+        (\phi_n*g)(x)
         &= \int_{y\in\R} \phi_n(y)g(x-y)\,dy
         \underset{n}{\rightarrow} g(x) \text{.}
       \end{align*}
@@ -367,9 +388,13 @@
     \end{proof}
 
     Any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
-    Unfortunately, arbitrary mollifications need not be Schwartz functions; they might be of slow growth and never vanish as $x$ grows.
+    Unfortunately, arbitrary mollifications need not be Schwartz functions; they might only be fairly good functions that never vanish as $x$ grows.
     Thus we wonder whether arbitrary smooth functions may be approximated by Schwartz functions.
-    To this end, consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).
+    To this end, consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).\footnotemark
+    \footnotetext{
+      This is not the first time we have seen test functions; approximate identities are in fact sequences in \D.
+      As was the case proving \cref{thm:approxid}, test functions are useful because their product with any function still has compact support.
+    }
     Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
     \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
     \D is called the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
@@ -406,13 +431,33 @@
       Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity and for any $i$ let $\psi_i$ be a mesa function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$, as shown in \cref{fig:mesafunc}.
       Given some $\varphi\in\S$, for any $i$ the function $\psi_i\varphi$ is a test function because it is zero for $|x|>A_i+1$ and pointwise multiplication of functions does not affect smoothness.
       Thus it remains only to show that $\{\psi_i\varphi\}\rightarrow\varphi$ in \S; this is the case whenever the sequence converges in every \Ckl.
-      Calculate
+      Recall
       \begin{align*}
         |\psi_i\varphi - \varphi|_\Ckl
-        &\le |\psi_i\varphi - \varphi|_\Coo
-        \le \sup_{|x|>A_i} |\varphi(x)|
+        &= \sum_{0\le j\le k} \sup_{x\in\R} |(1+x^2)^\ell (\psi_i\varphi-\varphi)^{(j)}(x)|
+        \\&\le \sum_{0\le j\le k} \sup_{x\in\R} |(\psi_i\varphi-\varphi)^{(j)}(x)|
+%        &\le |\psi_i\varphi - \varphi|_\Coo
+%        \le \sup_{|x|>A_i} |\varphi(x)|
       \end{align*}
-      which approaches zero for large $i$ because $\varphi$ is Schwartz.
+      See that any derivative $(\psi_i\varphi-\varphi)^{(j)}$ is a sum has one term that is Schwartz ($\varphi^{(j)}$), and the remaining terms are the product of a Schwartz function with a test function.
+      As $i$ grows we hope that all these terms vanish because the supremum of a sum is less than or equal to the sum of the suprema.
+      First group the Schwartz-only term with the matching term $\psi_i\cdot\varphi^{(j)}$ and see that 
+      \begin{align*}
+        \sup_{x\in\R} |\psi_i(x)\varphi^{(j)}(x)-\varphi^{(j)}(x)|
+        &= \sup_{x\in\R} |(\psi_i(x)-1)|\cdot|\varphi^{(j)}(x)|
+        = \sup_{|x|>A_i} |(\psi_i(x)-1)|\cdot|\varphi^{(j)}(x)|
+      \end{align*}
+      approches zero as $i$ grows because $\psi_i-1$ remains bounded while $\varphi^{(j)}$ approaches zero.
+      
+      The remaining terms have the form
+      \begin{align*}
+        \sup_{x\in\R} |\varphi^{(m)}(x)\psi_i^{(n)}(x)|
+      \end{align*}
+      where $m+n=j$ and $n>0$.
+      See that $\psi_i^{(n)}$ is uniformly zero on $[-A_i,A_i]$ and outside $[-A_i-1,A_i+1]$.
+      For any $i$, $\psi_i^{(n)}$ is bounded, and as $i$ grows $\sup\limits_{|x|\in[A_i,A_i+1]}\varphi^{(m)}(x)$ dies faster than any power of $A_i$.
+      Thus the term goes to zero as long as the bound of $\psi_i^{(n)}$ is slowly increasing w.r.t. $A_i$ as $i$ grows, which is at least assured by careful choices of $\psi_i$. \todo{clear this up} 
+
       Thus \D is dense in \S.
     \end{proof}
 
