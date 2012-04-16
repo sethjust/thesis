@@ -40,7 +40,7 @@ thesis.aux thesis.sage: $(TEXFILES)
 	touch $@
 
 #SAGE = python sagetex/remote-sagetex.py -s http://cerberus.sethjust.com:8000 -u admin -p robots
-SAGE = ~/bin/sage/sage
+SAGE = sage
 %.sout: %.sage %.sagetex.sage
 # Check if sage changed; can't use dates b/c latex overwrites the .sage
 	(!(diff $*.sage .$*.sage.bak) && (($(SAGE) $< && cp $*.sage .$*.sage.bak) || echo "\n Did not run sage; re-run with a valid connection!\n")); true
