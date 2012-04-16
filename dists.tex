@@ -171,8 +171,8 @@
     \end{align*}
     Because $\{\langle\phi_n,\varphi\rangle\}\rightarrow\langle\delta,\varphi\rangle$ for arbitrary $\varphi\in\S$, by definition $\{\phi_n\}\rightarrow\delta$ in the \ws.
 
-    \begin{defn}[Approximate Identity]
-      A sequence of Schwartz functions $\{\phi_n\}$ is called an \emph{approximate identity} whenever
+    \begin{defn}[Test Approximate Identity]
+      A sequence of test functions $\{\phi_n\}$ is called a \emph{test approximate identity} whenever
       \begin{itemize}
         \item $\phi_n(x)$ is non-negative and real for all $n$ and $x\in\R$;
         \item $\int_{x\in\R}\phi_n(x)\,dx=1$ for all $n$;
@@ -181,13 +181,14 @@
             \phi_n(x) = 0 \text{ whenever } |x|\ge\rho \text{.}
           \end{align*}
       \end{itemize}
+      Because any approximate identity we make use of will consist of  test functions, the term ``approximate identity'' is taken to mean a test approximate identity.
     \end{defn}
     The idea of an approximate identity is to construct a sequence of functions with constant ``mass'' 1 that clusters tightly around zero as $n$ increases.
     Intuitively the limit of such a function is exactly $\delta$: a unit point-mass gathered at zero.
 
     \begin{thm}[Approximate Identity Theorem]
       \label{thm:approxid}
-      Given an approximate identity $\{\phi_n\}$, $\lim_n\langle \phi_n,\varphi\rangle = \varphi(0)$ for any $\varphi\in\S$.
+      Given a test approximate identity $\{\phi_n\}$, $\lim_n \phi_n = \delta$ in the \ws.
     \end{thm}
     \begin{proof}
       For an arbitrary $\varphi\in\S$ we hope the quantity
@@ -200,43 +201,15 @@
       \begin{align*}
         |\langle\phi_n,\varphi\rangle - \varphi(0)|
         &=\left| \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx \right|
-        \\&\le \int_{x\in\R} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
-%        &= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \int_{x\in\R} \phi_n(x)\varphi(0)\,dx
-%        \\&= \int_{x\in\R} \phi_n(x)\varphi(x)\,dx - \varphi(0)
+        \le \int_{x\in\R} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx \text{.}
       \end{align*}
-      which is arbitrarily small for large $n$ because $\varphi$ is continuous and $\phi_n$ kills everything outside a small neighborhood of 0.
-      Thus we may suppose WLOG that $\varphi(0)=0$.
-
-      First, for some $\rho>0$, see that there is some $N$ so that for $n>N$
+      Given $\varepsilon>0$, there is some $\delta>0$ so that $|x|<\delta$ implies $|\varphi(x)-\varphi(0)|<\varepsilon$.
+      For large $n$, $\phi_n$ is uniformly zero off $[-\delta,\delta]$, so
       \begin{align*}
-        \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
-        = 0
-      \end{align*}
-      by the definition of approximate identity.
-
-      It remains to show that the integral on $(-\rho,\rho)$ converges to the desired value.
-      By the continuity of $\varphi$, there is some $\varepsilon_\rho$ so that $|x|<\rho$ implies $|\varphi(x)|<\varepsilon_\rho$.
-      Hence
-      \begin{align*}
-        \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx \right|
-        &< \varepsilon_\rho\cdot \left| \int_{|x|<\rho} \phi_n(x)\,dx \right|
-        \le \varepsilon_\rho
-      \end{align*}
-      because $\int_{|x|<\rho} \phi_n(x)\,dx \le 1$ for all $n$.
-
-      Thus, there is some $N$ so that for any $n>N$
-      \begin{align*}
-        \left| \int_{x\in\R} \phi_n(x)\varphi(x)\,dx \right|
-        &\le \left| \int_{|x|\ge\rho} \phi_n(x)\varphi(x)\,dx \right|
-        + \left| \int_{|x|<\rho} \phi_n(x)\varphi(x)\,dx\right|
-        < 0+\varepsilon_\rho \text{.}
-      \end{align*}
-      By the continuity of $\varphi$, $\varepsilon_\rho$ approaches zero as $\rho$ does.
-      Because the left-hand quantity in the display does not depend on $\rho$, by taking small $\rho$ we see that $\int_\R \phi_n\varphi$ must be arbitrarily small.
-      Thus
-      \begin{align*}
-%        \lim_n \int_{x\in\R} \phi_n(x)\varphi(x)\,dx =
-        \lim_n\langle\phi_n,\varphi\rangle=0=\varphi(0) \text{.}
+        |\langle\phi_n,\varphi\rangle - \varphi(0)|
+        \le \int_{|x|<\delta} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
+        \le \varepsilon \cdot \int_{|x|<\delta} \phi_n(x)\,dx
+        = \varepsilon \text{.}
       \end{align*}
     \end{proof}
 
