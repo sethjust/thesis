@@ -303,27 +303,66 @@
     In fact, we may define convolution by a simpler, vector-valued integral.
     Compactly supported \todo{define this term} maps $a:\R\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?}
     \begin{align*}
-      A = \int_\R a
+      A = \int_\R a(x)\,dx
     \end{align*}
     that satisfies for any $v\in\SS$
     \begin{align*}
       \langle v, A\rangle
       &= \int_{y\in\R} \langle v, a(y)\rangle\,dy \text{.}
     \end{align*}
-    Let $f$ be a Schwartz function with compact support and let $g\in\S$.
-    Define $a(y)=f(y)T_{-y}g$, so
+    Let $f$ and $g$ be Schwartz functions and suppose that $f$ has compact support.
+    Define $a(y)=f(y)T_{-y}g$, so for any $v\in\SS$
     \begin{align*}
-      \left\langle v, \int_{y\in\R} f(y)T_{-y}g \right\rangle
+      \left\langle v, \int_{\R} f(y)T_{-y}g\,dy \right\rangle
       &= \int_{y\in\R} \langle v, f(y)T_{-y}g\rangle\, dy \text{.}
     \end{align*}
     Taking $v$ to be a (translated) approximate identity, take the limit and see
     \begin{align*}
-      \left( \int_{y\in\R} f(y)T_{-y}g \right)(x)
+      \left( \int_{\R} f(y)T_{-y}g\,dy \right)(x)
       &= \int_{y\in\R} f(y)g(x-y)\,dx
     \end{align*}
     and so the covolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
-    Additionally, we know that $f*g=g*f$, and so the integral of $g(y)T_{-y}f$ is also $f*g$.
-    \todo{this is total bunk; we can't say that that integral exists}
+%    Additionally, we know that $f*g=g*f$, and so the integral of $g(y)T_{-y}f$ is also $f*g$.
+    
+    Hopefully the symmetry is maintained; that is, if $f$ and $g$ are exchanged we wonder if the integral of $a$ is still $f*g$.
+    This is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, and only $f$ has compact support..
+    \begin{claim}
+      \label{claim:GPconv}
+      For compactly supported $f$ and arbitrary $g$ in \S, the map $b(y)=g(y)T_{-y}f$ has a Gelfand--Pettis integral which is the convolution $f*g$.
+    \end{claim}
+    \begin{proof}
+      First, noting that $b$ clearly extends continuously to $b(\infty)=0$, we expand \R to the circle $X=\R\cup\{\infty\}$, which is compact.
+      To ensure that $X$ has finite measure, define
+      \begin{align*}
+        d\mu(x) = |x-i|^{-(1+\varepsilon)}\,dx \text{.}
+      \end{align*}
+      Correspondingly, we modify our function to be
+      \begin{align*}
+        b(x) = |x-i|^{1+\varepsilon} g(y)T_{-y}f
+      \end{align*}
+      so that
+      \begin{align*}
+        \int_X b(x)\,d\mu(x)
+        &= \int_{X} |x-i|^{1+\varepsilon} g(y)T_{-y}f\,d\mu(y
+        = \int_{\R} g(y)T_{-y}f\,dy
+      \end{align*}
+      exists in \S.
+      Thus we have for any $v\in\SS$
+      \begin{align*}
+        \left\langle v, \int_X b(y)\,d\mu(y) \right\rangle
+        &= \int_{y\in X} \langle v, g(y)T_{-y}f\rangle\, dy
+        = \int_{y\in\R} \langle v, g(y)T_{-y}f\rangle\, dy \text{.}
+      \end{align*}
+      Again taking $v$ to be an approximate identity centered at $x$ calculate
+      \begin{align*}
+        \left( \int_{\R} g(y)T_{-y}f\,dy \right)(x)
+        &= \int_{y\in\R} g(y)f(x-y)\,dx
+      \end{align*}
+      and so we see that for a compactly supported $f$ and arbitrary $g$ in \S, the convolution is given by equivalent Gelfand--Pettis integrals:
+      \begin{align*}
+        f*g = g*f = \int_\R f(x)T_{-x}g\,dx = \int_\R g(x)T_{-x}f\,dx \text{.}
+      \end{align*}
+    \end{proof}
 
     We hope to use a process similar to convolution to approximate tempered distributions.
     Happily, the action of \S on itself gives an action of \S on its embedded image in \SS.
@@ -341,7 +380,7 @@
       \\&= \langle u_g, \tilde f*\varphi\rangle
     \end{align*}
     where $\tilde f(x) = f(-x)$.
-    Again, this formula allows us to extend our definition of convolution to allow one of the arguments to be a distribution by an adjoint definition.
+    The definition of convolution extends by this formula to allow one of the arguments to be a distribution by an adjoint definition.
     Define the action of a Schwartz function $\phi$ on a distribution $u$ by the identity
     \begin{align*}
       \langle \phi*u, \varphi\rangle
@@ -373,8 +412,9 @@
 %      \\&= \left\langle u, \int_{x\in\R} \tilde\phi(y-x)\varphi(x)\,dx \right\rangle
       = \langle u, \tilde\phi*\varphi\rangle
     \end{align*}
-    with the second equality uses the properties of the Gelfand--Pettis integral on \S. \todo{once again this is bunk because the integral may not exist without compact support.}
+    with the second equality using the properties of the Gelfand--Pettis integral of $\varphi(x)T_{-x}\tilde\phi$, which exists by \cref{claim:GPconv}.
     Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\psi(x)=\langle u, T_{-x}\tilde\phi\rangle$.
+
     Because $f\mapsto\tilde f$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
     \begin{align*}
       x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
