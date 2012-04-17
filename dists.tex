@@ -203,7 +203,7 @@
       \begin{align*}
         |\psi_i\varphi - \varphi|_\Ckl
         &= \sum_{0\le j\le k} \sup_{x\in\R} |(1+x^2)^\ell (\psi_i\varphi-\varphi)^{(j)}(x)|
-        \\&\le \sum_{0\le j\le k} \sup_{x\in\R} |(\psi_i\varphi-\varphi)^{(j)}(x)|
+        \le \sum_{0\le j\le k} \sup_{x\in\R} |(\psi_i\varphi-\varphi)^{(j)}(x)| \text{.}
 %        &\le |\psi_i\varphi - \varphi|_\Coo
 %        \le \sup_{|x|>A_i} |\varphi(x)|
       \end{align*}
@@ -310,23 +310,9 @@
       \end{align*}
     \end{proof}
 
-    Having seen that any approximate identity approximates $\delta$ we hope to construct such a sequence.
-    Set $\phi$ be a non-negative Schwartz function having integral 1 and vanishing off of $[-A,A]$, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1 and vanishing off of $[-A/n,A/n]$.
-%    Given any $\delta,\varepsilon>0$ consider the quantity
-%    \begin{align*}
-%      \int_{|x|\ge\delta} \phi_n(x) \,dx
-%      &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
-%    \end{align*}
-%    Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
-%    Thus for $n>X/\delta$ we have 
-%    \begin{align*}
-%      \int_{|x|\ge\delta} \phi_n(x) \,dx
-%      &= \int_{|x|\ge n\delta} \phi(x) \,dx
-%      \le \int_{|x|\ge X} \phi(x) \,dx
-%      <\varepsilon \text{,}
-%    \end{align*}
-%    so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
-    Thus $\{\phi_n\}$ is an approximate identity.
+    Having seen that any approximate identity approximates $\delta$ it remains to show that such a sequence exists.
+    Some scaled version of the function $h$ from \cref{eq:extestfcn} is a non-negative test function having integral 1 and vanishing off of $[-1,1]$, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative test function having integral 1 and vanishing off of $[-1/n,1/n]$.
+    Thus, clearly, $\{\phi_n\}$ is an approximate identity.
 
     The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
     To see this, we must first recall a method for ``smoothing'' functions.
@@ -387,10 +373,11 @@
     Thus we refer to the distribution $\phi*u$ as the \emph{mollification} of $u$ by $\phi$.
 
     We hope that mollifications of a tempered distribution $u$ by a test approximate identity $\{\phi_n\}$ will approximate $u$ in the \ws.
-%    To this end, we first prove an identity about the convolution of a test function with a Schwartz function.
+    To this end, we first prove an identity about the convolution of a test function with a Schwartz function.
     For any $\varphi\in\S$ see that $\langle\phi_n*u,\varphi\rangle = \langle u, \tilde\phi_n*\varphi\rangle$.
-    We may define convolution $\phi_n*\varphi$ by a vector-valued integral.
-    Compactly supported \todo{define this term} maps $a:\R\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?}
+    We may define convolution $\phi_n*\varphi$ by a vector-valued integral which commutes with the paring $\langle\cdot,\cdot\rangle$.
+
+    Compactly supported maps $a:\R\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?}
     \begin{align*}
       A = \int_\R a(x)\,dx
     \end{align*}
@@ -413,7 +400,8 @@
     and so the covolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
     
     Hopefully the symmetry is maintained; that is, if $f$ and $g$ are exchanged we wonder if the integral of $a$ is still $f*g$.
-    This is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, and only $f$ has compact support..
+    This is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, which is only the case for $\int_\R a$ because $f$ is compactly supported, while $g$ is not.
+
     \begin{claim}
       \label{claim:GPconv}
       For compactly supported $f$ and arbitrary $g$ in \S, the map $b(y)=g(y)T_{-y}f$ has a Gelfand--Pettis integral which is the convolution $f*g$.
@@ -451,7 +439,7 @@
         f*g = g*f = \int_\R f(x)T_{-x}g\,dx = \int_\R g(x)T_{-x}f\,dx \text{.}
       \end{align*}
     \end{proof}
-%    While defining this convolution in terms of the Gelfand--Pettis integral requires some attention to details, the characterizing property that it commutes with linear operators will prove useful.
+    While defining this convolution in terms of the Gelfand--Pettis integral requires some attention to details, the characterizing property that it commutes with linear operators will prove useful.
 
     We might wonder if a mollification is in fact given by integration against some classical function.
     Again letting $f,g\in\S$, write
@@ -516,7 +504,8 @@
 
     Any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
     Unfortunately, arbitrary mollifications need not be Schwartz functions; they might only be fairly good functions that never vanish as $x$ grows.
-    Recall from \cref{lemma:ddenseinssfromsmooth} that arbitrary smooth functions may be approximated by Schwartz functions, and so we may approximate any tempered distribution by Schwartz functions:
+    Recall from \cref{lemma:ddenseinssfromsmooth} that arbitrary smooth functions may be approximated by test functions.
+    Thus we may approximate any tempered distribution by Schwartz functions:
 
     \begin{thm}
       \label{thm:sdenseinss}
