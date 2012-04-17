@@ -150,70 +150,9 @@
       Linearity is immediate from the definition and continuity follows from the same inequality as \cref{thm:intagainstiscont} with $\varphi$ and $\phi$ exchanged.
     \end{proof}
 
-  \section{Approximation by Schwartz Functions}
-    A simple distribution is \emph{Dirac delta}:
-    \begin{gather*}
-      \langle\delta,\varphi\rangle = \varphi(0)
-      \qquad\text{for any }\varphi\in\S
-    \end{gather*}
-    Because $\delta$ is trivially linear, and continuous by \cref{thm:sevalcts}, $\delta\in\SS$.
-    In fact, $\delta$ is not a classical function, and so is a ``true distribution'' in that it does not arise from a function with pointwise values.
-    If $\delta$ were a classical function of any sort, we would have
-    \begin{gather*}
-      \delta(x)=0\text{ for }x\ne0\\
-      \int_{x\in\R} \delta(x)\,dx = 1
-    \end{gather*}
-    but for any $z=\delta(0)\in\C$ the integral must be zero.
-    Instead we think of $\delta$ as an infinitesimally narrow spike with area 1.
-    This idea allow us to see that $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
-    \begin{align*}
-      \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
-    \end{align*}
-    Because $\{\langle\phi_n,\varphi\rangle\}\rightarrow\langle\delta,\varphi\rangle$ for arbitrary $\varphi\in\S$, by definition $\{\phi_n\}\rightarrow\delta$ in the \ws.
-
-    \begin{defn}[Test Approximate Identity]
-      A sequence of test functions $\{\phi_n\}$ is called a \emph{test approximate identity} whenever
-      \begin{itemize}
-        \item $\phi_n(x)$ is non-negative and real for all $n$ and $x\in\R$;
-        \item $\int_{x\in\R}\phi_n(x)\,dx=1$ for all $n$;
-        \item for any $\rho>0$ there exists some $N$ so that for all $n>N$ 
-          \begin{align*}
-            \phi_n(x) = 0 \text{ whenever } |x|\ge\rho \text{.}
-          \end{align*}
-      \end{itemize}
-      Because any approximate identity we make use of will consist of  test functions, the term ``approximate identity'' is taken to mean a test approximate identity.
-    \end{defn}
-    The idea of an approximate identity is to construct a sequence of functions with constant ``mass'' 1 that clusters tightly around zero as $n$ increases.
-    Intuitively the limit of such a function is exactly $\delta$: a unit point-mass gathered at zero.
-
-    \begin{thm}[Approximate Identity Theorem]
-      \label{thm:approxid}
-      Given a test approximate identity $\{\phi_n\}$, $\lim_n \phi_n = \delta$ in the \ws.
-    \end{thm}
-    \begin{proof}
-      For an arbitrary $\varphi\in\S$ we hope the quantity
-      \begin{align*}
-        \langle\phi_n,\varphi\rangle 
-        &=\int_{x\in\R} \phi_n(x)\varphi(x)\,dx
-      \end{align*}
-      approaches $\varphi(0)$ as $n$ grows.
-      See that
-      \begin{align*}
-        |\langle\phi_n,\varphi\rangle - \varphi(0)|
-        &=\left| \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx \right|
-        \le \int_{x\in\R} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx \text{.}
-      \end{align*}
-      Given $\varepsilon>0$, there is some $\delta>0$ so that $|x|<\delta$ implies $|\varphi(x)-\varphi(0)|<\varepsilon$.
-      For large $n$, $\phi_n$ is uniformly zero off $[-\delta,\delta]$, so
-      \begin{align*}
-        |\langle\phi_n,\varphi\rangle - \varphi(0)|
-        \le \int_{|x|<\delta} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
-        \le \varepsilon \cdot \int_{|x|<\delta} \phi_n(x)\,dx
-        = \varepsilon \text{.}
-      \end{align*}
-    \end{proof}
-
-    Having seen that any approximate identity approximates $\delta$ we hope to construct such a sequence.
+  \section{Approximation of Distributions}
+  \subsection{Approximating classical functions}
+    Consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).
     See that non-negative real Schwartz functions exist because the function
     \begin{equation}
       \label{eq:extestfcn}
@@ -224,214 +163,6 @@
       \end{cases}
     \end{equation}
     is verifiable smooth at any $x\in\R$ and is identically zero off a bounded set, and so is Schwartz.
-    Thus we may let $\phi$ be a non-negative Schwartz function having integral 1 and vanishing off of $[-A,A]$, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1 and vanishing off of $[-A/n,A/n]$.
-%    Given any $\delta,\varepsilon>0$ consider the quantity
-%    \begin{align*}
-%      \int_{|x|\ge\delta} \phi_n(x) \,dx
-%      &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
-%    \end{align*}
-%    Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
-%    Thus for $n>X/\delta$ we have 
-%    \begin{align*}
-%      \int_{|x|\ge\delta} \phi_n(x) \,dx
-%      &= \int_{|x|\ge n\delta} \phi(x) \,dx
-%      \le \int_{|x|\ge X} \phi(x) \,dx
-%      <\varepsilon \text{,}
-%    \end{align*}
-%    so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
-    Thus $\{\phi_n\}$ is an approximate identity.
-
-    The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
-    To see this, we must first recall a method for ``smoothing'' functions.
-
-    Recall from \cref{defn:convolution} that the convolution of two Schwartz functions $f$ and $g$ is a function given by
-    \begin{align*}
-      (f*g)(x) = \int_{y\in\R} f(x-y)g(y)\,dy \text{.}
-    \end{align*}
-    Because $f$ and $g$ are Schwartz, see that $f*g$ is a smooth function of $x$ because the $x$ derivative passes through the $y$ integral and attaches itself to the $f$ term.
-    Furthermore, as $|x|$ grows, we have that for any $y\in\R$ at least one of $|x-y|$ or $|y|$ is large, and so either $f(x-y)$ or $g(y)$ will approach zero.
-    Thus we see that $(f*g)(x)$ will vanish as $|x|\rightarrow\infty$.
-    In fact, multiplying the convolution by some power of $x$ we get
-    \begin{align*}
-      x^\ell(f*g)(x)
-      &= \int_{y\in\R} x^\ell f(x-y)g(y)\,dy \text{.}
-    \end{align*}
-    For any fixed $y$ the function $x^\ell f(x-y)$ will vanish at infinity because it is Schwartz, and so the integral vanishes at infinity, because as $x\rightarrow\infty$ the integrand converges pointwise to the zero function.
-    Thus the convolution of two Schwartz functions is another Schwartz function, and so \S acts on itself by convolution.
-
-    It is almost immediate that this action allows approximation of any Schwartz function by convolution with an approximate identity:
-    \begin{lemma}
-      \label{lemma:approxbyconv}
-      For an approximate identity $\{\phi_n\}$ and any $g\in\S$, the sequence of convolutions $\{\phi_n*g\}$ approximates $g$ in \S.
-    \end{lemma}
-    \begin{proof}
-      Use \cref{thm:approxid} to calculate
-      \begin{align*}
-        (\phi_n*g)(x)
-        &= \int_{y\in\R} \phi_n(y)g(x-y)\,dy
-        \underset{n}{\rightarrow} g(x) \text{.}
-      \end{align*}
-    \end{proof}
-
-    In fact, we may define convolution by a simpler, vector-valued integral.
-    Compactly supported \todo{define this term} maps $a:\R\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?}
-    \begin{align*}
-      A = \int_\R a(x)\,dx
-    \end{align*}
-    that satisfies for any $v\in\SS$
-    \begin{align*}
-      \langle v, A\rangle
-      &= \int_{y\in\R} \langle v, a(y)\rangle\,dy \text{.}
-    \end{align*}
-    Let $f$ and $g$ be Schwartz functions and suppose that $f$ has compact support.
-    Define $a(y)=f(y)T_{-y}g$, so for any $v\in\SS$
-    \begin{align*}
-      \left\langle v, \int_{\R} f(y)T_{-y}g\,dy \right\rangle
-      &= \int_{y\in\R} \langle v, f(y)T_{-y}g\rangle\, dy \text{.}
-    \end{align*}
-    Taking $v$ to be a (translated) approximate identity, take the limit and see
-    \begin{align*}
-      \left( \int_{\R} f(y)T_{-y}g\,dy \right)(x)
-      &= \int_{y\in\R} f(y)g(x-y)\,dx
-    \end{align*}
-    and so the covolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
-%    Additionally, we know that $f*g=g*f$, and so the integral of $g(y)T_{-y}f$ is also $f*g$.
-    
-    Hopefully the symmetry is maintained; that is, if $f$ and $g$ are exchanged we wonder if the integral of $a$ is still $f*g$.
-    This is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, and only $f$ has compact support..
-    \begin{claim}
-      \label{claim:GPconv}
-      For compactly supported $f$ and arbitrary $g$ in \S, the map $b(y)=g(y)T_{-y}f$ has a Gelfand--Pettis integral which is the convolution $f*g$.
-    \end{claim}
-    \begin{proof}
-      First, noting that $b$ clearly extends continuously to $b(\infty)=0$, we expand \R to the circle $X=\R\cup\{\infty\}$, which is compact.
-      To ensure that $X$ has finite measure, define
-      \begin{align*}
-        d\mu(x) = |x-i|^{-(1+\varepsilon)}\,dx \text{.}
-      \end{align*}
-      Correspondingly, we modify our function to be
-      \begin{align*}
-        b(x) = |x-i|^{1+\varepsilon} g(y)T_{-y}f
-      \end{align*}
-      so that
-      \begin{align*}
-        \int_X b(x)\,d\mu(x)
-        &= \int_{X} |x-i|^{1+\varepsilon} g(y)T_{-y}f\,d\mu(y
-        = \int_{\R} g(y)T_{-y}f\,dy
-      \end{align*}
-      exists in \S.
-      Thus we have for any $v\in\SS$
-      \begin{align*}
-        \left\langle v, \int_X b(y)\,d\mu(y) \right\rangle
-        &= \int_{y\in X} \langle v, g(y)T_{-y}f\rangle\, dy
-        = \int_{y\in\R} \langle v, g(y)T_{-y}f\rangle\, dy \text{.}
-      \end{align*}
-      Again taking $v$ to be an approximate identity centered at $x$ calculate
-      \begin{align*}
-        \left( \int_{\R} g(y)T_{-y}f\,dy \right)(x)
-        &= \int_{y\in\R} g(y)f(x-y)\,dx
-      \end{align*}
-      and so we see that for a compactly supported $f$ and arbitrary $g$ in \S, the convolution is given by equivalent Gelfand--Pettis integrals:
-      \begin{align*}
-        f*g = g*f = \int_\R f(x)T_{-x}g\,dx = \int_\R g(x)T_{-x}f\,dx \text{.}
-      \end{align*}
-    \end{proof}
-
-    We hope to use a process similar to convolution to approximate tempered distributions.
-    Happily, the action of \S on itself gives an action of \S on its embedded image in \SS.
-    For some $f,g\in\S$, $f$ acts on the distribution $u_g$ arising from $g$ by
-    \begin{align*}
-      f*u_g = u_{f*g} \text{.}
-    \end{align*}
-    For any $\varphi\in\S$ we have
-    \begin{align*}
-      \langle f*u_g, \varphi\rangle
-%      &= \langle u_{f*g}, \varphi\rangle
-%      \\&= \int_{x\in\R} (f*g)(x)\varphi(x)\,dx
-      &= \int_{x\in\R} \int_{y\in\R} f(x-y)g(y)\,dy\,\varphi(x)\,dx
-      \\&= \int_{y\in\R} g(y) \int_{x\in\R} f(x-y)\varphi(x)\,dx\,dy
-      \\&= \langle u_g, \tilde f*\varphi\rangle
-    \end{align*}
-    where $\tilde f(x) = f(-x)$.
-    The definition of convolution extends by this formula to allow one of the arguments to be a distribution by an adjoint definition.
-    Define the action of a Schwartz function $\phi$ on a distribution $u$ by the identity
-    \begin{align*}
-      \langle \phi*u, \varphi\rangle
-      = \langle u, \tilde\phi*\varphi\rangle \text{.}
-    \end{align*}
-    Notably, unlike the convolution of Schwartz functions, this action is asymmetric, as we may not convolve two distributions.
-    Thus we refer to the distribution $\phi*u$ as the \emph{mollification} of $u$ by $\phi$.
-
-    We might wonder if a mollification is in fact given by integration against some classical function.
-    Again letting $f,g\in\S$, write
-    \begin{align*}
-      (f*g)(x)
-      &= \int_{y\in\R} f(x-y)g(y)\,dy
-%      \\&= \int_{y\in\R} T_{-x}\tilde f(y) g(y)\, dy
-      = \langle g, T_{-x}\tilde f\rangle
-    \end{align*}
-    which suggests a sensible expression for pointwise values of the mollification even when $g\in\SS$.
-    For $u\in\SS$ and $\phi\in\S$ we wonder if the function
-%    $\psi:\R\rightarrow \C$ given by $\psi(x)=\langle u, T_{-x}\tilde \phi\rangle$ gives rise to the distribution $\phi*u$ defined above.
-    \begin{align*}
-      \psi(x) = \langle u, T_{-x}\tilde\phi\rangle
-    \end{align*}
-    gives rise to the distribution $\phi*u$ defined above.
-    Calculate for any $\varphi\in\S$
-    \begin{align*}
-      \left\langle \psi, \varphi \right\rangle
-      &= \int_{x\in\R} \langle u,T_{-x}\tilde\phi\rangle\varphi(x)\,dx
-      = \left\langle u, \int_{x\in\R} (T_{-x}\tilde\phi)\varphi(x)\,dx \right\rangle
-%      \\&= \left\langle u, \int_{x\in\R} \tilde\phi(y-x)\varphi(x)\,dx \right\rangle
-      = \langle u, \tilde\phi*\varphi\rangle
-    \end{align*}
-    with the second equality using the properties of the Gelfand--Pettis integral of $\varphi(x)T_{-x}\tilde\phi$, which exists by \cref{claim:GPconv}.
-    Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\psi(x)=\langle u, T_{-x}\tilde\phi\rangle$.
-
-    Because $f\mapsto\tilde f$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
-    \begin{align*}
-      x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
-    \end{align*}
-    is a continuous function of $x\in\R$.
-    Thus we may calculate that the derivative of $\phi*u$ at any $x\in\R$ is given by
-    \begin{align*}
-      \lim_{t\rightarrow0} \frac{\psi(x+t) - \psi(x)}{t}
-      &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x-t}\phi-T_{-x}\phi\rangle}{t}
-      = \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x-t}\phi-T_{-x}\phi}{t}\right\rangle
-      = \left\langle u, T_{-x}\phi'\right\rangle
-    \end{align*}
-    and so $\phi*u$ is a smooth function because we may put all derivatives on the Schwartz function~$\phi$.
-    Thus mollification is a sort of ``smoothing'' process on distributions---regardless of how strange the distribution $u$ is, the mollification $\phi*u$ is smooth enough to have pointwise values.
-    Furthermore, this smoothing acts as we expect it to, in that we may approximate any distribution by convolution with approximate identity. 
-
-    \begin{lemma}
-      \label{lemma:mollwithid}
-      For an approximate identity $\{\phi_n\}$ and some tempered distribution $u$, the mollification $\phi_n*u$ approximates $u$ in the \ws.
-    \end{lemma}
-    \begin{proof}
-      For all $f\in\S$, calculate and apply \cref{lemma:approxbyconv} to see
-      \begin{align*}
-        \langle \phi_n*u, f\rangle
-        &= \langle u, \phi_n*f\rangle
-%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(x-y)f(y)\,dy \right\rangle
-%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(-y)f(x+y)\,dy \right\rangle
-%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(-y)\,dy \right\rangle
-%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(y)\,dy \right\rangle
-        = \left\langle u, \langle f, T_{-x}\phi_n\rangle \right\rangle
-        = \left\langle u, \langle \phi_n, T_{x}f\rangle \right\rangle
-        \\&\underset{n}{\longrightarrow} \left\langle u, T_xf(0) \right\rangle
-        = \langle u,f\rangle \text{.}
-      \end{align*}
-    \end{proof}
-
-    Any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
-    Unfortunately, arbitrary mollifications need not be Schwartz functions; they might only be fairly good functions that never vanish as $x$ grows.
-    Thus we wonder whether arbitrary smooth functions may be approximated by Schwartz functions.
-    To this end, consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).\footnotemark
-    \footnotetext{
-      This is not the first time we have seen test functions; approximate identities are in fact sequences in \D.
-      As was the case proving \cref{thm:approxid}, test functions are useful because their product with any function still has compact support.
-    }
     Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
     \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
     \D is called the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
@@ -497,7 +228,7 @@
 
       Thus \D is dense in \S.
     \end{proof}
-
+    In the world of tempered distributions, mesas allow us to approximate those distributions arising from classical functions.
     \begin{lemma}
       \label{lemma:ddenseinssfromsmooth}
       Let $u_f$ be a tempered distribution given by integrating against a smooth function $f$.
@@ -516,6 +247,277 @@
       by the continuity of evaluation and \cref{lemma:ddenseins}
     \end{proof}
 
+  \subsection{Approximating simple distributions}
+    A simple distribution is \emph{Dirac delta}:
+    \begin{gather*}
+      \langle\delta,\varphi\rangle = \varphi(0)
+      \qquad\text{for any }\varphi\in\S
+    \end{gather*}
+    Because $\delta$ is trivially linear, and continuous by \cref{thm:sevalcts}, $\delta\in\SS$.
+    In fact, $\delta$ is not a classical function, and so is a ``true distribution'' in that it does not arise from a function with pointwise values.
+    If $\delta$ were a classical function of any sort, we would have
+    \begin{gather*}
+      \delta(x)=0\text{ for }x\ne0\\
+      \int_{x\in\R} \delta(x)\,dx = 1
+    \end{gather*}
+    but for any $z=\delta(0)\in\C$ the integral must be zero.
+    Instead we think of $\delta$ as an infinitesimally narrow spike with area 1.
+    This idea allow us to see that $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
+    \begin{align*}
+      \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
+    \end{align*}
+    Because $\{\langle\phi_n,\varphi\rangle\}\rightarrow\langle\delta,\varphi\rangle$ for arbitrary $\varphi\in\S$, by definition $\{\phi_n\}\rightarrow\delta$ in the \ws.
+
+    \begin{defn}[Test Approximate Identity]
+      A sequence of test functions $\{\phi_n\}$ is called a \emph{test approximate identity} whenever
+      \begin{itemize}
+        \item $\phi_n(x)$ is non-negative and real for all $n$ and $x\in\R$;
+        \item $\int_{x\in\R}\phi_n(x)\,dx=1$ for all $n$;
+        \item for any $\rho>0$ there exists some $N$ so that for all $n>N$ 
+          \begin{align*}
+            \phi_n(x) = 0 \text{ whenever } |x|\ge\rho \text{.}
+          \end{align*}
+      \end{itemize}
+      Because any approximate identity we make use of will consist of  test functions, the term ``approximate identity'' is taken to mean a test approximate identity.
+    \end{defn}
+    The idea of an approximate identity is to construct a sequence of functions with constant ``mass'' 1 that clusters tightly around zero as $n$ increases.
+    Intuitively the limit of such a function is exactly $\delta$: a unit point-mass gathered at zero.
+
+    \begin{thm}[Approximate Identity Theorem]
+      \label{thm:approxid}
+      Given a test approximate identity $\{\phi_n\}$, $\lim_n \phi_n = \delta$ in the \ws.
+    \end{thm}
+    \begin{proof}
+      For an arbitrary $\varphi\in\S$ we hope the quantity
+      \begin{align*}
+        \langle\phi_n,\varphi\rangle 
+        &=\int_{x\in\R} \phi_n(x)\varphi(x)\,dx
+      \end{align*}
+      approaches $\varphi(0)$ as $n$ grows.
+      See that
+      \begin{align*}
+        |\langle\phi_n,\varphi\rangle - \varphi(0)|
+        &=\left| \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx \right|
+        \le \int_{x\in\R} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx \text{.}
+      \end{align*}
+      Given $\varepsilon>0$, there is some $\delta>0$ so that $|x|<\delta$ implies $|\varphi(x)-\varphi(0)|<\varepsilon$.
+      For large $n$, $\phi_n$ is uniformly zero off $[-\delta,\delta]$, so
+      \begin{align*}
+        |\langle\phi_n,\varphi\rangle - \varphi(0)|
+        \le \int_{|x|<\delta} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
+        \le \varepsilon \cdot \int_{|x|<\delta} \phi_n(x)\,dx
+        = \varepsilon \text{.}
+      \end{align*}
+    \end{proof}
+
+    Having seen that any approximate identity approximates $\delta$ we hope to construct such a sequence.
+    Set $\phi$ be a non-negative Schwartz function having integral 1 and vanishing off of $[-A,A]$, so that for any $n\in\Z_{>0}$, the function $x\mapsto n\phi(nx) \call \phi_n$ is is a non-negative Schwartz function having integral 1 and vanishing off of $[-A/n,A/n]$.
+%    Given any $\delta,\varepsilon>0$ consider the quantity
+%    \begin{align*}
+%      \int_{|x|\ge\delta} \phi_n(x) \,dx
+%      &= \int_{|x|\ge n\delta} \phi(x) \,dx \text{.}
+%    \end{align*}
+%    Because $\phi$ is Schwartz, there is some $X$ so that $\int_{|x|\ge X}\phi(x)\,dx<\varepsilon$.
+%    Thus for $n>X/\delta$ we have 
+%    \begin{align*}
+%      \int_{|x|\ge\delta} \phi_n(x) \,dx
+%      &= \int_{|x|\ge n\delta} \phi(x) \,dx
+%      \le \int_{|x|\ge X} \phi(x) \,dx
+%      <\varepsilon \text{,}
+%    \end{align*}
+%    so for any $\delta,\varepsilon>0$ there is some $N$ so that $n>N$ implies $\int_{|x|\ge\delta}\phi_n(x)\,dx<\varepsilon$.
+    Thus $\{\phi_n\}$ is an approximate identity.
+
+    The fact that approximate identities exist implies a much stronger result---that \emph{any} tempered distribution may be approximated by Schwartz functions in the \ws.
+    To see this, we must first recall a method for ``smoothing'' functions.
+
+  \subsection{Smoothing Distributions}
+    Recall from \cref{defn:convolution} that the convolution of two Schwartz functions $f$ and $g$ is a function given by
+    \begin{align*}
+      (f*g)(x) = \int_{y\in\R} f(x-y)g(y)\,dy \text{.}
+    \end{align*}
+    Because $f$ and $g$ are Schwartz, see that $f*g$ is a smooth function of $x$ because the $x$ derivative passes through the $y$ integral and attaches itself to the $f$ term.
+    Furthermore, as $|x|$ grows, we have that for any $y\in\R$ at least one of $|x-y|$ or $|y|$ is large, and so either $f(x-y)$ or $g(y)$ will approach zero.
+    Thus we see that $(f*g)(x)$ will vanish as $|x|\rightarrow\infty$.
+    In fact, multiplying the convolution by some power of $x$ we get
+    \begin{align*}
+      x^\ell(f*g)(x)
+      &= \int_{y\in\R} x^\ell f(x-y)g(y)\,dy \text{.}
+    \end{align*}
+    For any fixed $y$ the function $x^\ell f(x-y)$ will vanish at infinity because it is Schwartz, and so the integral vanishes at infinity, because as $x\rightarrow\infty$ the integrand converges pointwise to the zero function.
+    Thus the convolution of two Schwartz functions is another Schwartz function, and so \S acts on itself by convolution.
+
+    It is almost immediate that this action allows approximation of any Schwartz function by convolution with an approximate identity:
+    \begin{lemma}
+      \label{lemma:approxbyconv}
+      For an approximate identity $\{\phi_n\}$ and any $g\in\S$, the sequence of convolutions $\{\phi_n*g\}$ approximates $g$ in \S.
+    \end{lemma}
+    \begin{proof}
+      Use \cref{thm:approxid} to calculate
+      \begin{align*}
+        (\phi_n*g)(x)
+        &= \int_{y\in\R} \phi_n(y)g(x-y)\,dy
+        \underset{n}{\rightarrow} g(x) \text{.}
+      \end{align*}
+    \end{proof}
+
+    We hope to use a process similar to convolution to approximate tempered distributions.
+    Happily, the action of \S on itself gives an action of \S on its embedded image in \SS.
+    For some $f,g\in\S$, $f$ acts on the distribution $u_g$ arising from $g$ by
+    \begin{align*}
+      f*u_g = u_{f*g} \text{.}
+    \end{align*}
+    For any $\varphi\in\S$ we have
+    \begin{align*}
+      \langle f*u_g, \varphi\rangle
+%      &= \langle u_{f*g}, \varphi\rangle
+%      \\&= \int_{x\in\R} (f*g)(x)\varphi(x)\,dx
+      &= \int_{x\in\R} \int_{y\in\R} f(x-y)g(y)\,dy\,\varphi(x)\,dx
+      \\&= \int_{y\in\R} g(y) \int_{x\in\R} f(x-y)\varphi(x)\,dx\,dy
+      \\&= \langle u_g, \tilde f*\varphi\rangle
+    \end{align*}
+    where $\tilde f(x) = f(-x)$.
+    The definition of convolution extends by this formula to allow one of the arguments to be a distribution by an adjoint definition.
+    Define the action of a Schwartz function $\phi$ on a distribution $u$ by the identity
+    \begin{align*}
+      \langle \phi*u, \varphi\rangle
+      = \langle u, \tilde\phi*\varphi\rangle \text{.}
+    \end{align*}
+    Notably, unlike the convolution of Schwartz functions, this action is asymmetric, as we may not convolve two distributions.
+    Thus we refer to the distribution $\phi*u$ as the \emph{mollification} of $u$ by $\phi$.
+
+    We hope that mollifications of a tempered distribution $u$ by a test approximate identity $\{\phi_n\}$ will approximate $u$ in the \ws.
+%    To this end, we first prove an identity about the convolution of a test function with a Schwartz function.
+    For any $\varphi\in\S$ see that $\langle\phi_n*u,\varphi\rangle = \langle u, \tilde\phi_n*\varphi\rangle$.
+    We may define convolution $\phi_n*\varphi$ by a vector-valued integral.
+    Compactly supported \todo{define this term} maps $a:\R\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?}
+    \begin{align*}
+      A = \int_\R a(x)\,dx
+    \end{align*}
+    that satisfies for any $v\in\SS$
+    \begin{align*}
+      \langle v, A\rangle
+      &= \int_{y\in\R} \langle v, a(y)\rangle\,dy \text{.}
+    \end{align*}
+    Let $f$ and $g$ be Schwartz functions and suppose that $f$ has compact support.
+    Define $a(y)=f(y)T_{-y}g$, so for any $v\in\SS$
+    \begin{align*}
+      \left\langle v, \int_{\R} f(y)T_{-y}g\,dy \right\rangle
+      &= \int_{y\in\R} \langle v, f(y)T_{-y}g\rangle\, dy \text{.}
+    \end{align*}
+    Taking $v$ to be a (translated) approximate identity, take the limit and see
+    \begin{align*}
+      \left( \int_{\R} f(y)T_{-y}g\,dy \right)(x)
+      &= \int_{y\in\R} f(y)g(x-y)\,dx
+    \end{align*}
+    and so the covolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
+    
+    Hopefully the symmetry is maintained; that is, if $f$ and $g$ are exchanged we wonder if the integral of $a$ is still $f*g$.
+    This is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, and only $f$ has compact support..
+    \begin{claim}
+      \label{claim:GPconv}
+      For compactly supported $f$ and arbitrary $g$ in \S, the map $b(y)=g(y)T_{-y}f$ has a Gelfand--Pettis integral which is the convolution $f*g$.
+    \end{claim}
+    \begin{proof}
+      First, noting that $b$ clearly extends continuously to $b(\infty)=0$, we expand \R to the circle $X=\R\cup\{\infty\}$, which is compact.
+      To ensure that $X$ has finite measure, define
+      \begin{align*}
+        d\mu(x) = |x-i|^{-(1+\varepsilon)}\,dx \text{.}
+      \end{align*}
+      Correspondingly, we modify our function to be
+      \begin{align*}
+        b(x) = |x-i|^{1+\varepsilon} g(y)T_{-y}f
+      \end{align*}
+      so that
+      \begin{align*}
+        \int_X b(x)\,d\mu(x)
+        &= \int_{X} |x-i|^{1+\varepsilon} g(y)T_{-y}f\,d\mu(y
+        = \int_{\R} g(y)T_{-y}f\,dy
+      \end{align*}
+      exists in \S.
+      Thus we have for any $v\in\SS$
+      \begin{align*}
+        \left\langle v, \int_X b(y)\,d\mu(y) \right\rangle
+        &= \int_{y\in X} \langle v, g(y)T_{-y}f\rangle\, dy
+        = \int_{y\in\R} \langle v, g(y)T_{-y}f\rangle\, dy \text{.}
+      \end{align*}
+      Again taking $v$ to be an approximate identity centered at $x$ calculate
+      \begin{align*}
+        \left( \int_{\R} g(y)T_{-y}f\,dy \right)(x)
+        &= \int_{y\in\R} g(y)f(x-y)\,dx
+      \end{align*}
+      and so we see that for a compactly supported $f$ and arbitrary $g$ in \S, the convolution is given by equivalent Gelfand--Pettis integrals:
+      \begin{align*}
+        f*g = g*f = \int_\R f(x)T_{-x}g\,dx = \int_\R g(x)T_{-x}f\,dx \text{.}
+      \end{align*}
+    \end{proof}
+%    While defining this convolution in terms of the Gelfand--Pettis integral requires some attention to details, the characterizing property that it commutes with linear operators will prove useful.
+
+    We might wonder if a mollification is in fact given by integration against some classical function.
+    Again letting $f,g\in\S$, write
+    \begin{align*}
+      (f*g)(x)
+      &= \int_{y\in\R} f(x-y)g(y)\,dy
+%      \\&= \int_{y\in\R} T_{-x}\tilde f(y) g(y)\, dy
+      = \langle g, T_{-x}\tilde f\rangle
+    \end{align*}
+    which suggests a sensible expression for pointwise values of the mollification even when $g\in\SS$.
+    For $u\in\SS$ and $\phi\in\S$ we wonder if the function
+    \begin{align*}
+      \psi(x) = \langle u, T_{-x}\tilde\phi\rangle
+    \end{align*}
+    gives rise to the distribution $\phi*u$ defined above.
+    Calculate for any $\varphi\in\S$
+    \begin{align*}
+      \left\langle \psi, \varphi \right\rangle
+      &= \int_{x\in\R} \langle u,T_{-x}\tilde\phi\rangle\varphi(x)\,dx
+      = \left\langle u, \int_{x\in\R} (T_{-x}\tilde\phi)\varphi(x)\,dx \right\rangle
+%      \\&= \left\langle u, \int_{x\in\R} \tilde\phi(y-x)\varphi(x)\,dx \right\rangle
+      = \langle u, \tilde\phi*\varphi\rangle
+    \end{align*}
+    with the second equality using the properties of the Gelfand--Pettis integral of $\varphi(x)T_{-x}\tilde\phi$, which exists by \cref{claim:GPconv}.
+    Thus $\phi*u$ is in fact a classical function with pointwise values given by $(\phi*u)(x)=\psi(x)=\langle u, T_{-x}\tilde\phi\rangle$.
+
+    Because $f\mapsto\tilde f$ is continuous (null sequences map to null sequences), translation is continuous (\cref{claim:translcont}), and $u$ is continuous, see that the composition
+    \begin{align*}
+      x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
+    \end{align*}
+    is a continuous function of $x\in\R$.
+    Thus we may calculate that the derivative of $\phi*u$ at any $x\in\R$ is given by
+    \begin{align*}
+      \lim_{t\rightarrow0} \frac{\psi(x+t) - \psi(x)}{t}
+      &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x-t}\phi-T_{-x}\phi\rangle}{t}
+      = \left\langle u, \lim_{t\rightarrow0} \frac{T_{-x-t}\phi-T_{-x}\phi}{t}\right\rangle
+      = \left\langle u, T_{-x}\phi'\right\rangle
+    \end{align*}
+    and so $\phi*u$ is a smooth function because we may put all derivatives on the Schwartz function~$\phi$.
+    Thus mollification is a sort of ``smoothing'' process on distributions---regardless of how strange the distribution $u$ is, the mollification $\phi*u$ is smooth enough to have pointwise values.
+    Furthermore, this smoothing acts as we expect it to, in that we may approximate any distribution by convolution with approximate identity. 
+
+    \begin{lemma}
+      \label{lemma:mollwithid}
+      For an approximate identity $\{\phi_n\}$ and some tempered distribution $u$, the mollification $\phi_n*u$ approximates $u$ in the \ws.
+    \end{lemma}
+    \begin{proof}
+      For all $f\in\S$, calculate and apply \cref{lemma:approxbyconv} to see
+      \begin{align*}
+        \langle \phi_n*u, f\rangle
+        &= \langle u, \phi_n*f\rangle
+%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(x-y)f(y)\,dy \right\rangle
+%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(-y)f(x+y)\,dy \right\rangle
+%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(-y)\,dy \right\rangle
+%        \\&= \left\langle u, x\mapsto \int_{y\in\R} \phi_n(y)T_xf(y)\,dy \right\rangle
+        = \left\langle u, \langle f, T_{-x}\phi_n\rangle \right\rangle
+        = \left\langle u, \langle \phi_n, T_{x}f\rangle \right\rangle
+        \\&\underset{n}{\longrightarrow} \left\langle u, T_xf(0) \right\rangle
+        = \langle u,f\rangle \text{.}
+      \end{align*}
+    \end{proof}
+
+    Any tempered distribution may be approximated by a sequence of smooth functions (mollifications).
+    Unfortunately, arbitrary mollifications need not be Schwartz functions; they might only be fairly good functions that never vanish as $x$ grows.
+    Recall from \cref{lemma:ddenseinssfromsmooth} that arbitrary smooth functions may be approximated by Schwartz functions, and so we may approximate any tempered distribution by Schwartz functions:
+
     \begin{thm}
       \label{thm:sdenseinss}
       The space of Schwartz functions is dense in the space of tempered distributions.
@@ -524,7 +526,6 @@
       Let $u\in\SS$.
       Now pick a neighborhood $U$ of $u$ in \SS.
       Because the sequence $\{\phi_n*u\}\rightarrow u$ by \cref{lemma:mollwithid} there is some $n$ so that $\phi_n*u\in U$.
-%      Then because the sequence $\{\psi_i(\phi_n*u)\}\rightarrow\phi_n*u$ there is some $i$ so that $\psi_i(\phi_n*u)\in U$.
       By \cref{lemma:ddenseinssfromsmooth}, there is some mesa function $\psi$ so that $\psi(\phi_n*u)\in U$.
       Because $\psi(\phi_n*u)$ is test (and thus Schwartz) and $u$ and $U$ were arbitrary, \S is dense in \SS.
     \end{proof}
