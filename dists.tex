@@ -2,7 +2,7 @@
   \setcounter{chapter}{2}
   \setcounter{thm}{0}
   \chapter{Distributions}
-  \label{ch:dist}
+  \label{ch:dists}
   
   With a firm grasp of the topology of \S, we now turn back to topological issues.
   Recall from \cref{sec:tempdist} that continuous linear dual of \S is the space of \emph{tempered distributions}:
@@ -248,21 +248,13 @@
     \end{proof}
 
   \subsection{Approximating simple distributions}
-    A simple distribution is \emph{Dirac delta}:
+    Recall the Dirac delta distribution:
     \begin{gather*}
       \langle\delta,\varphi\rangle = \varphi(0)
       \qquad\text{for any }\varphi\in\S
     \end{gather*}
     Because $\delta$ is trivially linear, and continuous by \cref{thm:sevalcts}, $\delta\in\SS$.
-    In fact, $\delta$ is not a classical function, and so is a ``true distribution'' in that it does not arise from a function with pointwise values.
-    If $\delta$ were a classical function of any sort, we would have
-    \begin{gather*}
-      \delta(x)=0\text{ for }x\ne0\\
-      \int_{x\in\R} \delta(x)\,dx = 1
-    \end{gather*}
-    but for any $z=\delta(0)\in\C$ the integral must be zero.
-    Instead we think of $\delta$ as an infinitesimally narrow spike with area 1.
-    This idea allow us to see that $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
+    Thinking of $\delta$ as an infinitesimally narrow spike with area 1 we wonder if $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
     \begin{align*}
       \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
     \end{align*}

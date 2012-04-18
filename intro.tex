@@ -1,6 +1,4 @@
-\documentclass[thesis.tex]{subfiles}
-\begin{document}
-\onehalfspacing
+\input{chpreamble}
   \chapter*{Introduction}
     \addcontentsline{toc}{chapter}{Introduction}
     \chaptermark{Introduction}
@@ -46,11 +44,11 @@
 
     \begin{defn}
       A \emph{distribution} is a mapping that takes \emph{test functions} as inputs and gives numbers as outputs.
-      For a distribution $T$ and a test function $\varphi$, we denote this number $\langle T, \varphi \rangle$ instead of $T(\varphi)$ to emphasize the distinction between functions of real variables and distributions.
+      For a distribution $u$ and a test function $\varphi$, we denote this number $\langle u, \varphi \rangle$ instead of $u(\varphi)$ to emphasize the distinction between functions of real variables and distributions.
 
-      A function $f$ corresponds to a distribution $T_f$ by the rule
+      A function $f$ gives rise to a distribution $u_f$ by integration against $f$:
       \begin{align*}
-        \langle T_f, \varphi \rangle = \int_{-\infty}^{\infty} f(x)\varphi(x)dx \text{.}
+        \langle u_f, \varphi \rangle = \int_{-\infty}^{\infty} f(x)\varphi(x)dx \text{.}
       \end{align*}
 
     \end{defn}
@@ -58,12 +56,23 @@
     This initial definition is far from precise but, as the following chapters will show, it leads to the development of a neat and comprehensive general theory of functions.
     However, defining distributions in this way risks obscuring its original intent: to generalize functions of real numbers.
     As such, it is worthwhile to keep in mind the (imprecise) idea that distributions are a sort of ``function'' of real numbers that we can ``integrate'' against test functions, even though many distributions are hard, if not impossible, to conceive of in this way.
+    A simple example of such a distribution is \emph{Dirac delta}:
+    \begin{gather*}
+      \langle\delta,\varphi\rangle = \varphi(0)
+      \qquad\text{for any }\varphi
+    \end{gather*}
+    If $\delta$ were a classical function of any sort, we would have
+    \begin{gather*}
+      \delta(x)=0\text{ for }x\ne0\\
+      \int_{x\in\R} \delta(x)\,dx = 1
+    \end{gather*}
+    but for any $z=\delta(0)\in\C$ the integral must be zero.
+    Thus $\delta$ is not a classical function, and so is a ``true distribution'' in that it does not arise from a function with pointwise values.
+    Instead we think of $\delta$ as an infinitesimally narrow spike with area 1, so that integrating it against a function $\varphi$ gives $\varphi(0)$.
+  
+    The following three chapters develop the theory of a particular space of test functions and the corresponding space of distributions.
+    \Cref{ch:fourier} develops a space of functions that is well behaved with regard to useful operations such as differentiation and Fourier transform.
+    \Cref{ch:topons} applies the theory of topological spaces to this space of functions, culminating in the construction of a complete topological vector space $\S(\R)$ of test functions.
+    \Cref{ch:dists} finally develops the topological space of distributions $\SS(\R)$ as the dual space of $\S(\R)$. 
 
-    \todo{example}
-
-    \todo{a word on approximation by limits; rationale for topological properties}
-
-    \todo{a word on layout of the following material}
-
-    \todo{a word on theory of mathematics; something about building on work of others vs. starting from first principles, and the necessity of the former}
 \end{document}
