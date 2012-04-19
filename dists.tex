@@ -29,8 +29,8 @@
       \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
       \le |\varphi|_{L^1}\cdot |\phi_i|_\Coo
     \end{align*}
-    Because $\{\phi_i\}$ approaches zero in \S, $\{|\phi_i|_\Coo\}$ also approaches zero.
-    Thus the sequence $\{\langle \varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
+    Because $\{\phi_i\}$ approaches zero in \S, $\{|\phi_i|_\Coo\}$ approaches zero in $\R_{\ge0}$.
+    Thus $\{\langle \varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
   \end{proof}
   The proof above trivially shows that any $L^1$-integrable function $f$ gives rise to a tempered distribution by integration-against, even if $f$ fails to be Schwartz.
   However, we wonder if there is some even larger family of classical functions that has such an inclusion into \SS.
@@ -49,7 +49,7 @@
     \begin{align*}
       \lim_{|x|\rightarrow\infty} \left| \frac{f(x)}{(1+x^2)^{\ell}} \right| \,dx < \infty \text{.}
     \end{align*}
-    If $f$ is infinitely differentiable and all of its derivatives (including the zeroth) is slowly increasing, then $f$ is called a \emph{fairly good function}.
+    If $f$ is infinitely differentiable and all of its derivatives (including the zeroth) are slowly increasing, then $f$ is called a \emph{fairly good function}.
   \end{defn}
   See that any slowly increasing function $f$ gives rise to a tempered distribution $u_f$ by integration-against-$f$ because the product of slowly increasing and Schwartz is \li:
   \begin{lemma}
@@ -62,8 +62,9 @@
     Thus there is some $B$ so that $|(1+x^2)^{-\ell} f(x)|<B$ for all $x\in\R$.
     So calculate
     \begin{align*}
-      \int_{x\in\R} |(1+x^2)^\ell g(x)|\cdot|(1+x^2)^{-\ell} f(x)|\,dx
-      &\le B\cdot \int_{x\in\R} |(1+x^2)^\ell g(x)|\,dx
+      \int_{x\in\R} |(fg)(x)|\,dx
+%      = \int_{x\in\R} |(1+x^2)^\ell g(x)\cdot(1+x^2)^{-\ell} f(x)|\,dx
+      < B\cdot \int_{x\in\R} (1+x^2)^\ell |g(x)|\,dx
     \end{align*}
     which is finite because $g$ is Schwartz.
   \end{proof}
@@ -72,7 +73,7 @@
     Then for any $g\in\S$, the product $fg$ is Schwartz.
   \end{lemma}
   \begin{proof}
-    By the product rule, the product of smooth functions is smooth, thus we need only show that the product (and its derivatives) decay quickly.
+    The product of smooth functions is smooth and so we need only show that the product (and its derivatives) decay quickly.
     For any $\ell>0$ see that $(1+x^2)^\ell (fg)(x) = \left(f\cdot((1+x^2)^\ell g)\right)(x)$ which is integrable by \cref{lemma:sitimesschwartzli}.
     Thus $(1+x^2)^\ell fg$ vanishes at infinity for any $\ell$.
     By the product rule, any derivative $fg^{(i)}$ is a sum of fairly good times Schwartz, and so each term vanishes independently at infinity.
@@ -80,7 +81,7 @@
   \end{proof}
 
   Notably, any polynomial is a fairly good function, and so gives rise to a tempered distribution.
-  However, the exponential function $e^x$ is not slowly increasing, as it grows faster than any power of $x$ for large $x$.
+  However, the exponential function $e^x$ is smooth but not slowly increasing, as it grows faster than any power of $x$ for large $x$.
 %  We wonder if the converse of this is also true, so the only functions giving rise to distributions are slowly increasing functions.
 %
 %  \begin{thm}
@@ -127,9 +128,9 @@
     We thus give the space of tempered distributions the so-called ``initial topology'', which allows us to carry topology from a space to its dual.
     \begin{defn}
       Let $X^*$ be the continuous linear dual of a topological space $X$.
-      The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology ensuring that for all $\varphi\in X^*$ the evaluation functional
+      The initial topology on $X^*$ with respect to its linear dual, also called the \emph{weak-* topology} is the coarsest topology ensuring that for all $\varphi\in X$ the evaluation functional
       \begin{gather*}
-        u_\varphi: X^*\rightarrow\C, \qquad f\mapsto\langle\varphi,f\rangle
+        u_\varphi: X^*\rightarrow\C, \qquad f\mapsto\langle f,\varphi\rangle
       \end{gather*}
       is continuous.
     \end{defn}
@@ -153,29 +154,30 @@
   \section{Approximation of Distributions}
   \subsection{Approximating classical functions}
     Consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).
-    See that non-negative real Schwartz functions exist because the function
-    \begin{equation}
+    Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
+    \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
+    \D is called the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
+
+    See that test functions exist because the function
+    \begin{equation*}
       \label{eq:extestfcn}
       h(x) =
       \begin{cases}
         e^\frac{1}{x^2-1} &\text{if }|x|<1\\
         0 &\text{otherwise}
       \end{cases}
-    \end{equation}
+    \end{equation*}
     is verifiable smooth at any $x\in\R$ and is identically zero off a bounded set, and so is Schwartz.
-    Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
-    \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
-    \D is called the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
-    The function $h(x)$ from~\cref{eq:extestfcn} is a prototypical test function.
+    The function $h(x)$ is a prototypical test function.
     
     A \emph{mesa function} is non-negative real test function that has constant value on a subset of the line and decays smoothly to zero outside that set.
     See that such functions exist because the integral of
     \begin{align*}
       \int_{-\infty}^x h(t)\,dt
     \end{align*}
-    has value 0 for $x$ to the left of -1 and grows smoothly on $[-1,1]$ to a positive constant, which it takes for all $x>1$.
+    has value 0 for $x$ to the left of $-1$ and grows smoothly on $[-1,1]$ to a positive constant, which it takes for all $x>1$.
     Glueing this function to a translated and mirrored version of itself gives a mesa function.
-    Just as approximate identities allow approximation of tempered distributions by smooth functions, mesa functions are used to approximate smooth functions with test functions.
+    Mesa functions allow us to approximate smooth functions with test functions, as the next two lemmas show.
 
     \begin{figure}[t]
       \begin{center}
@@ -196,7 +198,14 @@
       The space of test functions is dense in the space of Schwartz functions.
     \end{lemma}
     \begin{proof}
-      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity and for any $i$ let $\psi_i$ be a mesa function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$, as shown in \cref{fig:mesafunc}.
+      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity and for any~$i$ let $\psi_i$ be an even mesa function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$, as shown in \cref{fig:mesafunc}.
+      On the segments $[-A_i-1,-A_i]$ and $[A_i,A_i+1]$ where $\psi_i$ is transitioning between taking value $0$ and value $1$, we require that each $\psi$ transitions in the same way.
+      That is, for any indices $i$ and $j$, and a real $x\in[0,1]$ we have
+      \begin{align*}
+        \psi_i(A_i+x) = \psi_j(A_j+x) \text{.}
+      \end{align*}
+      Thus for any $k\ge0$ the $k^{\text{th}}$ derivative $\psi_i^{(k)}$ is bounded, and the bound is independent of $i$.
+
       Given some $\varphi\in\S$, for any $i$ the function $\psi_i\varphi$ is a test function because it is zero for $|x|>A_i+1$ and pointwise multiplication of functions does not affect smoothness.
       Thus it remains only to show that $\{\psi_i\varphi\}\rightarrow\varphi$ in \S; this is the case whenever the sequence converges in every \Ckl.
       Recall
@@ -209,7 +218,7 @@
       \end{align*}
       See that any derivative $(\psi_i\varphi-\varphi)^{(j)}$ is a sum has one term that is Schwartz ($\varphi^{(j)}$), and the remaining terms are the product of a Schwartz function with a test function.
       As $i$ grows we hope that all these terms vanish because the supremum of a sum is less than or equal to the sum of the suprema.
-      First group the Schwartz-only term with the matching term $\psi_i\cdot\varphi^{(j)}$ and see that 
+      First group the Schwartz-only term with the matching term $\psi_i\varphi^{(j)}$ and see that 
       \begin{align*}
         \sup_{x\in\R} |\psi_i(x)\varphi^{(j)}(x)-\varphi^{(j)}(x)|
         &= \sup_{x\in\R} |(\psi_i(x)-1)|\cdot|\varphi^{(j)}(x)|
@@ -222,9 +231,8 @@
         \sup_{x\in\R} |\varphi^{(m)}(x)\psi_i^{(n)}(x)|
       \end{align*}
       where $m+n=j$ and $n>0$.
-      See that $\psi_i^{(n)}$ is uniformly zero on $[-A_i,A_i]$ and outside $[-A_i-1,A_i+1]$.
-      For any $i$, $\psi_i^{(n)}$ is bounded, and as $i$ grows $\sup\limits_{|x|\in[A_i,A_i+1]}\varphi^{(m)}(x)$ dies faster than any power of $A_i$.
-      Thus the term goes to zero as long as the bound of $\psi_i^{(n)}$ is slowly increasing w.r.t. $A_i$ as $i$ grows, which is at least assured by careful choices of $\psi_i$. \todo{clear this up} 
+      By hypothesis $\psi_i^{(n)}$ is bounded by a quantity that is independent of $i$ and zero off $\pm[A_i,A_i+1]$, and as $i$ grows, $\sup_{|x|\in[A_i,A_i+1]}\varphi^{(m)}(x)$ dies faster than any power of $A_i$.
+      Thus the term approaches zero as $i$ grows, and so the norms in fact approach zero.
 
       Thus \D is dense in \S.
     \end{proof}
@@ -280,13 +288,13 @@
       Given a test approximate identity $\{\phi_n\}$, $\lim_n \phi_n = \delta$ in the \ws.
     \end{thm}
     \begin{proof}
-      For an arbitrary $\varphi\in\S$ we hope the quantity
+      For an arbitrary $\varphi\in\S$ we hope that
       \begin{align*}
         \langle\phi_n,\varphi\rangle 
         &=\int_{x\in\R} \phi_n(x)\varphi(x)\,dx
+        \underset{n}{\longrightarrow}\varphi(0) \text{.}
       \end{align*}
-      approaches $\varphi(0)$ as $n$ grows.
-      See that
+      See that the difference is
       \begin{align*}
         |\langle\phi_n,\varphi\rangle - \varphi(0)|
         &=\left| \int_{x\in\R} \phi_n(x)(\varphi(x)-\varphi(0))\,dx \right|
@@ -296,8 +304,8 @@
       For large $n$, $\phi_n$ is uniformly zero off $[-\delta,\delta]$, so
       \begin{align*}
         |\langle\phi_n,\varphi\rangle - \varphi(0)|
-        \le \int_{|x|<\delta} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
-        \le \varepsilon \cdot \int_{|x|<\delta} \phi_n(x)\,dx
+%        \le \int_{|x|<\delta} \phi_n(x)|\varphi(x)-\varphi(0)|\,dx
+        < \varepsilon \cdot \int_{x\in\R} \phi_n(x)\,dx
         = \varepsilon \text{.}
       \end{align*}
     \end{proof}
@@ -314,7 +322,7 @@
     \begin{align*}
       (f*g)(x) = \int_{y\in\R} f(x-y)g(y)\,dy \text{.}
     \end{align*}
-    Because $f$ and $g$ are Schwartz, see that $f*g$ is a smooth function of $x$ because the $x$ derivative passes through the $y$ integral and attaches itself to the $f$ term.
+    Because $f$ and $g$ are Schwartz, see that $f*g$ is a smooth function of $x$ because the~$x$~derivative passes through the $y$ integral and attaches itself to the $f$ term.
     Furthermore, as $|x|$ grows, we have that for any $y\in\R$ at least one of $|x-y|$ or $|y|$ is large, and so either $f(x-y)$ or $g(y)$ will approach zero.
     Thus we see that $(f*g)(x)$ will vanish as $|x|\rightarrow\infty$.
     In fact, multiplying the convolution by some power of $x$ we get
@@ -389,7 +397,7 @@
       \left( \int_{\R} f(y)T_{-y}g\,dy \right)(x)
       &= \int_{y\in\R} f(y)g(x-y)\,dx
     \end{align*}
-    and so the covolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
+    and so the convolution $f*g$ is in fact given by the Gelfand--Pettis integral of $a$.
     
     Hopefully the symmetry is maintained; that is, if $f$ and $g$ are exchanged we wonder if the integral of $a$ is still $f*g$.
     This is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, which is only the case for $\int_\R a$ because $f$ is compactly supported, while $g$ is not.
