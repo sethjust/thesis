@@ -121,8 +121,7 @@
         \lim_{x\rightarrow 0} f(x) = 0\text{.}
       \end{gather*}
       Thus a linear map on a topological vectorspace is continuous anywhere if and only if it is continuous at zero.
-      Essentially, this is because to topology anywhere is just a translated copy of the topology around zero and linear maps respect translation.
-      \todo{clean this up a touch.}
+      Intuitively this is because to topology anywhere is just a translated copy of the topology around zero, and linear maps respect translation.
 
       \subsection{A space of continuous, vanishing functions}
 
@@ -408,7 +407,7 @@
         If $\{f_i\}$ is Cauchy in \Cl then $(1+x^2)^\ell f\in\Coo$ by \cref{thm:c0lcomplete}.
         Similarly, if $\{f_i'\}$ is Cauchy in \Cl, we'll see that $(1+x^2)^\ell g\in\Coo$.
         Thus proving the two sequences are Cauchy will show that $(1+x^2)^\ell f\in C^1_0$.
-        Calculate
+        Using the inequality $x(1+x^2)^{\ell-1} \le (1+x^2)^\ell$, calculate
         \begin{align*}
           |f_i-f_j|_\Cl
           = \sup_{x\in\R}(1+x^2)^\ell|f_i(x)-f_j(x)|
@@ -419,8 +418,8 @@
         Finally we calculate
         \begin{align*}
           \frac{d}{dx}(1+x^2)^\ell f(x)
-          &= (1+x^2)^\ell f'(x) + \ell(1+x^2)^{\ell-1}2xf(x)\\
-          &\le (1+x^2)^\ell g(x) + 2\ell(1+x^2)^\ell f(x)
+          &= (1+x^2)^\ell f'(x) + \ell(1+x^2)^{\ell-1}2xf(x)
+          \le (1+x^2)^\ell (g(x) + 2\ell f(x)) \text{.}
         \end{align*}
         We have just shown that both summands are \Coo, and so vanish at infinity.
         Thus, by the definition of $C^1_0$, $f\in C^1_0$, proving the theorem for $k=1$.
@@ -546,7 +545,6 @@
       Comparing this expression with the seminorm definition of a Fr\'echet space shows that the \Ckl norms form a family of seminorms on \S that give the limit topology.
       \todo{Address intersections}
       \todo{Show that these are in fact \emph{semi}-norms, and \emph{not} proper norms.}
-      \todo{this description of open sets seems to imply that \S is dense in \Ckl, but I need to examine it.}
 
     \section{Consequences of Topology on \S}
       The following results arise from the limit topology on \S.
