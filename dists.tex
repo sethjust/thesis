@@ -211,13 +211,12 @@
       Recall
       \begin{align*}
         |\psi_i\varphi - \varphi|_\Ckl
-        &= \sum_{0\le j\le k} \sup_{x\in\R} |(1+x^2)^\ell (\psi_i\varphi-\varphi)^{(j)}(x)|
-        \le \sum_{0\le j\le k} \sup_{x\in\R} |(\psi_i\varphi-\varphi)^{(j)}(x)| \text{.}
-%        &\le |\psi_i\varphi - \varphi|_\Coo
-%        \le \sup_{|x|>A_i} |\varphi(x)|
+        &= \sum_{0\le j\le k} \sup_{x\in\R} (1+x^2)^\ell |(\psi_i\varphi-\varphi)^{(j)}(x)| \text{.}
       \end{align*}
       See that any derivative $(\psi_i\varphi-\varphi)^{(j)}$ is a sum has one term that is Schwartz ($\varphi^{(j)}$), and the remaining terms are the product of a Schwartz function with a test function.
-      As $i$ grows we hope that all these terms vanish because the supremum of a sum is less than or equal to the sum of the suprema.
+      As $i$ grows we hope that all these terms vanish individually because the supremum of a sum is less than or equal to the sum of the suprema.
+      We may ignore the $(1+x^2)^\ell$ by grouping it with the Schwartz part of each term, as any Schwartz function times $(1+x^2)^\ell$ is still Schwartz.
+
       First group the Schwartz-only term with the matching term $\psi_i\varphi^{(j)}$ and see that 
       \begin{align*}
         \sup_{x\in\R} |\psi_i(x)\varphi^{(j)}(x)-\varphi^{(j)}(x)|
@@ -231,10 +230,9 @@
         \sup_{x\in\R} |\varphi^{(m)}(x)\psi_i^{(n)}(x)|
       \end{align*}
       where $m+n=j$ and $n>0$.
-      By hypothesis $\psi_i^{(n)}$ is bounded by a quantity that is independent of $i$ and zero off $\pm[A_i,A_i+1]$, and as $i$ grows, $\sup_{|x|\in[A_i,A_i+1]}\varphi^{(m)}(x)$ dies faster than any power of $A_i$.
-      Thus the term approaches zero as $i$ grows, and so the norms in fact approach zero.
-
-      Thus \D is dense in \S.
+      By hypothesis $\psi_i^{(n)}$ is zero off $\pm[A_i,A_i+1]$ and is bounded by a quantity that is independent of $i$.
+      As $i$ grows, $\sup_{|x|\in[A_i,A_i+1]}\varphi^{(m)}(x)$ dies faster than any power of $A_i$.
+      Thus the term approaches zero as $i$ grows, so $|\psi_i\varphi-\varphi|_\Ckl \underset{i}{\rightarrow}0$.
     \end{proof}
     In the world of tempered distributions, mesas allow us to approximate those distributions arising from classical functions.
     \begin{lemma}
@@ -319,14 +317,14 @@
     To see this, we must first recall a method for ``smoothing'' functions.
 
   \subsection{Smoothing Distributions}
-    For some measure space $X$, compactly supported maps $a:X\rightarrow\S$ have a Gelfand--Pettis integral \todo{why?} \todo{do compact sets always have finite measure?}
+  Because $\S$ is a locally convex, quasi-complete topological vectorspace (by virtue of being Fr\'echet), for some locally compact measure space $X$ with finite Borel measure $\mu$, compactly supported continuous maps $a:X\rightarrow\S$ have a Gelfand--Pettis integral\footnote{Proving that the \gp integral exists for such spaces is quite technical. See \citet{vvint} for a presentation of this argument.}
     \begin{align*}
-      A = \int_\R a(x)\,dx \in\S
+      A = \int_X a(x)\,d\mu(x) \in\S
     \end{align*}
     that satisfies for any $v\in\SS$
     \begin{align*}
       \langle v, A\rangle
-      &= \int_{y\in\R} \langle v, a(y)\rangle\,dy \text{.}
+      &= \int_X \langle v, a(x)\rangle\,d\mu(x) \text{.}
     \end{align*}
     This identity allows us to manipulate integrals involving distributions, which will allow us to approximate arbitrary distributions.
 
@@ -347,7 +345,7 @@
       \langle\delta_x, \int_\R (T_y\inv f)g(y)\,dy\rangle 
       = \int_\R (T_y\inv f)(x)g(y)\,dy \text{.}
     \end{align*}
-    However, proving the integral exists is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure, which is only the case for $\int_\R a$ because $f$ is compactly supported, while $g$ is not.
+    However, proving the integral exists is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure.
 
     \begin{claim}
       \label{claim:GPconv}
@@ -361,29 +359,29 @@
       \end{align*}
       Correspondingly, we modify our function to be
       \begin{align*}
-        b(x) = |x-i|^{1+\varepsilon} g(y)T_{-y}f
+        b(x) = |x-i|^{1+\varepsilon} g(y)T_y\inv f
       \end{align*}
       so that
       \begin{align*}
         \int_X b(x)\,d\mu(x)
-        &= \int_{X} |x-i|^{1+\varepsilon} g(y)T_{-y}f\,d\mu(y)
+        &= \int_{X} |x-i|^{1+\varepsilon} g(y)T_y\inv f\,d\mu(y)
         = \int_{\R} a(y)\,dy
       \end{align*}
       exists in \S.
       Thus we have for any $v\in\SS$
       \begin{align*}
         \langle v, \int_X b(y)\,d\mu(y) \rangle
-        &= \int_{y\in X} \langle v, g(y)T_{-y}f\rangle\, dy
-        = \int_{y\in\R} \langle v, g(y)T_{-y}f\rangle\, dy \text{.}
+        &= \int_X \langle v, g(y)T_y\inv f\rangle\, dy
+        = \int_{y\in\R} \langle v, g(y)T_y\inv f\rangle\, dy
       \end{align*}
-      Thus
+      and so
       \begin{align*}
-        \langle \delta_x, \int_{\R} g(y)T_{-y}f\,dy \rangle
+        \langle \delta_x, \int_{\R} a(y)\,dy \rangle
         &= \int_{y\in\R} g(y)f(x-y)\,dy
       \end{align*}
       and so we see that the convolution of Schwartz functions is given by equivalent Gelfand--Pettis integrals:
       \begin{align*}
-        f*g = g*f = \int_\R f(x)T_{-x}g\,dx = \int_\R g(x)T_{-x}f\,dx \text{.}
+        f*g = g*f = \int_\R f(x)T_x\inv g\,dx = \int_\R g(x)T_x\inv f\,dx \text{.}
       \end{align*}
     \end{proof}
 
@@ -396,13 +394,29 @@
       For an approximate identity $\{\phi_n\}$ and any $g\in\S$, the sequence of convolutions $\{\phi_n*g\}$ approximates $g$ in \S.
     \end{lemma}
     \begin{proof}
-      \todo{change this proof from pointwise to topological convergence.}
+      We need only show that $\phi_n*g\rightarrow g$ in every \Ckl.
+      Calculate
+      \begin{align*}
+        |\phi_n*g - g|_\Ckl
+        &= \sum_{0\le j\le k} \sup_{x\in\R} (1+x^2)^\ell |(\phi_n*g - g)^{(j)}(x)| \text{.}
+      \end{align*}
+      As in the proof of \cref{lemma:ddenseins} we may ignore the $(1+x^2)^\ell$ by grouping it with $g$, as $(1+x^2)^\ell g\in\S$.
+      Calculate
+      \begin{align*}
+        \frac{d}{dx} \langle \delta_x, \phi_n*g\rangle
+        &= \frac{d}{dx}\int_{\R} \phi_n(y)g(x-y)\,dy
+        = \int_{y\in\R} \phi_n(y)g'(x-y)\,dy
+        = \langle \delta_x, \phi_n*g'\rangle
+      \end{align*}
+      and so the derivative is exactly $\phi_n*g^{(j)}-g^{(j)}$.
       Use \cref{thm:approxid} to calculate
       \begin{align*}
-        (\phi_n*g)(x)
-        &= \int_{y\in\R} \phi_n(y)g(x-y)\,dy
-        \underset{n}{\rightarrow} g(x) \text{.}
+        (\phi_n*g^{(j)})(x)
+        &= \int_{y\in\R} \phi_n(y)g^{(j)}(x-y)\,dy
+        \underset{n}{\rightarrow} g^{(j)}(x) \text{.}
       \end{align*}
+      \todo{Make this show uniform convergence so that the next claim holds.}
+      Thus the \Ckl-norm approaches zero, and so $\phi_n*g\underset{n}{\rightarrow}g$ in \S.
     \end{proof}
 
     We hope to use a process similar to convolution to approximate tempered distributions.
@@ -419,7 +433,6 @@
     \begin{align*}
       f\cdot u_g = u_{f*g} \text{.}
     \end{align*}
-
     For any $\varphi\in\S$ we have
     \begin{align*}
       \langle f\cdot u_g, \varphi\rangle
