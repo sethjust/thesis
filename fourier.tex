@@ -5,7 +5,7 @@
     Consider the function
     \begin{align*}
       \psi:\R\times\R\longrightarrow\C\\
-      \psi(x,\xi) = e^{2\pi i \xi x}
+      \psi(x,\xi) = e^{2\pi i \xi x} \text{.}
     \end{align*}
     As $x$ varies for a fixed $\xi$, $\psi$ is a complex sinusoidal oscillation with frequency $\xi$\footnotemark---a ``pure tone.''
     \footnotetext{
@@ -26,12 +26,12 @@
       The value $\F f(\xi)$ can be though of as an inner product of $f$ with a frequency-$\xi$ oscillation:
       \begin{align*}
         \F f&:\R\longrightarrow\C\\
-        \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx
+        \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx \text{.}
       \end{align*}
       Given such a frequency spectrum, we can also combine together oscillations to create a new function with the \emph{inverse Fourier transform}:
       \begin{align*}
         \F^{-1}g&:\R\longrightarrow\C\\
-        \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi
+        \F^{-1}g(x) &= \int_{\xi\in\R} g(\xi)\psi(x,\xi)\,d\xi \text{.}
       \end{align*}
     \end{defn}
 
@@ -104,7 +104,7 @@
           \frac{\partial}{\partial t}u(x,t) &= \alpha\frac{\partial^2}{\partial x^2}u(x,t)
         \end{align*}
         for some $\alpha$ in \R that depends on the properties of our wire. 
-        Noting that the Fourier transform exchanges differentiation and multiplication by a variable, we take the Fourier transform of our differential equation with respect to the spatial variable ($x$).
+        Noting that the Fourier transform exchanges differentiation and multiplication by a variable, we take the Fourier transform of our differential equation with respect to the spatial variable ($x$):
         \begin{align*}
           \F_x\left(\frac{\partial}{\partial t}u(x,t)\right) &= \F_x\left(\alpha\frac{\partial^2}{\partial x^2}u(x,t)\right)\\
           \frac{\partial}{\partial t}\F_xu(\xi,t) &= -k\xi^2\F_xu(\xi,t)
@@ -149,7 +149,7 @@
       The solution $u(x,t)$ is an example of convolution---roughly, the averaging of one function by another.
       For some fixed $t>0$ we have
       \begin{align*}
-        u(x,t)= C_1\cdot\int_{y\in\R}f(y)e^{-(x-y)^2/C_2}\,dy
+        u(x,t)= C_1\cdot\int_{y\in\R}f(y)e^{-(x-y)^2/C_2}\,dy \text{.}
       \end{align*}
       At any $x$, the value of $u$ is determined by integrating $f(y)$ against a Gaussian\footnote{Recall the Gaussian function $e^{-x^2}$ is a small pulse with integral $\sqrt\pi$ centered around $x=0$.} pulse centered at $y=x$.
       This is exactly the idea of convolution.
@@ -162,7 +162,7 @@
         By the change of variable $y\rightarrow x-y$
         \begin{align*}
           (f*g)(x) &= -\int_\infty^{-\infty} f(x-y)g(y)\,dy
-          \\&=(g*f)(x)
+          =(g*f)(x) \text{.}
         \end{align*}
       \end{defn}
       We think of the convolution of two functions at some point as an average, weighted by (a translated copy of) the other.
@@ -226,7 +226,7 @@
         that is infinitely differentiable and is \emph{rapidly decaying}.
         That is, for any $k\ge0$, the derivative $\varphi^{(k)}$ decays faster than any power of $x$:
         \begin{align*}
-          \forall d,k\ge0\ \ x^d\varphi^{(k)}(x)\text{ vanishes at infinity}
+          \forall d,k\ge0\ \ x^d\varphi^{(k)}(x)\text{ vanishes at infinity} \text{.}
         \end{align*}
         The set of all Schwartz functions is denoted \S.
       \end{defn}
@@ -251,19 +251,19 @@
           Applying integration by parts:
           \begin{align*}
             \xi^k\F f(\xi) &= \int_{x\in\R} f(x)\xi^ke^{-2\pi ix\xi}\,dx\\
-            &= \left.f(x)\cdot\frac{\xi^{k-1}e^{-2\pi i x\xi}}{-2\pi i}\right|_{-\infty}^\infty - \frac{1}{-2\pi i}\int_{x\in\R} f'(x)\xi^{k-1}e^{-2\pi ix\xi}\,dx
+            &= \left.f(x)\cdot\frac{\xi^{k-1}e^{-2\pi i x\xi}}{-2\pi i}\right|_{-\infty}^\infty - \frac{1}{-2\pi i}\int_{x\in\R} f'(x)\xi^{k-1}e^{-2\pi ix\xi}\,dx \text{.}
           \end{align*}
           Because $f$ is Schwartz, the left hand summand is clearly zero.
           Repeating this process $k$ times yields:
           \begin{align*}
-            \xi^k\F f(\xi) &= \left(\frac{1}{2\pi i}\right)^k \int_{x\in\R}f^{(k)}(x)\psi(x,\xi)\,dx
+            \xi^k\F f(\xi) &= \left(\frac{1}{2\pi i}\right)^k \int_{x\in\R}f^{(k)}(x)\psi(x,\xi)\,dx \text{.}
           \end{align*}
           By definition $f^{(k)}$ is Schwartz, so we can apply the Riemann--Lebesgue Lemma and conclude $\lim_{|\xi|\rightarrow\infty} \xi^k\F f(\xi) = 0$, which is exactly the decay condition on Schwartz functions.
 
           Now we must show that $\F f$ is differentiable. 
           By \cref{eq:xisdiff} we see
           \begin{align*}
-            (\F f)'(\xi) &= -2\pi i \F(\xi f)(\xi)
+            (\F f)'(\xi) &= -2\pi i \F(\xi f)(\xi) \text{.}
           \end{align*}
           Because $\xi f$ is Schwartz by definition, we can see (from above) that $\F f$ is differentiable.
           In fact, $\F(\xi f)$, and thus $(\F f)'$, will decay faster than any power of $\xi$.
@@ -319,9 +319,9 @@
         Thus, because $(\varphi-\varphi(0)\gamma)(0)=0$, we need only show that $(\F^{-1}\F\phi)(0) = 0$ whenever $\phi(0)=0$.
 
         Having reduced the problem of Fourier inversion to the case where $x=0$ and our Schwartz function vanishes at zero, we suppose that $\phi\in\S$ satisfies $\phi(0)=0$. 
-        Then for $x\ne0$:
+        Then for~$x\ne0$
         \begin{align*}
-          \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt
+          \frac{\phi(x)}{x} = \frac{\phi(x)-\phi(0)}{x} = \int_{t=0}^1 \phi'(xt)dt \text{.}
         \end{align*}
         Call this integral $\varphi$.
         See that $\varphi$ is defined for \emph{all} $x$, which allows us to say that $\varphi(0)/0=\varphi'(0)$.
@@ -332,7 +332,7 @@
         \begin{align*}
           (\F\phi)(\xi) = (\F x\varphi)(\xi)= -\frac{1}{2\pi i}(\F\varphi)'(\xi)
         \end{align*}
-        This equality allows us to calculate:
+        and so we may calculate:
         \begin{align*}
           (\F^{-1}\F\phi)(0) = \int_{\xi\in\R} \F\phi(\xi)d\xi = -\frac{1}{2\pi i}\int_{\xi\in\R} (\F\varphi)'(\xi)d\xi = -\frac{1}{2\pi i} \F\varphi\vert_{-\infty}^\infty = 0
         \end{align*}
@@ -343,7 +343,7 @@
       \label{sec:tempdist}
       We now want to consider Fourier inversion in the context of the \emph{continuous linear dual} of \S:
       \begin{align*}
-        \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\}
+        \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is continuous and linear}\} \text{.}
       \end{align*}
       We call $\S^*$ the space of \emph{tempered distributions}.
 
@@ -352,7 +352,7 @@
 
       Schwartz functions naturally give rise to tempered distributions, so we have the inclusion:
       \begin{align*}
-        \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right)
+        \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right) \text{.}
       \end{align*}
       For any $\varphi$ the integration-against functional is continuous; this will be clear after considering topology on \S and $\S^*$.
       
@@ -362,15 +362,15 @@
         \langle\F f,\varphi\rangle &= \int_\xi\F f(\xi)\varphi(\xi)\,d\xi\\
         &= \int_\xi\int_xf(x)\psi(x,\xi)\,dx\,\varphi(\xi)\,d\xi\\
         &= \int_xf(x)\int_\xi\varphi(\xi)\psi(x,\xi)\,d\xi dx\\
-        &= \langle f,\F\varphi\rangle
+        &= \langle f,\F\varphi\rangle \text{.}
       \end{align*}
       We thus \emph{define} the Fourier transform of a \emph{general} $f\in\S^*$ by the adjoint-like characterization:
       \begin{align*}
-        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f\in\S^*\text{ and }\varphi\in\S
+        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f\in\S^*\text{ and }\varphi\in\S \text{.}
       \end{align*}
       We similarly define the inverse Fourier transform for $f\in\S^*$:
       \begin{align*}
-        \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\text{ for }\varphi\in\S
+        \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\text{ for }\varphi\in\S \text{.}
       \end{align*}
       The key point is that these definitions are \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define the Fourier transform on~$\S^*$.
 
@@ -382,7 +382,7 @@
         Let $\varphi\in\S^*$.
         Then
         \begin{align*}
-          \F^{-1}\F\varphi &= \varphi
+          \F^{-1}\F\varphi &= \varphi \text{.}
         \end{align*}
       \end{thm}
       \begin{proof}

@@ -46,7 +46,7 @@
       Happily, properly chosen sets of functions naturally form vectorspaces over \C, by defining operations pointwise:
       \begin{align*}
         (f+g)(x) &= f(x)+g(x)\\
-        (a\cdot f)(x) &= a\cdot f(x)
+        (a\cdot f)(x) &= a\cdot f(x) \text{.}
       \end{align*}
       This vectorspace structure lets us easily construct topologies by providing a concept of the \emph{size} of functions.
       \begin{defn}
@@ -100,7 +100,7 @@
           &= |g_1(z_i)\cdot g_2(z_i) - g_1(z)\cdot g_2(z)|
           \\&= |(g_1(z_i)-g_1(z)+g_1(z))\cdot g_2(z_i) - g_1(z)\cdot g_2(z)|
           \\&= |(g_1(z_i)-g_1(z))\cdot g_2(z_i) + g_1(z)\cdot(g_2(z_i)-g_2(z))|
-          \\&\le |g_1(z_i)-g_1(z)|\cdot|g_2(z_i)| + |g_1(z)|\cdot|g_2(z_i)-g_2(z)|
+          \\&\le |g_1(z_i)-g_1(z)|\cdot|g_2(z_i)| + |g_1(z)|\cdot|g_2(z_i)-g_2(z)| \text{.}
         \end{align*}
         Again, the continuity of the $g_i$ force both summands to zero, so the multiplication map is jointly continuous.
       \end{proof}
@@ -132,7 +132,7 @@
       Give $\Coo$ the ``sup norm'' and its associated metric:
       \begin{gather*}
         |f|_\Coo = \sup_{x\in\R}|f(x)|\\
-        d(f,g) = |f-g|_\Coo
+        d(f,g) = |f-g|_\Coo \text{.}
       \end{gather*}
       It is trivial that the sup norm separates points and obeys positive scalability and the triangle inequality, by properties of the absolute value and sup.
       Thus the following completes the proof that sup norm is in fact a norm:
@@ -235,12 +235,12 @@
       We hope that we can find a space of functions with any finite number of derivatives. 
       For $k>0$ define the space 
       \begin{align*}
-        \Cko(\R) = \{f\in \Coo(\R) : f'\in \Ckmo(\R)\}
+        \Cko(\R) = \{f\in \Coo(\R) : f'\in \Ckmo(\R)\} \text{.}
       \end{align*}
       This definition requires that all $k+1$ derivatives $f,f',\ldots,f^{(k)}$ be \Coo, and so they are \emph{all} continuous and vanish at infinity.
       Give $\Cko(\R)$ the topology of the \Cko-norm:
       \begin{align*}
-        |f|_\Cko = \sum_{0\le i\le k} |f^{(i)}|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)|
+        |f|_\Cko = \sum_{0\le i\le k} |f^{(i)}|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R}|f^{(i)}(x)| \text{.}
       \end{align*}
       Note that for $k=0$, this is exactly the sup norm, and so the notation \Cko is consistent with writing \Coo.
       \begin{rmk}
@@ -258,11 +258,11 @@
         \label{claim:diffcontCk0}
         The differentiation map $D:\Cko\rightarrow\Ckmo$ is continuous.
         \begin{proof}
-          Let $f\in \Cko$.
+          Let $f\in \Cko$ and calculate
           \begin{align*}
             |Df|_\Ckmo
             = \sum_{1\le i\le k} |f^{(i)}|_\Coo
-            \le |f|_\Cko
+            \le |f|_\Cko \text{.}
           \end{align*}
           Thus when $f$ is small in \Cko, $Df$ is small in \Ckmo.
         \end{proof}
@@ -277,14 +277,14 @@
         Because both sequences $\{f_i\}$ and $\{f_i'\}$ are in \Coo, by definition of the \Coo (sup) norm and $C^1_0$ norm, each is Cauchy in \Coo.
         Thus by \cref{thm:c00complete} each sequence converges uniformly pointwise, so we can write:
         \begin{align*}
-          &f(x)=\lim_i f_i(x) &g(x)=\lim_i f_i'(x)
+          &f(x)=\lim_i f_i(x) &g(x)=\lim_i f_i'(x) \text{.}
         \end{align*}
         See that these expressions are unambiguous by \cref{cor:limitworks}.
 
         We now hope to show that $f$ is differentiable, and so an element of $C^1_0$.
         Since each $f_i$ is continuous and differentiable, write
         \begin{align*}
-          f_i(x)-f_i(a) = \int_a^x f_i'(t)\,dt
+          f_i(x)-f_i(a) = \int_a^x f_i'(t)\,dt \text{.}
         \end{align*}
         Taking the limit, and exchanging limit and integral (by the Lebesgue Dominated Convergence Theorem)
         \begin{align*}
@@ -310,7 +310,7 @@
       \end{align*}
       with the norm:
       \begin{align*}
-        |f|_\Cl = |(1+x^2)^\ell f|_{\Coo} = \sup_{x\in\R} (1+x^2)^\ell|f(x)|
+        |f|_\Cl = |(1+x^2)^\ell f|_{\Coo} = \sup_{x\in\R} (1+x^2)^\ell|f(x)| \text{.}
       \end{align*}
       Note that for $\ell=0$ we have $\Cl=\Coo$, and their respective norms agree.
 
@@ -340,7 +340,7 @@
         We hope that $g(x)=(1+x^2)^\ell f(x)$.
         Fix some $x\in\R$ and see
         \begin{align*}
-          |g(x) - (1+x^2)^\ell f(x)| &\le |(1+x^2)^\ell f_i(x) - g(x)|+(1+x^2)^\ell|f_i(x)-f(x)|
+          |g(x) - (1+x^2)^\ell f(x)| &\le |(1+x^2)^\ell f_i(x) - g(x)|+(1+x^2)^\ell|f_i(x)-f(x)| \text{.}
         \end{align*}
         Because $x$ is fixed, the right hand expression becomes arbitrarily small as $i$ grows and both limits converge.
         Thus $(1+x^2)^\ell f$ is \Coo, and so $f\in\Cl$.
@@ -354,7 +354,7 @@
         \end{align*}
         with the norm
         \begin{align*}
-          |f|_\Ckl = \sum_{0\le i\le k} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R} \left|(1+x^2)^\ell f^{(i)}(x)\right|
+          |f|_\Ckl = \sum_{0\le i\le k} \left|(1+x^2)^\ell f^{(i)}\right|_\Coo = \sum_{0\le i\le k} \sup_{x\in\R} \left|(1+x^2)^\ell f^{(i)}(x)\right| \text{.}
         \end{align*}
         Note that for $k=0$, $\Ckl=\Cl$, and their respective norms agree.
       \end{defn}
@@ -398,7 +398,7 @@
           |f_i-f_j|_{C^1_0}
           &= \sum_{0\le h\le 1}\sup_{x\in\R}|f_i^{(h)}(x)-f_j^{(h)}(x)|
           \\&\le \sum_{0\le h\le 1}\sup_{x\in\R}(1+x^2)^\ell|f_i^{(h)}(x)-f_j^{(h)}(x)|
-          \\&= |f_i -f_j|_{C^1_\ell}
+          \\&= |f_i -f_j|_{C^1_\ell} \text{.}
         \end{align*}
         Thus $\{f_i\}$ is Cauchy in $C^1_0$.
         From \cref{thm:ck0complete} see that $\{f_i\}\rightarrow f$ in $C^1_0$ and $\{f_i'\}\rightarrow g$ in \Coo with $f'=g$.
@@ -586,7 +586,7 @@
         \begin{align*}
           \left| (h(z_i)-h(z))(x) \right|
           &= \left| (T_{f(z_i)}g(z_i)-T_{f(z)}g(z))(x) \right|
-          \\&= \left| g(z_i)(x+f(z_i)) - g(z)(x+f(z)) \right|
+          = \left| g(z_i)(x+f(z_i)) - g(z)(x+f(z)) \right| \text{.}
         \end{align*}
         Given some $\varepsilon>0$, for sufficiently large $i$ see that $|f(z_i)-f(z)|<\varepsilon$.
         For any fixed $i$ and some $a\in\R$, by the continuity of Schwartz functions there is a $\delta_a$ so that $|x-a|<\varepsilon$ implies $|g(z_i)(a+x)-g(z_i)(a)|<\delta_a$.

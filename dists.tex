@@ -7,12 +7,12 @@
   With a firm grasp of the topology of \S, we now turn back to topological issues.
   Recall from \cref{sec:tempdist} that continuous linear dual of \S is the space of \emph{tempered distributions}:
   \begin{align*}
-    \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is linear and continuous}\}
+    \S^* = \{f:\S\rightarrow\C\,\vert\,f\text{ is linear and continuous}\} \text{.}
   \end{align*}
   This definition is now fully sensible, as we know what it means to be a continuous functional on \S.
   Recall the mapping taking a Schwartz function $\varphi$ to the integration-against-$\varphi$ functional on \S:
   \begin{align*}
-    \varphi \longmapsto \left( \phi \mapsto \int_{x\in\R} \varphi(x) \phi(x)\,dx \right)
+    \varphi \longmapsto \left( \phi \mapsto \int_{x\in\R} \varphi(x) \phi(x)\,dx \right) \text{.}
   \end{align*}
   We hope that this map takes elements of \S into elements of $\S^*$, as we might expect it to.
   \begin{thm}
@@ -27,7 +27,7 @@
     Then
     \begin{align*}
       \left|\int_{x\in\R} \varphi(x)\phi_i(x)\,dx\right|
-      \le |\varphi|_{L^1}\cdot |\phi_i|_\Coo
+      \le |\varphi|_{L^1}\cdot |\phi_i|_\Coo \text{.}
     \end{align*}
     Because $\{\phi_i\}$ approaches zero in \S, $\{|\phi_i|_\Coo\}$ approaches zero in $\R_{\ge0}$.
     Thus $\{\langle \varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
@@ -171,7 +171,7 @@
     The function $h(x)$ is a prototypical test function.
     
     A \emph{mesa function} is non-negative real test function that has constant value on a subset of the line and decays smoothly to zero outside that set.
-    See that such functions exist because the integral of
+    See that such functions exist because the integral of $h$,
     \begin{align*}
       \int_{-\infty}^x h(t)\,dt
     \end{align*}
@@ -198,7 +198,7 @@
       The space of test functions is dense in the space of Schwartz functions.
     \end{lemma}
     \begin{proof}
-      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity and for any~$i$ let $\psi_i$ be an even mesa function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$, as shown in \cref{fig:mesafunc}.
+      Let $\{A_i\}$ be a sequence of positive real numbers that approaches infinity and for any~$i$ let $\psi_i$ be an \emph{even} mesa function that is identically 1 on $[-A_i,A_i]$ and identically zero outside $[-A_i-1,A_i+1]$, as shown in \cref{fig:mesafunc}.
       On the segments $[-A_i-1,-A_i]$ and $[A_i,A_i+1]$ where $\psi_i$ is transitioning between taking value $0$ and value $1$, we require that each $\psi$ transitions in the same way.
       That is, for any indices $i$ and $j$, and a real $x\in[0,1]$ we have
       \begin{align*}
@@ -257,7 +257,7 @@
     Recall the Dirac delta distribution:
     \begin{gather*}
       \langle\delta,\varphi\rangle = \varphi(0)
-      \qquad\text{for any }\varphi\in\S
+      \qquad\text{for any }\varphi\in\S \text{.}
     \end{gather*}
     Because $\delta$ is trivially linear, and continuous by \cref{thm:sevalcts}, $\delta\in\SS$.
     Similarly, for any $x\in\R$, $\delta_x\in\SS$ is given by $\langle\delta_x,\varphi\rangle=\varphi(x)$.
@@ -377,9 +377,9 @@
       and so
       \begin{align*}
         \langle \delta_x, \int_{\R} a(y)\,dy \rangle
-        &= \int_{y\in\R} g(y)f(x-y)\,dy
+        &= \int_{y\in\R} g(y)f(x-y)\,dy \text{.}
       \end{align*}
-      and so we see that the convolution of Schwartz functions is given by equivalent Gelfand--Pettis integrals:
+      Thus the convolution of Schwartz functions is given by equivalent Gelfand--Pettis integrals:
       \begin{align*}
         f*g = g*f = \int_\R f(x)T_x\inv g\,dx = \int_\R g(x)T_x\inv f\,dx \text{.}
       \end{align*}
