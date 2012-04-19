@@ -33,7 +33,7 @@
     However, this is complicated by the fact that a thermometer may not be uniformly sensitive over that whole area -- a meat thermometer's sensitivity might vary along its length, meaning that its measurements are \emph{weighted} averages. 
     Mathematically, we can model the temperature of our cut of meat as a function that depends on the distance from the surface, say $f(x)$.
     Our thermometer's sensitivity can also be modeled as a function $\varphi(x)$ that depends on the same distance.
-    Measuring the temperature of the meat with our thermometer can be described by an integral of $f$, weighted by $\varphi$: $T_\text{measured} = \int_0^\ell f(x)\varphi(x) dx$, where $\ell$ is the length of the thermometer. \todo{graphs}
+    Measuring the temperature of the meat with our thermometer can be described by an integral of $f$, weighted by $\varphi$: $T_\text{measured} = \int_0^\ell f(x)\varphi(x) dx$, where $\ell$ is the length of the thermometer.
     However, given that a thermometer is not sensitive to temperatures far away from itself, we can write $T_\text{measured} = \int_{-\infty}^{\infty} f(x)\varphi(x)dx$ without changing the result.
 
     We call $\varphi$ a \emph{test function} because we use it to test the value of $f$.

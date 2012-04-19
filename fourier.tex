@@ -13,7 +13,7 @@
       Some confusion comes from the fact that $x$ and $\xi$ are both real numbers; we track the distinction because Fourier analysis generally occurs in cases where physical and frequency space are distinct.
       In fact, much of this chapter extends to having $\R^n$ as the physical space with little work, which further motivates clear notation of physical variables.
     }
-    Just as interesting sounds are combinations of different frequencies, we can view functions as being built from these oscillations. \todo{sell this much better}
+    Just as interesting sounds are combinations of different frequencies, we can view functions as being built from linear combinations these oscillations.
 
     Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation by integrating the two against each other.
     We think of this integration as taking an inner product---measuring the amount to which two vectors parallel one another.
@@ -202,7 +202,7 @@
       \begin{align*}
         \int_{x\in\R} f(x)\,dx < \infty\text{.}
       \end{align*}
-      Thus the Fourier transform is always defined for functions that \emph{vanish at infinity}\footnotemark and decay at least as fast as $x^{-2}$, which are sufficient conditions for $L^1$-integrability. \todo{fix this up}
+      Thus the Fourier transform is always defined for functions $f$ that \emph{vanish at infinity}\footnotemark and decay at least as fast as $x^{-2}$ (so $x^2f$ also vanishes at infinity), which are sufficient conditions for $L^1$-integrability.
       \footnotetext{
         That is, for any $\varepsilon>0$ there exists $N>0$ such that
         $ |x|>N \Longrightarrow f(x)<\epsilon\text{.} $
@@ -302,7 +302,8 @@
       Thus we only need to show inversion at zero.
 
       \begin{rmk}
-        The proof given here, while fairly simple, only applies to the 1-dimensional case. \todo{The proof for Euclidean space}
+        The proof given here uses a trick to reduce the problem to a simple case.
+        While Fourier inversion holds in general on $\R^n$, this proof only applies to the 1-dimensional case.
       \end{rmk}
       \begin{proof}[Proof of \cref{thm:fourinv}]
         We first reduce the problem further, using a trick with simple function:
@@ -376,9 +377,6 @@
       We would now like to show that the Fourier Transform on $\S^*$ behaves as nicely as it does on \S.
       Because we chose our definition to be consistent with viewing Schwartz functions as tempered distributions, much of this nice behavior is inherited.
       For example, the following result is basic, thanks to our definition.
-%      Having defined the Fourier transform on tempered distributions, we hope to show that it behaves nicely.
-%      Happily, our definition allows it to inherit its behavior from its action on Schwartz functions.
-%      This is demonstrated by the ease of proving Fourier inversion:
       \begin{thm}[Fourier Inversion on $\S^*$]
         \label{thm:fourinv_td}
         Let $\varphi\in\S^*$.
@@ -387,7 +385,7 @@
           \F^{-1}\F\varphi &= \varphi
         \end{align*}
       \end{thm}
-      \begin{proof}[Proof of \cref{thm:fourinv_td}]
+      \begin{proof}
         For $\phi\in\S$:
         \begin{align*}
           \langle\F^{-1}\F\varphi, \phi\rangle &= \langle \F\varphi, \F^{-1}\phi\rangle\\
@@ -400,6 +398,4 @@
       However, this undertaking also requires us to clarify just what is meant by the derivative of a tempered distribution, or multiplying a distribution by $x$.
       We will revisit these ideas when we have a more powerful set of (topological) tools at our disposal.
       We hope that by more closely examining \S and $\S^*$ we can discover what the answers \emph{must} be.
-
-      \todo{maybe give an example of tempered distributions being useful at this level of understanding}
 \end{document}
