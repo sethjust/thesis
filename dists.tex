@@ -400,6 +400,7 @@
         |\phi_n*g - g|_\Ckl
         &= \sum_{0\le j\le k} \sup_{x\in\R} (1+x^2)^\ell |(\phi_n*g - g)^{(j)}(x)| \text{.}
       \end{align*}
+      Thus it suffices to show that each derivative approaches zero in the sup-norm topology.
       As in the proof of \cref{lemma:ddenseins} we may ignore the $(1+x^2)^\ell$ by grouping it with $g$, as $(1+x^2)^\ell g\in\S$.
       Calculate
       \begin{align*}
@@ -409,14 +410,15 @@
         = \langle \delta_x, \phi_n*g'\rangle
       \end{align*}
       and so the derivative is exactly $\phi_n*g^{(j)}-g^{(j)}$.
-      Use \cref{thm:approxid} to calculate
+      Calculate for any $x\in\R$
       \begin{align*}
-        (\phi_n*g^{(j)})(x)
-        &= \int_{y\in\R} \phi_n(y)g^{(j)}(x-y)\,dy
-        \underset{n}{\rightarrow} g^{(j)}(x) \text{.}
+        \langle \delta_x, \phi_n*g^{(j)}-g^{(j)}\rangle
+        &= \int_\R  \phi_n(y-x)(g^{(j)}(y)-g^{(j)}(x))\,dy \text{.}
       \end{align*}
-      \todo{Make this show uniform convergence so that the next claim holds.}
-      Thus the \Ckl-norm approaches zero, and so $\phi_n*g\underset{n}{\rightarrow}g$ in \S.
+      Because $g^{(j)}$ is Schwartz, it is uniformly continuous on \R.
+      Thus when $x$ and $y$ are close, the quantity $g^{(j)}(y)-g^{(j)}(x)$ is small, independently of the value of $x$.
+      So for large $n$, when the support of $\phi_n$ (as a function of $y$) is contained in a sufficiently small neighborhood of $x$, the integral is small.
+      Thus the \Ckl-norm of $\phi_n*g-g$ approaches zero, and so $\phi_n*g\underset{n}{\rightarrow}g$ in \S.
     \end{proof}
 
     We hope to use a process similar to convolution to approximate tempered distributions.
