@@ -33,7 +33,7 @@
     Thus $\{\langle \varphi,\phi_i\rangle\}$ approaches zero in \C, so the functional is continuous.
   \end{proof}
   The proof above trivially shows that any $L^1$-integrable function $f$ gives rise to a tempered distribution by integration-against, even if $f$ fails to be Schwartz.
-  However, we wonder if there is some even larger family of classical functions that has such an inclusion into \SS.
+  However, we wonder if there is some even larger family of classical functions that has such an inclusion into~\SS.
   Recall that \S is closed under multiplication by powers of $x$.
   In fact, for a sequence $\{\phi_i\}\rightarrow 0$ in \S and any $\ell\in\Z_{>0}$, see that $\{(1+x^2)^\ell\phi_i(x)\}\rightarrow 0$ for any fixed $x\in\R$, and so by \cref{thm:sevalcts} $\{(1+x^2)^\ell\phi_i\}\rightarrow 0$.
   Thus, pretending that some function $f$ does give rise to a distribution $u_f$, write for any $\ell\in\Z_{>0}$:
@@ -41,8 +41,8 @@
     |\langle u_f,\phi_i\rangle| 
     = \int_{x\in\R} \left( (1+x^2)^\ell\phi_i(x) \right) \cdot \left( (1+x^2)^{-\ell} f(x) \right) \,dx
   \end{align*}
-  which approaches zero as $i$ grows, provided the integral is finite.
-  Thus a classical function $f$ gives rise to a tempered distribution $u_f$ if there is an $\ell$ so that $(1+x^2)^{-\ell}f$ times any Schwartz function is $L^1$-integrable.
+  which approaches zero as~$i$ grows, provided the integral is finite.
+  Thus a classical function~$f$ gives rise to a tempered distribution~$u_f$ if there is an~$\ell$ so that $(1+x^2)^{-\ell}f$ times any Schwartz function is $L^1$-integrable.
 
   \begin{defn}
     A continuous function $f$ is called a \emph{slowly increasing function} if there exists some $\ell\in\Z_{\ge0}$ so that
@@ -70,11 +70,15 @@
   \end{proof}
   \begin{lemma}
     Suppose that $f$ is a fairly good function.
-    Then for any $g\in\S$, the product $fg$ is Schwartz.
+    Then for any $g\in\S$, the product~$fg$ is Schwartz.
   \end{lemma}
   \begin{proof}
     The product of smooth functions is smooth and so we need only show that the product (and its derivatives) decay quickly.
-    For any $\ell>0$ see that $(1+x^2)^\ell (fg)(x) = \left(f\cdot((1+x^2)^\ell g)\right)(x)$ which is integrable by \cref{lemma:sitimesschwartzli}.
+    For any $\ell>0$ see that 
+    \begin{align*}
+      (1+x^2)^\ell (fg)(x) = \left(f\cdot((1+x^2)^\ell g)\right)(x)
+    \end{align*}
+    which is integrable by \cref{lemma:sitimesschwartzli}.
     Thus $(1+x^2)^\ell fg$ vanishes at infinity for any $\ell$.
     By the product rule, any derivative $fg^{(i)}$ is a sum of fairly good times Schwartz, and so each term vanishes independently at infinity.
     Thus $fg$ is Schwartz.
@@ -106,7 +110,7 @@
     \end{align*}
     
     We may define the derivative of a tempered distribution similarly.
-    For Schwartz functions $f$ and $\varphi$, apply integration by parts and observe that because $f\varphi$ vanishes at infinity:
+    For Schwartz functions~$f$ and~$\varphi$, apply integration by parts and observe that because $f\varphi$ vanishes at infinity:
     \begin{align*}
       \langle f', \varphi\rangle
       &= \int_{x\in\R} f'(x)\varphi(x)\,dx
@@ -140,8 +144,8 @@
     \end{claim}
     \begin{proof}
       Consider a sequence of tempered distributions $\{u_i\}$ that converges to zero.
-      By definition of the \ws, we have for any Schwartz function $\varphi$, the sequence $\{\langle u_i,\varphi\rangle\}$ converges to zero by continuity of the evaluation-at-$\varphi$ functional.
-      Thus the sequence $ \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0 $ and so $\{Du_i\}\rightarrow 0$ in the \ws.
+      By definition of the \ws, we have for any Schwartz function $\varphi$, $\{\langle u_i,\varphi\rangle\}$ converges to zero by continuity of the evaluation-at-$\varphi$ functional.
+      Thus $ \{\langle Du_i, \varphi\rangle\} = \{-\langle u_i, \varphi'\rangle\} \rightarrow 0 $ and so $\{Du_i\}\rightarrow 0$ in the \ws.
     \end{proof}
 
     \begin{thm}
@@ -156,7 +160,7 @@
     Consider the space \D of smooth functions with compact support (i.e. they are uniformly zero for sufficiently large inputs).
     Such functions are clearly Schwartz, and in fact form a dense\footnotemark subspace of \S, as we will see.
     \footnotetext{Recall that a subset $A$ of a topological space $X$ is called \emph{dense in $X$} if for any $x\in X$, every neighborhood of $x$ contains an element of $A$.}
-    \D is called the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
+    We call \D the space of \emph{test functions}; its dual $\D^*$ is a space of distributions that is larger than \SS.
 
     See that test functions exist because the function
     \begin{equation*}
@@ -260,7 +264,7 @@
       \qquad\text{for any }\varphi\in\S \text{.}
     \end{gather*}
     Because $\delta$ is trivially linear, and continuous by \cref{thm:sevalcts}, $\delta\in\SS$.
-    Similarly, for any $x\in\R$, $\delta_x\in\SS$ is given by $\langle\delta_x,\varphi\rangle=\varphi(x)$.
+    Similarly, for any $x\in\R$, the distribution $\delta_x\in\SS$ is given by $\langle\delta_x,\varphi\rangle=\varphi(x)$.
     Thinking of $\delta$ as an infinitesimally narrow spike with area 1 we wonder if $\delta$ may be approximated by Schwartz functions, in the sense that there is a sequence $\{\phi_n\}$ in \S so that for any $\varphi\in\S$
     \begin{align*}
       \langle \phi_n, \varphi\rangle \underset{n}{\longrightarrow} \varphi(0)\text{.}
@@ -450,7 +454,7 @@
       = \langle u, \tilde\phi*\varphi\rangle \text{.}
     \end{align*}
     Notably, unlike the convolution of Schwartz functions, this action is asymmetric, as we may not convolve two distributions.
-    Thus we refer to the distribution $\phi\cdot u$ as the \emph{mollification} of $u$ by $\phi$.
+    Thus we refer to the distribution $\phi\cdot u$ as the \emph{mollification} of~$u$ by~$\phi$.
 
     We might wonder if a mollification is in fact given by integration against some classical function.
     Again letting $f,g\in\S$, write
@@ -481,7 +485,7 @@
       x, \phi \mapsto x, \tilde\phi \mapsto T_{-x}\phi \mapsto \langle u, T_{-x}\phi \rangle
     \end{align*}
     is a continuous function of $x\in\R$.
-    Thus we may calculate that the derivative of $\phi\cdot u$ at any $x\in\R$ is given by
+    Thus we may calculate that the derivative of $\phi\cdot u$ at any~$x\in\R$ is given by
     \begin{align*}
       \lim_{t\rightarrow0} \frac{\psi(x+t) - \psi(x)}{t}
       &= \lim_{t\rightarrow0} \frac{\langle u, T_{-x-t}\phi-T_{-x}\phi\rangle}{t}

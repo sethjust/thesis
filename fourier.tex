@@ -198,7 +198,7 @@
     \section{Schwartz Functions}
       We hope to use \cref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, so that we may take Fourier transforms without concern, as we will always understand the result.
 
-      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)\,d\xi$ will converge absolutely (and so will converge in \R) whenever $f$ is $L^1$-integrable---that is, when 
+      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)\,d\xi$ will converge absolutely (and so will converge in \C) whenever $f$ is $L^1$-integrable---that is, when 
       \begin{align*}
         \int_{x\in\R} f(x)\,dx < \infty\text{.}
       \end{align*}
@@ -354,7 +354,7 @@
       \begin{align*}
         \S\rightarrow\S^*\text{ by }\varphi \longmapsto\left(\phi\mapsto\int_{x\in\R}\varphi(x)\phi(x)dx\right) \text{.}
       \end{align*}
-      For any $\varphi$ the integration-against functional is continuous; this will be clear after considering topology on \S and $\S^*$.
+      For any $\varphi$ the integration-against functional is continuous; this will be clear after considering topology on \S.
       
       The inclusion allows us to define the Fourier transform for tempered distributions.
       For $f$ and $\varphi$ in \S, treat $f$ as a distribution:
@@ -366,11 +366,11 @@
       \end{align*}
       We thus \emph{define} the Fourier transform of a \emph{general} $f\in\S^*$ by the adjoint-like characterization:
       \begin{align*}
-        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle \text{ for }f\in\S^*\text{ and }\varphi\in\S \text{.}
+        \langle\F f,\varphi\rangle = \langle f,\F\varphi\rangle\qquad\text{ for }f\in\S^*\text{ and }\varphi\in\S \text{.}
       \end{align*}
       We similarly define the inverse Fourier transform for $f\in\S^*$:
       \begin{align*}
-        \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\text{ for }\varphi\in\S \text{.}
+        \langle\F^{-1}f,\varphi\rangle = \langle f,\F^{-1}\varphi\rangle\qquad\text{ for }\varphi\in\S \text{.}
       \end{align*}
       The key point is that these definitions are \emph{consistent} with our viewing Schwartz functions as tempered distributions---in fact, it is the only such way to define the Fourier transform on~$\S^*$.
 
