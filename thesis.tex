@@ -1,7 +1,7 @@
 \documentclass[11pt]{reedthesis}
 
 % Draft compiling options
-\usepackage[draft]{ifdraft}
+\usepackage[final]{ifdraft}
 \newcommand{\todo}[1]{\textcolor{red}{\ifdraft{@TODO: #1}{\GenericWarning{}{! Custom Error: Unaddressed TODO!}}}}
 
 % Start my packages here
@@ -189,7 +189,7 @@
   \singlespacing
   \raggedright
 
-  \ifdraft{\nocite{*}}{}
+  \nocite{*}
 
 %  \renewcommand{\bibname}{Bibliography}
   \bibliographystyle{myplain} 

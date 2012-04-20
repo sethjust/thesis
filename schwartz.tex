@@ -286,13 +286,16 @@
         \begin{align*}
           f_i(x)-f_i(a) = \int_a^x f_i'(t)\,dt \text{.}
         \end{align*}
-        Taking the limit, and exchanging limit and integral (by the Lebesgue Dominated Convergence Theorem)
+        Taking the limit, and exchanging limit and integral by the Lebesgue Dominated Convergence Theorem we have that
         \begin{align*}
           \lim_i \left( f_i(x)-f_i(a) \right) &= \lim_i\int_a^x f_i'(t)\,dt
           = \int_a^x\lim_if_i'(t)\,dt
-          \\ f(x)-f(a) &= \int_a^x g(t)\,dt
         \end{align*}
-        so by the fundamental theorem of calculus, $f'=g$, and so $f\in C^1_0$.
+        and so we see 
+        \begin{align*}
+          f(x)-f(a) &= \int_a^x g(t)\,dt \text{.}
+        \end{align*}
+        Thus, by the fundamental theorem of calculus, $f'=g$, and so $f\in C^1_0$.
         Thus $C^1_0$ is complete in its topology, proving the base case.
 
         Now suppose that $\{f_i\}$ is Cauchy in \Cko for $k>1$, and that \Ckmo is complete in the topology induced by its norm.
