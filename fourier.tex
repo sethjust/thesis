@@ -198,7 +198,7 @@
     \section{Schwartz Functions}
       We hope to use \cref{lemma:fourprops} to find a space of functions that is closed under the Fourier transform, so that we may take Fourier transforms without concern, as we will always understand the result.
 
-      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)$ will converge absolutely (and so will converge in \R) whenever $f$ is $L^1$-integrable---that is, when 
+      Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)\,d\xi$ will converge absolutely (and so will converge in \R) whenever $f$ is $L^1$-integrable---that is, when 
       \begin{align*}
         \int_{x\in\R} f(x)\,dx < \infty\text{.}
       \end{align*}
@@ -302,7 +302,7 @@
       Thus we only need to show inversion at zero.
 
       \begin{rmk}
-        The proof given here uses a trick to reduce the problem to a simple case.
+        The proof given here uses general properties of the Fourier Transform on~\R to normalize the problem, i.e., to reduce it to a convenient case.
         While Fourier inversion holds in general on $\R^n$, this proof only applies to the 1-dimensional case.
       \end{rmk}
       \begin{proof}[Proof of \cref{thm:fourinv}]
