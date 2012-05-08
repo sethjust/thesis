@@ -17,13 +17,13 @@
 
     Given a function $f:\R\rightarrow\C$, we can measure how much it ``matches'' the behavior of some frequency-$\xi$ oscillation by integrating the two against each other.
     We think of this integration as taking an inner product---measuring the amount to which two vectors parallel one another.
-    Because any two oscillations of different frequency have inner product 0 we think of them as \emph{orthogonal}, meaning that any frequency's inner product with $f$ is independent of any others.
-    We hope that by knowing how well $f$ matches any frequency, we're able to exactly rebuild $f$.
+    Because any two oscillations of different frequency have inner product 0 we think of them as \emph{orthogonal}, meaning that any frequency's inner product with $f$ is independent of any other's.
+    We hope that by knowing how well $f$ matches each frequency, we're able to exactly rebuild $f$.
     This process of translating a function from physical to frequency space, and (hopefully) back, is the subject matter of \emph{Fourier analysis}.
 
     \begin{defn}
       The \emph{frequency spectrum} or \emph{Fourier transform} of $f$ is a new function denoted $\F f$, taking a real parameter $\xi$.
-      The value $\F f(\xi)$ can be though of as an inner product of $f$ with a frequency-$\xi$ oscillation:
+      The value $\F f(\xi)$ can be thought of as an inner product of $f$ with a frequency-$\xi$ oscillation:
       \begin{align*}
         \F f&:\R\longrightarrow\C\\
         \F f(\xi) &= \int_{x\in\R} f(x)\overline\psi(x,\xi)\,dx \text{.}
@@ -35,7 +35,7 @@
       \end{align*}
     \end{defn}
 
-    We hope that $\F^{-1}$ does in fact invert $\F$, so that for any function $f$, $\F^{-1}\F f = f$---that is, applying the inverse Fourier transform to the frequency spectrum of $f$ gives us back $f$.
+    We hope that $\F^{-1}$ does in fact invert $\F$, so that $\F^{-1}\F f = f$ for any function $f$---that is, applying the inverse Fourier transform to the frequency spectrum of $f$ gives us back $f$.
     However, this claim is difficult to make because the integrals are not always defined.
     For example, $\F1(0)=\int_{-\infty}^\infty1$ is clearly divergent.
     In order to talk meaningfully about Fourier inversion we'll need an environment in which Fourier transforms are sensible, and so we need to limit our space of functions so that the Fourier transform works nicely.
@@ -200,7 +200,7 @@
 
       Noting that $|\psi(x,\xi)|=1$ for all $x$ and $\xi$, we can see that the integral $\int_\xi f(\xi)\psi(x,\xi)\,d\xi$ will converge absolutely (and so will converge in \C) whenever $f$ is $L^1$-integrable---that is, when 
       \begin{align*}
-        \int_{x\in\R} f(x)\,dx < \infty\text{.}
+        \int_{x\in\R} |f(x)|\,dx < \infty\text{.}
       \end{align*}
       Thus the Fourier transform is always defined for functions $f$ that \emph{vanish at infinity}\footnotemark and decay at least as fast as $x^{-2}$ (so $x^2f$ also vanishes at infinity), which are sufficient conditions for $L^1$-integrability.
       \footnotetext{
@@ -256,7 +256,7 @@
           Because $f$ is Schwartz, the left hand summand is clearly zero.
           Repeating this process $k$ times yields:
           \begin{align*}
-            \xi^k\F f(\xi) &= \left(\frac{1}{2\pi i}\right)^k \int_{x\in\R}f^{(k)}(x)\psi(x,\xi)\,dx \text{.}
+            \xi^k\F f(\xi) &= \left(\frac{1}{2\pi i}\right)^k \int_{x\in\R}f^{(k)}(x)\overline\psi(x,\xi)\,dx \text{.}
           \end{align*}
           By definition $f^{(k)}$ is Schwartz, so we can apply the Riemann--Lebesgue Lemma and conclude $\lim_{|\xi|\rightarrow\infty} \xi^k\F f(\xi) = 0$, which is exactly the decay condition on Schwartz functions.
 
@@ -360,8 +360,8 @@
       For $f$ and $\varphi$ in \S, treat $f$ as a distribution:
       \begin{align*}
         \langle\F f,\varphi\rangle &= \int_\xi\F f(\xi)\varphi(\xi)\,d\xi\\
-        &= \int_\xi\int_xf(x)\psi(x,\xi)\,dx\,\varphi(\xi)\,d\xi\\
-        &= \int_xf(x)\int_\xi\varphi(\xi)\psi(x,\xi)\,d\xi dx\\
+        &= \int_\xi\int_xf(x)\overline\psi(x,\xi)\,dx\,\varphi(\xi)\,d\xi\\
+        &= \int_xf(x)\int_\xi\varphi(\xi)\overline\psi(x,\xi)\,d\xi dx\\
         &= \langle f,\F\varphi\rangle \text{.}
       \end{align*}
       We thus \emph{define} the Fourier transform of a \emph{general} $f\in\S^*$ by the adjoint-like characterization:

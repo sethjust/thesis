@@ -27,7 +27,7 @@
 % The following packages care about order of loading
 \usepackage{framed}
 \usepackage[amsmath, thmmarks, thref, framed, hyperref]{ntheorem}
-\usepackage[ntheorem]{mdframed}
+\usepackage[ntheorem, tikz]{mdframed}
 \usepackage[final]{hyperref}
 \hypersetup{linkbordercolor={0 1 0}}
 
@@ -77,6 +77,8 @@
 \theoremseparator{.}
 \newtheorem{thm}{Theorem}[section]
 \surroundwithmdframed[%
+  backgroundcolor=white,
+  tikzsetting={fill opacity=0},
   innertopmargin=3pt,
   innerbottommargin=3pt,
   skipabove=0.5\baselineskip,
@@ -95,6 +97,8 @@
 
 \newtheorem{defn}{Definition}[section]
 \surroundwithmdframed[%
+  backgroundcolor=white,
+  tikzsetting={fill opacity=0},
   usetwoside=false,
   leftmargin=-5pt,
   innerleftmargin=5pt,

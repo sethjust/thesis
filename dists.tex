@@ -349,7 +349,7 @@
       \langle\delta_x, \int_\R (T_y\inv f)g(y)\,dy\rangle 
       = \int_\R (T_y\inv f)(x)g(y)\,dy \text{.}
     \end{align*}
-    However, proving the integral exists is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact set with finite measure.
+    However, proving the integral exists is a difficult claim, as the existence of the Gelfand--Pettis integral depends on integrating over a compact space with finite measure.
 
     \begin{claim}
       \label{claim:GPconv}
@@ -430,7 +430,7 @@
     For some $f\in\S$, the commutative diagram  
     \begin{displaymath}
       \xymatrix{
-        \S \ar[r]^{\text{incl.}} \ar[d]^{f*} & \SS \ar@{..>}[d]^{f\cdot}
+        \S \ar[r]^{\text{incl.}} \ar[d]_{f*} & \SS \ar@{..>}[d]^{f\cdot}
         \\ \S \ar[r]_{\text{incl.}} & \SS
       }
     \end{displaymath}
@@ -498,7 +498,7 @@
 
     \begin{lemma}
       \label{lemma:mollwithid}
-      For an approximate identity $\{\phi_n\}$ and some tempered distribution $u$, the mollification $\phi_\cdot *u$ approximates $u$ in the \ws.
+      For an approximate identity $\{\phi_n\}$ and some tempered distribution $u$, the mollification $\phi_n*u$ approximates $u$ in the \ws.
     \end{lemma}
     \begin{proof}
       For all $f\in\S$, calculate and apply \cref{lemma:approxbyconv} to see
